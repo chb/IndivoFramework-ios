@@ -1,0 +1,1052 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE05DDF51445F29700920A4B /* INLabProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDEF1445F29600920A4B /* INLabProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE05DDF61445F29700920A4B /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
+		EE05DDF71445F29700920A4B /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
+		EE05DDF81445F29700920A4B /* INProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDF11445F29600920A4B /* INProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE05DDF91445F29700920A4B /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
+		EE05DDFA1445F29700920A4B /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
+		EE05DDFB1445F29700920A4B /* INSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDF31445F29600920A4B /* INSignature.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE05DDFC1445F29700920A4B /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
+		EE05DDFD1445F29700920A4B /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
+		EE05DE001445F54C00920A4B /* INDateTime.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDFE1445F54C00920A4B /* INDateTime.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE05DE011445F54C00920A4B /* INDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDFF1445F54C00920A4B /* INDateTime.m */; };
+		EE05DE021445F54C00920A4B /* INDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDFF1445F54C00920A4B /* INDateTime.m */; };
+		EE05DE051445FD6900920A4B /* IndivoPrescription.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DE031445FD6900920A4B /* IndivoPrescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE05DE061445FD6900920A4B /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
+		EE05DE071445FD6900920A4B /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
+		EE05DE0A1447835D00920A4B /* INURLLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DE081447835D00920A4B /* INURLLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE05DE0B1447835D00920A4B /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
+		EE05DE0C1447835D00920A4B /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
+		EE079FE1142D3E9A00A92904 /* INXMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EE079FDF142D3E9A00A92904 /* INXMLNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE079FE2142D3E9A00A92904 /* INXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE079FE0142D3E9A00A92904 /* INXMLNode.m */; };
+		EE13448C141AB99D00D167B2 /* IndivoWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = EE13448A141AB99D00D167B2 /* IndivoWebView.h */; };
+		EE13448D141AB99D00D167B2 /* IndivoWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE13448B141AB99D00D167B2 /* IndivoWebView.m */; };
+		EE18082614BCF5BC009D7873 /* IndivoConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = EE18082514BCF5BC009D7873 /* IndivoConfig.h */; };
+		EE1E2CBA144B523A001A1E72 /* INPrincipal.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CB8144B523A001A1E72 /* INPrincipal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE1E2CBB144B523A001A1E72 /* INPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CB9144B523A001A1E72 /* INPrincipal.m */; };
+		EE1E2CBE144B5454001A1E72 /* INAttr.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CBC144B5454001A1E72 /* INAttr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE1E2CBF144B5454001A1E72 /* INAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CBD144B5454001A1E72 /* INAttr.m */; };
+		EE1E2CC2144B5BAB001A1E72 /* IndivoMetaDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE1E2CC3144B5BAB001A1E72 /* IndivoMetaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */; };
+		EE1E2CC6144B5CAC001A1E72 /* IndivoAbstractDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CC4144B5CAC001A1E72 /* IndivoAbstractDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
+		EE34D98414244818001A95AD /* INServerObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE34D98214244818001A95AD /* INServerObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE34D98514244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
+		EE34D98614244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
+		EE37571F1431021B002ABE18 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3757201431021B002ABE18 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication.m */; };
+		EE37572614314179002ABE18 /* INObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572414314179002ABE18 /* INObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37572714314179002ABE18 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
+		EE37572814314179002ABE18 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
+		EE37572A14314C52002ABE18 /* INObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572914314C52002ABE18 /* INObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37572E14314CF6002ABE18 /* INDate.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572C14314CF6002ABE18 /* INDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37572F14314CF6002ABE18 /* INDate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572D14314CF6002ABE18 /* INDate.m */; };
+		EE37573014314CF6002ABE18 /* INDate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572D14314CF6002ABE18 /* INDate.m */; };
+		EE37573314314D04002ABE18 /* INCodedValue.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37573114314D04002ABE18 /* INCodedValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37573414314D04002ABE18 /* INCodedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573214314D04002ABE18 /* INCodedValue.m */; };
+		EE37573514314D04002ABE18 /* INCodedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573214314D04002ABE18 /* INCodedValue.m */; };
+		EE37573814314D22002ABE18 /* INUnitValue.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37573614314D22002ABE18 /* INUnitValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37573914314D22002ABE18 /* INUnitValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573714314D22002ABE18 /* INUnitValue.m */; };
+		EE37573A14314D22002ABE18 /* INUnitValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573714314D22002ABE18 /* INUnitValue.m */; };
+		EE37573D14314D46002ABE18 /* INString.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37573B14314D46002ABE18 /* INString.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37573E14314D46002ABE18 /* INString.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573C14314D46002ABE18 /* INString.m */; };
+		EE37573F14314D46002ABE18 /* INString.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573C14314D46002ABE18 /* INString.m */; };
+		EE37574214314D51002ABE18 /* INDuration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37574014314D51002ABE18 /* INDuration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE37574314314D51002ABE18 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
+		EE37574414314D51002ABE18 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
+		EE3C95BD14115C15002BA967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
+		EE3C95CB14115C15002BA967 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95CA14115C15002BA967 /* SenTestingKit.framework */; };
+		EE3C95CE14115C15002BA967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
+		EE3C95D114115C15002BA967 /* libIndivoServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95B914115C15002BA967 /* libIndivoServer.a */; };
+		EE3C95DA14115C15002BA967 /* IndivoFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95D914115C15002BA967 /* IndivoFrameworkTests.m */; };
+		EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95EC14117818002BA967 /* IndivoServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3C95EF14117818002BA967 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
+		EE3C95F014117818002BA967 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
+		EE3C9603141178CC002BA967 /* IndivoDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95F5141178CC002BA967 /* IndivoDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3C9604141178CC002BA967 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
+		EE3C9605141178CC002BA967 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
+		EE3C9609141178CC002BA967 /* IndivoRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95F9141178CC002BA967 /* IndivoRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3C960A141178CC002BA967 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
+		EE3C960B141178CC002BA967 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
+		EE3C960C141178CC002BA967 /* IndivoWebApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95FB141178CC002BA967 /* IndivoWebApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3C960D141178CC002BA967 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
+		EE3C960E141178CC002BA967 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
+		EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */; };
+		EE4434B41491422700CC6344 /* INDateRangeFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */; };
+		EE4434B61491426200CC6344 /* INDateRangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */; };
+		EE53CA0E1423A3D700EEF006 /* INServerCall.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53CA0C1423A3D700EEF006 /* INServerCall.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE53CA0F1423A3D700EEF006 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
+		EE53CA101423A3D700EEF006 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
+		EE5DE92C1468447A004CC666 /* INURLFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = EE5DE92A1468447A004CC666 /* INURLFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE5DE92D1468447A004CC666 /* INURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5DE92B1468447A004CC666 /* INURLFetcher.m */; };
+		EE81EAE714911F210097CA36 /* INDateRangeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = EE81EAE514911F210097CA36 /* INDateRangeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE81EAE814911F210097CA36 /* INDateRangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */; };
+		EE930074141E4EF6005B0046 /* IndivoLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EE930071141E4EF6005B0046 /* IndivoLoginViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE930075141E4EF6005B0046 /* IndivoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE930072141E4EF6005B0046 /* IndivoLoginViewController.m */; };
+		EE9EEE51144DE5A9008E0464 /* INXMLReport.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9EEE4F144DE5A9008E0464 /* INXMLReport.h */; };
+		EE9EEE52144DE5A9008E0464 /* INXMLReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE50144DE5A9008E0464 /* INXMLReport.m */; };
+		EE9EEE56144DE75D008E0464 /* INXMLReports.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9EEE54144DE75D008E0464 /* INXMLReports.h */; };
+		EE9EEE57144DE75D008E0464 /* INXMLReports.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE55144DE75D008E0464 /* INXMLReports.m */; };
+		EE9FFA9C142D13F700120C0F /* INXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9FFA9A142D13F700120C0F /* INXMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE9FFA9D142D13F700120C0F /* INXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FFA9B142D13F700120C0F /* INXMLParser.m */; };
+		EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA1B1E9142B82CB001E1A0F /* Indivo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EED39B83148D1A9500843AAE /* IndivoActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = EED39B81148D1A9400843AAE /* IndivoActionView.h */; };
+		EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED39B82148D1A9400843AAE /* IndivoActionView.m */; };
+		EEDB8C37145CB02A001C6C2C /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C08145CB02A001C6C2C /* MPDebug.h */; };
+		EEDB8C39145CB02A001C6C2C /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEDB8C3A145CB02A001C6C2C /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
+		EEDB8C3B145CB02A001C6C2C /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
+		EEDB8C3C145CB02A001C6C2C /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */; };
+		EEDB8C3D145CB02A001C6C2C /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */; };
+		EEDB8C3E145CB02A001C6C2C /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C2C145CB02A001C6C2C /* Base64Transcoder.h */; };
+		EEDB8C3F145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C2D145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h */; };
+		EEDB8C40145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */; };
+		EEDB8C41145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */; };
+		EEDB8C45145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C31145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h */; };
+		EEDB8C46145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */; };
+		EEDB8C47145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */; };
+		EEDB8C48145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C33145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h */; };
+		EEDB8C49145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */; };
+		EEDB8C4A145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */; };
+		EEDB8C4E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C0E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEDB8C4F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */; };
+		EEDB8C50145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */; };
+		EEDB8C51145CB02A001C6C2C /* MPOAuthConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C10145CB02A001C6C2C /* MPOAuthConnection.h */; };
+		EEDB8C52145CB02A001C6C2C /* MPOAuthConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */; };
+		EEDB8C53145CB02A001C6C2C /* MPOAuthConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */; };
+		EEDB8C54145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C12145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEDB8C55145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */; };
+		EEDB8C56145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */; };
+		EEDB8C57145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C14145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */; };
+		EEDB8C59145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
+		EEDB8C5B145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */; };
+		EEDB8C5C145CB02A001C6C2C /* MPOAuthCredentialStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C17145CB02A001C6C2C /* MPOAuthCredentialStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEDB8C5D145CB02A001C6C2C /* MPOAuthParameterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C18145CB02A001C6C2C /* MPOAuthParameterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEDB8C5E145CB02A001C6C2C /* MPOAuthSignatureParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C19145CB02A001C6C2C /* MPOAuthSignatureParameter.h */; };
+		EEDB8C5F145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */; };
+		EEDB8C60145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */; };
+		EEDB8C61145CB02A001C6C2C /* MPOAuthURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C1B145CB02A001C6C2C /* MPOAuthURLRequest.h */; };
+		EEDB8C62145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */; };
+		EEDB8C63145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */; };
+		EEDB8C64145CB02A001C6C2C /* MPOAuthURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C1D145CB02A001C6C2C /* MPOAuthURLResponse.h */; };
+		EEDB8C65145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */; };
+		EEDB8C66145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */; };
+		EEDB8C67145CB02A001C6C2C /* MPURLRequestParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C1F145CB02A001C6C2C /* MPURLRequestParameter.h */; };
+		EEDB8C68145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */; };
+		EEDB8C69145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */; };
+		EEDB8C6A145CB02A001C6C2C /* MPWSLRDDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C21145CB02A001C6C2C /* MPWSLRDDiscoverer.h */; };
+		EEDB8C6B145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C22145CB02A001C6C2C /* MPWSLRDDiscoverer.m */; };
+		EEDB8C6C145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C22145CB02A001C6C2C /* MPWSLRDDiscoverer.m */; };
+		EEDB8C6D145CB02A001C6C2C /* MPWSXRDDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C23145CB02A001C6C2C /* MPWSXRDDocument.h */; };
+		EEDB8C6E145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C24145CB02A001C6C2C /* MPWSXRDDocument.m */; };
+		EEDB8C6F145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C24145CB02A001C6C2C /* MPWSXRDDocument.m */; };
+		EEDB8C70145CB02A001C6C2C /* NSString+URLEscapingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C25145CB02A001C6C2C /* NSString+URLEscapingAdditions.h */; };
+		EEDB8C71145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */; };
+		EEDB8C72145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */; };
+		EEDB8C73145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C27145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h */; };
+		EEDB8C74145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */; };
+		EEDB8C75145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */; };
+		EEDB8C76145CB02A001C6C2C /* NSURLResponse+Encoding.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C29145CB02A001C6C2C /* NSURLResponse+Encoding.h */; };
+		EEDB8C77145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */; };
+		EEDB8C78145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */; };
+		EEDB8C7B145CB052001C6C2C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7A145CB052001C6C2C /* libxml2.dylib */; };
+		EEDB8C7D145CB057001C6C2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7C145CB057001C6C2C /* Security.framework */; };
+		EEDB8D6E145CDCE7001C6C2C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7A145CB052001C6C2C /* libxml2.dylib */; };
+		EEDB8D6F145CDCEC001C6C2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7C145CB057001C6C2C /* Security.framework */; };
+		EEDB8D71145CDCF1001C6C2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8D70145CDCF1001C6C2C /* UIKit.framework */; };
+		EEDB8D77145CDD87001C6C2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */; };
+		EEDB8DB1145CE3FD001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */; };
+		EEDB8DB6145CE6D5001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
+		EEDC6110144CF23700503C61 /* INBool.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDC610E144CF23700503C61 /* INBool.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEDC6111144CF23700503C61 /* INBool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC610F144CF23700503C61 /* INBool.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE3C95CF14115C15002BA967 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE3C95B014115C15002BA967 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE3C95B814115C15002BA967;
+			remoteInfo = IndivoFramework;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EE05DDEF1445F29600920A4B /* INLabProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INLabProvider.h; sourceTree = "<group>"; };
+		EE05DDF01445F29600920A4B /* INLabProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INLabProvider.m; sourceTree = "<group>"; };
+		EE05DDF11445F29600920A4B /* INProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INProvider.h; sourceTree = "<group>"; };
+		EE05DDF21445F29600920A4B /* INProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INProvider.m; sourceTree = "<group>"; };
+		EE05DDF31445F29600920A4B /* INSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INSignature.h; sourceTree = "<group>"; };
+		EE05DDF41445F29700920A4B /* INSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INSignature.m; sourceTree = "<group>"; };
+		EE05DDFE1445F54C00920A4B /* INDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDateTime.h; sourceTree = "<group>"; };
+		EE05DDFF1445F54C00920A4B /* INDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateTime.m; sourceTree = "<group>"; };
+		EE05DE031445FD6900920A4B /* IndivoPrescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoPrescription.h; sourceTree = "<group>"; };
+		EE05DE041445FD6900920A4B /* IndivoPrescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoPrescription.m; sourceTree = "<group>"; };
+		EE05DE081447835D00920A4B /* INURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INURLLoader.h; sourceTree = "<group>"; };
+		EE05DE091447835D00920A4B /* INURLLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INURLLoader.m; sourceTree = "<group>"; };
+		EE079FDF142D3E9A00A92904 /* INXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLNode.h; sourceTree = "<group>"; };
+		EE079FE0142D3E9A00A92904 /* INXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLNode.m; sourceTree = "<group>"; };
+		EE13448A141AB99D00D167B2 /* IndivoWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoWebView.h; sourceTree = "<group>"; };
+		EE13448B141AB99D00D167B2 /* IndivoWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoWebView.m; sourceTree = "<group>"; };
+		EE18082514BCF5BC009D7873 /* IndivoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoConfig.h; sourceTree = SOURCE_ROOT; };
+		EE1E2CB8144B523A001A1E72 /* INPrincipal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INPrincipal.h; sourceTree = "<group>"; };
+		EE1E2CB9144B523A001A1E72 /* INPrincipal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INPrincipal.m; sourceTree = "<group>"; };
+		EE1E2CBC144B5454001A1E72 /* INAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAttr.h; sourceTree = "<group>"; };
+		EE1E2CBD144B5454001A1E72 /* INAttr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAttr.m; sourceTree = "<group>"; };
+		EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoMetaDocument.h; sourceTree = "<group>"; };
+		EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoMetaDocument.m; sourceTree = "<group>"; };
+		EE1E2CC4144B5CAC001A1E72 /* IndivoAbstractDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoAbstractDocument.h; sourceTree = "<group>"; };
+		EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoAbstractDocument.m; sourceTree = "<group>"; };
+		EE34D98214244818001A95AD /* INServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerObject.h; sourceTree = "<group>"; };
+		EE34D98314244818001A95AD /* INServerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INServerObject.m; sourceTree = "<group>"; };
+		EE37571D1431021B002ABE18 /* IndivoMedication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoMedication.h; sourceTree = "<group>"; };
+		EE37571E1431021B002ABE18 /* IndivoMedication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoMedication.m; sourceTree = "<group>"; };
+		EE37572414314179002ABE18 /* INObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INObject.h; sourceTree = "<group>"; };
+		EE37572514314179002ABE18 /* INObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INObject.m; sourceTree = "<group>"; };
+		EE37572914314C52002ABE18 /* INObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INObjects.h; sourceTree = "<group>"; };
+		EE37572C14314CF6002ABE18 /* INDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDate.h; sourceTree = "<group>"; };
+		EE37572D14314CF6002ABE18 /* INDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDate.m; sourceTree = "<group>"; };
+		EE37573114314D04002ABE18 /* INCodedValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INCodedValue.h; sourceTree = "<group>"; };
+		EE37573214314D04002ABE18 /* INCodedValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INCodedValue.m; sourceTree = "<group>"; };
+		EE37573614314D22002ABE18 /* INUnitValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INUnitValue.h; sourceTree = "<group>"; };
+		EE37573714314D22002ABE18 /* INUnitValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INUnitValue.m; sourceTree = "<group>"; };
+		EE37573B14314D46002ABE18 /* INString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INString.h; sourceTree = "<group>"; };
+		EE37573C14314D46002ABE18 /* INString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INString.m; sourceTree = "<group>"; };
+		EE37574014314D51002ABE18 /* INDuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDuration.h; sourceTree = "<group>"; };
+		EE37574114314D51002ABE18 /* INDuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDuration.m; sourceTree = "<group>"; };
+		EE3C95B914115C15002BA967 /* libIndivoServer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIndivoServer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE3C95BC14115C15002BA967 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoFramework-Prefix.pch"; sourceTree = "<group>"; };
+		EE3C95C914115C15002BA967 /* IndivoServerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndivoServerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE3C95CA14115C15002BA967 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		EE3C95D414115C15002BA967 /* IndivoFrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "IndivoFrameworkTests-Info.plist"; path = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist"; sourceTree = "<group>"; };
+		EE3C95D814115C15002BA967 /* IndivoFrameworkTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndivoFrameworkTests.h; sourceTree = "<group>"; };
+		EE3C95D914115C15002BA967 /* IndivoFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndivoFrameworkTests.m; sourceTree = "<group>"; };
+		EE3C95EC14117818002BA967 /* IndivoServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoServer.h; sourceTree = "<group>"; };
+		EE3C95ED14117818002BA967 /* IndivoServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoServer.m; sourceTree = "<group>"; };
+		EE3C95F5141178CC002BA967 /* IndivoDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoDocument.h; sourceTree = "<group>"; };
+		EE3C95F6141178CC002BA967 /* IndivoDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoDocument.m; sourceTree = "<group>"; };
+		EE3C95F9141178CC002BA967 /* IndivoRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoRecord.h; sourceTree = "<group>"; };
+		EE3C95FA141178CC002BA967 /* IndivoRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoRecord.m; sourceTree = "<group>"; };
+		EE3C95FB141178CC002BA967 /* IndivoWebApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoWebApp.h; sourceTree = "<group>"; };
+		EE3C95FC141178CC002BA967 /* IndivoWebApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoWebApp.m; sourceTree = "<group>"; };
+		EE4434B21491422700CC6344 /* INDateRangeFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDateRangeFormatterTest.h; sourceTree = "<group>"; };
+		EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateRangeFormatterTest.m; sourceTree = "<group>"; };
+		EE53CA0C1423A3D700EEF006 /* INServerCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerCall.h; sourceTree = "<group>"; };
+		EE53CA0D1423A3D700EEF006 /* INServerCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INServerCall.m; sourceTree = "<group>"; };
+		EE5DE92A1468447A004CC666 /* INURLFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INURLFetcher.h; sourceTree = "<group>"; };
+		EE5DE92B1468447A004CC666 /* INURLFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INURLFetcher.m; sourceTree = "<group>"; };
+		EE81EAE514911F210097CA36 /* INDateRangeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDateRangeFormatter.h; sourceTree = "<group>"; };
+		EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateRangeFormatter.m; sourceTree = "<group>"; };
+		EE930071141E4EF6005B0046 /* IndivoLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoLoginViewController.h; sourceTree = "<group>"; };
+		EE930072141E4EF6005B0046 /* IndivoLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoLoginViewController.m; sourceTree = "<group>"; };
+		EE9EEE4F144DE5A9008E0464 /* INXMLReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLReport.h; sourceTree = "<group>"; };
+		EE9EEE50144DE5A9008E0464 /* INXMLReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLReport.m; sourceTree = "<group>"; };
+		EE9EEE54144DE75D008E0464 /* INXMLReports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLReports.h; sourceTree = "<group>"; };
+		EE9EEE55144DE75D008E0464 /* INXMLReports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLReports.m; sourceTree = "<group>"; };
+		EE9FFA9A142D13F700120C0F /* INXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLParser.h; sourceTree = "<group>"; };
+		EE9FFA9B142D13F700120C0F /* INXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLParser.m; sourceTree = "<group>"; };
+		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
+		EEC5C4051416B3E900E1A349 /* ErrorCodes.md */ = {isa = PBXFileReference; explicitFileType = text; path = ErrorCodes.md; sourceTree = SOURCE_ROOT; };
+		EED39B81148D1A9400843AAE /* IndivoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoActionView.h; sourceTree = "<group>"; };
+		EED39B82148D1A9400843AAE /* IndivoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoActionView.m; sourceTree = "<group>"; };
+		EEDB8C08145CB02A001C6C2C /* MPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDebug.h; sourceTree = "<group>"; };
+		EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAPI.h; sourceTree = "<group>"; };
+		EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPI.m; sourceTree = "<group>"; };
+		EEDB8C0E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAPIRequestLoader.h; sourceTree = "<group>"; };
+		EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPIRequestLoader.m; sourceTree = "<group>"; };
+		EEDB8C10145CB02A001C6C2C /* MPOAuthConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthConnection.h; sourceTree = "<group>"; };
+		EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthConnection.m; sourceTree = "<group>"; };
+		EEDB8C12145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthCredentialConcreteStore.h; sourceTree = "<group>"; };
+		EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthCredentialConcreteStore.m; sourceTree = "<group>"; };
+		EEDB8C14145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPOAuthCredentialConcreteStore+KeychainAdditions.h"; sourceTree = "<group>"; };
+		EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m"; sourceTree = "<group>"; };
+		EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m"; sourceTree = "<group>"; };
+		EEDB8C17145CB02A001C6C2C /* MPOAuthCredentialStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthCredentialStore.h; sourceTree = "<group>"; };
+		EEDB8C18145CB02A001C6C2C /* MPOAuthParameterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthParameterFactory.h; sourceTree = "<group>"; };
+		EEDB8C19145CB02A001C6C2C /* MPOAuthSignatureParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthSignatureParameter.h; sourceTree = "<group>"; };
+		EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthSignatureParameter.m; sourceTree = "<group>"; };
+		EEDB8C1B145CB02A001C6C2C /* MPOAuthURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthURLRequest.h; sourceTree = "<group>"; };
+		EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthURLRequest.m; sourceTree = "<group>"; };
+		EEDB8C1D145CB02A001C6C2C /* MPOAuthURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthURLResponse.h; sourceTree = "<group>"; };
+		EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthURLResponse.m; sourceTree = "<group>"; };
+		EEDB8C1F145CB02A001C6C2C /* MPURLRequestParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPURLRequestParameter.h; sourceTree = "<group>"; };
+		EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPURLRequestParameter.m; sourceTree = "<group>"; };
+		EEDB8C21145CB02A001C6C2C /* MPWSLRDDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWSLRDDiscoverer.h; sourceTree = "<group>"; };
+		EEDB8C22145CB02A001C6C2C /* MPWSLRDDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWSLRDDiscoverer.m; sourceTree = "<group>"; };
+		EEDB8C23145CB02A001C6C2C /* MPWSXRDDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPWSXRDDocument.h; sourceTree = "<group>"; };
+		EEDB8C24145CB02A001C6C2C /* MPWSXRDDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPWSXRDDocument.m; sourceTree = "<group>"; };
+		EEDB8C25145CB02A001C6C2C /* NSString+URLEscapingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEscapingAdditions.h"; sourceTree = "<group>"; };
+		EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEscapingAdditions.m"; sourceTree = "<group>"; };
+		EEDB8C27145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+MPURLParameterAdditions.h"; sourceTree = "<group>"; };
+		EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MPURLParameterAdditions.m"; sourceTree = "<group>"; };
+		EEDB8C29145CB02A001C6C2C /* NSURLResponse+Encoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLResponse+Encoding.h"; sourceTree = "<group>"; };
+		EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLResponse+Encoding.m"; sourceTree = "<group>"; };
+		EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
+		EEDB8C2C145CB02A001C6C2C /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
+		EEDB8C2D145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAuthenticationMethod.h; sourceTree = "<group>"; };
+		EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAuthenticationMethod.m; sourceTree = "<group>"; };
+		EEDB8C31145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAuthenticationMethodTwoLegged.h; sourceTree = "<group>"; };
+		EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAuthenticationMethodTwoLegged.m; sourceTree = "<group>"; };
+		EEDB8C33145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAuthenticationMethodOAuth.h; sourceTree = "<group>"; };
+		EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAuthenticationMethodOAuth.m; sourceTree = "<group>"; };
+		EEDB8C7A145CB052001C6C2C /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		EEDB8C7C145CB057001C6C2C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EEDB8D70145CDCF1001C6C2C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EEDC610E144CF23700503C61 /* INBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INBool.h; sourceTree = "<group>"; };
+		EEDC610F144CF23700503C61 /* INBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INBool.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE3C95B614115C15002BA967 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE3C95BD14115C15002BA967 /* Foundation.framework in Frameworks */,
+				EEDB8C7D145CB057001C6C2C /* Security.framework in Frameworks */,
+				EEDB8C7B145CB052001C6C2C /* libxml2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE3C95C514115C15002BA967 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEDB8D77145CDD87001C6C2C /* CoreGraphics.framework in Frameworks */,
+				EEDB8D71145CDCF1001C6C2C /* UIKit.framework in Frameworks */,
+				EEDB8D6F145CDCEC001C6C2C /* Security.framework in Frameworks */,
+				EEDB8D6E145CDCE7001C6C2C /* libxml2.dylib in Frameworks */,
+				EE3C95CB14115C15002BA967 /* SenTestingKit.framework in Frameworks */,
+				EE3C95CE14115C15002BA967 /* Foundation.framework in Frameworks */,
+				EE3C95D114115C15002BA967 /* libIndivoServer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE1E2CB5144B41FD001A1E72 /* Indivo Documents */ = {
+			isa = PBXGroup;
+			children = (
+				EE1E2CC4144B5CAC001A1E72 /* IndivoAbstractDocument.h */,
+				EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */,
+				EE3C95F5141178CC002BA967 /* IndivoDocument.h */,
+				EE3C95F6141178CC002BA967 /* IndivoDocument.m */,
+				EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */,
+				EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */,
+				EE37571D1431021B002ABE18 /* IndivoMedication.h */,
+				EE37571E1431021B002ABE18 /* IndivoMedication.m */,
+				EE05DE031445FD6900920A4B /* IndivoPrescription.h */,
+				EE05DE041445FD6900920A4B /* IndivoPrescription.m */,
+			);
+			name = "Indivo Documents";
+			sourceTree = "<group>";
+		};
+		EE37572B14314CC5002ABE18 /* Indivo Objects */ = {
+			isa = PBXGroup;
+			children = (
+				EE37572914314C52002ABE18 /* INObjects.h */,
+				EE37572414314179002ABE18 /* INObject.h */,
+				EE37572514314179002ABE18 /* INObject.m */,
+				EE1E2CBC144B5454001A1E72 /* INAttr.h */,
+				EE1E2CBD144B5454001A1E72 /* INAttr.m */,
+				EEDC610E144CF23700503C61 /* INBool.h */,
+				EEDC610F144CF23700503C61 /* INBool.m */,
+				EE37573B14314D46002ABE18 /* INString.h */,
+				EE37573C14314D46002ABE18 /* INString.m */,
+				EE37572C14314CF6002ABE18 /* INDate.h */,
+				EE37572D14314CF6002ABE18 /* INDate.m */,
+				EE05DDFE1445F54C00920A4B /* INDateTime.h */,
+				EE05DDFF1445F54C00920A4B /* INDateTime.m */,
+				EE37573114314D04002ABE18 /* INCodedValue.h */,
+				EE37573214314D04002ABE18 /* INCodedValue.m */,
+				EE37573614314D22002ABE18 /* INUnitValue.h */,
+				EE37573714314D22002ABE18 /* INUnitValue.m */,
+				EE37574014314D51002ABE18 /* INDuration.h */,
+				EE37574114314D51002ABE18 /* INDuration.m */,
+				EE05DDF11445F29600920A4B /* INProvider.h */,
+				EE05DDF21445F29600920A4B /* INProvider.m */,
+				EE05DDEF1445F29600920A4B /* INLabProvider.h */,
+				EE05DDF01445F29600920A4B /* INLabProvider.m */,
+				EE05DDF31445F29600920A4B /* INSignature.h */,
+				EE05DDF41445F29700920A4B /* INSignature.m */,
+				EE1E2CB8144B523A001A1E72 /* INPrincipal.h */,
+				EE1E2CB9144B523A001A1E72 /* INPrincipal.m */,
+			);
+			name = "Indivo Objects";
+			sourceTree = "<group>";
+		};
+		EE3C95AE14115C15002BA967 = {
+			isa = PBXGroup;
+			children = (
+				EEC5C4051416B3E900E1A349 /* ErrorCodes.md */,
+				EE3C95BE14115C15002BA967 /* IndivoFramework */,
+				EE3C95D214115C15002BA967 /* IndivoFrameworkTests */,
+				EE3C95BB14115C15002BA967 /* Frameworks */,
+				EE3C95BA14115C15002BA967 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE3C95BA14115C15002BA967 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE3C95B914115C15002BA967 /* libIndivoServer.a */,
+				EE3C95C914115C15002BA967 /* IndivoServerTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE3C95BB14115C15002BA967 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE3C95BC14115C15002BA967 /* Foundation.framework */,
+				EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */,
+				EEDB8D70145CDCF1001C6C2C /* UIKit.framework */,
+				EEDB8C7C145CB057001C6C2C /* Security.framework */,
+				EE3C95CA14115C15002BA967 /* SenTestingKit.framework */,
+				EEDB8C7A145CB052001C6C2C /* libxml2.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE3C95BE14115C15002BA967 /* IndivoFramework */ = {
+			isa = PBXGroup;
+			children = (
+				EE18082514BCF5BC009D7873 /* IndivoConfig.h */,
+				EE3C95EC14117818002BA967 /* IndivoServer.h */,
+				EE3C95ED14117818002BA967 /* IndivoServer.m */,
+				EEA1B1E9142B82CB001E1A0F /* Indivo.h */,
+				EE81EAEA14911F270097CA36 /* Helper Classes */,
+				EE37572B14314CC5002ABE18 /* Indivo Objects */,
+				EE3C95E6141177A6002BA967 /* Indivo Server Objects */,
+				EE1E2CB5144B41FD001A1E72 /* Indivo Documents */,
+				EE53CA121423A3DB00EEF006 /* Server Calls */,
+				EE697B161432492C0002F13F /* XML Parsing */,
+				EE93006F141E4EA9005B0046 /* View Controllers */,
+				EEDB8C07145CB02A001C6C2C /* MPOAuth Framework */,
+				EE3C95BF14115C15002BA967 /* Supporting Files */,
+			);
+			name = IndivoFramework;
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		EE3C95BF14115C15002BA967 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE3C95D214115C15002BA967 /* IndivoFrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				EE3C95D814115C15002BA967 /* IndivoFrameworkTests.h */,
+				EE3C95D914115C15002BA967 /* IndivoFrameworkTests.m */,
+				EE4434B21491422700CC6344 /* INDateRangeFormatterTest.h */,
+				EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */,
+				EE3C95D314115C15002BA967 /* Supporting Files */,
+			);
+			path = IndivoFrameworkTests;
+			sourceTree = "<group>";
+		};
+		EE3C95D314115C15002BA967 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EE3C95D414115C15002BA967 /* IndivoFrameworkTests-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EE3C95E6141177A6002BA967 /* Indivo Server Objects */ = {
+			isa = PBXGroup;
+			children = (
+				EE34D98214244818001A95AD /* INServerObject.h */,
+				EE34D98314244818001A95AD /* INServerObject.m */,
+				EE3C95F9141178CC002BA967 /* IndivoRecord.h */,
+				EE3C95FA141178CC002BA967 /* IndivoRecord.m */,
+				EE3C95FB141178CC002BA967 /* IndivoWebApp.h */,
+				EE3C95FC141178CC002BA967 /* IndivoWebApp.m */,
+			);
+			name = "Indivo Server Objects";
+			sourceTree = "<group>";
+		};
+		EE53CA121423A3DB00EEF006 /* Server Calls */ = {
+			isa = PBXGroup;
+			children = (
+				EE53CA0C1423A3D700EEF006 /* INServerCall.h */,
+				EE53CA0D1423A3D700EEF006 /* INServerCall.m */,
+				EE5DE92A1468447A004CC666 /* INURLFetcher.h */,
+				EE5DE92B1468447A004CC666 /* INURLFetcher.m */,
+				EE05DE081447835D00920A4B /* INURLLoader.h */,
+				EE05DE091447835D00920A4B /* INURLLoader.m */,
+			);
+			name = "Server Calls";
+			sourceTree = "<group>";
+		};
+		EE697B161432492C0002F13F /* XML Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				EE9FFA9A142D13F700120C0F /* INXMLParser.h */,
+				EE9FFA9B142D13F700120C0F /* INXMLParser.m */,
+				EE079FDF142D3E9A00A92904 /* INXMLNode.h */,
+				EE079FE0142D3E9A00A92904 /* INXMLNode.m */,
+				EE9EEE54144DE75D008E0464 /* INXMLReports.h */,
+				EE9EEE55144DE75D008E0464 /* INXMLReports.m */,
+				EE9EEE4F144DE5A9008E0464 /* INXMLReport.h */,
+				EE9EEE50144DE5A9008E0464 /* INXMLReport.m */,
+			);
+			name = "XML Parsing";
+			sourceTree = "<group>";
+		};
+		EE81EAEA14911F270097CA36 /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				EE81EAE514911F210097CA36 /* INDateRangeFormatter.h */,
+				EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */,
+			);
+			name = "Helper Classes";
+			sourceTree = "<group>";
+		};
+		EE93006F141E4EA9005B0046 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EE13448A141AB99D00D167B2 /* IndivoWebView.h */,
+				EE13448B141AB99D00D167B2 /* IndivoWebView.m */,
+				EE930071141E4EF6005B0046 /* IndivoLoginViewController.h */,
+				EE930072141E4EF6005B0046 /* IndivoLoginViewController.m */,
+				EED39B81148D1A9400843AAE /* IndivoActionView.h */,
+				EED39B82148D1A9400843AAE /* IndivoActionView.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		EEDB8C07145CB02A001C6C2C /* MPOAuth Framework */ = {
+			isa = PBXGroup;
+			children = (
+				EEDB8C08145CB02A001C6C2C /* MPDebug.h */,
+				EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */,
+				EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */,
+				EEDB8C0C145CB02A001C6C2C /* Crypto */,
+				EEDB8C0D145CB02A001C6C2C /* Authentication Methods */,
+				EEDB8C0E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h */,
+				EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */,
+				EEDB8C10145CB02A001C6C2C /* MPOAuthConnection.h */,
+				EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */,
+				EEDB8C17145CB02A001C6C2C /* MPOAuthCredentialStore.h */,
+				EEDB8C12145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h */,
+				EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */,
+				EEDB8C14145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */,
+				EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */,
+				EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */,
+				EEDB8C18145CB02A001C6C2C /* MPOAuthParameterFactory.h */,
+				EEDB8C19145CB02A001C6C2C /* MPOAuthSignatureParameter.h */,
+				EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */,
+				EEDB8C1B145CB02A001C6C2C /* MPOAuthURLRequest.h */,
+				EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */,
+				EEDB8C1D145CB02A001C6C2C /* MPOAuthURLResponse.h */,
+				EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */,
+				EEDB8C1F145CB02A001C6C2C /* MPURLRequestParameter.h */,
+				EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */,
+				EEDB8C21145CB02A001C6C2C /* MPWSLRDDiscoverer.h */,
+				EEDB8C22145CB02A001C6C2C /* MPWSLRDDiscoverer.m */,
+				EEDB8C23145CB02A001C6C2C /* MPWSXRDDocument.h */,
+				EEDB8C24145CB02A001C6C2C /* MPWSXRDDocument.m */,
+				EEDB8C25145CB02A001C6C2C /* NSString+URLEscapingAdditions.h */,
+				EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */,
+				EEDB8C27145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h */,
+				EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */,
+				EEDB8C29145CB02A001C6C2C /* NSURLResponse+Encoding.h */,
+				EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */,
+			);
+			name = "MPOAuth Framework";
+			path = ../../MPOAuth/Source/Framework;
+			sourceTree = "<group>";
+		};
+		EEDB8C0C145CB02A001C6C2C /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */,
+				EEDB8C2C145CB02A001C6C2C /* Base64Transcoder.h */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
+		EEDB8C0D145CB02A001C6C2C /* Authentication Methods */ = {
+			isa = PBXGroup;
+			children = (
+				EEDB8C2D145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h */,
+				EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */,
+				EEDB8C31145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h */,
+				EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */,
+				EEDB8C33145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h */,
+				EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */,
+			);
+			name = "Authentication Methods";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EE3C95B714115C15002BA967 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */,
+				EE3C9603141178CC002BA967 /* IndivoDocument.h in Headers */,
+				EE3C9609141178CC002BA967 /* IndivoRecord.h in Headers */,
+				EE3C960C141178CC002BA967 /* IndivoWebApp.h in Headers */,
+				EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */,
+				EE13448C141AB99D00D167B2 /* IndivoWebView.h in Headers */,
+				EE930074141E4EF6005B0046 /* IndivoLoginViewController.h in Headers */,
+				EE53CA0E1423A3D700EEF006 /* INServerCall.h in Headers */,
+				EE34D98414244818001A95AD /* INServerObject.h in Headers */,
+				EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */,
+				EE9FFA9C142D13F700120C0F /* INXMLParser.h in Headers */,
+				EE079FE1142D3E9A00A92904 /* INXMLNode.h in Headers */,
+				EE37571F1431021B002ABE18 /* IndivoMedication.h in Headers */,
+				EE37572614314179002ABE18 /* INObject.h in Headers */,
+				EE37572A14314C52002ABE18 /* INObjects.h in Headers */,
+				EE37572E14314CF6002ABE18 /* INDate.h in Headers */,
+				EE37573314314D04002ABE18 /* INCodedValue.h in Headers */,
+				EE37573814314D22002ABE18 /* INUnitValue.h in Headers */,
+				EE37573D14314D46002ABE18 /* INString.h in Headers */,
+				EE37574214314D51002ABE18 /* INDuration.h in Headers */,
+				EE05DDF51445F29700920A4B /* INLabProvider.h in Headers */,
+				EE05DDF81445F29700920A4B /* INProvider.h in Headers */,
+				EE05DDFB1445F29700920A4B /* INSignature.h in Headers */,
+				EE05DE001445F54C00920A4B /* INDateTime.h in Headers */,
+				EE05DE051445FD6900920A4B /* IndivoPrescription.h in Headers */,
+				EE05DE0A1447835D00920A4B /* INURLLoader.h in Headers */,
+				EE1E2CBA144B523A001A1E72 /* INPrincipal.h in Headers */,
+				EE1E2CBE144B5454001A1E72 /* INAttr.h in Headers */,
+				EE1E2CC2144B5BAB001A1E72 /* IndivoMetaDocument.h in Headers */,
+				EE1E2CC6144B5CAC001A1E72 /* IndivoAbstractDocument.h in Headers */,
+				EEDC6110144CF23700503C61 /* INBool.h in Headers */,
+				EE9EEE51144DE5A9008E0464 /* INXMLReport.h in Headers */,
+				EE9EEE56144DE75D008E0464 /* INXMLReports.h in Headers */,
+				EEDB8C37145CB02A001C6C2C /* MPDebug.h in Headers */,
+				EEDB8C39145CB02A001C6C2C /* MPOAuthAPI.h in Headers */,
+				EEDB8C3E145CB02A001C6C2C /* Base64Transcoder.h in Headers */,
+				EEDB8C3F145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h in Headers */,
+				EEDB8C45145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h in Headers */,
+				EEDB8C48145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h in Headers */,
+				EEDB8C4E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h in Headers */,
+				EEDB8C51145CB02A001C6C2C /* MPOAuthConnection.h in Headers */,
+				EEDB8C54145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h in Headers */,
+				EEDB8C57145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h in Headers */,
+				EEDB8C5C145CB02A001C6C2C /* MPOAuthCredentialStore.h in Headers */,
+				EEDB8C5D145CB02A001C6C2C /* MPOAuthParameterFactory.h in Headers */,
+				EEDB8C5E145CB02A001C6C2C /* MPOAuthSignatureParameter.h in Headers */,
+				EEDB8C61145CB02A001C6C2C /* MPOAuthURLRequest.h in Headers */,
+				EEDB8C64145CB02A001C6C2C /* MPOAuthURLResponse.h in Headers */,
+				EEDB8C67145CB02A001C6C2C /* MPURLRequestParameter.h in Headers */,
+				EEDB8C6A145CB02A001C6C2C /* MPWSLRDDiscoverer.h in Headers */,
+				EEDB8C6D145CB02A001C6C2C /* MPWSXRDDocument.h in Headers */,
+				EEDB8C70145CB02A001C6C2C /* NSString+URLEscapingAdditions.h in Headers */,
+				EEDB8C73145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h in Headers */,
+				EEDB8C76145CB02A001C6C2C /* NSURLResponse+Encoding.h in Headers */,
+				EE5DE92C1468447A004CC666 /* INURLFetcher.h in Headers */,
+				EED39B83148D1A9500843AAE /* IndivoActionView.h in Headers */,
+				EE81EAE714911F210097CA36 /* INDateRangeFormatter.h in Headers */,
+				EE18082614BCF5BC009D7873 /* IndivoConfig.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EE3C95B814115C15002BA967 /* IndivoServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE3C95DD14115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServer" */;
+			buildPhases = (
+				EE3C95B514115C15002BA967 /* Sources */,
+				EE3C95B614115C15002BA967 /* Frameworks */,
+				EE3C95B714115C15002BA967 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IndivoServer;
+			productName = IndivoFramework;
+			productReference = EE3C95B914115C15002BA967 /* libIndivoServer.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EE3C95C814115C15002BA967 /* IndivoServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE3C95E014115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServerTests" */;
+			buildPhases = (
+				EE3C95C414115C15002BA967 /* Sources */,
+				EE3C95C514115C15002BA967 /* Frameworks */,
+				EE3C95C614115C15002BA967 /* Resources */,
+				EE3C95C714115C15002BA967 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE3C95D014115C15002BA967 /* PBXTargetDependency */,
+			);
+			name = IndivoServerTests;
+			productName = IndivoFrameworkTests;
+			productReference = EE3C95C914115C15002BA967 /* IndivoServerTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE3C95B014115C15002BA967 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Harvard Medical School";
+			};
+			buildConfigurationList = EE3C95B314115C15002BA967 /* Build configuration list for PBXProject "IndivoFramework" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EE3C95AE14115C15002BA967;
+			productRefGroup = EE3C95BA14115C15002BA967 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE3C95B814115C15002BA967 /* IndivoServer */,
+				EE3C95C814115C15002BA967 /* IndivoServerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE3C95C614115C15002BA967 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EE3C95C714115C15002BA967 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE3C95B514115C15002BA967 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE3C95EF14117818002BA967 /* IndivoServer.m in Sources */,
+				EE3C9604141178CC002BA967 /* IndivoDocument.m in Sources */,
+				EE3C960A141178CC002BA967 /* IndivoRecord.m in Sources */,
+				EE3C960D141178CC002BA967 /* IndivoWebApp.m in Sources */,
+				EE13448D141AB99D00D167B2 /* IndivoWebView.m in Sources */,
+				EE930075141E4EF6005B0046 /* IndivoLoginViewController.m in Sources */,
+				EE53CA0F1423A3D700EEF006 /* INServerCall.m in Sources */,
+				EE34D98514244818001A95AD /* INServerObject.m in Sources */,
+				EE9FFA9D142D13F700120C0F /* INXMLParser.m in Sources */,
+				EE079FE2142D3E9A00A92904 /* INXMLNode.m in Sources */,
+				EE3757201431021B002ABE18 /* IndivoMedication.m in Sources */,
+				EE37572714314179002ABE18 /* INObject.m in Sources */,
+				EE37572F14314CF6002ABE18 /* INDate.m in Sources */,
+				EE37573414314D04002ABE18 /* INCodedValue.m in Sources */,
+				EE37573914314D22002ABE18 /* INUnitValue.m in Sources */,
+				EE37573E14314D46002ABE18 /* INString.m in Sources */,
+				EE37574314314D51002ABE18 /* INDuration.m in Sources */,
+				EE05DDF61445F29700920A4B /* INLabProvider.m in Sources */,
+				EE05DDF91445F29700920A4B /* INProvider.m in Sources */,
+				EE05DDFC1445F29700920A4B /* INSignature.m in Sources */,
+				EE05DE011445F54C00920A4B /* INDateTime.m in Sources */,
+				EE05DE061445FD6900920A4B /* IndivoPrescription.m in Sources */,
+				EE05DE0B1447835D00920A4B /* INURLLoader.m in Sources */,
+				EE1E2CBB144B523A001A1E72 /* INPrincipal.m in Sources */,
+				EE1E2CBF144B5454001A1E72 /* INAttr.m in Sources */,
+				EE1E2CC3144B5BAB001A1E72 /* IndivoMetaDocument.m in Sources */,
+				EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */,
+				EEDC6111144CF23700503C61 /* INBool.m in Sources */,
+				EE9EEE52144DE5A9008E0464 /* INXMLReport.m in Sources */,
+				EE9EEE57144DE75D008E0464 /* INXMLReports.m in Sources */,
+				EEDB8C3A145CB02A001C6C2C /* MPOAuthAPI.m in Sources */,
+				EEDB8C3C145CB02A001C6C2C /* Base64Transcoder.c in Sources */,
+				EEDB8C40145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */,
+				EEDB8C46145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */,
+				EEDB8C49145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */,
+				EEDB8C4F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */,
+				EEDB8C52145CB02A001C6C2C /* MPOAuthConnection.m in Sources */,
+				EEDB8C55145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */,
+				EEDB8C5F145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */,
+				EEDB8C62145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */,
+				EEDB8C65145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */,
+				EEDB8C68145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */,
+				EEDB8C6B145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */,
+				EEDB8C6E145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */,
+				EEDB8C71145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */,
+				EEDB8C74145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */,
+				EEDB8C77145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */,
+				EEDB8DB1145CE3FD001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */,
+				EEDB8DB6145CE6D5001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */,
+				EE5DE92D1468447A004CC666 /* INURLFetcher.m in Sources */,
+				EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */,
+				EE81EAE814911F210097CA36 /* INDateRangeFormatter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE3C95C414115C15002BA967 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE3C95DA14115C15002BA967 /* IndivoFrameworkTests.m in Sources */,
+				EE3C95F014117818002BA967 /* IndivoServer.m in Sources */,
+				EE3C9605141178CC002BA967 /* IndivoDocument.m in Sources */,
+				EE3C960B141178CC002BA967 /* IndivoRecord.m in Sources */,
+				EE3C960E141178CC002BA967 /* IndivoWebApp.m in Sources */,
+				EE53CA101423A3D700EEF006 /* INServerCall.m in Sources */,
+				EE34D98614244818001A95AD /* INServerObject.m in Sources */,
+				EE37572814314179002ABE18 /* INObject.m in Sources */,
+				EE37573014314CF6002ABE18 /* INDate.m in Sources */,
+				EE37573514314D04002ABE18 /* INCodedValue.m in Sources */,
+				EE37573A14314D22002ABE18 /* INUnitValue.m in Sources */,
+				EE37573F14314D46002ABE18 /* INString.m in Sources */,
+				EE37574414314D51002ABE18 /* INDuration.m in Sources */,
+				EE05DDF71445F29700920A4B /* INLabProvider.m in Sources */,
+				EE05DDFA1445F29700920A4B /* INProvider.m in Sources */,
+				EE05DDFD1445F29700920A4B /* INSignature.m in Sources */,
+				EE05DE021445F54C00920A4B /* INDateTime.m in Sources */,
+				EE05DE071445FD6900920A4B /* IndivoPrescription.m in Sources */,
+				EE05DE0C1447835D00920A4B /* INURLLoader.m in Sources */,
+				EEDB8C3B145CB02A001C6C2C /* MPOAuthAPI.m in Sources */,
+				EEDB8C3D145CB02A001C6C2C /* Base64Transcoder.c in Sources */,
+				EEDB8C41145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */,
+				EEDB8C47145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */,
+				EEDB8C4A145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */,
+				EEDB8C50145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */,
+				EEDB8C53145CB02A001C6C2C /* MPOAuthConnection.m in Sources */,
+				EEDB8C56145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */,
+				EEDB8C59145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */,
+				EEDB8C5B145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */,
+				EEDB8C60145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */,
+				EEDB8C63145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */,
+				EEDB8C66145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */,
+				EEDB8C69145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */,
+				EEDB8C6C145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */,
+				EEDB8C6F145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */,
+				EEDB8C72145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */,
+				EEDB8C75145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */,
+				EEDB8C78145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */,
+				EE4434B41491422700CC6344 /* INDateRangeFormatterTest.m in Sources */,
+				EE4434B61491426200CC6344 /* INDateRangeFormatter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE3C95D014115C15002BA967 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE3C95B814115C15002BA967 /* IndivoServer */;
+			targetProxy = EE3C95CF14115C15002BA967 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EE1E2CC8144B7643001A1E72 /* Debug+Static */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "Classes/IndivoFramework-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DINDIVO_DEBUG";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(BUILT_PRODUCTS_DIR)/../Debug-iphoneos/**";
+			};
+			name = "Debug+Static";
+		};
+		EE1E2CC9144B7643001A1E72 /* Debug+Static */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
+			};
+			name = "Debug+Static";
+		};
+		EE1E2CCA144B7643001A1E72 /* Debug+Static */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "${DEVELOPER_LIBRARY_DIR}/Frameworks/**";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Debug+Static";
+		};
+		EE3C95DB14115C15002BA967 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "Classes/IndivoFramework-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DINDIVO_DEBUG";
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(BUILT_PRODUCTS_DIR)/../Debug-iphoneos/**";
+			};
+			name = Debug;
+		};
+		EE3C95DC14115C15002BA967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv7,
+					armv6,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = "Classes/IndivoFramework-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(BUILT_PRODUCTS_DIR)/../Debug-iphoneos/**";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE3C95DE14115C15002BA967 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EE3C95DF14115C15002BA967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		EE3C95E114115C15002BA967 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "${DEVELOPER_LIBRARY_DIR}/Frameworks/**";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		EE3C95E214115C15002BA967 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "${DEVELOPER_LIBRARY_DIR}/Frameworks/**";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE3C95B314115C15002BA967 /* Build configuration list for PBXProject "IndivoFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE3C95DB14115C15002BA967 /* Debug */,
+				EE1E2CC8144B7643001A1E72 /* Debug+Static */,
+				EE3C95DC14115C15002BA967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE3C95DD14115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE3C95DE14115C15002BA967 /* Debug */,
+				EE1E2CC9144B7643001A1E72 /* Debug+Static */,
+				EE3C95DF14115C15002BA967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE3C95E014115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE3C95E114115C15002BA967 /* Debug */,
+				EE1E2CCA144B7643001A1E72 /* Debug+Static */,
+				EE3C95E214115C15002BA967 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE3C95B014115C15002BA967 /* Project object */;
+}

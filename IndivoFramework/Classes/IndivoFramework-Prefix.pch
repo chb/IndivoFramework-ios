@@ -1,0 +1,75 @@
+//
+// Prefix header for all source files of the 'IndivoFramework' target in the 'IndivoFramework' project
+//
+
+#ifdef __OBJC__
+#	import <Foundation/Foundation.h>
+#endif
+
+// DLog only displays if -DDEBUG is set, ALog always displays output regardless of the DEBUG setting
+#ifdef INDIVO_DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...) do { } while (0)
+#endif
+#define ALog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+// Make localization easy
+#define L_(s) NSLocalizedString(s, nil)
+#define L_2(s, c) NSLocalizedString(s, c)
+
+// Make error reporting easy
+#define ERR(p, s, c)	if (p != NULL && s) {\
+		*p = [NSError errorWithDomain:NSCocoaErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	}\
+	else {\
+		DLog(@"Ignored Error: %@", s);\
+	}
+#define XERR(p, s, c)	if (p != NULL && s) {\
+		*p = [NSError errorWithDomain:NSXMLParserErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	}
+
+// Make callback or logging easy
+#define CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(cb, userInfo)\
+	NSError *error = [userInfo objectForKey:INErrorKey];\
+	if (cb) {\
+		cb((nil == error), [error localizedDescription]);\
+	}\
+	else {\
+		DLog(@"%@", [error localizedDescription]);\
+	}
+#define CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(cb, errstr)\
+	if (cb) {\
+		cb(NO, errstr);\
+	}\
+	else {\
+		DLog(@"%@", errstr);\
+	}
+#define SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(cb, userInfo)\
+	if (cb) {\
+		cb(nil == [userInfo objectForKey:INErrorKey], userInfo);\
+	}\
+	else {\
+		DLog(@"%@", [userInfo objectForKey:INErrorKey] ? [[userInfo objectForKey:INErrorKey] localizedDescription] : @"Success");\
+	}
+#define SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(cb, s, c)\
+	NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	if (cb) {\
+		cb(NO, [NSDictionary dictionaryWithObject:error forKey:INErrorKey]);\
+	}\
+	else {\
+		DLog(@"%@", s);\
+	}
+
+#define DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(r)\
+	NSDictionary *userDict = [NSDictionary dictionaryWithObject:r forKey:INRecordUserInfoKey];\
+	[[NSNotificationCenter defaultCenter] postNotificationName:INRecordDocumentsDidChangeNotification object:nil userInfo:userDict];
+
+// MPOAuth
+#ifndef MPLog
+#	ifdef MPOAUTH_DEBUG
+#		define MPLog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#	else
+#		define MPLog(...) 
+#	endif
+#endif
