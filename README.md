@@ -39,7 +39,7 @@ After you relaunch Xcode, the documentation should be available in the Organizer
 ## App Setup ##
 
 1. The best way to get the framework is to check out the project via [git][]. Open Terminal, navigate to the desired directory, and execute:
-	- `git clone <HOST>/IndivoFramework.git`
+	- `git clone git://github.com/chb/IndivoFramework-ios.git`
 	- `cd IndivoFramework`
 	- `git submodule init`
 	- `git submodule update`
