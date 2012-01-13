@@ -48,10 +48,10 @@
 @property (nonatomic, assign) id <IndivoLoginViewControllerDelegate> delegate;				///< The delegate to receive callbacks
 @property (nonatomic, strong) NSURL *startURL;												///< The URL to load initially
 
-@property (nonatomic, readonly, strong) UIWebView *webView;									///< The web view to present HTML
-@property (nonatomic, readonly, strong) UINavigationBar *titleBar;							///< A handle to the title bar being displayed
-@property (nonatomic, readonly, strong) UIBarButtonItem *backButton;						///< To navigate back
-@property (nonatomic, readonly, strong) UIBarButtonItem *cancelButton;						///< The cancel button which dismisses the login view
+@property (nonatomic, readonly, assign) UIWebView *webView;									///< The web view to present HTML
+@property (nonatomic, readonly, assign) UINavigationBar *titleBar;							///< A handle to the title bar being displayed
+@property (nonatomic, readonly, assign) UIBarButtonItem *backButton;						///< To navigate back
+@property (nonatomic, readonly, assign) UIBarButtonItem *cancelButton;						///< The cancel button which dismisses the login view
 
 - (void)loadURL:(NSURL *)aURL;
 - (void)reload:(id)sender;

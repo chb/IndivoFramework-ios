@@ -304,6 +304,7 @@
 		EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EEDC610E144CF23700503C61 /* INBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INBool.h; sourceTree = "<group>"; };
 		EEDC610F144CF23700503C61 /* INBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INBool.m; sourceTree = "<group>"; };
+		EEF205F914C092AC00808F24 /* IndivoConfig-default.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoConfig-default.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				EE18082514BCF5BC009D7873 /* IndivoConfig.h */,
+				EEF205F914C092AC00808F24 /* IndivoConfig-default.h */,
 				EE3C95EC14117818002BA967 /* IndivoServer.h */,
 				EE3C95ED14117818002BA967 /* IndivoServer.m */,
 				EEA1B1E9142B82CB001E1A0F /* Indivo.h */,

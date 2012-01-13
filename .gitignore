@@ -7,3 +7,6 @@ Docs
 !*.xcodeproj/project.pbxproj
 xcuserdata
 
+# Ignore config
+IndivoConfig.h
+

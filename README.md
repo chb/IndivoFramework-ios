@@ -36,40 +36,16 @@ After you relaunch Xcode, the documentation should be available in the Organizer
 [techdoc]: javascript:alert('URL TBD')
 
 
-## App Setup ##
+## Getting the Framework ##
 
-1. The best way to get the framework is to check out the project via [git][]. Open Terminal, navigate to the desired directory, and execute:
-	- `git clone git://github.com/chb/IndivoFramework-ios.git`
-	- `cd IndivoFramework`
-	- `git submodule init`
-	- `git submodule update`
+The best way to get the framework is to check out the project via [git][]. Open Terminal, navigate to the desired directory, and execute:
 
-	You now have the latest source code of the framework as well as the subprojects we use.
+	$ git clone git://github.com/chb/IndivoFramework-ios.git
+	$ cd IndivoFramework-ios
+	$ git submodule init
+	$ git submodule update
 
-2. Add the IndivoFramework project to your Xcode workspace
-
-3. Link your App with the necessary frameworks and libraries:  
-	Open your project's build settings, under "Link Binary With Libraries" add:
-	- `libIndivoFramework.a`
-	- `Security.framework`
-	- `libxml2.dylib`  
-	Do **not** add `libMPOAuthMobile.a` as this will result in a linker error
-
-4. Make sure the compiler finds the header files:  
-	Open your project's build settings, look for **User Header Search Paths** (USER_HEADER_SEARCH_PATHS), and add:
-
-	`$(BUILT_PRODUCTS_DIR)`, with *recursive* checked
-
-5. The linker needs an additional flag:  
-	Still in your project's build settings, look for **Other Linker Flags** (OTHER_LDFLAGS), and add:
-	
-	`-ObjC`
-	
-	This must be added so IndivoFramework can be used as a static library, otherwise class categories will not work and your app will crash.
-
-6. In your code, include the header files (where needed) as user header files:
-	
-	`#import "IndivoServer.h"`
+You now have the latest source code of the framework as well as the subprojects we use and the Medications Sample App.
 
 [git]: http://git-scm.com/
 
@@ -78,36 +54,59 @@ After you relaunch Xcode, the documentation should be available in the Organizer
 
 The Indivo Server you want to connect to needs to know your app. This means you'll have to tell the server to add your app as a **user_app**. You'll get a **consumer_key** and a **consumer_secret** which you need in Framework Setup.
 	
->>>> ADD INSTRUCTIONS
+>>>> INSTRUCTIONS MISSING FOR NOW...
 
 
-## Framework Use ##
+## Framework Setup ##
 
-Once setup is complete, you're ready to use the Indivo framework in your App. There are five settings that the framework must know in order to work with your server:
+1. Add the IndivoFramework project to your Xcode workspace
 
-- The Server URL
-- The UI Server URL
-- The app id
-- Your consumerKey
-- Your consumerSecret
-
-You will have to provide initial settings for these in the configuration file (see below), but you can always change the properties in code later on (e.g. if your App can connect to different servers).
-
-
-### Setup a server instance ###
-
-1. Update the file `IndivoSetup.h` in the **framework** project (not your own app) to suit your needs. The setting names should define NSStrings and are named:
-	- `kIndivoFrameworkServerURL`
-	- `kIndivoFrameworkUIServerURL`
-	- `kIndivoFrameworkAppId`
-	- `kIndivoFrameworkConsumerKey`
-	- `kIndivoFrameworkConsumerSecret`
-
-2. In your app delegate (or some other class), instantiate an `IndivoServer` object and set the delegate:  
-
-		IndivoServer *indivo = [IndivoServer serverWithDelegate:<% your server delegate %>];
+2. Link your App with the necessary frameworks and libraries:  
+	Open your project's build settings, under "Link Binary With Libraries" add:
+	- `libIndivoFramework.a`
+	- `Security.framework`
+	- `libxml2.dylib`
 	
-	Make sure you implement the required delegate methods in your server delegate! This **indivo** instance is now your connection to the Indivo server.
+	Do **not** add `libMPOAuthMobile.a` as this will result in a linker error
+
+3. Make sure the compiler finds the header files:  
+	Open your project's build settings, look for **User Header Search Paths** (USER_HEADER_SEARCH_PATHS), and add:
+
+	- `$(BUILT_PRODUCTS_DIR)`, with *recursive* checked
+
+4. The linker needs an additional flag:  
+	Still in your project's build settings, look for **Other Linker Flags** (OTHER_LDFLAGS), and add:
+	
+	`-ObjC`
+	
+	This must be added so IndivoFramework can be used as a static library, otherwise class categories will not work and your app will crash.
+
+5. You will have to provide initial server settings in the configuration file, but you can always change the properties in code later on (e.g. if your App can connect to different servers).  
+	Copy the file `IndivoConfig-default.h` in the **framework** project (not your own app) to `IndivoConfig.h` and adjust it to suit your needs. The setting names should define NSStrings and are named:
+	- `kIndivoFrameworkServerURL`  (The Server URL)
+	- `kIndivoFrameworkUIServerURL`  (The UI Server URL)
+	- `kIndivoFrameworkAppId`  (The App id)
+	- `kIndivoFrameworkConsumerKey`  (Your consumerKey)
+	- `kIndivoFrameworkConsumerSecret`  (Your consumerSecret)
+
+6. Add `IndivoConfig.h` to the Indivo Framework target. (In the default project Xcode should already know the file but show it in red because it's not in the repository. As soon as you create it, Xcode should find it and you're all good).
+
+7. In your code, include the header files (where needed) as user header files:
+	
+	`#import "IndivoServer.h"`
+
+You are now ready to go!
+
+
+## Using the Framework ##
+
+### Instantiating the server ###
+
+Make your app delegate (or some other class) the server delegate and instantiate an `IndivoServer`:  
+
+	IndivoServer *indivo = [IndivoServer serverWithDelegate:<% your server delegate %>];
+	
+Make sure you implement the required delegate methods in your server delegate! This **indivo** instance is now your connection to the Indivo server.
 
 
 ### Selecting a record ###

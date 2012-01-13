@@ -27,12 +27,10 @@
  */
 
 /// The URL to your server, with port number
-//#define kIndivoFrameworkServerURL @"https://www.chip.org:8000"
-#define kIndivoFrameworkServerURL @"http://10.17.16.94:8000"
+#define kIndivoFrameworkServerURL @"https://www.chip.org:8000"
 
 /// The URL to the UI (!) server, with port number
-//#define kIndivoFrameworkUIServerURL @"https://www.chip.org:8001"
-#define kIndivoFrameworkUIServerURL @"http://10.17.16.94:8001"
+#define kIndivoFrameworkUIServerURL @"https://www.chip.org:8001"
 
 /// Your App's id, consumer key and -secret
 #define kIndivoFrameworkAppId @"medsample@apps.indivo.org"

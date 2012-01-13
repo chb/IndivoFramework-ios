@@ -29,11 +29,11 @@
 
 @interface IndivoLoginViewController ()
 
-@property (nonatomic, readwrite, strong) UIWebView *webView;
-@property (nonatomic, readwrite, strong) UINavigationBar *titleBar;
-@property (nonatomic, readwrite, strong) UINavigationItem *titleItem;
-@property (nonatomic, readwrite, strong) UIBarButtonItem *backButton;
-@property (nonatomic, readwrite, strong) UIBarButtonItem *cancelButton;
+@property (nonatomic, readwrite, assign) UIWebView *webView;
+@property (nonatomic, readwrite, assign) UINavigationBar *titleBar;
+@property (nonatomic, readwrite, assign) UINavigationItem *titleItem;
+@property (nonatomic, readwrite, assign) UIBarButtonItem *backButton;
+@property (nonatomic, readwrite, assign) UIBarButtonItem *cancelButton;
 
 @property (nonatomic, assign) BOOL userDidLogout;
 
@@ -77,23 +77,27 @@
 	v.backgroundColor = [UIColor whiteColor];
 	
 	//** navigation bar with cancel button
-	self.cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
-	self.titleItem = [[UINavigationItem alloc] initWithTitle:self.title];
-	titleItem.rightBarButtonItem = cancelButton;
+	UIBarButtonItem *cButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
+	UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:self.title];
+	navItem.rightBarButtonItem = cButton;
+	self.cancelButton = cButton;
+	self.titleItem = navItem;
 	
 	CGRect barFrame = CGRectMake(0.f, 0.f, appFrame.size.width, 44.f);
-	self.titleBar = [[UINavigationBar alloc] initWithFrame:barFrame];
-	titleBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-	titleBar.tintColor = [UIColor colorWithRed:0.7f green:0.57f blue:0.28f alpha:1.f];
-	[titleBar setItems:[NSArray arrayWithObject:titleItem] animated:NO];
+	UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:barFrame];
+	navBar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+	navBar.tintColor = [UIColor colorWithRed:0.7f green:0.57f blue:0.28f alpha:1.f];
+	[navBar setItems:[NSArray arrayWithObject:titleItem] animated:NO];
+	self.titleBar = navBar;
 	
 	//** the web view
 	appFrame.size.height -= barFrame.size.height;
 	appFrame.origin.y = barFrame.size.height;
-	self.webView = [[UIWebView alloc] initWithFrame:appFrame];
-	webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	webView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
-	webView.delegate = self;
+	UIWebView *wv = [[UIWebView alloc] initWithFrame:appFrame];
+	wv.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	wv.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+	wv.delegate = self;
+	self.webView = wv;
 	
 	// compose
 	[v addSubview:webView];
@@ -274,8 +278,7 @@
  */
 - (void)cancel:(id)sender
 {
-	[self dismiss:sender];
-	[delegate loginViewDidCancel:self];
+	[delegate loginViewDidCancel:self];		// this will also dismiss the view controller
 }
 
 /**
@@ -360,10 +363,11 @@
 	[super setTitle:newTitle];
 }
 
-- (UIBarButtonItem *) backButton
+- (UIBarButtonItem *)backButton
 {
 	if (!backButton) {
-		self.backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(goBack:)];
+		UIBarButtonItem *bb = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(goBack:)];
+		self.backButton = bb;
 	}
 	return backButton;
 }
