@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "INXMLNode.h"
 #import "Indivo.h"
+#import "NSString+XML.h"
 
 
 /**

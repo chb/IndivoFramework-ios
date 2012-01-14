@@ -34,7 +34,7 @@
 
 + (NSString *)nodeName
 {
-	return @"Prescription";
+	return @"prescription";
 }
 
 

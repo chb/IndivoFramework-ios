@@ -57,9 +57,19 @@
 		return [NSString stringWithFormat:@"<%@ />", self.nodeName];
 	}
 	if ([text length] > 0) {
-		return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\">%@</%@>", self.nodeName, self.type, (self.abbrev ? self.abbrev : @""), (self.value ? self.value : @""), self.text, self.nodeName];
+		return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\">%@</%@>",
+				self.nodeName,
+				self.type,
+				(self.abbrev ? [self.abbrev xmlSafe] : @""),
+				(self.value ? [self.value xmlSafe] : @""),
+				[self.text xmlSafe],
+				self.nodeName];
 	}
-	return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\" />", self.nodeName, self.type, (self.abbrev ? self.abbrev : @""), (self.value ? self.value : @"")];
+	return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\" />",
+			self.nodeName,
+			self.type,
+			(self.abbrev ? [self.abbrev xmlSafe] : @""),
+			(self.value ? [self.value xmlSafe] : @"")];
 }
 
 

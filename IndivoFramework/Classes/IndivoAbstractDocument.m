@@ -87,7 +87,7 @@
 		}
 		
 		// we got an instance variable of INObject kind, instantiate
-		if ([ivarClass isSubclassOfClass:[INObject class]] && ![ivarClass isSubclassOfClass:[IndivoAbstractDocument class]]) {
+		if ([ivarClass isSubclassOfClass:[INObject class]]) {
 			const char *ivar_name = ivar_getName(ivars[i]);
 			NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
 			id newVal = [ivarClass objectFromNode:node forChildNamed:ivarName];

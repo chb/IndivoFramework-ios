@@ -61,7 +61,7 @@
 		return [NSString stringWithFormat:@"<%@ />", self.nodeName];
 	}
 	
-	return [NSString stringWithFormat:@"<%@><value>%@</value>%@</%@>", self.nodeName, self.value, [self.unit xml], self.nodeName];
+	return [NSString stringWithFormat:@"<%@><value>%@</value>%@</%@>", self.nodeName, self.value ? [self.value xmlSafe] : @"", [self.unit xml], self.nodeName];
 }
 
 

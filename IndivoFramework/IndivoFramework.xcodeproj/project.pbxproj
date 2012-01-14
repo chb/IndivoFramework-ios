@@ -167,6 +167,9 @@
 		EEDB8DB6145CE6D5001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
 		EEDC6110144CF23700503C61 /* INBool.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDC610E144CF23700503C61 /* INBool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDC6111144CF23700503C61 /* INBool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC610F144CF23700503C61 /* INBool.m */; };
+		EEF2061F14C0BB4E00808F24 /* NSString+XML.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF2061D14C0BB4E00808F24 /* NSString+XML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEF2062014C0BB4E00808F24 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
+		EEF2062114C0BB4E00808F24 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -305,6 +308,8 @@
 		EEDC610E144CF23700503C61 /* INBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INBool.h; sourceTree = "<group>"; };
 		EEDC610F144CF23700503C61 /* INBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INBool.m; sourceTree = "<group>"; };
 		EEF205F914C092AC00808F24 /* IndivoConfig-default.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoConfig-default.h"; sourceTree = SOURCE_ROOT; };
+		EEF2061D14C0BB4E00808F24 /* NSString+XML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XML.h"; sourceTree = "<group>"; };
+		EEF2061E14C0BB4E00808F24 /* NSString+XML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XML.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,6 +520,8 @@
 			children = (
 				EE81EAE514911F210097CA36 /* INDateRangeFormatter.h */,
 				EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */,
+				EEF2061D14C0BB4E00808F24 /* NSString+XML.h */,
+				EEF2061E14C0BB4E00808F24 /* NSString+XML.m */,
 			);
 			name = "Helper Classes";
 			sourceTree = "<group>";
@@ -661,6 +668,7 @@
 				EED39B83148D1A9500843AAE /* IndivoActionView.h in Headers */,
 				EE81EAE714911F210097CA36 /* INDateRangeFormatter.h in Headers */,
 				EE18082614BCF5BC009D7873 /* IndivoConfig.h in Headers */,
+				EEF2061F14C0BB4E00808F24 /* NSString+XML.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,6 +821,7 @@
 				EE5DE92D1468447A004CC666 /* INURLFetcher.m in Sources */,
 				EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */,
 				EE81EAE814911F210097CA36 /* INDateRangeFormatter.m in Sources */,
+				EEF2062014C0BB4E00808F24 /* NSString+XML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +869,7 @@
 				EEDB8C78145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */,
 				EE4434B41491422700CC6344 /* INDateRangeFormatterTest.m in Sources */,
 				EE4434B61491426200CC6344 /* INDateRangeFormatter.m in Sources */,
+				EEF2062114C0BB4E00808F24 /* NSString+XML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

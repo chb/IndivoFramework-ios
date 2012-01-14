@@ -51,9 +51,19 @@
 	}
 	
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@ type=\"%@\">\n\t<name>%@</name>\n\t<institution>%@</institution>\n</%@>", self.nodeName, self.nodeType, (self.name ? self.name : @""), (self.institution ? self.institution : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@ type=\"%@\">\n\t<name>%@</name>\n\t<institution>%@</institution>\n</%@>",
+			self.nodeName,
+			self.nodeType,
+			(self.name ? [self.name xmlSafe] : @""),
+			(self.institution ? [self.institution xmlSafe] : @""),
+			self.nodeName];
 #else
-	return [NSString stringWithFormat:@"<%@ type=\"%@\"><name>%@</name><institution>%@</institution></%@>", self.nodeName, self.nodeType, (self.name ? self.name : @""), (self.institution ? self.institution : @""), self.nodeName]
+	return [NSString stringWithFormat:@"<%@ type=\"%@\"><name>%@</name><institution>%@</institution></%@>",
+			self.nodeName,
+			self.nodeType,
+			(self.name ? [self.name xmlSafe] : @""),
+			(self.institution ? [self.institution xmlSafe] : @""),
+			self.nodeName]
 #endif
 }
 

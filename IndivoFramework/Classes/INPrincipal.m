@@ -53,9 +53,19 @@
 	}
 	
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\">\n\t%@\n</%@>", self.nodeName, self.accountId, self.type, (self.fullname ? [self.fullname xml] : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\">\n\t%@\n</%@>",
+			self.nodeName,
+			self.accountId,
+			self.type,
+			(self.fullname ? [self.fullname xml] : @""),
+			self.nodeName];
 #else
-	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\">%@</%@>", self.nodeName, self.accountId, self.type, (self.fullname ? [self.fullname xml] : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\">%@</%@>",
+			self.nodeName,
+			self.accountId,
+			self.type,
+			(self.fullname ? [self.fullname xml] : @""),
+			self.nodeName];
 #endif
 }
 

@@ -52,7 +52,7 @@
 
 - (NSString *)xml
 {
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.string ? self.string : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.string ? [self.string xmlSafe] : @""), self.nodeName];
 }
 
 
