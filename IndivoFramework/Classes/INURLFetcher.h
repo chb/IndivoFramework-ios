@@ -34,6 +34,7 @@
 @property (nonatomic, readonly, copy) NSArray *failedLoads;						///< Contains all INURLLoader instances that failed to load for any reason
 
 - (void)getURLs:(NSArray *)anURLArray callback:(INCancelErrorBlock)aCallback;
+- (void)cancel;
 - (BOOL)isIdle;
 
 

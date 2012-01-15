@@ -31,9 +31,11 @@
 @property (nonatomic, strong) NSMutableArray *mySuccessfulLoads;
 @property (nonatomic, strong) NSMutableArray *myFailedLoads;
 @property (nonatomic, strong) NSMutableArray *queuedLoaders;
+@property (nonatomic, strong) INURLLoader *currentLoader;
 @property (nonatomic, copy) INCancelErrorBlock callback;
 
 - (void)loaderDidFinish:(INURLLoader *)aLoader withErrorMessage:(NSString *)errorMessage;
+- (void)didCancel;
 
 @end
 
@@ -41,7 +43,7 @@
 @implementation INURLFetcher
 
 @synthesize successfulLoads, failedLoads;
-@synthesize mySuccessfulLoads, myFailedLoads, queuedLoaders, callback;
+@synthesize mySuccessfulLoads, myFailedLoads, queuedLoaders, currentLoader, callback;
 
 
 /**
@@ -62,7 +64,7 @@
 	if ([anURLArray count] > 0) {
 		self.callback = aCallback;
 		self.queuedLoaders = [NSMutableArray arrayWithCapacity:[anURLArray count] - 1];
-		INURLLoader *firstLoader = [[INURLLoader alloc] initWithURL:[anURLArray objectAtIndex:0]];
+		self.currentLoader = [[INURLLoader alloc] initWithURL:[anURLArray objectAtIndex:0]];
 		
 		// create loaders for each URL
 		BOOL first = YES;
@@ -81,8 +83,13 @@
 		self.myFailedLoads = [NSMutableArray arrayWithCapacity:[anURLArray count]];
 		
 		__block INURLFetcher *this = self;
-		[firstLoader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
-			[this loaderDidFinish:firstLoader withErrorMessage:errorMessage];
+		[currentLoader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+			if (userDidCancel) {
+				[self didCancel];
+			}
+			else {
+				[this loaderDidFinish:currentLoader withErrorMessage:errorMessage];
+			}
 		}];
 	}
 }
@@ -105,11 +112,16 @@
 	// continue
 	[queuedLoaders removeObject:aLoader];
 	if ([queuedLoaders count] > 0) {
-		INURLLoader *next = [queuedLoaders objectAtIndex:0];
+		self.currentLoader = [queuedLoaders objectAtIndex:0];
 		
 		__block INURLFetcher *this = self;
-		[next getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
-			[this loaderDidFinish:next withErrorMessage:errorMessage];
+		[currentLoader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+			if (userDidCancel) {
+				[self didCancel];
+			}
+			else {
+				[this loaderDidFinish:currentLoader withErrorMessage:errorMessage];
+			}
 		}];
 	}
 	
@@ -123,8 +135,33 @@
 			callback(NO, ([myFailedLoads count] > 0) ? @"Some loaders failed to load" : nil);
 			self.callback = nil;
 		}
+		self.currentLoader = nil;
 	}
 }
+
+
+/**
+ *	Abort loading
+ */
+- (void)cancel
+{
+	[self.currentLoader cancel];
+}
+
+/**
+ *	Loading was cancelled
+ */
+- (void)didCancel
+{
+	if (callback) {
+		self.mySuccessfulLoads = nil;
+		self.myFailedLoads = nil;
+		callback(YES, nil);
+		self.callback = nil;
+	}
+	self.currentLoader = nil;
+}
+
 
 /**
  *	Returns YES if the queue is empty, which is true before loading has begun and after it has completed

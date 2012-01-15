@@ -47,7 +47,7 @@ typedef void (^INCancelErrorBlock)(BOOL userDidCancel, NSString * __autoreleasin
 
 // Document status flags
 typedef enum {
-	INDocumentStatusUnknown = 0,						///< The status is unknown as of yet
+	INDocumentStatusUnknown = 0,						///< The status is unknown as of yet (e.g. the object has just been created)
 	INDocumentStatusActive,								///< The document is active
 	INDocumentStatusArchived,							///< This document has been archived, i.e. is no longer active
 	INDocumentStatusVoid								///< This document has been voided, i.e. is to be considered deleted

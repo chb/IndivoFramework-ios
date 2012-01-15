@@ -29,6 +29,8 @@
 @property (nonatomic, readwrite, copy) NSData *responseData;
 @property (nonatomic, readwrite, copy) NSString *responseString;
 @property (nonatomic, readwrite, assign) NSUInteger responseStatus;
+
+@property (nonatomic, strong) NSURLConnection *currentConnection;
 @property (nonatomic, strong) NSURLResponse *currentResponse;
 
 - (void)prepareWithCallback:(INCancelErrorBlock)aCallback;
@@ -40,7 +42,8 @@
 @implementation INURLLoader
 
 @synthesize url, callback, loadingCache;
-@synthesize responseData, responseString, responseStatus, currentResponse;
+@synthesize responseData, responseString, responseStatus;
+@synthesize currentConnection, currentResponse;
 @synthesize expectBinaryData;
 
 
@@ -68,6 +71,7 @@
 	self.responseData = nil;
 	self.responseString = nil;
 	self.responseStatus = 1000;
+	self.currentConnection = nil;
 	self.currentResponse = nil;
 	self.callback = aCallback;
 	self.loadingCache = [NSMutableData data];
@@ -118,7 +122,7 @@
 	}
 	
 	[self prepareWithCallback:aCallback];
-	[NSURLConnection connectionWithRequest:aRequest delegate:self];
+	self.currentConnection = [NSURLConnection connectionWithRequest:aRequest delegate:self];
 }
 
 
@@ -144,6 +148,22 @@
 		callback(NO, [anError localizedDescription]);
 		self.callback = nil;
 	}
+	self.currentConnection = nil;
+}
+
+
+/**
+ *	Aborting the loader
+ */
+- (void)cancel
+{
+	[self.currentConnection cancel];
+	
+	if (callback) {
+		callback(YES, nil);
+		self.callback = nil;
+	}
+	self.currentConnection = nil;
 }
 
 

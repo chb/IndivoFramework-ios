@@ -44,5 +44,7 @@
 - (void)post:(NSString *)postBody withCallback:(INCancelErrorBlock)callback;
 - (void)performRequest:(NSURLRequest *)aRequest withCallback:(INCancelErrorBlock)aCallback;
 
+- (void)cancel;
+
 
 @end
