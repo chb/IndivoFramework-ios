@@ -43,6 +43,7 @@
 
 @property (nonatomic, strong) UIImage *pillImage;
 
+- (NSString *)displayName;
 - (void)loadPillImageBypassingCache:(BOOL)bypass callback:(INCancelErrorBlock)callback;
 
 

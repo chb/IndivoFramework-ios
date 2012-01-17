@@ -37,3 +37,6 @@
 #define kIndivoFrameworkConsumerKey @"medsample@apps.indivo.org"
 #define kIndivoFrameworkConsumerSecret @"medsample"
 
+/// Your pillbox API key, needed for some medication functions (you can make it an empty string or nil if you don't have one)
+#define kPillboxAPIKey @""
+
