@@ -76,7 +76,7 @@
 - (void)performMethod:(NSString *)aMethod withBody:(NSString *)body orParameters:(NSArray *)parameters httpMethod:(NSString *)httpMethod callback:(INSuccessRetvalueBlock)callback
 {
 	if (!self.server) {
-		NSString *msg = [NSString stringWithFormat:@"Fatal Error: This object (%@) has no server!", self];
+		NSString *msg = [NSString stringWithFormat:@"Fatal Error: I have no server! %@", self];
 		if (nil != callback) {
 			NSError *error = nil;
 			ERR(&error, msg, 2000);

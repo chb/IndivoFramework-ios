@@ -381,10 +381,7 @@
 #pragma mark - OAuth Load Delegate
 - (void)connectionFinishedWithResponse:(NSURLResponse *)aResponse data:(NSData *)inData
 {
-	NSString *mime = [aResponse MIMEType];
 	NSString *retString = nil;
-	INXMLNode *xmlDoc = nil;
-	NSError *xmlParseError = nil;
 	
 	// we always assume string data, so just create a string when we have response data
 	if (inData) {
@@ -392,9 +389,11 @@
 	}
 	
 	if ([retString length] > 0) {
+		INXMLNode *xmlDoc = nil;
+		NSError *xmlParseError = nil;
 		
 		// parse XML if we got XML
-		if ([@"application/xml" isEqualToString:mime]) {
+		if ([@"application/xml" isEqualToString:[aResponse MIMEType]]) {
 			xmlDoc = [INXMLParser parseXML:retString error:&xmlParseError];
 		}
 		

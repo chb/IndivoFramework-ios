@@ -34,9 +34,9 @@
  */
 @interface IndivoAbstractDocument : INServerObject
 
-@property (nonatomic, readonly, assign) IndivoRecord *record;							///< The owning record
-@property (nonatomic, copy) NSString *nameSpace;										///< The namespace
-@property (nonatomic, copy) NSString *type;												///< This document's type
+@property (nonatomic, assign) IndivoRecord *record;							///< The owning record. If you change this on documents fetched from the server, you will get errors.
+@property (nonatomic, copy) NSString *nameSpace;							///< The namespace
+@property (nonatomic, copy) NSString *type;									///< This document's type
 
 - (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord;
 + (id)newWithRecord:(IndivoRecord *)aRecord;
