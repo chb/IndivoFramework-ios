@@ -25,13 +25,6 @@
 #import "IndivoRecord.h"
 
 
-@interface IndivoAbstractDocument ()
-
-@property (nonatomic, readwrite, assign) IndivoRecord *record;
-
-@end
-
-
 @implementation IndivoAbstractDocument
 
 @synthesize record, type, nameSpace;
@@ -215,6 +208,20 @@
 + (NSString *)type
 {
 	return @"";
+}
+
+
+
+#pragma mark - KVC
+/**
+ *	When setting a record, we certainly also want to have the same server
+ */
+- (void)setRecord:(IndivoRecord *)aRecord
+{
+	if (aRecord != record) {
+		record = aRecord;
+		self.server = record.server;
+	}
 }
 
 
