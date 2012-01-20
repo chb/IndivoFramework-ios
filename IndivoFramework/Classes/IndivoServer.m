@@ -304,6 +304,9 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 			[pvc presentModalViewController:loginVC animated:YES];
 		}
 	}
+	else {
+		DLog(@"Delegate did not provide a view controller, cannot present login screen");
+	}
 }
 
 

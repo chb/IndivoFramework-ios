@@ -9,22 +9,16 @@
 /* Begin PBXBuildFile section */
 		EE05DDF51445F29700920A4B /* INLabProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDEF1445F29600920A4B /* INLabProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DDF61445F29700920A4B /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
-		EE05DDF71445F29700920A4B /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
 		EE05DDF81445F29700920A4B /* INProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDF11445F29600920A4B /* INProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DDF91445F29700920A4B /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
-		EE05DDFA1445F29700920A4B /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
 		EE05DDFB1445F29700920A4B /* INSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDF31445F29600920A4B /* INSignature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DDFC1445F29700920A4B /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
-		EE05DDFD1445F29700920A4B /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
 		EE05DE001445F54C00920A4B /* INDateTime.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDFE1445F54C00920A4B /* INDateTime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DE011445F54C00920A4B /* INDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDFF1445F54C00920A4B /* INDateTime.m */; };
-		EE05DE021445F54C00920A4B /* INDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDFF1445F54C00920A4B /* INDateTime.m */; };
 		EE05DE051445FD6900920A4B /* IndivoPrescription.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DE031445FD6900920A4B /* IndivoPrescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DE061445FD6900920A4B /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
-		EE05DE071445FD6900920A4B /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
 		EE05DE0A1447835D00920A4B /* INURLLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DE081447835D00920A4B /* INURLLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DE0B1447835D00920A4B /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
-		EE05DE0C1447835D00920A4B /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
 		EE079FE1142D3E9A00A92904 /* INXMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EE079FDF142D3E9A00A92904 /* INXMLNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE079FE2142D3E9A00A92904 /* INXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE079FE0142D3E9A00A92904 /* INXMLNode.m */; };
 		EE13448C141AB99D00D167B2 /* IndivoWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = EE13448A141AB99D00D167B2 /* IndivoWebView.h */; };
@@ -40,51 +34,33 @@
 		EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
 		EE34D98414244818001A95AD /* INServerObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE34D98214244818001A95AD /* INServerObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE34D98514244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
-		EE34D98614244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
 		EE37571F1431021B002ABE18 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3757201431021B002ABE18 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication.m */; };
 		EE37572614314179002ABE18 /* INObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572414314179002ABE18 /* INObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37572714314179002ABE18 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
-		EE37572814314179002ABE18 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
 		EE37572A14314C52002ABE18 /* INObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572914314C52002ABE18 /* INObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37572E14314CF6002ABE18 /* INDate.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572C14314CF6002ABE18 /* INDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37572F14314CF6002ABE18 /* INDate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572D14314CF6002ABE18 /* INDate.m */; };
-		EE37573014314CF6002ABE18 /* INDate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572D14314CF6002ABE18 /* INDate.m */; };
 		EE37573314314D04002ABE18 /* INCodedValue.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37573114314D04002ABE18 /* INCodedValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37573414314D04002ABE18 /* INCodedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573214314D04002ABE18 /* INCodedValue.m */; };
-		EE37573514314D04002ABE18 /* INCodedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573214314D04002ABE18 /* INCodedValue.m */; };
 		EE37573814314D22002ABE18 /* INUnitValue.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37573614314D22002ABE18 /* INUnitValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37573914314D22002ABE18 /* INUnitValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573714314D22002ABE18 /* INUnitValue.m */; };
-		EE37573A14314D22002ABE18 /* INUnitValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573714314D22002ABE18 /* INUnitValue.m */; };
 		EE37573D14314D46002ABE18 /* INString.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37573B14314D46002ABE18 /* INString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37573E14314D46002ABE18 /* INString.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573C14314D46002ABE18 /* INString.m */; };
-		EE37573F14314D46002ABE18 /* INString.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573C14314D46002ABE18 /* INString.m */; };
 		EE37574214314D51002ABE18 /* INDuration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37574014314D51002ABE18 /* INDuration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37574314314D51002ABE18 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
-		EE37574414314D51002ABE18 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
 		EE3C95BD14115C15002BA967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
-		EE3C95CB14115C15002BA967 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95CA14115C15002BA967 /* SenTestingKit.framework */; };
-		EE3C95CE14115C15002BA967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
-		EE3C95D114115C15002BA967 /* libIndivoServer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95B914115C15002BA967 /* libIndivoServer.a */; };
-		EE3C95DA14115C15002BA967 /* IndivoFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95D914115C15002BA967 /* IndivoFrameworkTests.m */; };
 		EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95EC14117818002BA967 /* IndivoServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C95EF14117818002BA967 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
-		EE3C95F014117818002BA967 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
 		EE3C9603141178CC002BA967 /* IndivoDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95F5141178CC002BA967 /* IndivoDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C9604141178CC002BA967 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
-		EE3C9605141178CC002BA967 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
 		EE3C9609141178CC002BA967 /* IndivoRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95F9141178CC002BA967 /* IndivoRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C960A141178CC002BA967 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
-		EE3C960B141178CC002BA967 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
 		EE3C960C141178CC002BA967 /* IndivoWebApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95FB141178CC002BA967 /* IndivoWebApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C960D141178CC002BA967 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
-		EE3C960E141178CC002BA967 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
 		EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */; };
-		EE4434B41491422700CC6344 /* INDateRangeFormatterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */; };
-		EE4434B61491426200CC6344 /* INDateRangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */; };
 		EE53CA0E1423A3D700EEF006 /* INServerCall.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53CA0C1423A3D700EEF006 /* INServerCall.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE53CA0F1423A3D700EEF006 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
-		EE53CA101423A3D700EEF006 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
 		EE5DE92C1468447A004CC666 /* INURLFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = EE5DE92A1468447A004CC666 /* INURLFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE5DE92D1468447A004CC666 /* INURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5DE92B1468447A004CC666 /* INURLFetcher.m */; };
 		EE81EAE714911F210097CA36 /* INDateRangeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = EE81EAE514911F210097CA36 /* INDateRangeFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -97,90 +73,112 @@
 		EE9EEE57144DE75D008E0464 /* INXMLReports.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE55144DE75D008E0464 /* INXMLReports.m */; };
 		EE9FFA9C142D13F700120C0F /* INXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9FFA9A142D13F700120C0F /* INXMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE9FFA9D142D13F700120C0F /* INXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FFA9B142D13F700120C0F /* INXMLParser.m */; };
+		EEA044CF14CA1B4300C28C61 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95CA14115C15002BA967 /* SenTestingKit.framework */; };
+		EEA044D014CA1B4300C28C61 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8D70145CDCF1001C6C2C /* UIKit.framework */; };
+		EEA044D114CA1B4300C28C61 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
+		EEA044D714CA1B4300C28C61 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEA044D514CA1B4300C28C61 /* InfoPlist.strings */; };
+		EEA044DA14CA1B4300C28C61 /* IndivoFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA044D914CA1B4300C28C61 /* IndivoFrameworkTests.m */; };
+		EEA044E114CA1B7000C28C61 /* INDateRangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */; };
+		EEA044E214CA1BAB00C28C61 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
+		EEA044E314CA1BBD00C28C61 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
+		EEA044E414CA1BCF00C28C61 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
+		EEA044E514CA1BCF00C28C61 /* INAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CBD144B5454001A1E72 /* INAttr.m */; };
+		EEA044E614CA1BCF00C28C61 /* INBool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC610F144CF23700503C61 /* INBool.m */; };
+		EEA044E714CA1BCF00C28C61 /* INString.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573C14314D46002ABE18 /* INString.m */; };
+		EEA044E814CA1BCF00C28C61 /* INDate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572D14314CF6002ABE18 /* INDate.m */; };
+		EEA044E914CA1BCF00C28C61 /* INDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDFF1445F54C00920A4B /* INDateTime.m */; };
+		EEA044EA14CA1BCF00C28C61 /* INCodedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573214314D04002ABE18 /* INCodedValue.m */; };
+		EEA044EB14CA1BCF00C28C61 /* INUnitValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573714314D22002ABE18 /* INUnitValue.m */; };
+		EEA044EC14CA1BCF00C28C61 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
+		EEA044ED14CA1BCF00C28C61 /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
+		EEA044EE14CA1BCF00C28C61 /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
+		EEA044EF14CA1BCF00C28C61 /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
+		EEA044F014CA1BCF00C28C61 /* INPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CB9144B523A001A1E72 /* INPrincipal.m */; };
+		EEA044F114CA1BD800C28C61 /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
+		EEA044F214CA1BD800C28C61 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
+		EEA044F314CA1BD800C28C61 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
+		EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
+		EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
+		EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */; };
+		EEA044F714CA1BDE00C28C61 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication.m */; };
+		EEA044F814CA1BDE00C28C61 /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
+		EEA044F914CA1BE500C28C61 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
+		EEA044FA14CA1BE500C28C61 /* INURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5DE92B1468447A004CC666 /* INURLFetcher.m */; };
+		EEA044FB14CA1BE500C28C61 /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
+		EEA044FC14CA1BED00C28C61 /* INXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9FFA9B142D13F700120C0F /* INXMLParser.m */; };
+		EEA044FD14CA1BED00C28C61 /* INXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE079FE0142D3E9A00A92904 /* INXMLNode.m */; };
+		EEA044FE14CA1BED00C28C61 /* INXMLReports.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE55144DE75D008E0464 /* INXMLReports.m */; };
+		EEA044FF14CA1BED00C28C61 /* INXMLReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE50144DE5A9008E0464 /* INXMLReport.m */; };
+		EEA0450114CA1CF900C28C61 /* IndivoWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE13448B141AB99D00D167B2 /* IndivoWebView.m */; };
+		EEA0450214CA1CF900C28C61 /* IndivoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE930072141E4EF6005B0046 /* IndivoLoginViewController.m */; };
+		EEA0450314CA1CF900C28C61 /* IndivoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED39B82148D1A9400843AAE /* IndivoActionView.m */; };
+		EEA0450414CA1D1300C28C61 /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
+		EEA0450514CA1D1300C28C61 /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */; };
+		EEA0450614CA1D1300C28C61 /* MPOAuthConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */; };
+		EEA0450714CA1D1300C28C61 /* MPOAuthCredentialConcreteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */; };
+		EEA0450814CA1D1300C28C61 /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
+		EEA0450914CA1D1300C28C61 /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */; };
+		EEA0450A14CA1D1300C28C61 /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */; };
+		EEA0450B14CA1D1300C28C61 /* MPOAuthURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */; };
+		EEA0450C14CA1D1300C28C61 /* MPOAuthURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */; };
+		EEA0450D14CA1D1300C28C61 /* MPURLRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */; };
+		EEA0451014CA1D1300C28C61 /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */; };
+		EEA0451114CA1D1300C28C61 /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */; };
+		EEA0451214CA1D1300C28C61 /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */; };
+		EEA0451314CA1D1800C28C61 /* MPOAuthAuthenticationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */; };
+		EEA0451414CA1D1800C28C61 /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */; };
+		EEA0451514CA1D1800C28C61 /* MPOAuthAuthenticationMethodOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */; };
+		EEA0451714CA1D3F00C28C61 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7C145CB057001C6C2C /* Security.framework */; };
+		EEA0451B14CA1D8200C28C61 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */; };
+		EEA0451C14CA1E0100C28C61 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */; };
 		EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA1B1E9142B82CB001E1A0F /* Indivo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED39B83148D1A9500843AAE /* IndivoActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = EED39B81148D1A9400843AAE /* IndivoActionView.h */; };
 		EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED39B82148D1A9400843AAE /* IndivoActionView.m */; };
 		EEDB8C37145CB02A001C6C2C /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C08145CB02A001C6C2C /* MPDebug.h */; };
 		EEDB8C39145CB02A001C6C2C /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C3A145CB02A001C6C2C /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
-		EEDB8C3B145CB02A001C6C2C /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
 		EEDB8C3C145CB02A001C6C2C /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */; };
-		EEDB8C3D145CB02A001C6C2C /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2B145CB02A001C6C2C /* Base64Transcoder.c */; };
 		EEDB8C3E145CB02A001C6C2C /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C2C145CB02A001C6C2C /* Base64Transcoder.h */; };
 		EEDB8C3F145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C2D145CB02A001C6C2C /* MPOAuthAuthenticationMethod.h */; };
 		EEDB8C40145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */; };
-		EEDB8C41145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2E145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m */; };
 		EEDB8C45145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C31145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.h */; };
 		EEDB8C46145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */; };
-		EEDB8C47145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C32145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m */; };
 		EEDB8C48145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C33145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.h */; };
 		EEDB8C49145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */; };
-		EEDB8C4A145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C34145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m */; };
 		EEDB8C4E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C0E145CB02A001C6C2C /* MPOAuthAPIRequestLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C4F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */; };
-		EEDB8C50145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0F145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m */; };
 		EEDB8C51145CB02A001C6C2C /* MPOAuthConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C10145CB02A001C6C2C /* MPOAuthConnection.h */; };
 		EEDB8C52145CB02A001C6C2C /* MPOAuthConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */; };
-		EEDB8C53145CB02A001C6C2C /* MPOAuthConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C11145CB02A001C6C2C /* MPOAuthConnection.m */; };
 		EEDB8C54145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C12145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C55145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */; };
-		EEDB8C56145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C13145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m */; };
 		EEDB8C57145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C14145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */; };
-		EEDB8C59145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
-		EEDB8C5B145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */; };
 		EEDB8C5C145CB02A001C6C2C /* MPOAuthCredentialStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C17145CB02A001C6C2C /* MPOAuthCredentialStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C5D145CB02A001C6C2C /* MPOAuthParameterFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C18145CB02A001C6C2C /* MPOAuthParameterFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C5E145CB02A001C6C2C /* MPOAuthSignatureParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C19145CB02A001C6C2C /* MPOAuthSignatureParameter.h */; };
 		EEDB8C5F145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */; };
-		EEDB8C60145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1A145CB02A001C6C2C /* MPOAuthSignatureParameter.m */; };
 		EEDB8C61145CB02A001C6C2C /* MPOAuthURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C1B145CB02A001C6C2C /* MPOAuthURLRequest.h */; };
 		EEDB8C62145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */; };
-		EEDB8C63145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1C145CB02A001C6C2C /* MPOAuthURLRequest.m */; };
 		EEDB8C64145CB02A001C6C2C /* MPOAuthURLResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C1D145CB02A001C6C2C /* MPOAuthURLResponse.h */; };
 		EEDB8C65145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */; };
-		EEDB8C66145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C1E145CB02A001C6C2C /* MPOAuthURLResponse.m */; };
 		EEDB8C67145CB02A001C6C2C /* MPURLRequestParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C1F145CB02A001C6C2C /* MPURLRequestParameter.h */; };
 		EEDB8C68145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */; };
-		EEDB8C69145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C20145CB02A001C6C2C /* MPURLRequestParameter.m */; };
 		EEDB8C6A145CB02A001C6C2C /* MPWSLRDDiscoverer.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C21145CB02A001C6C2C /* MPWSLRDDiscoverer.h */; };
-		EEDB8C6B145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C22145CB02A001C6C2C /* MPWSLRDDiscoverer.m */; };
-		EEDB8C6C145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C22145CB02A001C6C2C /* MPWSLRDDiscoverer.m */; };
 		EEDB8C6D145CB02A001C6C2C /* MPWSXRDDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C23145CB02A001C6C2C /* MPWSXRDDocument.h */; };
-		EEDB8C6E145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C24145CB02A001C6C2C /* MPWSXRDDocument.m */; };
-		EEDB8C6F145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C24145CB02A001C6C2C /* MPWSXRDDocument.m */; };
 		EEDB8C70145CB02A001C6C2C /* NSString+URLEscapingAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C25145CB02A001C6C2C /* NSString+URLEscapingAdditions.h */; };
 		EEDB8C71145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */; };
-		EEDB8C72145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C26145CB02A001C6C2C /* NSString+URLEscapingAdditions.m */; };
 		EEDB8C73145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C27145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.h */; };
 		EEDB8C74145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */; };
-		EEDB8C75145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C28145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m */; };
 		EEDB8C76145CB02A001C6C2C /* NSURLResponse+Encoding.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C29145CB02A001C6C2C /* NSURLResponse+Encoding.h */; };
 		EEDB8C77145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */; };
-		EEDB8C78145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C2A145CB02A001C6C2C /* NSURLResponse+Encoding.m */; };
 		EEDB8C7B145CB052001C6C2C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7A145CB052001C6C2C /* libxml2.dylib */; };
 		EEDB8C7D145CB057001C6C2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7C145CB057001C6C2C /* Security.framework */; };
-		EEDB8D6E145CDCE7001C6C2C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7A145CB052001C6C2C /* libxml2.dylib */; };
-		EEDB8D6F145CDCEC001C6C2C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8C7C145CB057001C6C2C /* Security.framework */; };
-		EEDB8D71145CDCF1001C6C2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8D70145CDCF1001C6C2C /* UIKit.framework */; };
-		EEDB8D77145CDD87001C6C2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */; };
 		EEDB8DB1145CE3FD001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C16145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */; };
 		EEDB8DB6145CE6D5001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
 		EEDC6110144CF23700503C61 /* INBool.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDC610E144CF23700503C61 /* INBool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDC6111144CF23700503C61 /* INBool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC610F144CF23700503C61 /* INBool.m */; };
 		EEF2061F14C0BB4E00808F24 /* NSString+XML.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF2061D14C0BB4E00808F24 /* NSString+XML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEF2062014C0BB4E00808F24 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
-		EEF2062114C0BB4E00808F24 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		EE3C95CF14115C15002BA967 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EE3C95B014115C15002BA967 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EE3C95B814115C15002BA967;
-			remoteInfo = IndivoFramework;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		EE05DDEF1445F29600920A4B /* INLabProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INLabProvider.h; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 		EE3C95B914115C15002BA967 /* libIndivoServer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIndivoServer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3C95BC14115C15002BA967 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoFramework-Prefix.pch"; sourceTree = "<group>"; };
-		EE3C95C914115C15002BA967 /* IndivoServerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndivoServerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3C95CA14115C15002BA967 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		EE3C95D414115C15002BA967 /* IndivoFrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "IndivoFrameworkTests-Info.plist"; path = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist"; sourceTree = "<group>"; };
 		EE3C95D814115C15002BA967 /* IndivoFrameworkTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndivoFrameworkTests.h; sourceTree = "<group>"; };
@@ -257,6 +254,13 @@
 		EE9EEE55144DE75D008E0464 /* INXMLReports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLReports.m; sourceTree = "<group>"; };
 		EE9FFA9A142D13F700120C0F /* INXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLParser.h; sourceTree = "<group>"; };
 		EE9FFA9B142D13F700120C0F /* INXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLParser.m; sourceTree = "<group>"; };
+		EEA044CE14CA1B4300C28C61 /* IndivoFrameworkTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndivoFrameworkTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEA044D414CA1B4300C28C61 /* IndivoFrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IndivoFrameworkTests-Info.plist"; sourceTree = "<group>"; };
+		EEA044D614CA1B4300C28C61 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EEA044D814CA1B4300C28C61 /* IndivoFrameworkTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndivoFrameworkTests.h; sourceTree = "<group>"; };
+		EEA044D914CA1B4300C28C61 /* IndivoFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IndivoFrameworkTests.m; sourceTree = "<group>"; };
+		EEA044DB14CA1B4300C28C61 /* IndivoFrameworkTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoFrameworkTests-Prefix.pch"; sourceTree = "<group>"; };
+		EEA0450014CA1CC700C28C61 /* IndivoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoConfig.h; sourceTree = "<group>"; };
 		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
 		EEC5C4051416B3E900E1A349 /* ErrorCodes.md */ = {isa = PBXFileReference; explicitFileType = text; path = ErrorCodes.md; sourceTree = SOURCE_ROOT; };
 		EED39B81148D1A9400843AAE /* IndivoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoActionView.h; sourceTree = "<group>"; };
@@ -323,17 +327,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE3C95C514115C15002BA967 /* Frameworks */ = {
+		EEA044CA14CA1B4300C28C61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEDB8D77145CDD87001C6C2C /* CoreGraphics.framework in Frameworks */,
-				EEDB8D71145CDCF1001C6C2C /* UIKit.framework in Frameworks */,
-				EEDB8D6F145CDCEC001C6C2C /* Security.framework in Frameworks */,
-				EEDB8D6E145CDCE7001C6C2C /* libxml2.dylib in Frameworks */,
-				EE3C95CB14115C15002BA967 /* SenTestingKit.framework in Frameworks */,
-				EE3C95CE14115C15002BA967 /* Foundation.framework in Frameworks */,
-				EE3C95D114115C15002BA967 /* libIndivoServer.a in Frameworks */,
+				EEA0451C14CA1E0100C28C61 /* CoreGraphics.framework in Frameworks */,
+				EEA0451714CA1D3F00C28C61 /* Security.framework in Frameworks */,
+				EEA044CF14CA1B4300C28C61 /* SenTestingKit.framework in Frameworks */,
+				EEA044D014CA1B4300C28C61 /* UIKit.framework in Frameworks */,
+				EEA044D114CA1B4300C28C61 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +399,7 @@
 				EEC5C4051416B3E900E1A349 /* ErrorCodes.md */,
 				EE3C95BE14115C15002BA967 /* IndivoFramework */,
 				EE3C95D214115C15002BA967 /* IndivoFrameworkTests */,
+				EEA044D214CA1B4300C28C61 /* IndivoFrameworkTests */,
 				EE3C95BB14115C15002BA967 /* Frameworks */,
 				EE3C95BA14115C15002BA967 /* Products */,
 			);
@@ -406,7 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				EE3C95B914115C15002BA967 /* libIndivoServer.a */,
-				EE3C95C914115C15002BA967 /* IndivoServerTests.octest */,
+				EEA044CE14CA1B4300C28C61 /* IndivoFrameworkTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 		EE3C95D214115C15002BA967 /* IndivoFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
+				EEA0450014CA1CC700C28C61 /* IndivoConfig.h */,
 				EE3C95D814115C15002BA967 /* IndivoFrameworkTests.h */,
 				EE3C95D914115C15002BA967 /* IndivoFrameworkTests.m */,
 				EE4434B21491422700CC6344 /* INDateRangeFormatterTest.h */,
@@ -537,6 +541,26 @@
 				EED39B82148D1A9400843AAE /* IndivoActionView.m */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		EEA044D214CA1B4300C28C61 /* IndivoFrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				EEA044D814CA1B4300C28C61 /* IndivoFrameworkTests.h */,
+				EEA044D914CA1B4300C28C61 /* IndivoFrameworkTests.m */,
+				EEA044D314CA1B4300C28C61 /* Supporting Files */,
+			);
+			path = IndivoFrameworkTests;
+			sourceTree = "<group>";
+		};
+		EEA044D314CA1B4300C28C61 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EEA044D414CA1B4300C28C61 /* IndivoFrameworkTests-Info.plist */,
+				EEA044D514CA1B4300C28C61 /* InfoPlist.strings */,
+				EEA044DB14CA1B4300C28C61 /* IndivoFrameworkTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		EEDB8C07145CB02A001C6C2C /* MPOAuth Framework */ = {
@@ -692,23 +716,22 @@
 			productReference = EE3C95B914115C15002BA967 /* libIndivoServer.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		EE3C95C814115C15002BA967 /* IndivoServerTests */ = {
+		EEA044CD14CA1B4300C28C61 /* IndivoFrameworkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EE3C95E014115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServerTests" */;
+			buildConfigurationList = EEA044DC14CA1B4300C28C61 /* Build configuration list for PBXNativeTarget "IndivoFrameworkTests" */;
 			buildPhases = (
-				EE3C95C414115C15002BA967 /* Sources */,
-				EE3C95C514115C15002BA967 /* Frameworks */,
-				EE3C95C614115C15002BA967 /* Resources */,
-				EE3C95C714115C15002BA967 /* ShellScript */,
+				EEA044C914CA1B4300C28C61 /* Sources */,
+				EEA044CA14CA1B4300C28C61 /* Frameworks */,
+				EEA044CB14CA1B4300C28C61 /* Resources */,
+				EEA044CC14CA1B4300C28C61 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EE3C95D014115C15002BA967 /* PBXTargetDependency */,
 			);
-			name = IndivoServerTests;
+			name = IndivoFrameworkTests;
 			productName = IndivoFrameworkTests;
-			productReference = EE3C95C914115C15002BA967 /* IndivoServerTests.octest */;
+			productReference = EEA044CE14CA1B4300C28C61 /* IndivoFrameworkTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -733,23 +756,24 @@
 			projectRoot = "";
 			targets = (
 				EE3C95B814115C15002BA967 /* IndivoServer */,
-				EE3C95C814115C15002BA967 /* IndivoServerTests */,
+				EEA044CD14CA1B4300C28C61 /* IndivoFrameworkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		EE3C95C614115C15002BA967 /* Resources */ = {
+		EEA044CB14CA1B4300C28C61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEA044D714CA1B4300C28C61 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		EE3C95C714115C15002BA967 /* ShellScript */ = {
+		EEA044CC14CA1B4300C28C61 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -811,8 +835,6 @@
 				EEDB8C62145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */,
 				EEDB8C65145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */,
 				EEDB8C68145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */,
-				EEDB8C6B145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */,
-				EEDB8C6E145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */,
 				EEDB8C71145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */,
 				EEDB8C74145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */,
 				EEDB8C77145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */,
@@ -825,63 +847,77 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE3C95C414115C15002BA967 /* Sources */ = {
+		EEA044C914CA1B4300C28C61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE3C95DA14115C15002BA967 /* IndivoFrameworkTests.m in Sources */,
-				EE3C95F014117818002BA967 /* IndivoServer.m in Sources */,
-				EE3C9605141178CC002BA967 /* IndivoDocument.m in Sources */,
-				EE3C960B141178CC002BA967 /* IndivoRecord.m in Sources */,
-				EE3C960E141178CC002BA967 /* IndivoWebApp.m in Sources */,
-				EE53CA101423A3D700EEF006 /* INServerCall.m in Sources */,
-				EE34D98614244818001A95AD /* INServerObject.m in Sources */,
-				EE37572814314179002ABE18 /* INObject.m in Sources */,
-				EE37573014314CF6002ABE18 /* INDate.m in Sources */,
-				EE37573514314D04002ABE18 /* INCodedValue.m in Sources */,
-				EE37573A14314D22002ABE18 /* INUnitValue.m in Sources */,
-				EE37573F14314D46002ABE18 /* INString.m in Sources */,
-				EE37574414314D51002ABE18 /* INDuration.m in Sources */,
-				EE05DDF71445F29700920A4B /* INLabProvider.m in Sources */,
-				EE05DDFA1445F29700920A4B /* INProvider.m in Sources */,
-				EE05DDFD1445F29700920A4B /* INSignature.m in Sources */,
-				EE05DE021445F54C00920A4B /* INDateTime.m in Sources */,
-				EE05DE071445FD6900920A4B /* IndivoPrescription.m in Sources */,
-				EE05DE0C1447835D00920A4B /* INURLLoader.m in Sources */,
-				EEDB8C3B145CB02A001C6C2C /* MPOAuthAPI.m in Sources */,
-				EEDB8C3D145CB02A001C6C2C /* Base64Transcoder.c in Sources */,
-				EEDB8C41145CB02A001C6C2C /* MPOAuthAuthenticationMethod.m in Sources */,
-				EEDB8C47145CB02A001C6C2C /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */,
-				EEDB8C4A145CB02A001C6C2C /* MPOAuthAuthenticationMethodOAuth.m in Sources */,
-				EEDB8C50145CB02A001C6C2C /* MPOAuthAPIRequestLoader.m in Sources */,
-				EEDB8C53145CB02A001C6C2C /* MPOAuthConnection.m in Sources */,
-				EEDB8C56145CB02A001C6C2C /* MPOAuthCredentialConcreteStore.m in Sources */,
-				EEDB8C59145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */,
-				EEDB8C5B145CB02A001C6C2C /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */,
-				EEDB8C60145CB02A001C6C2C /* MPOAuthSignatureParameter.m in Sources */,
-				EEDB8C63145CB02A001C6C2C /* MPOAuthURLRequest.m in Sources */,
-				EEDB8C66145CB02A001C6C2C /* MPOAuthURLResponse.m in Sources */,
-				EEDB8C69145CB02A001C6C2C /* MPURLRequestParameter.m in Sources */,
-				EEDB8C6C145CB02A001C6C2C /* MPWSLRDDiscoverer.m in Sources */,
-				EEDB8C6F145CB02A001C6C2C /* MPWSXRDDocument.m in Sources */,
-				EEDB8C72145CB02A001C6C2C /* NSString+URLEscapingAdditions.m in Sources */,
-				EEDB8C75145CB02A001C6C2C /* NSURL+MPURLParameterAdditions.m in Sources */,
-				EEDB8C78145CB02A001C6C2C /* NSURLResponse+Encoding.m in Sources */,
-				EE4434B41491422700CC6344 /* INDateRangeFormatterTest.m in Sources */,
-				EE4434B61491426200CC6344 /* INDateRangeFormatter.m in Sources */,
-				EEF2062114C0BB4E00808F24 /* NSString+XML.m in Sources */,
+				EEA044DA14CA1B4300C28C61 /* IndivoFrameworkTests.m in Sources */,
+				EEA044E114CA1B7000C28C61 /* INDateRangeFormatter.m in Sources */,
+				EEA044E214CA1BAB00C28C61 /* IndivoServer.m in Sources */,
+				EEA044E314CA1BBD00C28C61 /* NSString+XML.m in Sources */,
+				EEA044E414CA1BCF00C28C61 /* INObject.m in Sources */,
+				EEA044E514CA1BCF00C28C61 /* INAttr.m in Sources */,
+				EEA044E614CA1BCF00C28C61 /* INBool.m in Sources */,
+				EEA044E714CA1BCF00C28C61 /* INString.m in Sources */,
+				EEA044E814CA1BCF00C28C61 /* INDate.m in Sources */,
+				EEA044E914CA1BCF00C28C61 /* INDateTime.m in Sources */,
+				EEA044EA14CA1BCF00C28C61 /* INCodedValue.m in Sources */,
+				EEA044EB14CA1BCF00C28C61 /* INUnitValue.m in Sources */,
+				EEA044EC14CA1BCF00C28C61 /* INDuration.m in Sources */,
+				EEA044ED14CA1BCF00C28C61 /* INProvider.m in Sources */,
+				EEA044EE14CA1BCF00C28C61 /* INLabProvider.m in Sources */,
+				EEA044EF14CA1BCF00C28C61 /* INSignature.m in Sources */,
+				EEA044F014CA1BCF00C28C61 /* INPrincipal.m in Sources */,
+				EEA044F114CA1BD800C28C61 /* INServerObject.m in Sources */,
+				EEA044F214CA1BD800C28C61 /* IndivoRecord.m in Sources */,
+				EEA044F314CA1BD800C28C61 /* IndivoWebApp.m in Sources */,
+				EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */,
+				EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */,
+				EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */,
+				EEA044F714CA1BDE00C28C61 /* IndivoMedication.m in Sources */,
+				EEA044F814CA1BDE00C28C61 /* IndivoPrescription.m in Sources */,
+				EEA044F914CA1BE500C28C61 /* INServerCall.m in Sources */,
+				EEA044FA14CA1BE500C28C61 /* INURLFetcher.m in Sources */,
+				EEA044FB14CA1BE500C28C61 /* INURLLoader.m in Sources */,
+				EEA044FC14CA1BED00C28C61 /* INXMLParser.m in Sources */,
+				EEA044FD14CA1BED00C28C61 /* INXMLNode.m in Sources */,
+				EEA044FE14CA1BED00C28C61 /* INXMLReports.m in Sources */,
+				EEA044FF14CA1BED00C28C61 /* INXMLReport.m in Sources */,
+				EEA0450114CA1CF900C28C61 /* IndivoWebView.m in Sources */,
+				EEA0450214CA1CF900C28C61 /* IndivoLoginViewController.m in Sources */,
+				EEA0450314CA1CF900C28C61 /* IndivoActionView.m in Sources */,
+				EEA0450414CA1D1300C28C61 /* MPOAuthAPI.m in Sources */,
+				EEA0450514CA1D1300C28C61 /* MPOAuthAPIRequestLoader.m in Sources */,
+				EEA0450614CA1D1300C28C61 /* MPOAuthConnection.m in Sources */,
+				EEA0450714CA1D1300C28C61 /* MPOAuthCredentialConcreteStore.m in Sources */,
+				EEA0450814CA1D1300C28C61 /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */,
+				EEA0450914CA1D1300C28C61 /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */,
+				EEA0450A14CA1D1300C28C61 /* MPOAuthSignatureParameter.m in Sources */,
+				EEA0450B14CA1D1300C28C61 /* MPOAuthURLRequest.m in Sources */,
+				EEA0450C14CA1D1300C28C61 /* MPOAuthURLResponse.m in Sources */,
+				EEA0450D14CA1D1300C28C61 /* MPURLRequestParameter.m in Sources */,
+				EEA0451014CA1D1300C28C61 /* NSString+URLEscapingAdditions.m in Sources */,
+				EEA0451114CA1D1300C28C61 /* NSURL+MPURLParameterAdditions.m in Sources */,
+				EEA0451214CA1D1300C28C61 /* NSURLResponse+Encoding.m in Sources */,
+				EEA0451314CA1D1800C28C61 /* MPOAuthAuthenticationMethod.m in Sources */,
+				EEA0451414CA1D1800C28C61 /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */,
+				EEA0451514CA1D1800C28C61 /* MPOAuthAuthenticationMethodOAuth.m in Sources */,
+				EEA0451B14CA1D8200C28C61 /* Base64Transcoder.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		EE3C95D014115C15002BA967 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EE3C95B814115C15002BA967 /* IndivoServer */;
-			targetProxy = EE3C95CF14115C15002BA967 /* PBXContainerItemProxy */;
+/* Begin PBXVariantGroup section */
+		EEA044D514CA1B4300C28C61 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EEA044D614CA1B4300C28C61 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
 		};
-/* End PBXTargetDependency section */
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EE1E2CC8144B7643001A1E72 /* Debug+Static */ = {
@@ -904,7 +940,6 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DINDIVO_DEBUG";
 				SDKROOT = iphoneos;
@@ -920,16 +955,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SKIP_INSTALL = YES;
-			};
-			name = "Debug+Static";
-		};
-		EE1E2CCA144B7643001A1E72 /* Debug+Static */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "${DEVELOPER_LIBRARY_DIR}/Frameworks/**";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = "Debug+Static";
 		};
@@ -953,7 +978,6 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DINDIVO_DEBUG";
 				SDKROOT = iphoneos;
@@ -977,7 +1001,6 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/** $(BUILT_PRODUCTS_DIR)/../Debug-iphoneos/**";
@@ -1005,21 +1028,44 @@
 			};
 			name = Release;
 		};
-		EE3C95E114115C15002BA967 /* Debug */ = {
+		EEA044DD14CA1B4300C28C61 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "${DEVELOPER_LIBRARY_DIR}/Frameworks/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
-		EE3C95E214115C15002BA967 /* Release */ = {
+		EEA044DE14CA1B4300C28C61 /* Debug+Static */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "${DEVELOPER_LIBRARY_DIR}/Frameworks/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Debug+Static";
+		};
+		EEA044DF14CA1B4300C28C61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				INFOPLIST_FILE = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1048,15 +1094,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EE3C95E014115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServerTests" */ = {
+		EEA044DC14CA1B4300C28C61 /* Build configuration list for PBXNativeTarget "IndivoFrameworkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EE3C95E114115C15002BA967 /* Debug */,
-				EE1E2CCA144B7643001A1E72 /* Debug+Static */,
-				EE3C95E214115C15002BA967 /* Release */,
+				EEA044DD14CA1B4300C28C61 /* Debug */,
+				EEA044DE14CA1B4300C28C61 /* Debug+Static */,
+				EEA044DF14CA1B4300C28C61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

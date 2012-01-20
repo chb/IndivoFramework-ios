@@ -2,8 +2,8 @@
 //  IndivoFrameworkTests.m
 //  IndivoFrameworkTests
 //
-//  Created by Pascal Pfiffner on 9/2/11.
-//  Copyright (c) 2011 Harvard Medical School. All rights reserved.
+//  Created by Pascal Pfiffner on 1/20/12.
+//  Copyright (c) 2012 Children's Hospital Boston. All rights reserved.
 //
 
 #import "IndivoFrameworkTests.h"
@@ -17,9 +17,7 @@
 - (void)setUp
 {
     [super setUp];
-	NSURL *servURL = [NSURL URLWithString:@"http://localhost:8000"];
-	NSURL *uiURL = [NSURL URLWithString:@"http://localhost:8001"];
-    self.server = [IndivoServer serverWithURL:servURL uiURL:uiURL];
+    self.server = [IndivoServer serverWithDelegate:nil];
 }
 
 - (void)tearDown

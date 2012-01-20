@@ -63,21 +63,21 @@ The Indivo Server you want to connect to needs to know your app. This means you'
 
 2. Link your App with the necessary frameworks and libraries:  
 	Open your project's build settings, under "Link Binary With Libraries" add:
-	- `libIndivoFramework.a`
-	- `Security.framework`
-	- `libxml2.dylib`
+	
+	`libIndivoFramework.a`  
+	`Security.framework`
 	
 	Do **not** add `libMPOAuthMobile.a` as this will result in a linker error
 
 3. Make sure the compiler finds the header files:  
 	Open your project's build settings, look for **User Header Search Paths** (USER_HEADER_SEARCH_PATHS), and add:
-
-	- `$(BUILT_PRODUCTS_DIR)`, with *recursive* checked
+	
+	`$(BUILT_PRODUCTS_DIR)`, with *recursive* checked
 
 4. The linker needs an additional flag:  
 	Still in your project's build settings, look for **Other Linker Flags** (OTHER_LDFLAGS), and add:
 	
-	`-ObjC`
+	`-ObjC`  
 	
 	This must be added so IndivoFramework can be used as a static library, otherwise class categories will not work and your app will crash.
 
