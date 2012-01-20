@@ -60,6 +60,61 @@
 	return name.text;
 }
 
+/**
+ *	Creates a string containing the medication's coded value's type, value and text (but not abbrev).
+ *	@return A string or nil if the medication name is not coded
+ */
+- (NSString *)medicationCodedName
+{
+	if ([name.type length] > 0) {
+		NSString *system = [@"http://rxnav.nlm.nih.gov/REST/rxcui/" isEqualToString:name.type] ? @"RxNorm" : name.type;
+		NSString *ident = ([name.value length] > 0) ? name.value : @"?";
+		NSString *desc = ([name.text length] > 0) ? name.text : @"unknown";
+		return [NSString stringWithFormat:@"%@: %@ • %@", system, ident, desc];
+	}
+	return nil;
+}
+
+/**
+ *	Creates a string containing the prescription's coded value's type, value and text (but not abbrev).
+ *	@return A string or nil if the medication name is not coded
+ */
+- (NSString *)prescriptionCodedName
+{
+	if ([brandName.type length] > 0) {
+		NSString *system = [@"http://rxnav.nlm.nih.gov/REST/rxcui/" isEqualToString:brandName.type] ? @"RxNorm" : brandName.type;
+		NSString *ident = ([brandName.value length] > 0) ? brandName.value : @"?";
+		NSString *desc = ([brandName.text length] > 0) ? brandName.text : @"unknown";
+		return [NSString stringWithFormat:@"%@: %@ • %@", system, ident, desc];
+	}
+	return nil;
+}
+
+
+/**
+ *	This method checks whether the passed name may refer to the receiver.
+ *	Specifically, it is being checked whether:
+ *		- aName is contained in brandName abbrev
+ *		- aName is contained in brandName full
+ *		- aName is contained in name abbrev
+ *		- aName is contained in name full
+ *	@param aName A string to check
+ */
+- (BOOL)matchesName:(NSString *)aName
+{
+	int options = NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch | NSWidthInsensitiveSearch;
+	if ([brandName.abbrev rangeOfString:aName options:options].location != NSNotFound) {
+		return YES;
+	}
+	if ([brandName.text rangeOfString:aName options:options].location != NSNotFound) {
+		return YES;
+	}
+	if ([name.abbrev rangeOfString:aName options:options].location != NSNotFound) {
+		return YES;
+	}
+	return ([name.text rangeOfString:aName options:options].location != NSNotFound);
+}
+
 
 
 #pragma mark - Pill Image

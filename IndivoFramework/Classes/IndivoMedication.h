@@ -44,6 +44,10 @@
 @property (nonatomic, strong) UIImage *pillImage;
 
 - (NSString *)displayName;
+- (NSString *)medicationCodedName;
+- (NSString *)prescriptionCodedName;
+
+- (BOOL)matchesName:(NSString *)aName;
 - (void)loadPillImageBypassingCache:(BOOL)bypass callback:(INCancelErrorBlock)callback;
 
 
