@@ -99,6 +99,7 @@
 	// init parser
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[xmlString dataUsingEncoding:NSUTF8StringEncoding]];
 	parser.delegate = self;
+	[parser setShouldProcessNamespaces:YES];
 	self.errorOnLine = nil;
 	self.stringBuffer = [NSMutableString string];
 	self.rootNode = [INXMLNode nodeWithName:@"root" attributes:nil];

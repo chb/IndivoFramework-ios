@@ -1,0 +1,26 @@
+//
+// Prefix header for all source files of the 'ClassGenerator' target in the 'ClassGenerator' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+#endif
+
+// DLog only displays if -DDEBUG is set, ALog always displays output regardless of the DEBUG setting
+#ifdef INDIVO_DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...) do { } while (0)
+#endif
+#define ALog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+// Make error reporting easy
+#define ERR(p, s, c)	if (p != NULL && s) {\
+		*p = [NSError errorWithDomain:NSCocoaErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	}\
+	else {\
+		DLog(@"Ignored Error: %@", s);\
+	}
+#define XERR(p, s, c)	if (p != NULL && s) {\
+		*p = [NSError errorWithDomain:NSXMLParserErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	}

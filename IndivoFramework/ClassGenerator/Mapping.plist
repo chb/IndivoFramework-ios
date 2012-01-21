@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>xs:string</key>
+	<string>INString</string>
+	<key>xs:date</key>
+	<string>INDate</string>
+	<key>xs:boolean</key>
+	<string>INBool</string>
+	<key>xs:duration</key>
+	<string>INDuration</string>
+	<key>indivo:CodedValue</key>
+	<string>INCodedValue</string>
+	<key>indivo:ValueAndUnit</key>
+	<string>INUnitValue</string>
+</dict>
+</plist>
