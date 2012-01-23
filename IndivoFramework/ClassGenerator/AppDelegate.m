@@ -19,22 +19,47 @@
 
 @implementation AppDelegate
 
-@synthesize window, directoryField, output;
+@synthesize window, inDirField, outDirField, output;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotLog:) name:INClassGeneratorDidProduceLogNotification object:nil];
-	directoryField.stringValue = @"/Library/Indivo/indivo_server/schemas/doc_schemas/";
+	inDirField.stringValue = @"/Library/Indivo/indivo_server/schemas/doc_schemas";
+	outDirField.stringValue = @"/Library/Indivo/IndivoFramework-ios/IndivoFramework/GeneratedClasses";
 	
 	output.font = [NSFont fontWithName:@"Monaco" size:12.f];
 	output.textColor = [NSColor whiteColor];
 }
 
+
+/**
+ *	Lets an INClassGenerator instance run over all XSDs it finds
+ */
 - (IBAction)run:(id)sender
 {
-	[output setString:@""];
-	[[INClassGenerator new] run];
+	if ([sender respondsToSelector:@selector(setEnabled:)]) {
+		[sender setEnabled:NO];
+	}
+	
+	// start
+	[output setString:@"Starting up...\n"];
+	INClassGenerator *generator = [INClassGenerator new];
+	[generator runFrom:inDirField.stringValue into:outDirField.stringValue callback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (errorMessage) {
+			[self addLog:errorMessage];
+		}
+		if (userDidCancel) {
+			[self addLog:@"Cancelled"];
+		}
+		else {
+			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas generated", generator.numSchemasGenerated];
+			[self addLog:doneString];
+		}
+		if ([sender respondsToSelector:@selector(setEnabled:)]) {
+			[sender setEnabled:YES];
+		}
+	}];
 }
 
 
@@ -42,10 +67,14 @@
 {
 	NSString *log = [[aNotification userInfo] objectForKey:INClassGeneratorLogStringKey];
 	if ([log length] > 0) {
-		NSRange range = NSMakeRange([[output string] length], 0);
-		
-		[output replaceCharactersInRange:range withString:[NSString stringWithFormat:@"%@\n", log]];
+		[self addLog:log];
 	}
+}
+
+- (void)addLog:(NSString *)aString
+{
+	NSRange range = NSMakeRange([[output string] length], 0);
+	[output replaceCharactersInRange:range withString:[NSString stringWithFormat:@"%@\n", aString]];
 }
 
 

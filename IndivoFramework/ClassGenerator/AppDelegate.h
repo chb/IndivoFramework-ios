@@ -11,10 +11,12 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (nonatomic, assign) IBOutlet NSTextField *directoryField;
+@property (nonatomic, assign) IBOutlet NSTextField *inDirField;
+@property (nonatomic, assign) IBOutlet NSTextField *outDirField;
 @property (nonatomic, assign) IBOutlet NSTextView *output;
 
 - (IBAction)run:(id)sender;
+- (void)addLog:(NSString *)aString;
 
 
 @end

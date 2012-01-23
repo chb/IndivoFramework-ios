@@ -55,3 +55,73 @@ typedef enum {
 
 // You can uncomment this to not have XML pretty-formatted to save a couple of bytes
 #define INDIVO_XML_PRETTY_FORMAT
+
+
+// ** the following are defined in the PCH but we put it here because we want them to be usable in other targets as well
+
+// DLog only displays if -DDEBUG is set, ALog always displays output regardless of the DEBUG setting
+#ifndef DLog
+# ifdef INDIVO_DEBUG
+#  define DLog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+# else
+#  define DLog(...) do { } while (0)
+# endif
+#endif
+#ifndef ALog
+# define ALog(fmt, ...) NSLog((@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#endif
+
+// Make error reporting easy
+#ifndef ERR
+# define ERR(p, s, c)\
+	if (p != NULL && s) {\
+		*p = [NSError errorWithDomain:NSCocoaErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	}\
+	else {\
+		DLog(@"Ignored Error: %@", s);\
+	}
+#endif
+#define XERR(p, s, c)\
+	if (p != NULL && s) {\
+		*p = [NSError errorWithDomain:NSXMLParserErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	}
+
+// Make callback or logging easy
+#ifndef CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO
+# define CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(cb, userInfo)\
+	NSError *error = [userInfo objectForKey:INErrorKey];\
+	if (cb) {\
+		cb((nil == error), [error localizedDescription]);\
+	}\
+	else {\
+		DLog(@"%@", [error localizedDescription]);\
+	}
+#endif
+#ifndef CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING
+# define CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(cb, errstr)\
+	if (cb) {\
+		cb(NO, errstr);\
+	}\
+	else {\
+		DLog(@"%@", errstr);\
+	}
+#endif
+#ifndef SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO
+# define SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(cb, userInfo)\
+	if (cb) {\
+		cb(nil == [userInfo objectForKey:INErrorKey], userInfo);\
+	}\
+	else {\
+		DLog(@"%@", [userInfo objectForKey:INErrorKey] ? [[userInfo objectForKey:INErrorKey] localizedDescription] : @"Success");\
+	}
+#endif
+#ifndef SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING
+# define SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(cb, s, c)\
+	NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+	if (cb) {\
+		cb(NO, [NSDictionary dictionaryWithObject:error forKey:INErrorKey]);\
+	}\
+	else {\
+		DLog(@"%@", s);\
+	}
+#endif

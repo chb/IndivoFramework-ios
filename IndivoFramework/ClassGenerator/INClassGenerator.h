@@ -7,15 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Indivo.h"
 
 extern NSString *const INClassGeneratorDidProduceLogNotification;
 extern NSString *const INClassGeneratorLogStringKey;
+extern NSString *const INClassGeneratorClassPrefix;
+extern NSString *const INClassGeneratorTypePrefix;
+
+void runOnMainQueue(dispatch_block_t block);
 
 
+/**
+ *	A class that can generate Objective-C classes from Indivo XML schemas
+ */
 @interface INClassGenerator : NSObject
 
-- (BOOL)run;
-- (BOOL)runFile:(NSString *)path withMappings:(NSMutableDictionary *)mapping;
+@property (nonatomic, assign) NSUInteger numSchemasGenerated;
+
+- (void)runFrom:(NSString *)inDirectory into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback;
+- (BOOL)runFile:(NSString *)path withMapping:(NSMutableDictionary *)mapping error:(NSError **)error;
 
 
 @end

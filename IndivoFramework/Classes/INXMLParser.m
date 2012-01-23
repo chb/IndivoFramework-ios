@@ -24,6 +24,7 @@
 #import "INXMLParser.h"
 #import "INXMLReport.h"
 #import "INXMLReports.h"
+#import "Indivo.h"
 
 
 @interface INXMLParser()

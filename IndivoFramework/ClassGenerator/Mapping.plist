@@ -6,6 +6,8 @@
 	<string>INString</string>
 	<key>xs:date</key>
 	<string>INDate</string>
+	<key>xs:dateTime</key>
+	<string>INDateTime</string>
 	<key>xs:boolean</key>
 	<string>INBool</string>
 	<key>xs:duration</key>
