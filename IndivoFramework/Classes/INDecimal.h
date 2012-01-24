@@ -1,8 +1,8 @@
 /*
- INDateTime.h
+ INDecimal.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
+ Created by Pascal Pfiffner on 1/24/12.
  Copyright (c) 2011 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,13 +20,15 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INDate.h"
+#import "INObject.h"
 
 
 /**
- *	An "xs:dateTime" representing object, note that it currently always returns UTC time zone
+ *	Can represent any numerical node but specifically represents "xs:decimal". Other numerical representations like
+ *	"xs:double" are subclasses of INDecimal merely overriding +nodeType.
  */
-@interface INDateTime : INDate
+@interface INDecimal : INObject
 
+@property (nonatomic, strong) NSDecimalNumber *number;
 
 @end

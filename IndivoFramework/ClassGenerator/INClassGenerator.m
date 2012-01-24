@@ -31,9 +31,13 @@ void runOnMainQueue(dispatch_block_t block)
 @interface INClassGenerator ()
 
 @property (nonatomic, copy) NSString *writeToDir;
+@property (nonatomic, copy) NSString *currentInputPath;
 
 - (NSString *)processType:(INXMLNode *)type withName:(NSString *)aName mapping:(NSMutableDictionary *)mapping;
 - (NSDictionary *)processElement:(INXMLNode *)element withMapping:(NSMutableDictionary *)mapping;
+- (NSDictionary *)processAttribute:(INXMLNode *)attribute withMapping:(NSMutableDictionary *)mapping;
+
+- (BOOL)createClass:(NSString *)className withName:(NSString *)bareName forType:(NSString *)indivoType properties:(NSArray *)properties error:(NSError **)error;
 
 - (void)sendLog:(NSString *)aString;
 
@@ -42,7 +46,8 @@ void runOnMainQueue(dispatch_block_t block)
 
 @implementation INClassGenerator
 
-@synthesize numSchemasGenerated, writeToDir;
+@synthesize numSchemasParsed, numClassesGenerated;
+@synthesize writeToDir, currentInputPath;
 
 
 /**
@@ -50,7 +55,7 @@ void runOnMainQueue(dispatch_block_t block)
  */
 - (void)runFrom:(NSString *)inDirectory into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback
 {
-	numSchemasGenerated = 0;
+	numSchemasParsed = 0;
 	self.writeToDir = nil;
 	
 	// check directories
@@ -94,11 +99,13 @@ void runOnMainQueue(dispatch_block_t block)
 	dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 	dispatch_async(aQueue, ^{
 		NSUInteger i = 0;
+		self.numClassesGenerated = 0;
+		
+		// loop all XSDs
 		for (NSString *fileName in xsd) {
 			NSString *path = [inDirectory stringByAppendingPathComponent:fileName];
 			if (![fm fileExistsAtPath:path]) {
-				NSString *errMsg = [NSString stringWithFormat:@"Schema file \"%@\" does not exist", path];
-				[self sendLog:errMsg];
+				[self sendLog:@"Schema file does not exist"];
 			}
 			
 			// ** run the file
@@ -111,7 +118,7 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 		
 		// done
-		self.numSchemasGenerated = i;
+		self.numSchemasParsed = i;
 		if (aCallback) {
 			runOnMainQueue(^{
 				aCallback(NO, nil);
@@ -126,7 +133,10 @@ void runOnMainQueue(dispatch_block_t block)
  */
 - (BOOL)runFile:(NSString *)path withMapping:(NSMutableDictionary *)mapping error:(NSError **)error
 {
-	DLog(@"->  %@", path);
+	if (!path) {
+		return NO;
+	}
+	self.currentInputPath = path;
 	
 	// get XML
 	NSString *xml = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:error];
@@ -143,7 +153,21 @@ void runOnMainQueue(dispatch_block_t block)
 	// process includes first
 	NSArray *includes = [schema childrenNamed:@"include"];
 	if ([includes count] > 0) {
-		DLog(@"--->  Should process includes first: %@", includes);
+		NSString *baseDir = [path stringByDeletingLastPathComponent];
+		NSFileManager *fm = [NSFileManager defaultManager];
+		
+		for (INXMLNode *include in includes) {
+			NSString *includePath = [baseDir stringByAppendingPathComponent:[include attr:@"schemaLocation"]];
+			
+			// run include first
+			if ([fm fileExistsAtPath:includePath]) {
+				self.currentInputPath = includePath;
+				if (![self runFile:includePath withMapping:mapping error:error]) {
+					return NO;
+				}
+			}
+		}
+		self.currentInputPath = path;
 	}
 	
 	// type definitions at the top level?
@@ -167,7 +191,9 @@ void runOnMainQueue(dispatch_block_t block)
 
 
 /**
- *	Parsen a <completType> node and makes sure the class file represented by the type is created
+ *	Parses a <complexType> node and makes sure the class file represented by the type is created.
+ *	"attribute" nodes and "sequence > element" nodes are treated equally, both will create a property for the type based on
+ *	their name and type.
  *	@return The class name for this type.
  */
 - (NSString *)processType:(INXMLNode *)type withName:(NSString *)aName mapping:(NSMutableDictionary *)mapping
@@ -181,29 +207,37 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// the class name
-	NSString *className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, [name capitalizedString]];
-	NSString *indivoTypeName = [NSString stringWithFormat:@"indivo:%@", [name capitalizedString]];
-	if ([mapping objectForKey:indivoTypeName]) {
-		DLog(@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]);
-	}
-	else {
+	NSString *capName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
+	NSString *className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, capName];
+	NSString *indivoTypeName = [NSString stringWithFormat:@"indivo:%@", name];
+	if (![mapping objectForKey:indivoTypeName]) {
 		[mapping setObject:className forKey:indivoTypeName];
 		write = YES;
 	}
+	else if (![className isEqualToString:[mapping objectForKey:indivoTypeName]]) {
+		[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
+	}
 	
-	// determine attributes
+	// read "attributes" nodes
 	NSArray *attributes = [type childrenNamed:@"attribute"];
 	if ([attributes count] > 0) {
+		properties = [NSMutableArray arrayWithCapacity:[attributes count]];
+		
 		for (INXMLNode *attr in attributes) {
-			DLog(@"---->  Attribute %@ in %@", [attr attr:@"name"], name);
+			NSDictionary *attrDict = [self processAttribute:attr withMapping:mapping];
+			if (attrDict) {
+				[properties addObject:attrDict];
+			}
 		}
 	}
 	
-	// determine type properties
+	// determine type properties in "sequence > element" nodes
 	NSArray *children = [[type childNamed:@"sequence"] childrenNamed:@"element"];
-	DLog(@"-->  Type \"%@\", %lu children", name, [children count]);
 	if ([children count] > 0) {
-		properties = [NSMutableArray arrayWithCapacity:[children count]];
+		if (!properties) {
+			properties = [NSMutableArray arrayWithCapacity:[children count]];
+		}
+		
 		for (INXMLNode *element in children) {
 			NSDictionary *elemDict = [self processElement:element withMapping:mapping];
 			if (elemDict) {
@@ -214,17 +248,19 @@ void runOnMainQueue(dispatch_block_t block)
 	
 	// write to file
 	if (write) {
-		DLog(@"==>  Did process %@, SHOULD NOW GENERATE THE CLASS FILE WITH %@", name, properties);
-		
+		NSError *error = nil;
+		if (![self createClass:className withName:name forType:indivoTypeName properties:properties error:&error]) {
+			[self sendLog:[NSString stringWithFormat:@"Failed to create class \"%@\": %@", name, [error localizedDescription]]];
+		}
 	}
-	DLog(@"==>  Finished type %@", name);
-	return name;
+	
+	return className;
 }
 
 
 /**
  *	Parses an <element> node.
- *	@return A dictionary with important attributes for this element.
+ *	@return A dictionary with these attributes for this element: name, type, class and minOccurs.
  */
 - (NSDictionary *)processElement:(INXMLNode *)element withMapping:(NSMutableDictionary *)mapping
 {
@@ -237,9 +273,7 @@ void runOnMainQueue(dispatch_block_t block)
 	//NSUInteger max = [[element attr:@"maxOccurs"] integerValue];
 	NSString *useClass = nil;
 	
-	DLog(@"--->  Element \"%@\"", cName);
-	
-	// do we define the type?
+	// do we define the type (i.e. do we have a "complexType" child node)?
 	INXMLNode *type = [element childNamed:@"complexType"];
 	if (type) {
 		useClass = [self processType:type withName:cName mapping:mapping];
@@ -265,14 +299,208 @@ void runOnMainQueue(dispatch_block_t block)
 }
 
 
+/**
+ *	Processes "attribute" nodes and returns a dictionary with its properties.
+ *	@return A dictionary with these attributes for this element: name, type, class and minOccurs.
+ */
+- (NSDictionary *)processAttribute:(INXMLNode *)attribute withMapping:(NSMutableDictionary *)mapping
+{
+	NSString *attrName = [attribute attr:@"name"];
+	NSString *attrType = [attribute attr:@"type"];
+	if (!attrType) {
+		attrType = @"";
+	}
+	
+	NSString *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? @"1" : @"0";
+	
+	NSString *attrClass = [mapping objectForKey:attrType];
+	if ([attrClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes
+		NSString *xsType = [@"xs:" stringByAppendingString:attrType];
+		attrClass = [mapping objectForKey:xsType];
+		if ([attrClass length] < 1) {								// still no luck, give up
+			attrClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, attrType];
+			[self sendLog:[NSString stringWithFormat:@"I do not know which class to use for \"%@\", assuming \"%@\"", attrType, attrClass]];
+		}
+		else {
+			attrType = xsType;
+		}
+	}
+	
+	// compose and return
+	NSDictionary *attrDict = [NSDictionary dictionaryWithObjectsAndKeys:
+							  attrName, @"name",
+							  attrType, @"type",
+							  minOccurs, @"minOccurs",
+							  attrClass, @"class", nil];
+	return attrDict;
+}
+
+
+/**
+ *	Creates a class from the given property array. It uses the class file templates and writes to the "writeToDir" path.
+ */
+- (BOOL)createClass:(NSString *)className withName:(NSString *)bareName forType:(NSString *)indivoType properties:(NSArray *)properties error:(NSError **)error
+{
+	// prepare date properties
+	NSDateFormatter *df = [NSDateFormatter new];
+	df.dateStyle = NSDateFormatterShortStyle;
+	df.timeStyle = NSDateFormatterNoStyle;
+	NSCalendar *cal = [NSCalendar currentCalendar];
+	NSDateComponents *comp = [cal components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+	
+	// prepare class properties
+	NSMutableString *propString = [NSMutableString string];
+	NSMutableArray *synthNames = [NSMutableArray arrayWithCapacity:[properties count]];
+	if ([properties count] > 0) {
+		for (NSDictionary *propDict in properties) {
+			NSString *name = [propDict objectForKey:@"name"];
+			NSString *className = [propDict objectForKey:@"class"];
+			
+			// create class property strings
+			if (name && className) {
+				[propString appendFormat:@"@property (nonatomic, strong) %@ *%@;\n", className, name];
+				[synthNames addObject:name];
+			}
+			else {
+				[self sendLog:[NSString stringWithFormat:@"Error: Missing name or class for property: %@", propDict]];
+			}
+		}
+	}
+	NSString *synthString = ([synthNames count] > 0) ? [NSString stringWithFormat:@"@synthesize %@;", [synthNames componentsJoinedByString:@", "]] : @"";
+	
+	NSDictionary *substitutions = [NSDictionary dictionaryWithObjectsAndKeys:
+								   @"Indivo Class Generator", @"AUTHOR",
+								   [NSString stringWithFormat:@"%d/%d/%d", comp.month, comp.day, comp.year], @"DATE",
+								   [NSString stringWithFormat:@"%d", comp.year], @"YEAR",
+								   className, @"CLASS_NAME",
+								   bareName, @"CLASS_NODENAME",
+								   indivoType, @"CLASS_TYPENAME",
+								   propString, @"CLASS_PROPERTIES",
+								   synthString, @"CLASS_SYNTHESIZE",
+								   (indivoType ? indivoType : @"unknown"), @"INDIVO_TYPE",
+								   @"", @"CLASS_IMPORTS", nil];
+	
+	// create header
+	NSString *header = [[self class] applyToHeaderTemplate:substitutions];
+	if (header) {
+		NSString *headerPath = [writeToDir stringByAppendingFormat:@"/%@.h", className];
+		NSURL *headerURL = [NSURL fileURLWithPath:headerPath];
+		
+		if (![header writeToURL:headerURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
+			[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", headerPath, [*error localizedDescription]]];
+			return NO;
+		}
+	}
+	
+	// create body (i.e. implementation)
+	NSString *body = [[self class] applyToBodyTemplate:substitutions];
+	if (body) {
+		NSString *bodyPath = [writeToDir stringByAppendingFormat:@"/%@.m", className];
+		NSURL *bodyURL = [NSURL fileURLWithPath:bodyPath];
+		
+		if (![body writeToURL:bodyURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
+			[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", bodyPath, [*error localizedDescription]]];
+			return NO;
+		}
+	}
+	
+	numClassesGenerated++;
+	return YES;
+}
+
+
 
 #pragma mark - Utilities
 - (void)sendLog:(NSString *)aString
 {
 	runOnMainQueue(^{
-		NSDictionary *userInfo = [NSDictionary dictionaryWithObject:aString forKey:INClassGeneratorLogStringKey];
+		NSString *errString = currentInputPath ? [currentInputPath stringByAppendingFormat:@":  %@", aString] : aString;
+		NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errString forKey:INClassGeneratorLogStringKey];
 		[[NSNotificationCenter defaultCenter] postNotificationName:INClassGeneratorDidProduceLogNotification object:nil userInfo:userInfo];
 	});
+}
+
+
+static NSString *classGeneratorHeaderTemplate = nil;
+static NSString *classGeneratorBodyTemplate = nil;
+
+
++ (NSString *)applySubstitutions:(NSDictionary *)substitutions toTemplate:(NSString *)aTemplate
+{
+	if ([substitutions count] < 1) {
+		return aTemplate;
+	}
+	if (!aTemplate) {
+		return aTemplate;
+	}
+	
+	// match via RegEx
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(\\{\\{\\s*([^\\}\\s]+)\\s*\\}\\})"
+																		   options:NSRegularExpressionCaseInsensitive
+																			 error:nil];
+	NSArray *matches = [regex matchesInString:aTemplate options:0 range:NSMakeRange(0, [aTemplate length])];
+	if ([matches count] > 0) {
+		NSMutableString *applied = [aTemplate mutableCopy];
+		
+		// apply matches
+		for (NSTextCheckingResult *match in [matches reverseObjectEnumerator]) {
+			NSRange fullRange = [match rangeAtIndex:1];
+			NSRange keyRange = [match rangeAtIndex:2];
+			NSString *key = [aTemplate substringWithRange:keyRange];
+			NSString *replacement = [substitutions objectForKey:key];
+			if (replacement) {
+				[applied replaceCharactersInRange:fullRange withString:replacement];
+			}
+			else {
+				DLog(@"No replacement for %@ found", key);
+			}
+		}
+		return applied;
+	}
+	return aTemplate;
+}
+
+
++ (NSString *)applyToHeaderTemplate:(NSDictionary *)substitutions
+{
+	if (!classGeneratorHeaderTemplate) {
+		NSString *headerPath = [[NSBundle bundleForClass:self] pathForResource:@"GeneratorTemplate" ofType:@"h"];
+		if (!headerPath) {
+			DLog(@"The header template was not found!");
+			return nil;
+		}
+		
+		NSError *error = nil;
+		classGeneratorHeaderTemplate = [NSString stringWithContentsOfFile:headerPath encoding:NSUTF8StringEncoding error:&error];
+		if (!classGeneratorHeaderTemplate) {
+			DLog(@"Error reading the header template: %@", [error localizedDescription]);
+			return nil;
+		}
+	}
+	
+	return [self applySubstitutions:substitutions toTemplate:classGeneratorHeaderTemplate];
+}
+
+
++ (NSString *)applyToBodyTemplate:(NSDictionary *)substitutions
+{
+	// load template if needed
+	if (!classGeneratorBodyTemplate) {
+		NSString *bodyPath = [[NSBundle bundleForClass:self] pathForResource:@"GeneratorTemplate" ofType:@"m"];
+		if (!bodyPath) {
+			DLog(@"The body template was not found!");
+			return nil;
+		}
+		
+		NSError *error = nil;
+		classGeneratorBodyTemplate = [NSString stringWithContentsOfFile:bodyPath encoding:NSUTF8StringEncoding error:&error];
+		if (!classGeneratorBodyTemplate) {
+			DLog(@"Error reading the body template: %@", [error localizedDescription]);
+			return nil;
+		}
+	}
+	
+	return [self applySubstitutions:substitutions toTemplate:classGeneratorBodyTemplate];
 }
 
 

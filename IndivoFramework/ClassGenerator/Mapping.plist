@@ -10,6 +10,16 @@
 	<string>INDateTime</string>
 	<key>xs:boolean</key>
 	<string>INBool</string>
+	<key>xs:decimal</key>
+	<string>INDecimal</string>
+	<key>xs:float</key>
+	<string>INFloat</string>
+	<key>xs:double</key>
+	<string>INDouble</string>
+	<key>xs:integer</key>
+	<string>INInteger</string>
+	<key>xs:int</key>
+	<string>INInteger</string>
 	<key>xs:duration</key>
 	<string>INDuration</string>
 	<key>indivo:CodedValue</key>

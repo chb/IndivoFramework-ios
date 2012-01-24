@@ -53,7 +53,7 @@
 			[self addLog:@"Cancelled"];
 		}
 		else {
-			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas generated", generator.numSchemasGenerated];
+			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas parsed, %d classes generated", generator.numSchemasParsed, generator.numClassesGenerated];
 			[self addLog:doneString];
 		}
 		if ([sender respondsToSelector:@selector(setEnabled:)]) {

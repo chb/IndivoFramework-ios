@@ -73,9 +73,8 @@ static NSDateFormatter *isoDateFormatter = nil;
 {
 	if ([self isNull]) {
 		return @"";
-		return [NSString stringWithFormat:@"<%@ />", self.nodeName];
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [[self class] isoStringFrom:self.date], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [self isoString], self.nodeName];
 }
 
 

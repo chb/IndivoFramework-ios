@@ -1,8 +1,8 @@
 /*
- INDateTime.h
+ INFloat.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
+ Created by Pascal Pfiffner on 1/24/12.
  Copyright (c) 2011 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,13 +20,12 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INDate.h"
+#import "INDecimal.h"
 
 
 /**
- *	An "xs:dateTime" representing object, note that it currently always returns UTC time zone
+ *	Represents "xs:float"
  */
-@interface INDateTime : INDate
-
+@interface INFloat : INDecimal
 
 @end

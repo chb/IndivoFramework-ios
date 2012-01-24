@@ -22,6 +22,10 @@
 
 #import "INObject.h"
 
+
+/**
+ *	A class to represent "xs:string" elements.
+ */
 @interface INString : INObject
 
 @property (nonatomic, copy) NSString *string;

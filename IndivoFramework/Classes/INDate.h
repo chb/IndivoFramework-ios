@@ -22,6 +22,10 @@
 
 #import "INObject.h"
 
+
+/**
+ *	Represents "xs:date" elements.
+ */
 @interface INDate : INObject
 
 @property (nonatomic, strong) NSDate *date;
@@ -33,5 +37,6 @@
 
 + (NSString *)isoStringFrom:(NSDate *)aDate;
 + (NSDate *)parseDateFromISOString:(NSString *)dateString;
+
 
 @end

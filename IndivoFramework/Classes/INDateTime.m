@@ -24,28 +24,10 @@
 
 @implementation INDateTime
 
-@synthesize date;
-
-
-- (void)setFromNode:(INXMLNode *)node
-{
-	[super setFromNode:node];
-	self.date = [[self class] parseDateFromISOString:node.text];
-}
 
 + (NSString *)nodeType
 {
 	return @"xs:dateTime";
-}
-
-- (BOOL)isNull
-{
-	return (nil == self.date);
-}
-
-- (NSString *)xml
-{
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [[self class] isoStringFrom:self.date], self.nodeName];
 }
 
 

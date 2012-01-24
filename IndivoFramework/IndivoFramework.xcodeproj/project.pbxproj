@@ -141,9 +141,23 @@
 		EEA0455C14CA3ED400C28C61 /* INXMLReports.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE55144DE75D008E0464 /* INXMLReports.m */; };
 		EEA0455D14CA3ED400C28C61 /* INXMLReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE50144DE5A9008E0464 /* INXMLReport.m */; };
 		EEA0455E14CA427D00C28C61 /* Mapping.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEA0453614CA386000C28C61 /* Mapping.plist */; };
+		EEA0892214CF507500CB97D6 /* INDecimal.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892014CF507500CB97D6 /* INDecimal.h */; };
+		EEA0892314CF507500CB97D6 /* INDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892114CF507500CB97D6 /* INDecimal.m */; };
+		EEA0892414CF507500CB97D6 /* INDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892114CF507500CB97D6 /* INDecimal.m */; };
+		EEA0892814CF522F00CB97D6 /* INFloat.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892614CF522E00CB97D6 /* INFloat.h */; };
+		EEA0892914CF522F00CB97D6 /* INFloat.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892714CF522F00CB97D6 /* INFloat.m */; };
+		EEA0892A14CF522F00CB97D6 /* INFloat.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892714CF522F00CB97D6 /* INFloat.m */; };
+		EEA0892D14CF528D00CB97D6 /* INDouble.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892B14CF528D00CB97D6 /* INDouble.h */; };
+		EEA0892E14CF528D00CB97D6 /* INDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892C14CF528D00CB97D6 /* INDouble.m */; };
+		EEA0892F14CF528D00CB97D6 /* INDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892C14CF528D00CB97D6 /* INDouble.m */; };
+		EEA0893214CF5C9500CB97D6 /* INInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0893014CF5C9400CB97D6 /* INInteger.h */; };
+		EEA0893314CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
+		EEA0893414CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA1B1E9142B82CB001E1A0F /* Indivo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED39B83148D1A9500843AAE /* IndivoActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = EED39B81148D1A9400843AAE /* IndivoActionView.h */; };
 		EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED39B82148D1A9400843AAE /* IndivoActionView.m */; };
+		EED835F814CE182E000F533D /* GeneratorTemplate.h in Resources */ = {isa = PBXBuildFile; fileRef = EED835F414CE1636000F533D /* GeneratorTemplate.h */; };
+		EED835F914CE182E000F533D /* GeneratorTemplate.m in Resources */ = {isa = PBXBuildFile; fileRef = EED835F514CE1636000F533D /* GeneratorTemplate.m */; };
 		EEDB8C37145CB02A001C6C2C /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C08145CB02A001C6C2C /* MPDebug.h */; };
 		EEDB8C39145CB02A001C6C2C /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C3A145CB02A001C6C2C /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
@@ -281,10 +295,20 @@
 		EEA0454F14CA3A1200C28C61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EEA0455014CA3A1200C28C61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		EEA0455314CA3A1200C28C61 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		EEA0892014CF507500CB97D6 /* INDecimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDecimal.h; sourceTree = "<group>"; };
+		EEA0892114CF507500CB97D6 /* INDecimal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDecimal.m; sourceTree = "<group>"; };
+		EEA0892614CF522E00CB97D6 /* INFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INFloat.h; sourceTree = "<group>"; };
+		EEA0892714CF522F00CB97D6 /* INFloat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INFloat.m; sourceTree = "<group>"; };
+		EEA0892B14CF528D00CB97D6 /* INDouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDouble.h; sourceTree = "<group>"; };
+		EEA0892C14CF528D00CB97D6 /* INDouble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDouble.m; sourceTree = "<group>"; };
+		EEA0893014CF5C9400CB97D6 /* INInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INInteger.h; sourceTree = "<group>"; };
+		EEA0893114CF5C9500CB97D6 /* INInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INInteger.m; sourceTree = "<group>"; };
 		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
 		EEC5C4051416B3E900E1A349 /* ErrorCodes.md */ = {isa = PBXFileReference; explicitFileType = text; path = ErrorCodes.md; sourceTree = SOURCE_ROOT; };
 		EED39B81148D1A9400843AAE /* IndivoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoActionView.h; sourceTree = "<group>"; };
 		EED39B82148D1A9400843AAE /* IndivoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoActionView.m; sourceTree = "<group>"; };
+		EED835F414CE1636000F533D /* GeneratorTemplate.h */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.h; sourceTree = "<group>"; };
+		EED835F514CE1636000F533D /* GeneratorTemplate.m */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.m; sourceTree = "<group>"; };
 		EEDB8C08145CB02A001C6C2C /* MPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDebug.h; sourceTree = "<group>"; };
 		EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAPI.h; sourceTree = "<group>"; };
 		EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPI.m; sourceTree = "<group>"; };
@@ -405,6 +429,14 @@
 				EE05DDFF1445F54C00920A4B /* INDateTime.m */,
 				EE37573114314D04002ABE18 /* INCodedValue.h */,
 				EE37573214314D04002ABE18 /* INCodedValue.m */,
+				EEA0892014CF507500CB97D6 /* INDecimal.h */,
+				EEA0892114CF507500CB97D6 /* INDecimal.m */,
+				EEA0892614CF522E00CB97D6 /* INFloat.h */,
+				EEA0892714CF522F00CB97D6 /* INFloat.m */,
+				EEA0892B14CF528D00CB97D6 /* INDouble.h */,
+				EEA0892C14CF528D00CB97D6 /* INDouble.m */,
+				EEA0893014CF5C9400CB97D6 /* INInteger.h */,
+				EEA0893114CF5C9500CB97D6 /* INInteger.m */,
 				EE37573614314D22002ABE18 /* INUnitValue.h */,
 				EE37573714314D22002ABE18 /* INUnitValue.m */,
 				EE37574014314D51002ABE18 /* INDuration.h */,
@@ -585,6 +617,8 @@
 				EEA0453414CA299700C28C61 /* INClassGenerator.m */,
 				EEA0455214CA3A1200C28C61 /* MainMenu.xib */,
 				EEA0453614CA386000C28C61 /* Mapping.plist */,
+				EED835F414CE1636000F533D /* GeneratorTemplate.h */,
+				EED835F514CE1636000F533D /* GeneratorTemplate.m */,
 				EEA0454414CA3A1200C28C61 /* Supporting Files */,
 			);
 			path = ClassGenerator;
@@ -731,6 +765,10 @@
 				EE81EAE714911F210097CA36 /* INDateRangeFormatter.h in Headers */,
 				EE18082614BCF5BC009D7873 /* IndivoConfig.h in Headers */,
 				EEF2061F14C0BB4E00808F24 /* NSString+XML.h in Headers */,
+				EEA0892214CF507500CB97D6 /* INDecimal.h in Headers */,
+				EEA0892814CF522F00CB97D6 /* INFloat.h in Headers */,
+				EEA0892D14CF528D00CB97D6 /* INDouble.h in Headers */,
+				EEA0893214CF5C9500CB97D6 /* INInteger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,6 +867,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EED835F814CE182E000F533D /* GeneratorTemplate.h in Resources */,
+				EED835F914CE182E000F533D /* GeneratorTemplate.m in Resources */,
 				EEA0454E14CA3A1200C28C61 /* Credits.rtf in Resources */,
 				EEA0455414CA3A1200C28C61 /* MainMenu.xib in Resources */,
 				EEA0455E14CA427D00C28C61 /* Mapping.plist in Resources */,
@@ -909,6 +949,10 @@
 				EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */,
 				EE81EAE814911F210097CA36 /* INDateRangeFormatter.m in Sources */,
 				EEF2062014C0BB4E00808F24 /* NSString+XML.m in Sources */,
+				EEA0892314CF507500CB97D6 /* INDecimal.m in Sources */,
+				EEA0892914CF522F00CB97D6 /* INFloat.m in Sources */,
+				EEA0892E14CF528D00CB97D6 /* INDouble.m in Sources */,
+				EEA0893314CF5C9500CB97D6 /* INInteger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -968,6 +1012,10 @@
 				EEA0451414CA1D1800C28C61 /* MPOAuthAuthenticationMethodTwoLegged.m in Sources */,
 				EEA0451514CA1D1800C28C61 /* MPOAuthAuthenticationMethodOAuth.m in Sources */,
 				EEA0451B14CA1D8200C28C61 /* Base64Transcoder.c in Sources */,
+				EEA0892414CF507500CB97D6 /* INDecimal.m in Sources */,
+				EEA0892A14CF522F00CB97D6 /* INFloat.m in Sources */,
+				EEA0892F14CF528D00CB97D6 /* INDouble.m in Sources */,
+				EEA0893414CF5C9500CB97D6 /* INInteger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1252,6 +1300,7 @@
 				EEA044DF14CA1B4300C28C61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EEA0455514CA3A1200C28C61 /* Build configuration list for PBXNativeTarget "ClassGenerator" */ = {
 			isa = XCConfigurationList;
@@ -1261,6 +1310,7 @@
 				EEA0455814CA3A1200C28C61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
