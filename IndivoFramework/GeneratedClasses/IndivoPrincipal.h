@@ -1,9 +1,9 @@
 /*
- IndivoPrescription.h
+ IndivoPrincipal.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -21,17 +21,17 @@
  */
 
 #import "IndivoDocument.h"
-#import "INObjects.h"
 
 
-@interface IndivoPrescription : IndivoDocument
+	
 
-@property (nonatomic, strong) INProvider *by;
-@property (nonatomic, strong) INDate *on;
-@property (nonatomic, strong) INDate *stopOn;
-@property (nonatomic, strong) INBool *dispenseAsWritten;
-@property (nonatomic, strong) INDuration *duration;
-@property (nonatomic, strong) INString *refillInfo;
-@property (nonatomic, strong) INString *instructions;
+/**
+ *	A class representing "indivo:Principal" objects.
+ */
+@interface IndivoPrincipal : IndivoDocument
+
+@property (nonatomic, strong) INString *type;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INString *fullname;					///< Must not be nil (minOccurs = 1)
+
 
 @end

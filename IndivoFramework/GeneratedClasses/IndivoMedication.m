@@ -1,9 +1,9 @@
 /*
- INSignature.h
+ IndivoMedication.m
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,14 +20,33 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "IndivoMedication.h"
 
-@class INDateTime;
-@class INProvider;
 
-@interface INSignature : INObject
+@implementation IndivoMedication
 
-@property (nonatomic, strong) INDateTime *at;
-@property (nonatomic, strong) INProvider *provider;
+@synthesize dateStarted, dateStopped, reasonStopped, name, brandName, dose, route, strength, frequency, prescription, details;
+
+
++ (NSString *)nodeName
+{
+	return @"Medication";
+}
+
++ (NSString *)type
+{
+	return @"indivo:Medication";
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"dose", @"frequency", nil];
+	}
+	
+	return nonNilPropertyNames;
+}
+
 
 @end

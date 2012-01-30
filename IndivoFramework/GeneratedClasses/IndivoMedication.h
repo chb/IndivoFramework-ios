@@ -2,8 +2,8 @@
  IndivoMedication.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -21,30 +21,26 @@
  */
 
 #import "IndivoDocument.h"
-#import "IndivoPrescription.h"
 
+@class IndivoPrescription;
+	
 
+/**
+ *	A class representing "indivo:Medication" objects.
+ */
 @interface IndivoMedication : IndivoDocument
 
 @property (nonatomic, strong) INDate *dateStarted;
 @property (nonatomic, strong) INDate *dateStopped;
 @property (nonatomic, strong) INString *reasonStopped;
-
-@property (nonatomic, strong) INCodedValue *name;
+@property (nonatomic, strong) INCodedValue *name;					///< Must not be nil (minOccurs = 1)
 @property (nonatomic, strong) INCodedValue *brandName;
-
-@property (nonatomic, strong) INUnitValue *dose;
+@property (nonatomic, strong) INUnitValue *dose;					///< Must not be nil (minOccurs = 1)
 @property (nonatomic, strong) INCodedValue *route;
 @property (nonatomic, strong) INUnitValue *strength;
-@property (nonatomic, strong) INCodedValue *frequency;
-
+@property (nonatomic, strong) INCodedValue *frequency;					///< Must not be nil (minOccurs = 1)
 @property (nonatomic, strong) IndivoPrescription *prescription;
 @property (nonatomic, strong) INString *details;
-
-@property (nonatomic, strong) UIImage *pillImage;
-
-- (NSString *)displayName;
-- (void)loadPillImageBypassingCache:(BOOL)bypass callback:(INCancelErrorBlock)callback;
 
 
 @end

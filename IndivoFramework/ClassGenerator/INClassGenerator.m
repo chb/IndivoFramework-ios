@@ -366,22 +366,45 @@ void runOnMainQueue(dispatch_block_t block)
 	// prepare class properties
 	NSMutableString *propString = [NSMutableString string];
 	NSMutableArray *synthNames = [NSMutableArray arrayWithCapacity:[properties count]];
+	NSMutableArray *forwardClasses = [NSMutableArray array];
+	NSMutableArray *nonNilNames = [NSMutableArray array];
 	if ([properties count] > 0) {
 		for (NSDictionary *propDict in properties) {
 			NSString *name = [propDict objectForKey:@"name"];
+			NSInteger minOccurs = [[propDict objectForKey:@"minOccurs"] integerValue];
+			
+			// we do not need "id" properties for subclasses, they all have the "udid" property
+			if ([name isEqualToString:@"id"]) {
+				continue;
+			}
 			NSString *className = [propDict objectForKey:@"class"];
 			
 			// create class property strings
 			if (name && className) {
-				[propString appendFormat:@"@property (nonatomic, strong) %@ *%@;\n", className, name];
+				[propString appendFormat:@"@property (nonatomic, strong) %@ *%@;", className, name];
+				if (minOccurs > 0) {
+					[propString appendFormat:@"\t\t\t\t\t///< Must not be nil (minOccurs = %lu)", minOccurs];
+				}
+				[propString appendString:@"\n"];
 				[synthNames addObject:name];
 			}
 			else {
 				[self sendLog:[NSString stringWithFormat:@"Error: Missing name or class for property: %@", propDict]];
 			}
+			
+			// collect forward class declarations
+			if ([@"Indivo" isEqualToString:[className substringToIndex:6]]) {
+				[forwardClasses addObject:[NSString stringWithFormat:@"@class %@;", className]];
+			}
+			
+			// collect properties that must be set
+			if (minOccurs > 0) {
+				[nonNilNames addObject:[NSString stringWithFormat:@"@\"%@\"", name]];
+			}
 		}
 	}
 	NSString *synthString = ([synthNames count] > 0) ? [NSString stringWithFormat:@"@synthesize %@;", [synthNames componentsJoinedByString:@", "]] : @"";
+	NSString *nonNilString = ([nonNilNames count] > 0) ? [nonNilNames componentsJoinedByString:@", "] : @"";
 	
 	NSDictionary *substitutions = [NSDictionary dictionaryWithObjectsAndKeys:
 								   @"Indivo Class Generator", @"AUTHOR",
@@ -393,7 +416,10 @@ void runOnMainQueue(dispatch_block_t block)
 								   propString, @"CLASS_PROPERTIES",
 								   synthString, @"CLASS_SYNTHESIZE",
 								   (indivoType ? indivoType : @"unknown"), @"INDIVO_TYPE",
-								   @"", @"CLASS_IMPORTS", nil];
+								   @"", @"CLASS_IMPORTS",
+								   [forwardClasses componentsJoinedByString:@"\n"], @"CLASS_FORWARDS",
+								   nonNilString, @"CLASS_NON_NIL_NAMES",
+								   nil];
 	
 	// create header
 	NSString *header = [[self class] applyToHeaderTemplate:substitutions];

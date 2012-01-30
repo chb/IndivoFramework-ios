@@ -26,5 +26,7 @@
 	<string>INCodedValue</string>
 	<key>indivo:ValueAndUnit</key>
 	<string>INUnitValue</string>
+	<key>indivo:Document</key>
+	<string>IndivoDocument</string>
 </dict>
 </plist>

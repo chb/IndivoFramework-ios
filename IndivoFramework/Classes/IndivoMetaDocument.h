@@ -24,6 +24,7 @@
 #import "INObjects.h"
 
 @class IndivoDocument;
+@class IndivoPrincipal;
 
 
 /**
@@ -37,9 +38,9 @@
 @property (nonatomic, readonly, copy) NSString *digest;							///< Metadata: Digest
 
 @property (nonatomic, strong) INDate *createdAt;
-@property (nonatomic, strong) INPrincipal *creator;
+@property (nonatomic, strong) IndivoPrincipal *creator;
 @property (nonatomic, strong) INDate *suppressedAt;
-@property (nonatomic, strong) INPrincipal *suppressor;
+@property (nonatomic, strong) IndivoPrincipal *suppressor;
 @property (nonatomic, strong) INAttr *replacedBy;
 @property (nonatomic, strong) INAttr *replaces;
 @property (nonatomic, strong) INAttr *original;

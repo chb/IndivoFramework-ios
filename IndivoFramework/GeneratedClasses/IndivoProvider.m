@@ -1,9 +1,9 @@
 /*
- {{ CLASS_NAME }}.h
+ IndivoProvider.m
  IndivoFramework
  
- Created by {{ AUTHOR }} on {{ DATE }}.
- Copyright (c) {{ YEAR }} Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,33 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-{{ CLASS_IMPORTS }}
-{{ CLASS_FORWARDS }}
+#import "IndivoProvider.h"
+
+
+@implementation IndivoProvider
+
+@synthesize name, institution;
+
+
++ (NSString *)nodeName
+{
+	return @"Provider";
+}
+
++ (NSString *)type
+{
+	return @"indivo:Provider";
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"institution", nil];
+	}
 	
+	return nonNilPropertyNames;
+}
 
-/**
- *	A class representing "{{ INDIVO_TYPE }}" objects.
- */
-@interface {{ CLASS_NAME }} : IndivoDocument
-
-{{ CLASS_PROPERTIES }}
 
 @end

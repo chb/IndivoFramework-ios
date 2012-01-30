@@ -25,6 +25,8 @@
 
 @class INXMLNode;
 @class IndivoRecord;
+@class IndivoCreated;
+@class IndivoSuppressed;
 
 
 /**
@@ -38,11 +40,16 @@
 @property (nonatomic, copy) NSString *nameSpace;							///< The namespace
 @property (nonatomic, copy) NSString *type;									///< This document's type
 
+@property (nonatomic, strong) IndivoCreated *created;
+@property (nonatomic, strong) IndivoSuppressed *suppressed;
+
 - (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord;
 + (id)newWithRecord:(IndivoRecord *)aRecord;
 
 + (NSString *)nameSpace;
 + (NSString *)type;
++ (BOOL)canBeNull:(NSString *)propertyName;
++ (NSArray *)nonNilPropertyNames;
 
 
 @end

@@ -20,7 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoMedication.h"
+#import "IndivoMedication+Utils.h"
 #import "IndivoRecord.h"
 #import "INXMLNode.h"
 #import "INObjects.h"
@@ -29,13 +29,7 @@
 #import "INXMLParser.h"
 #import "IndivoConfig.h"
 
-@implementation IndivoMedication
-
-@synthesize dateStarted, dateStopped, reasonStopped;
-@synthesize name, brandName;
-@synthesize dose, route, strength, frequency;
-@synthesize prescription, details;
-@synthesize pillImage;
+@implementation IndivoMedication (Utils)
 
 
 #pragma mark - Convenience Methods
@@ -48,21 +42,26 @@
  */
 - (NSString *)displayName
 {
-	if ([brandName.abbrev length] > 0) {
-		return brandName.abbrev;
+	if ([self.brandName.abbrev length] > 0) {
+		return self.brandName.abbrev;
 	}
-	if ([brandName.text length] > 0) {
-		return brandName.text;
+	if ([self.brandName.text length] > 0) {
+		return self.brandName.text;
 	}
-	if ([name.abbrev length] > 0) {
-		return name.abbrev;
+	if ([self.name.abbrev length] > 0) {
+		return self.name.abbrev;
 	}
-	return name.text;
+	return self.name.text;
 }
 
 
 
 #pragma mark - Pill Image
+- (UIImage *)pillImage
+{
+	return nil;
+}
+
 /**
  *	This method tries to load an image of the medication, caching it automatically (once implemented)
  */
@@ -74,7 +73,7 @@
 		NSString *apiKey = kPillboxAPIKey;			/// @attention You will need your personal API key for the server to respond
 		
 		// load all pills with our ingredient
-		NSString *url = [NSString stringWithFormat:@"http://pillbox.nlm.nih.gov/PHP/pillboxAPIService.php?key=%@&ingredient=%@&has_image=1", apiKey, [name.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+		NSString *url = [NSString stringWithFormat:@"http://pillbox.nlm.nih.gov/PHP/pillboxAPIService.php?key=%@&ingredient=%@&has_image=1", apiKey, [self.name.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 		
 		DLog(@"->  %@", url);
 		INURLLoader *loader = [INURLLoader loaderWithURL:[NSURL URLWithString:url]];
@@ -94,7 +93,7 @@
 					
 					// got pills matching the ingredient, find our rxcui
 					else {
-						NSString *want = name.value;
+						NSString *want = self.name.value;
 						NSMutableArray *found = [NSMutableArray array];
 						NSArray *pills = [root childrenNamed:@"pill"];
 						for (INXMLNode *pill in pills) {
@@ -118,7 +117,7 @@
 									imgLoader.expectBinaryData = YES;
 									[imgLoader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 										if (!errorMessage && !userDidCancel) {
-											self.pillImage = [UIImage imageWithData:imgLoader.responseData];
+											//self.pillImage = [UIImage imageWithData:imgLoader.responseData];
 											
 											/// @todo cache!!
 										}
@@ -135,24 +134,6 @@
 			}
 		}];
 	}
-}
-
-
-
-#pragma mark - IndivoDocument
-+ (NSString *)nodeName
-{
-	return @"Medication";
-}
-
-+ (NSString *)type
-{
-	return @"Medication";
-}
-
-+ (NSString *)fetchReportPathForRecord:(IndivoRecord *)aRecord
-{
-	return [NSString stringWithFormat:@"/records/%@/reports/minimal/medications/", aRecord.udid];
 }
 
 

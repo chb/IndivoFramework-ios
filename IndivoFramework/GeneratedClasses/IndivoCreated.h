@@ -1,9 +1,9 @@
 /*
- {{ CLASS_NAME }}.h
+ IndivoCreated.h
  IndivoFramework
  
- Created by {{ AUTHOR }} on {{ DATE }}.
- Copyright (c) {{ YEAR }} Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -21,15 +21,16 @@
  */
 
 #import "IndivoDocument.h"
-{{ CLASS_IMPORTS }}
-{{ CLASS_FORWARDS }}
+
+
 	
 
 /**
- *	A class representing "{{ INDIVO_TYPE }}" objects.
+ *	A class representing "indivo:created" objects.
  */
-@interface {{ CLASS_NAME }} : IndivoDocument
+@interface IndivoCreated : IndivoDocument
 
-{{ CLASS_PROPERTIES }}
+@property (nonatomic, strong) INDateTime *at;					///< Must not be nil (minOccurs = 1)
+
 
 @end

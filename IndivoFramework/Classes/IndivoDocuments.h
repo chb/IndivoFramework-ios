@@ -1,8 +1,8 @@
 /*
- IndivoPrescription.m
+ INObjects.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
+ Created by Pascal Pfiffner on 1/30/12.
  Copyright (c) 2011 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,22 +20,17 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+
+/**
+ *	Header file which includes all our IndivoDocument subclasses. Include this header where you use these classes.
+ */
+
+#import "IndivoDocument.h"
+#import "IndivoMetaDocument.h"
+#import "IndivoMedication+Utils.h"
 #import "IndivoPrescription.h"
-#import "IndivoRecord.h"
-#import "INXMLNode.h"
-#import "INObjects.h"
+#import "IndivoProvider.h"
+#import "IndivoPrincipal.h"
+#import "IndivoCreated.h"
+#import "IndivoSuppressed.h"
 
-
-@implementation IndivoPrescription
-
-@synthesize by, on, stopOn, duration;
-@synthesize dispenseAsWritten, refillInfo, instructions;
-
-
-+ (NSString *)nodeName
-{
-	return @"prescription";
-}
-
-
-@end

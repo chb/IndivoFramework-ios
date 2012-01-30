@@ -21,7 +21,6 @@
  */
 
 #import "{{ CLASS_NAME }}.h"
-#import "INObjects.h"
 
 
 @implementation {{ CLASS_NAME }}
@@ -37,6 +36,16 @@
 + (NSString *)type
 {
 	return @"{{ CLASS_TYPENAME }}";
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:{{ CLASS_NON_NIL_NAMES }}, nil];
+	}
+	
+	return nonNilPropertyNames;
 }
 
 

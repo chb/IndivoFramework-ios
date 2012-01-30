@@ -7,16 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE05DDF51445F29700920A4B /* INLabProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDEF1445F29600920A4B /* INLabProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE05DDF61445F29700920A4B /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
-		EE05DDF81445F29700920A4B /* INProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDF11445F29600920A4B /* INProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE05DDF91445F29700920A4B /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
-		EE05DDFB1445F29700920A4B /* INSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDF31445F29600920A4B /* INSignature.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE05DDFC1445F29700920A4B /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
 		EE05DE001445F54C00920A4B /* INDateTime.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DDFE1445F54C00920A4B /* INDateTime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DE011445F54C00920A4B /* INDateTime.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDFF1445F54C00920A4B /* INDateTime.m */; };
-		EE05DE051445FD6900920A4B /* IndivoPrescription.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DE031445FD6900920A4B /* IndivoPrescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE05DE061445FD6900920A4B /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
 		EE05DE0A1447835D00920A4B /* INURLLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = EE05DE081447835D00920A4B /* INURLLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE05DE0B1447835D00920A4B /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
 		EE079FE1142D3E9A00A92904 /* INXMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EE079FDF142D3E9A00A92904 /* INXMLNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,8 +16,6 @@
 		EE13448C141AB99D00D167B2 /* IndivoWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = EE13448A141AB99D00D167B2 /* IndivoWebView.h */; };
 		EE13448D141AB99D00D167B2 /* IndivoWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE13448B141AB99D00D167B2 /* IndivoWebView.m */; };
 		EE18082614BCF5BC009D7873 /* IndivoConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = EE18082514BCF5BC009D7873 /* IndivoConfig.h */; };
-		EE1E2CBA144B523A001A1E72 /* INPrincipal.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CB8144B523A001A1E72 /* INPrincipal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE1E2CBB144B523A001A1E72 /* INPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CB9144B523A001A1E72 /* INPrincipal.m */; };
 		EE1E2CBE144B5454001A1E72 /* INAttr.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CBC144B5454001A1E72 /* INAttr.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE1E2CBF144B5454001A1E72 /* INAttr.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CBD144B5454001A1E72 /* INAttr.m */; };
 		EE1E2CC2144B5BAB001A1E72 /* IndivoMetaDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,8 +24,8 @@
 		EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
 		EE34D98414244818001A95AD /* INServerObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE34D98214244818001A95AD /* INServerObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE34D98514244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
-		EE37571F1431021B002ABE18 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE3757201431021B002ABE18 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication.m */; };
+		EE37571F1431021B002ABE18 /* IndivoMedication+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication+Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3757201431021B002ABE18 /* IndivoMedication+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */; };
 		EE37572614314179002ABE18 /* INObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572414314179002ABE18 /* INObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37572714314179002ABE18 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
 		EE37572A14314C52002ABE18 /* INObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572914314C52002ABE18 /* INObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -89,18 +79,13 @@
 		EEA044EA14CA1BCF00C28C61 /* INCodedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573214314D04002ABE18 /* INCodedValue.m */; };
 		EEA044EB14CA1BCF00C28C61 /* INUnitValue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573714314D22002ABE18 /* INUnitValue.m */; };
 		EEA044EC14CA1BCF00C28C61 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
-		EEA044ED14CA1BCF00C28C61 /* INProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF21445F29600920A4B /* INProvider.m */; };
-		EEA044EE14CA1BCF00C28C61 /* INLabProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF01445F29600920A4B /* INLabProvider.m */; };
-		EEA044EF14CA1BCF00C28C61 /* INSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DDF41445F29700920A4B /* INSignature.m */; };
-		EEA044F014CA1BCF00C28C61 /* INPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CB9144B523A001A1E72 /* INPrincipal.m */; };
 		EEA044F114CA1BD800C28C61 /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
 		EEA044F214CA1BD800C28C61 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
 		EEA044F314CA1BD800C28C61 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
 		EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
 		EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
 		EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */; };
-		EEA044F714CA1BDE00C28C61 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication.m */; };
-		EEA044F814CA1BDE00C28C61 /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE041445FD6900920A4B /* IndivoPrescription.m */; };
+		EEA044F714CA1BDE00C28C61 /* IndivoMedication+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */; };
 		EEA044F914CA1BE500C28C61 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
 		EEA044FA14CA1BE500C28C61 /* INURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5DE92B1468447A004CC666 /* INURLFetcher.m */; };
 		EEA044FB14CA1BE500C28C61 /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
@@ -141,19 +126,38 @@
 		EEA0455C14CA3ED400C28C61 /* INXMLReports.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE55144DE75D008E0464 /* INXMLReports.m */; };
 		EEA0455D14CA3ED400C28C61 /* INXMLReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE50144DE5A9008E0464 /* INXMLReport.m */; };
 		EEA0455E14CA427D00C28C61 /* Mapping.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEA0453614CA386000C28C61 /* Mapping.plist */; };
-		EEA0892214CF507500CB97D6 /* INDecimal.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892014CF507500CB97D6 /* INDecimal.h */; };
+		EEA0892214CF507500CB97D6 /* INDecimal.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892014CF507500CB97D6 /* INDecimal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEA0892314CF507500CB97D6 /* INDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892114CF507500CB97D6 /* INDecimal.m */; };
 		EEA0892414CF507500CB97D6 /* INDecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892114CF507500CB97D6 /* INDecimal.m */; };
-		EEA0892814CF522F00CB97D6 /* INFloat.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892614CF522E00CB97D6 /* INFloat.h */; };
+		EEA0892814CF522F00CB97D6 /* INFloat.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892614CF522E00CB97D6 /* INFloat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEA0892914CF522F00CB97D6 /* INFloat.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892714CF522F00CB97D6 /* INFloat.m */; };
 		EEA0892A14CF522F00CB97D6 /* INFloat.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892714CF522F00CB97D6 /* INFloat.m */; };
-		EEA0892D14CF528D00CB97D6 /* INDouble.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892B14CF528D00CB97D6 /* INDouble.h */; };
+		EEA0892D14CF528D00CB97D6 /* INDouble.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0892B14CF528D00CB97D6 /* INDouble.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEA0892E14CF528D00CB97D6 /* INDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892C14CF528D00CB97D6 /* INDouble.m */; };
 		EEA0892F14CF528D00CB97D6 /* INDouble.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0892C14CF528D00CB97D6 /* INDouble.m */; };
-		EEA0893214CF5C9500CB97D6 /* INInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0893014CF5C9400CB97D6 /* INInteger.h */; };
+		EEA0893214CF5C9500CB97D6 /* INInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA0893014CF5C9400CB97D6 /* INInteger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEA0893314CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA0893414CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA1B1E9142B82CB001E1A0F /* Indivo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC232F14D70E9400B4FC30 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC232D14D70E9400B4FC30 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC233014D70E9400B4FC30 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC232E14D70E9400B4FC30 /* IndivoMedication.m */; };
+		EECC233414D70FC300B4FC30 /* IndivoSuppressed.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC233214D70FC300B4FC30 /* IndivoSuppressed.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC233514D70FC300B4FC30 /* IndivoSuppressed.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC233314D70FC300B4FC30 /* IndivoSuppressed.m */; };
+		EECC233614D70FC300B4FC30 /* IndivoSuppressed.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC233314D70FC300B4FC30 /* IndivoSuppressed.m */; };
+		EECC233914D70FCF00B4FC30 /* IndivoCreated.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC233714D70FCF00B4FC30 /* IndivoCreated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC233A14D70FCF00B4FC30 /* IndivoCreated.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC233814D70FCF00B4FC30 /* IndivoCreated.m */; };
+		EECC233B14D70FCF00B4FC30 /* IndivoCreated.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC233814D70FCF00B4FC30 /* IndivoCreated.m */; };
+		EECC234614D74BC000B4FC30 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC232E14D70E9400B4FC30 /* IndivoMedication.m */; };
+		EECC234714D74BC500B4FC30 /* IndivoProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC233C14D7137F00B4FC30 /* IndivoProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC234814D74BC700B4FC30 /* IndivoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC233D14D7137F00B4FC30 /* IndivoProvider.m */; };
+		EECC234914D74BC700B4FC30 /* IndivoProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC233D14D7137F00B4FC30 /* IndivoProvider.m */; };
+		EECC234A14D74BCA00B4FC30 /* IndivoPrincipal.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC234114D7138C00B4FC30 /* IndivoPrincipal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC234B14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */; };
+		EECC234C14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */; };
+		EECC234F14D7580900B4FC30 /* IndivoPrescription.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC234D14D7580800B4FC30 /* IndivoPrescription.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EECC235014D7580900B4FC30 /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC234E14D7580800B4FC30 /* IndivoPrescription.m */; };
+		EECC235114D7580900B4FC30 /* IndivoPrescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC234E14D7580800B4FC30 /* IndivoPrescription.m */; };
+		EECC235314D75A0500B4FC30 /* IndivoDocuments.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC235214D75A0500B4FC30 /* IndivoDocuments.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED39B83148D1A9500843AAE /* IndivoActionView.h in Headers */ = {isa = PBXBuildFile; fileRef = EED39B81148D1A9400843AAE /* IndivoActionView.h */; };
 		EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED39B82148D1A9400843AAE /* IndivoActionView.m */; };
 		EED835F814CE182E000F533D /* GeneratorTemplate.h in Resources */ = {isa = PBXBuildFile; fileRef = EED835F414CE1636000F533D /* GeneratorTemplate.h */; };
@@ -205,16 +209,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EE05DDEF1445F29600920A4B /* INLabProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INLabProvider.h; sourceTree = "<group>"; };
-		EE05DDF01445F29600920A4B /* INLabProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INLabProvider.m; sourceTree = "<group>"; };
-		EE05DDF11445F29600920A4B /* INProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INProvider.h; sourceTree = "<group>"; };
-		EE05DDF21445F29600920A4B /* INProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INProvider.m; sourceTree = "<group>"; };
-		EE05DDF31445F29600920A4B /* INSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INSignature.h; sourceTree = "<group>"; };
-		EE05DDF41445F29700920A4B /* INSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INSignature.m; sourceTree = "<group>"; };
 		EE05DDFE1445F54C00920A4B /* INDateTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDateTime.h; sourceTree = "<group>"; };
 		EE05DDFF1445F54C00920A4B /* INDateTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateTime.m; sourceTree = "<group>"; };
-		EE05DE031445FD6900920A4B /* IndivoPrescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoPrescription.h; sourceTree = "<group>"; };
-		EE05DE041445FD6900920A4B /* IndivoPrescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoPrescription.m; sourceTree = "<group>"; };
 		EE05DE081447835D00920A4B /* INURLLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INURLLoader.h; sourceTree = "<group>"; };
 		EE05DE091447835D00920A4B /* INURLLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INURLLoader.m; sourceTree = "<group>"; };
 		EE079FDF142D3E9A00A92904 /* INXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLNode.h; sourceTree = "<group>"; };
@@ -222,8 +218,6 @@
 		EE13448A141AB99D00D167B2 /* IndivoWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoWebView.h; sourceTree = "<group>"; };
 		EE13448B141AB99D00D167B2 /* IndivoWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoWebView.m; sourceTree = "<group>"; };
 		EE18082514BCF5BC009D7873 /* IndivoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoConfig.h; sourceTree = SOURCE_ROOT; };
-		EE1E2CB8144B523A001A1E72 /* INPrincipal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INPrincipal.h; sourceTree = "<group>"; };
-		EE1E2CB9144B523A001A1E72 /* INPrincipal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INPrincipal.m; sourceTree = "<group>"; };
 		EE1E2CBC144B5454001A1E72 /* INAttr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAttr.h; sourceTree = "<group>"; };
 		EE1E2CBD144B5454001A1E72 /* INAttr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAttr.m; sourceTree = "<group>"; };
 		EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoMetaDocument.h; sourceTree = "<group>"; };
@@ -232,8 +226,8 @@
 		EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoAbstractDocument.m; sourceTree = "<group>"; };
 		EE34D98214244818001A95AD /* INServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerObject.h; sourceTree = "<group>"; };
 		EE34D98314244818001A95AD /* INServerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INServerObject.m; sourceTree = "<group>"; };
-		EE37571D1431021B002ABE18 /* IndivoMedication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoMedication.h; sourceTree = "<group>"; };
-		EE37571E1431021B002ABE18 /* IndivoMedication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoMedication.m; sourceTree = "<group>"; };
+		EE37571D1431021B002ABE18 /* IndivoMedication+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IndivoMedication+Utils.h"; sourceTree = "<group>"; };
+		EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IndivoMedication+Utils.m"; sourceTree = "<group>"; };
 		EE37572414314179002ABE18 /* INObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INObject.h; sourceTree = "<group>"; };
 		EE37572514314179002ABE18 /* INObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INObject.m; sourceTree = "<group>"; };
 		EE37572914314C52002ABE18 /* INObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INObjects.h; sourceTree = "<group>"; };
@@ -305,10 +299,23 @@
 		EEA0893114CF5C9500CB97D6 /* INInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INInteger.m; sourceTree = "<group>"; };
 		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
 		EEC5C4051416B3E900E1A349 /* ErrorCodes.md */ = {isa = PBXFileReference; explicitFileType = text; path = ErrorCodes.md; sourceTree = SOURCE_ROOT; };
+		EECC232D14D70E9400B4FC30 /* IndivoMedication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndivoMedication.h; path = GeneratedClasses/IndivoMedication.h; sourceTree = SOURCE_ROOT; };
+		EECC232E14D70E9400B4FC30 /* IndivoMedication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndivoMedication.m; path = GeneratedClasses/IndivoMedication.m; sourceTree = SOURCE_ROOT; };
+		EECC233214D70FC300B4FC30 /* IndivoSuppressed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoSuppressed.h; sourceTree = "<group>"; };
+		EECC233314D70FC300B4FC30 /* IndivoSuppressed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoSuppressed.m; sourceTree = "<group>"; };
+		EECC233714D70FCF00B4FC30 /* IndivoCreated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoCreated.h; sourceTree = "<group>"; };
+		EECC233814D70FCF00B4FC30 /* IndivoCreated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoCreated.m; sourceTree = "<group>"; };
+		EECC233C14D7137F00B4FC30 /* IndivoProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoProvider.h; sourceTree = "<group>"; };
+		EECC233D14D7137F00B4FC30 /* IndivoProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoProvider.m; sourceTree = "<group>"; };
+		EECC234114D7138C00B4FC30 /* IndivoPrincipal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoPrincipal.h; sourceTree = "<group>"; };
+		EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoPrincipal.m; sourceTree = "<group>"; };
+		EECC234D14D7580800B4FC30 /* IndivoPrescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoPrescription.h; sourceTree = "<group>"; };
+		EECC234E14D7580800B4FC30 /* IndivoPrescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoPrescription.m; sourceTree = "<group>"; };
+		EECC235214D75A0500B4FC30 /* IndivoDocuments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoDocuments.h; sourceTree = "<group>"; };
 		EED39B81148D1A9400843AAE /* IndivoActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoActionView.h; sourceTree = "<group>"; };
 		EED39B82148D1A9400843AAE /* IndivoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoActionView.m; sourceTree = "<group>"; };
-		EED835F414CE1636000F533D /* GeneratorTemplate.h */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.h; sourceTree = "<group>"; };
-		EED835F514CE1636000F533D /* GeneratorTemplate.m */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.m; sourceTree = "<group>"; };
+		EED835F414CE1636000F533D /* GeneratorTemplate.h */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EED835F514CE1636000F533D /* GeneratorTemplate.m */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EEDB8C08145CB02A001C6C2C /* MPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDebug.h; sourceTree = "<group>"; };
 		EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAPI.h; sourceTree = "<group>"; };
 		EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPI.m; sourceTree = "<group>"; };
@@ -397,16 +404,15 @@
 		EE1E2CB5144B41FD001A1E72 /* Indivo Documents */ = {
 			isa = PBXGroup;
 			children = (
+				EECC235214D75A0500B4FC30 /* IndivoDocuments.h */,
 				EE1E2CC4144B5CAC001A1E72 /* IndivoAbstractDocument.h */,
 				EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */,
 				EE3C95F5141178CC002BA967 /* IndivoDocument.h */,
 				EE3C95F6141178CC002BA967 /* IndivoDocument.m */,
 				EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */,
 				EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */,
-				EE37571D1431021B002ABE18 /* IndivoMedication.h */,
-				EE37571E1431021B002ABE18 /* IndivoMedication.m */,
-				EE05DE031445FD6900920A4B /* IndivoPrescription.h */,
-				EE05DE041445FD6900920A4B /* IndivoPrescription.m */,
+				EE37571D1431021B002ABE18 /* IndivoMedication+Utils.h */,
+				EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */,
 			);
 			name = "Indivo Documents";
 			sourceTree = "<group>";
@@ -441,14 +447,6 @@
 				EE37573714314D22002ABE18 /* INUnitValue.m */,
 				EE37574014314D51002ABE18 /* INDuration.h */,
 				EE37574114314D51002ABE18 /* INDuration.m */,
-				EE05DDF11445F29600920A4B /* INProvider.h */,
-				EE05DDF21445F29600920A4B /* INProvider.m */,
-				EE05DDEF1445F29600920A4B /* INLabProvider.h */,
-				EE05DDF01445F29600920A4B /* INLabProvider.m */,
-				EE05DDF31445F29600920A4B /* INSignature.h */,
-				EE05DDF41445F29700920A4B /* INSignature.m */,
-				EE1E2CB8144B523A001A1E72 /* INPrincipal.h */,
-				EE1E2CB9144B523A001A1E72 /* INPrincipal.m */,
 			);
 			name = "Indivo Objects";
 			sourceTree = "<group>";
@@ -502,6 +500,7 @@
 				EE37572B14314CC5002ABE18 /* Indivo Objects */,
 				EE3C95E6141177A6002BA967 /* Indivo Server Objects */,
 				EE1E2CB5144B41FD001A1E72 /* Indivo Documents */,
+				EECC233114D70E9900B4FC30 /* Generated Documents */,
 				EE53CA121423A3DB00EEF006 /* Server Calls */,
 				EE697B161432492C0002F13F /* XML Parsing */,
 				EE93006F141E4EA9005B0046 /* View Controllers */,
@@ -635,6 +634,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EECC233114D70E9900B4FC30 /* Generated Documents */ = {
+			isa = PBXGroup;
+			children = (
+				EECC232D14D70E9400B4FC30 /* IndivoMedication.h */,
+				EECC232E14D70E9400B4FC30 /* IndivoMedication.m */,
+				EECC234D14D7580800B4FC30 /* IndivoPrescription.h */,
+				EECC234E14D7580800B4FC30 /* IndivoPrescription.m */,
+				EECC233C14D7137F00B4FC30 /* IndivoProvider.h */,
+				EECC233D14D7137F00B4FC30 /* IndivoProvider.m */,
+				EECC234114D7138C00B4FC30 /* IndivoPrincipal.h */,
+				EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */,
+				EECC233714D70FCF00B4FC30 /* IndivoCreated.h */,
+				EECC233814D70FCF00B4FC30 /* IndivoCreated.m */,
+				EECC233214D70FC300B4FC30 /* IndivoSuppressed.h */,
+				EECC233314D70FC300B4FC30 /* IndivoSuppressed.m */,
+			);
+			name = "Generated Documents";
+			path = GeneratedClasses;
+			sourceTree = SOURCE_ROOT;
+		};
 		EEDB8C07145CB02A001C6C2C /* MPOAuth Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,7 +737,7 @@
 				EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */,
 				EE9FFA9C142D13F700120C0F /* INXMLParser.h in Headers */,
 				EE079FE1142D3E9A00A92904 /* INXMLNode.h in Headers */,
-				EE37571F1431021B002ABE18 /* IndivoMedication.h in Headers */,
+				EE37571F1431021B002ABE18 /* IndivoMedication+Utils.h in Headers */,
 				EE37572614314179002ABE18 /* INObject.h in Headers */,
 				EE37572A14314C52002ABE18 /* INObjects.h in Headers */,
 				EE37572E14314CF6002ABE18 /* INDate.h in Headers */,
@@ -726,13 +745,8 @@
 				EE37573814314D22002ABE18 /* INUnitValue.h in Headers */,
 				EE37573D14314D46002ABE18 /* INString.h in Headers */,
 				EE37574214314D51002ABE18 /* INDuration.h in Headers */,
-				EE05DDF51445F29700920A4B /* INLabProvider.h in Headers */,
-				EE05DDF81445F29700920A4B /* INProvider.h in Headers */,
-				EE05DDFB1445F29700920A4B /* INSignature.h in Headers */,
 				EE05DE001445F54C00920A4B /* INDateTime.h in Headers */,
-				EE05DE051445FD6900920A4B /* IndivoPrescription.h in Headers */,
 				EE05DE0A1447835D00920A4B /* INURLLoader.h in Headers */,
-				EE1E2CBA144B523A001A1E72 /* INPrincipal.h in Headers */,
 				EE1E2CBE144B5454001A1E72 /* INAttr.h in Headers */,
 				EE1E2CC2144B5BAB001A1E72 /* IndivoMetaDocument.h in Headers */,
 				EE1E2CC6144B5CAC001A1E72 /* IndivoAbstractDocument.h in Headers */,
@@ -769,6 +783,13 @@
 				EEA0892814CF522F00CB97D6 /* INFloat.h in Headers */,
 				EEA0892D14CF528D00CB97D6 /* INDouble.h in Headers */,
 				EEA0893214CF5C9500CB97D6 /* INInteger.h in Headers */,
+				EECC232F14D70E9400B4FC30 /* IndivoMedication.h in Headers */,
+				EECC233414D70FC300B4FC30 /* IndivoSuppressed.h in Headers */,
+				EECC233914D70FCF00B4FC30 /* IndivoCreated.h in Headers */,
+				EECC234714D74BC500B4FC30 /* IndivoProvider.h in Headers */,
+				EECC234A14D74BCA00B4FC30 /* IndivoPrincipal.h in Headers */,
+				EECC234F14D7580900B4FC30 /* IndivoPrescription.h in Headers */,
+				EECC235314D75A0500B4FC30 /* IndivoDocuments.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,20 +929,15 @@
 				EE34D98514244818001A95AD /* INServerObject.m in Sources */,
 				EE9FFA9D142D13F700120C0F /* INXMLParser.m in Sources */,
 				EE079FE2142D3E9A00A92904 /* INXMLNode.m in Sources */,
-				EE3757201431021B002ABE18 /* IndivoMedication.m in Sources */,
+				EE3757201431021B002ABE18 /* IndivoMedication+Utils.m in Sources */,
 				EE37572714314179002ABE18 /* INObject.m in Sources */,
 				EE37572F14314CF6002ABE18 /* INDate.m in Sources */,
 				EE37573414314D04002ABE18 /* INCodedValue.m in Sources */,
 				EE37573914314D22002ABE18 /* INUnitValue.m in Sources */,
 				EE37573E14314D46002ABE18 /* INString.m in Sources */,
 				EE37574314314D51002ABE18 /* INDuration.m in Sources */,
-				EE05DDF61445F29700920A4B /* INLabProvider.m in Sources */,
-				EE05DDF91445F29700920A4B /* INProvider.m in Sources */,
-				EE05DDFC1445F29700920A4B /* INSignature.m in Sources */,
 				EE05DE011445F54C00920A4B /* INDateTime.m in Sources */,
-				EE05DE061445FD6900920A4B /* IndivoPrescription.m in Sources */,
 				EE05DE0B1447835D00920A4B /* INURLLoader.m in Sources */,
-				EE1E2CBB144B523A001A1E72 /* INPrincipal.m in Sources */,
 				EE1E2CBF144B5454001A1E72 /* INAttr.m in Sources */,
 				EE1E2CC3144B5BAB001A1E72 /* IndivoMetaDocument.m in Sources */,
 				EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */,
@@ -953,6 +969,12 @@
 				EEA0892914CF522F00CB97D6 /* INFloat.m in Sources */,
 				EEA0892E14CF528D00CB97D6 /* INDouble.m in Sources */,
 				EEA0893314CF5C9500CB97D6 /* INInteger.m in Sources */,
+				EECC233014D70E9400B4FC30 /* IndivoMedication.m in Sources */,
+				EECC233514D70FC300B4FC30 /* IndivoSuppressed.m in Sources */,
+				EECC233A14D70FCF00B4FC30 /* IndivoCreated.m in Sources */,
+				EECC234814D74BC700B4FC30 /* IndivoProvider.m in Sources */,
+				EECC234B14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */,
+				EECC235014D7580900B4FC30 /* IndivoPrescription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,18 +995,13 @@
 				EEA044EA14CA1BCF00C28C61 /* INCodedValue.m in Sources */,
 				EEA044EB14CA1BCF00C28C61 /* INUnitValue.m in Sources */,
 				EEA044EC14CA1BCF00C28C61 /* INDuration.m in Sources */,
-				EEA044ED14CA1BCF00C28C61 /* INProvider.m in Sources */,
-				EEA044EE14CA1BCF00C28C61 /* INLabProvider.m in Sources */,
-				EEA044EF14CA1BCF00C28C61 /* INSignature.m in Sources */,
-				EEA044F014CA1BCF00C28C61 /* INPrincipal.m in Sources */,
 				EEA044F114CA1BD800C28C61 /* INServerObject.m in Sources */,
 				EEA044F214CA1BD800C28C61 /* IndivoRecord.m in Sources */,
 				EEA044F314CA1BD800C28C61 /* IndivoWebApp.m in Sources */,
 				EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */,
 				EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */,
 				EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */,
-				EEA044F714CA1BDE00C28C61 /* IndivoMedication.m in Sources */,
-				EEA044F814CA1BDE00C28C61 /* IndivoPrescription.m in Sources */,
+				EEA044F714CA1BDE00C28C61 /* IndivoMedication+Utils.m in Sources */,
 				EEA044F914CA1BE500C28C61 /* INServerCall.m in Sources */,
 				EEA044FA14CA1BE500C28C61 /* INURLFetcher.m in Sources */,
 				EEA044FB14CA1BE500C28C61 /* INURLLoader.m in Sources */,
@@ -1016,6 +1033,12 @@
 				EEA0892A14CF522F00CB97D6 /* INFloat.m in Sources */,
 				EEA0892F14CF528D00CB97D6 /* INDouble.m in Sources */,
 				EEA0893414CF5C9500CB97D6 /* INInteger.m in Sources */,
+				EECC233614D70FC300B4FC30 /* IndivoSuppressed.m in Sources */,
+				EECC233B14D70FCF00B4FC30 /* IndivoCreated.m in Sources */,
+				EECC234614D74BC000B4FC30 /* IndivoMedication.m in Sources */,
+				EECC234914D74BC700B4FC30 /* IndivoProvider.m in Sources */,
+				EECC234C14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */,
+				EECC235114D7580900B4FC30 /* IndivoPrescription.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

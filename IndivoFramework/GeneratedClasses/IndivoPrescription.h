@@ -1,9 +1,9 @@
 /*
- {{ CLASS_NAME }}.h
+ IndivoPrescription.h
  IndivoFramework
  
- Created by {{ AUTHOR }} on {{ DATE }}.
- Copyright (c) {{ YEAR }} Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -21,15 +21,22 @@
  */
 
 #import "IndivoDocument.h"
-{{ CLASS_IMPORTS }}
-{{ CLASS_FORWARDS }}
+
+@class IndivoProvider;
 	
 
 /**
- *	A class representing "{{ INDIVO_TYPE }}" objects.
+ *	A class representing "indivo:Prescription" objects.
  */
-@interface {{ CLASS_NAME }} : IndivoDocument
+@interface IndivoPrescription : IndivoDocument
 
-{{ CLASS_PROPERTIES }}
+@property (nonatomic, strong) IndivoProvider *by;
+@property (nonatomic, strong) INDate *on;
+@property (nonatomic, strong) INDate *stopOn;
+@property (nonatomic, strong) INBool *dispenseAsWritten;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INDuration *duration;
+@property (nonatomic, strong) INString *refillInfo;
+@property (nonatomic, strong) INString *instructions;
+
 
 @end

@@ -28,6 +28,7 @@
 @implementation IndivoAbstractDocument
 
 @synthesize record, type, nameSpace;
+@synthesize created, suppressed;
 
 
 /**
@@ -126,6 +127,13 @@
 #endif
 }
 
+
+/**
+ *	This is the main XML generating method.
+ *	This method walks all direct properties of the method and if they respond to the "xml" selector, adds the returned XML to this instance's
+ *	XML representation. The main "xml" method creates our own node (e.g. <Document xmlns="something">) and adds the result of this method as
+ *	the node's inner XML.
+ */
 - (NSString *)innerXML
 {
 	unsigned int num, i;
@@ -136,6 +144,7 @@
 	for (i = 0; i < num; ++i) {
 		id ivar = object_getIvar(self, ivars[i]);
 		if ([ivar respondsToSelector:@selector(xml)]) {
+			NSString *nodeName = nil;
 			
 			// if the node does not have a nodeName, apply the ivar name as nodeName
 			if ([ivar isKindOfClass:[INObject class]]) {
@@ -143,6 +152,12 @@
 				if (!node.nodeName) {
 					node.nodeName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
 				}
+				nodeName = node.nodeName;
+			}
+			
+			// warn if we may not validate but do not block XML creation
+			if (nodeName && (!ivar || ([ivar respondsToSelector:@selector(isNull)] && [ivar isNull])) && ![[self class] canBeNull:nodeName]) {
+				DLog(@"WARNING: %@ is nil or isNull, but it should be set to generate valid XML. Will add \"%@\"", nodeName, [ivar xml]);
 			}
 			
 			// generate node XML
@@ -208,6 +223,24 @@
 + (NSString *)type
 {
 	return @"";
+}
+
+
+/**
+ *	If a property returns YES from its "isNull" selector and this method returns NO for that property, the XML is highly unlikely to validate
+ *	with the server.
+ */
++ (BOOL)canBeNull:(NSString *)propertyName
+{
+	return ![[self nonNilPropertyNames] containsObject:propertyName];
+}
+
+/**
+ *	Should return the names for properties that cannot be nil (because the XML would not validate).
+ */
++ (NSArray *)nonNilPropertyNames
+{
+	return nil;
 }
 
 

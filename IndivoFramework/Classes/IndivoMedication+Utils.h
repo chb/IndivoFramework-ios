@@ -1,5 +1,5 @@
 /*
- INSignature.m
+ IndivoMedication.h
  IndivoFramework
  
  Created by Pascal Pfiffner on 9/26/11.
@@ -20,47 +20,15 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INSignature.h"
-#import "INDateTime.h"
-#import "INProvider.h"
-
-@implementation INSignature
-
-@synthesize at, provider;
+#import "IndivoMedication.h"
 
 
-+ (NSString *)nodeType
-{
-	return @"indivo:Signature";
-}
+@interface IndivoMedication (Utils)
 
-- (BOOL)isNull
-{
-	return ([at isNull] && [provider isNull]);
-}
+- (NSString *)displayName;
 
-- (NSString *)xml
-{
-	if ([self isNull]) {
-		return [NSString stringWithFormat:@"<%@ />", self.nodeName];
-	}
-	
-#ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@ type=\"%@\">\n\t%@\n\t%@\n</%@>",
-			self.nodeName,
-			self.nodeType,
-			(self.at ? [self.at xml] : @""),
-			(self.provider ? [self.provider xml] : @""),
-			self.nodeName];
-#else
-	return [NSString stringWithFormat:@"<%@ type=\"%@\">%@%@</%@>",
-			self.nodeName,
-			self.nodeType,
-			(self.at ? [self.at xml] : @""),
-			(self.provider ? [self.provider xml] : @""),
-			self.nodeName]
-#endif
-}
+- (UIImage *)pillImage;
+- (void)loadPillImageBypassingCache:(BOOL)bypass callback:(INCancelErrorBlock)callback;
 
 
 @end

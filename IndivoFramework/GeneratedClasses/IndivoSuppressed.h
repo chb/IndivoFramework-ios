@@ -1,9 +1,9 @@
 /*
- INLabProvider.h
+ IndivoSuppressed.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,12 +20,17 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "IndivoDocument.h"
 
-@interface INLabProvider : INObject
 
-@property (nonatomic, copy) NSString *lab;
-@property (nonatomic, copy) NSString *address;
+	
+
+/**
+ *	A class representing "indivo:suppressed" objects.
+ */
+@interface IndivoSuppressed : IndivoDocument
+
+@property (nonatomic, strong) INDateTime *at;					///< Must not be nil (minOccurs = 1)
 
 
 @end

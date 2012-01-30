@@ -1,9 +1,9 @@
 /*
- INPrincipal.h
+ IndivoSuppressed.m
  IndivoFramework
  
- Created by Pascal Pfiffner on 10/16/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 1/30/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,14 +20,33 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "IndivoSuppressed.h"
 
-@class INString;
 
-@interface INPrincipal : INObject
+@implementation IndivoSuppressed
 
-@property (nonatomic, strong) INString *fullname;
-@property (nonatomic, copy) NSString *accountId;
-@property (nonatomic, copy) NSString *type;
+@synthesize at;
+
+
++ (NSString *)nodeName
+{
+	return @"suppressed";
+}
+
++ (NSString *)type
+{
+	return @"indivo:suppressed";
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"at", nil];
+	}
+	
+	return nonNilPropertyNames;
+}
+
 
 @end
