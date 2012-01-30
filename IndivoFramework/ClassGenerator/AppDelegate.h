@@ -18,5 +18,8 @@
 - (IBAction)run:(id)sender;
 - (void)addLog:(NSString *)aString;
 
+- (IBAction)chooseInputDir:(id)sender;
+- (IBAction)chooseOutputDir:(id)sender;
+
 
 @end

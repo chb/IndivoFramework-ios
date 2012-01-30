@@ -25,11 +25,15 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotLog:) name:INClassGeneratorDidProduceLogNotification object:nil];
-	inDirField.stringValue = @"/Library/Indivo/indivo_server/schemas/doc_schemas";
-	outDirField.stringValue = @"/Library/Indivo/IndivoFramework-ios/IndivoFramework/GeneratedClasses";
 	
+	// setup
 	output.font = [NSFont fontWithName:@"Monaco" size:12.f];
 	output.textColor = [NSColor whiteColor];
+	
+	// get directories from settings
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	inDirField.stringValue = [defaults objectForKey:@"lastInputDirectory"];
+	outDirField.stringValue = [defaults objectForKey:@"lastOutputDirectory"];
 }
 
 
@@ -63,6 +67,45 @@
 }
 
 
+
+#pragma mark - GUI
+- (void)chooseInputDir:(id)sender
+{
+	NSOpenPanel *panel = [NSOpenPanel openPanel];
+	[panel setAllowsMultipleSelection:NO];
+	[panel setCanChooseDirectories:YES];
+	[panel setCanChooseFiles:YES];
+	
+	// run
+	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+		if (NSOKButton == result) {
+			NSString *path = [[panel URL] path];
+			[[NSUserDefaults standardUserDefaults] setObject:path forKey:@"lastInputDirectory"];
+			inDirField.stringValue = path;
+		}
+	}];
+}
+
+- (void)chooseOutputDir:(id)sender
+{
+	NSOpenPanel *panel = [NSOpenPanel openPanel];
+	[panel setAllowsMultipleSelection:NO];
+	[panel setCanChooseDirectories:YES];
+	[panel setCanChooseFiles:NO];
+	
+	// run
+	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+		if (NSOKButton == result) {
+			NSString *path = [[panel URL] path];
+			[[NSUserDefaults standardUserDefaults] setObject:path forKey:@"lastOutputDirectory"];
+			outDirField.stringValue = path;
+		}
+	}];
+}
+
+
+
+#pragma mark - Logging
 - (void)gotLog:(NSNotification *)aNotification
 {
 	NSString *log = [[aNotification userInfo] objectForKey:INClassGeneratorLogStringKey];

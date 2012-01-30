@@ -25,7 +25,7 @@ void runOnMainQueue(dispatch_block_t block);
 @property (nonatomic, assign) NSUInteger numSchemasParsed;
 @property (nonatomic, assign) NSUInteger numClassesGenerated;
 
-- (void)runFrom:(NSString *)inDirectory into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback;
+- (void)runFrom:(NSString *)inputPath into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback;
 - (BOOL)runFile:(NSString *)path withMapping:(NSMutableDictionary *)mapping error:(NSError **)error;
 
 + (NSString *)applySubstitutions:(NSDictionary *)substitutions toTemplate:(NSString *)aTemplate;

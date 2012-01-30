@@ -51,18 +51,22 @@ void runOnMainQueue(dispatch_block_t block)
 
 
 /**
- *	Run all the XSD schemas we find
+ *	Run all the XSD schemas we find. Schema files must have the .xsd extension.
+ *	@param inputPath A path to a directory containing XSD files or a path to one XSD file
+ *	@param outDirectory The directory to write the class files to
+ *	@param aCallback Completion block
  */
-- (void)runFrom:(NSString *)inDirectory into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback
+- (void)runFrom:(NSString *)inputPath into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback
 {
 	numSchemasParsed = 0;
 	self.writeToDir = nil;
 	
 	// check directories
 	NSFileManager *fm = [NSFileManager defaultManager];
+	BOOL inputIsDir = NO;
 	BOOL flag = NO;
-	if (![fm fileExistsAtPath:inDirectory isDirectory:&flag] || !flag) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"Error: Input directory does not exist")
+	if (![fm fileExistsAtPath:inputPath isDirectory:&inputIsDir]) {
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"Error: Input directory or file does not exist")
 		return;
 	}
 	if (![fm fileExistsAtPath:outDirectory isDirectory:&flag] || !flag) {
@@ -81,17 +85,27 @@ void runOnMainQueue(dispatch_block_t block)
 	
 	// find XSD
 	__block NSError *error = nil;
-	NSArray *all = [fm contentsOfDirectoryAtPath:inDirectory error:&error];
-	if (!all) {
-		NSString *errStr = [error localizedDescription];
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, errStr)
-		return;
+	NSArray *all = nil;
+	if (inputIsDir) {
+		all = [fm contentsOfDirectoryAtPath:inputPath error:&error];
+		if (!all) {
+			NSString *errStr = [error localizedDescription];
+			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, errStr)
+			return;
+		}
+	}
+	else {
+		NSString *file = [inputPath lastPathComponent];
+		if (file) {
+			all = [NSArray arrayWithObject:file];
+			inputPath = [inputPath stringByDeletingLastPathComponent];
+		}
 	}
 	
 	NSPredicate *filter = [NSPredicate predicateWithFormat:@"self ENDSWITH '.xsd'"];
 	NSArray *xsd = [all filteredArrayUsingPredicate:filter];
 	if ([xsd count] < 1) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"There were no XSD files in the input directory")
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"There were no XSD files in the input path")
 		return;
 	}
 	
@@ -103,9 +117,10 @@ void runOnMainQueue(dispatch_block_t block)
 		
 		// loop all XSDs
 		for (NSString *fileName in xsd) {
-			NSString *path = [inDirectory stringByAppendingPathComponent:fileName];
+			NSString *path = [inputPath stringByAppendingPathComponent:fileName];
 			if (![fm fileExistsAtPath:path]) {
-				[self sendLog:@"Schema file does not exist"];
+				NSString *logStr = [NSString stringWithFormat:@"Schema file does not exist at %@", path];
+				[self sendLog:logStr];
 			}
 			
 			// ** run the file
