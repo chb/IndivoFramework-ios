@@ -30,7 +30,7 @@
  */
 @interface IndivoSuppressed : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
 
 
 @end

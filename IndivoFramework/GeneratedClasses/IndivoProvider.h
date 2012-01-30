@@ -30,8 +30,8 @@
  */
 @interface IndivoProvider : IndivoDocument
 
-@property (nonatomic, strong) INString *name;					///< Must not be nil (minOccurs = 1)
-@property (nonatomic, strong) INString *institution;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INString *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INString *institution;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 
 
 @end

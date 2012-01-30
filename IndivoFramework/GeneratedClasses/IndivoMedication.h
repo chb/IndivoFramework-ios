@@ -33,12 +33,12 @@
 @property (nonatomic, strong) INDate *dateStarted;
 @property (nonatomic, strong) INDate *dateStopped;
 @property (nonatomic, strong) INString *reasonStopped;
-@property (nonatomic, strong) INCodedValue *name;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INCodedValue *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 @property (nonatomic, strong) INCodedValue *brandName;
-@property (nonatomic, strong) INUnitValue *dose;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INUnitValue *dose;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 @property (nonatomic, strong) INCodedValue *route;
 @property (nonatomic, strong) INUnitValue *strength;
-@property (nonatomic, strong) INCodedValue *frequency;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INCodedValue *frequency;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 @property (nonatomic, strong) IndivoPrescription *prescription;
 @property (nonatomic, strong) INString *details;
 

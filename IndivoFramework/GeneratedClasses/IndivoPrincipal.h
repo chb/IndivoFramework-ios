@@ -30,8 +30,8 @@
  */
 @interface IndivoPrincipal : IndivoDocument
 
-@property (nonatomic, strong) INString *type;					///< Must not be nil (minOccurs = 1)
-@property (nonatomic, strong) INString *fullname;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INString *type;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INString *fullname;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 
 
 @end

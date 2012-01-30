@@ -33,7 +33,7 @@
 @property (nonatomic, strong) IndivoProvider *by;
 @property (nonatomic, strong) INDate *on;
 @property (nonatomic, strong) INDate *stopOn;
-@property (nonatomic, strong) INBool *dispenseAsWritten;					///< Must not be nil (minOccurs = 1)
+@property (nonatomic, strong) INBool *dispenseAsWritten;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 @property (nonatomic, strong) INDuration *duration;
 @property (nonatomic, strong) INString *refillInfo;
 @property (nonatomic, strong) INString *instructions;

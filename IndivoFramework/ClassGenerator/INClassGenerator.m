@@ -275,7 +275,7 @@ void runOnMainQueue(dispatch_block_t block)
 
 /**
  *	Parses an <element> node.
- *	@return A dictionary with these attributes for this element: name, type, class and minOccurs.
+ *	@return A dictionary with these attributes for this element: name, type, class, minOccurs and comment.
  */
 - (NSDictionary *)processElement:(INXMLNode *)element withMapping:(NSMutableDictionary *)mapping
 {
@@ -285,8 +285,9 @@ void runOnMainQueue(dispatch_block_t block)
 		cType = @"";
 	}
 	NSUInteger min = [[element attr:@"minOccurs"] integerValue];
-	//NSUInteger max = [[element attr:@"maxOccurs"] integerValue];
+	NSString *max = [element attr:@"maxOccurs"];
 	NSString *useClass = nil;
+	NSString *comment = nil;
 	
 	// do we define the type (i.e. do we have a "complexType" child node)?
 	INXMLNode *type = [element childNamed:@"complexType"];
@@ -310,13 +311,42 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 	}
 	
-	return [NSDictionary dictionaryWithObjectsAndKeys:cName, @"name", cType, @"type", [NSNumber numberWithInteger:min], @"minOccurs", useClass, @"class", nil];
+	// do we accept multiple instances?
+	if ([@"unbounded" isEqualToString:max] || ![@"1" isEqualToString:max]) {
+		comment = [NSString stringWithFormat:@"An array containing %@ objects", useClass];
+		if (![@"s" isEqualToString:[cName substringFromIndex:[cName length] - 2]]) {
+			cName = [cName stringByAppendingString:@"s"];
+		}
+		useClass = @"NSArray";
+	}
+	
+	// are we required?
+	if (min > 0) {
+		if (comment) {
+			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %lu)", min];
+		}
+		else {
+			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %lu)", min];
+		}
+	}
+	
+	// make sure the name starts with a lowercase letter
+	cName = [[[cName substringToIndex:1] lowercaseString] stringByAppendingString:[cName substringFromIndex:1]];
+	
+	NSDictionary *elemDict = [NSDictionary dictionaryWithObjectsAndKeys:
+							  cName, @"name",
+							  cType, @"type",
+							  [NSNumber numberWithInteger:min], @"minOccurs",
+							  useClass, @"class",
+							  comment, @"comment",
+							  nil];
+	return elemDict;
 }
 
 
 /**
  *	Processes "attribute" nodes and returns a dictionary with its properties.
- *	@return A dictionary with these attributes for this element: name, type, class and minOccurs.
+ *	@return A dictionary with these attributes for this element: name, type, class, minOccurs and comment.
  */
 - (NSDictionary *)processAttribute:(INXMLNode *)attribute withMapping:(NSMutableDictionary *)mapping
 {
@@ -327,6 +357,7 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	NSString *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? @"1" : @"0";
+	NSString *comment = [@"required" isEqualToString:[attribute attr:@"use"]] ? @"Must not be nil nor return YES on isNull" : nil;
 	
 	NSString *attrClass = [mapping objectForKey:attrType];
 	if ([attrClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes
@@ -341,12 +372,17 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 	}
 	
+	// make sure the name's first letter is lowercase
+	attrName = [[[attrName substringToIndex:1] lowercaseString] stringByAppendingString:[attrName substringFromIndex:1]];
+	
 	// compose and return
 	NSDictionary *attrDict = [NSDictionary dictionaryWithObjectsAndKeys:
 							  attrName, @"name",
 							  attrType, @"type",
 							  minOccurs, @"minOccurs",
-							  attrClass, @"class", nil];
+							  attrClass, @"class",
+							  comment, @"comment",
+							  nil];
 	return attrDict;
 }
 
@@ -382,8 +418,9 @@ void runOnMainQueue(dispatch_block_t block)
 			// create class property strings
 			if (name && className) {
 				[propString appendFormat:@"@property (nonatomic, strong) %@ *%@;", className, name];
-				if (minOccurs > 0) {
-					[propString appendFormat:@"\t\t\t\t\t///< Must not be nil (minOccurs = %lu)", minOccurs];
+				NSString *comment = [propDict objectForKey:@"comment"];
+				if ([comment length] > 0) {
+					[propString appendFormat:@"\t\t\t\t\t///< %@", comment];
 				}
 				[propString appendString:@"\n"];
 				[synthNames addObject:name];
