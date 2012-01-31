@@ -46,6 +46,9 @@
 
 // attributes
 - (id)attr:(NSString *)attributeName;
+- (NSNumber *)numAttr:(NSString *)attributeName;
+- (BOOL)boolAttr:(NSString *)attributeName;
+
 - (void)setAttr:(NSString *)attrValue forKey:(NSString *)attrKey;
 
 

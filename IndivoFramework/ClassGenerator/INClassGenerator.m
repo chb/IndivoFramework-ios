@@ -230,7 +230,7 @@ void runOnMainQueue(dispatch_block_t block)
 		write = YES;
 	}
 	else if (![className isEqualToString:[mapping objectForKey:indivoTypeName]]) {
-		[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
+		//[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
 	}
 	
 	// read "attributes" nodes
@@ -284,7 +284,7 @@ void runOnMainQueue(dispatch_block_t block)
 	if (!cType) {
 		cType = @"";
 	}
-	NSUInteger min = [[element attr:@"minOccurs"] integerValue];
+	NSNumber *minOccurs = [element numAttr:@"minOccurs"];
 	NSString *max = [element attr:@"maxOccurs"];
 	NSString *useClass = nil;
 	NSString *comment = nil;
@@ -321,12 +321,12 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// are we required?
-	if (min > 0) {
+	if ([minOccurs integerValue] > 0) {
 		if (comment) {
-			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %lu)", min];
+			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %@u)", minOccurs];
 		}
 		else {
-			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %lu)", min];
+			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %@)", minOccurs];
 		}
 	}
 	
@@ -336,7 +336,7 @@ void runOnMainQueue(dispatch_block_t block)
 	NSDictionary *elemDict = [NSDictionary dictionaryWithObjectsAndKeys:
 							  cName, @"name",
 							  cType, @"type",
-							  [NSNumber numberWithInteger:min], @"minOccurs",
+							  minOccurs, @"minOccurs",
 							  useClass, @"class",
 							  comment, @"comment",
 							  nil];
@@ -356,8 +356,8 @@ void runOnMainQueue(dispatch_block_t block)
 		attrType = @"";
 	}
 	
-	NSString *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? @"1" : @"0";
-	NSString *comment = [@"required" isEqualToString:[attribute attr:@"use"]] ? @"Must not be nil nor return YES on isNull" : nil;
+	NSNumber *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
+	NSString *comment = ([minOccurs integerValue] > 0) ? @"Must not be nil nor return YES on isNull" : nil;
 	
 	NSString *attrClass = [mapping objectForKey:attrType];
 	if ([attrClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes

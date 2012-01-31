@@ -108,7 +108,7 @@
 }
 
 /**
- *	A shortcut to get the object representing the attribute with the given name
+ *	A shortcut to get the object representing the attribute with the given name.
  */
 - (id)attr:(NSString *)attributeName
 {
@@ -117,6 +117,40 @@
 	}
 	return nil;
 }
+
+/**
+ *	Returns the attribute as an NSNumber. If the value is not numeric you will probably get what you deserve.
+ */
+- (NSNumber *)numAttr:(NSString *)attributeName
+{
+	NSString *attr = [self attr:attributeName];
+	if ([attr length] < 1) {
+		return [NSNumber numberWithInt:0];
+	}
+	return [NSNumber numberWithInteger:[attr integerValue]];
+}
+
+/**
+ *	Tries to interpret an attribute as a bool value. Returns NO if the attribute:
+ *		- is missing
+ *		- is empty
+ *		- reads "null", "0", "false" or "no"
+ */
+- (BOOL)boolAttr:(NSString *)attributeName
+{
+	NSString *attr = [self attr:attributeName];
+	if ([attr length] < 1) {
+		return NO;
+	}
+	if (NSOrderedSame == [@"null" compare:attr options:NSCaseInsensitiveSearch]
+		|| NSOrderedSame == [@"0" compare:attr options:NSCaseInsensitiveSearch]
+		|| NSOrderedSame == [@"false" compare:attr options:NSCaseInsensitiveSearch]
+		|| NSOrderedSame == [@"no" compare:attr options:NSCaseInsensitiveSearch]) {
+		return NO;
+	}
+	return YES;
+}
+
 
 /**
  *	Sets an attribute

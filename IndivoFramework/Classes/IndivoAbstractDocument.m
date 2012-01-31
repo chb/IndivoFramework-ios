@@ -71,7 +71,7 @@
 		id ivarObj = object_getIvar(self, ivars[i]);
 		Class ivarClass = [ivarObj class];
 		
-		// if the object is not initialized, we need to get the Class somewhat hacky
+		// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
 		if (!ivarClass) {
 			NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivars[i])];
 			if ([ivarType length] > 3) {

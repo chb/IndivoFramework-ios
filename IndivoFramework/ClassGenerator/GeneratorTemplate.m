@@ -40,12 +40,14 @@
 
 + (NSArray *)nonNilPropertyNames
 {
+	return [NSArray arrayWithObjects:{{ CLASS_NON_NIL_NAMES }}, nil];
+	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
 		nonNilPropertyNames = [[NSArray alloc] initWithObjects:{{ CLASS_NON_NIL_NAMES }}, nil];
 	}
 	
-	return nonNilPropertyNames;
+	return nonNilPropertyNames;	*/
 }
 
 

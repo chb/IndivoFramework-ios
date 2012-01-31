@@ -2,7 +2,7 @@
  IndivoMedication.m
  IndivoFramework
  
- Created by Indivo Class Generator on 1/30/2012.
+ Created by Indivo Class Generator on 1/31/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -40,12 +40,14 @@
 
 + (NSArray *)nonNilPropertyNames
 {
+	return [NSArray arrayWithObjects:@"name", @"dose", @"frequency", nil];
+	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
 		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"dose", @"frequency", nil];
 	}
 	
-	return nonNilPropertyNames;
+	return nonNilPropertyNames;	*/
 }
 
 
