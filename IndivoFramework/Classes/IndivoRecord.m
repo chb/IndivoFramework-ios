@@ -25,7 +25,6 @@
 #import "IndivoMetaDocument.h"
 #import "INXMLParser.h"
 #import "INXMLReport.h"
-#import "INXMLReports.h"
 
 
 @interface IndivoRecord ()
@@ -137,16 +136,10 @@
 		 // fetched successfully...
 		 if (success) {
 			 //DLog(@"userInfo: %@", userInfo);
-			 INXMLReports *reportsNode = [userInfo objectForKey:INResponseXMLKey];
-			 
-			 // ...but no Reports node, which is bad
-			 if (![reportsNode isKindOfClass:[INXMLReports class]]) {
-				 SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"No reports found", 0)
-				 return;
-			 }
+			 INXMLNode *reportsNode = [userInfo objectForKey:INResponseXMLKey];
+			 NSArray *reports = [reportsNode childrenNamed:@"Report"];
 			 
 			 // create documents
-			 NSArray *reports = [reportsNode reportNodes];
 			 NSMutableArray *reportArr = [NSMutableArray arrayWithCapacity:[reports count]];
 			 for (INXMLReport *report in reports) {
 				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:[report metaDocumentNode] forRecord:self representingClass:documentClass];

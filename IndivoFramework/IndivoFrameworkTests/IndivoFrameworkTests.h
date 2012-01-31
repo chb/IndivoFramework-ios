@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) IndivoServer *server;
 
+- (NSString *)readFixture:(NSString *)fileName;
+
 @end

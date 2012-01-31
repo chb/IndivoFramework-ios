@@ -22,6 +22,12 @@
 
 #import "INObject.h"
 
+
+/**
+ *	Represents a "xs:duration" object
+ */
 @interface INDuration : INObject
+
+@property (nonatomic, copy) NSString *duration;
 
 @end

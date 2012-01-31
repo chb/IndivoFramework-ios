@@ -31,6 +31,7 @@
 @interface INXMLParser : NSObject <NSXMLParserDelegate>
 
 + (INXMLNode *)parseXML:(NSString *)xmlString error:(NSError * __autoreleasing *)error;
++ (BOOL)validateXML:(NSString *)xmlString againstXSD:(NSString *)xsdPath error:(__autoreleasing NSError **)error;
 
 
 @end

@@ -23,8 +23,8 @@
 
 #import "INXMLParser.h"
 #import "INXMLReport.h"
-#import "INXMLReports.h"
 #import "Indivo.h"
+#include <libxml/xmlschemastypes.h>
 
 
 @interface INXMLParser()
@@ -37,6 +37,8 @@
 
 + (Class)nodeClassForNodeName:(NSString *)aNodeName;
 - (INXMLNode *)parseXML:(NSString *)xmlString error:(NSError * __autoreleasing *)error;
+
+void xmlSchemaValidityError(void **ctx, const char *format, ...);
 
 @end
 
@@ -53,9 +55,6 @@
  */
 + (Class)nodeClassForNodeName:(NSString *)aNodeName
 {
-	if ([@"Reports" isEqualToString:aNodeName]) {
-		return [INXMLReports class];
-	}
 	if ([@"Report" isEqualToString:aNodeName]) {
 		return [INXMLReport class];
 	}
@@ -64,7 +63,7 @@
 
 
 
-#pragma mark - Public Parsing Method
+#pragma mark - XML Parsing
 /**
  *	Returns a dictionary generated from parsing the given XML string.
  *	This method only returns once parsing has completed. So think of performing the parsing on a separate thread if it could take
@@ -80,8 +79,6 @@
 }
 
 
-
-#pragma mark - XML Parsing
 /**
  *	Starts parsing the given XML string.
  *	This method only returns once parsing has completed. So think of performing the parsing on a separate thread if it could take
@@ -198,6 +195,86 @@
 {
 }
 //	*/
+
+
+
+#pragma mark - XML Validation
+/**
+ *	Validates an XML string against an XSD at the given path.
+ *	Boldy transcribed from: http://knol2share.blogspot.com/2009/05/validate-xml-against-xsd-in-c.html
+ */
++ (BOOL)validateXML:(NSString *)xmlString againstXSD:(NSString *)xsdPath error:(__autoreleasing NSError **)error
+{
+	BOOL success = NO;
+	xmlLineNumbersDefault(1);
+	
+	const char *xsd_path = [xsdPath cStringUsingEncoding:NSUTF8StringEncoding];
+	
+	// parse the schema
+	xmlSchemaParserCtxtPtr ctx = xmlSchemaNewParserCtxt(xsd_path);
+	xmlSchemaSetParserErrors(ctx, (xmlSchemaValidityErrorFunc) fprintf, (xmlSchemaValidityWarningFunc) fprintf, stderr);
+	xmlSchemaPtr schema = xmlSchemaParse(ctx);
+	xmlSchemaFreeParserCtxt(ctx);
+	
+	if (NULL == schema) {
+		NSString *errStr = [NSString stringWithFormat:@"Failed to parse the schema at %@", xsdPath];
+		XERR(error, errStr, 0);
+	}
+	
+	// get our XML into an xmlDocPtr
+	else {
+		const char *xml = [xmlString cStringUsingEncoding:NSUTF8StringEncoding];
+		int len = strlen(xml);
+		xmlDocPtr doc = xmlParseMemory(xml, len);
+		
+		if (NULL == doc) {
+			NSString *errStr = [NSString stringWithFormat:@"Failed to parse input XML:\n%@", xmlString];
+			XERR(error, errStr, 0);
+		}
+		
+		// XML parsed successfully, validate!
+		else {
+			xmlSchemaValidCtxtPtr validCtx = xmlSchemaNewValidCtxt(schema);
+			char *errorCap = NULL;
+			xmlSchemaSetValidErrors(validCtx, (xmlSchemaValidityErrorFunc)xmlSchemaValidityError, (xmlSchemaValidityWarningFunc)xmlSchemaValidityError, &errorCap);
+			int ret = xmlSchemaValidateDoc(validCtx, doc);
+			if (0 == ret) {
+				success = YES;
+			}
+			else {
+				NSString *errStr = [NSString stringWithCString:(errorCap ? errorCap : "Unknown Error") encoding:NSUTF8StringEncoding];
+				XERR(error, errStr, 0);
+			}
+			
+			xmlSchemaFreeValidCtxt(validCtx);
+			xmlFreeDoc(doc);
+		}
+		
+		xmlSchemaFree(schema);
+	}
+	xmlSchemaCleanupTypes();
+	xmlCleanupParser();
+	xmlMemoryDump();
+	
+	return success;
+}
+
+
+void xmlSchemaValidityError(void **ctx, const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	char *str = (char *)va_arg(ap, int);
+	
+	// try to put str into ctx
+	if (ctx) {
+		*ctx = str;
+	}
+	else {
+		NSLog(@"VALIDATION ERROR: %s", str);
+	}
+	va_end(ap);
+}
 
 
 @end

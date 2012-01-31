@@ -24,9 +24,39 @@
 
 @implementation INDuration
 
+@synthesize duration;
+
+
++ (id)newWithDuration:(NSString *)aDuration
+{
+	INDuration *d = [self new];
+	d.duration = aDuration;
+	return d;
+}
+
+- (void)setFromNode:(INXMLNode *)node
+{
+	[super setFromNode:node];
+	self.duration = node.text;
+}
+
++ (NSString *)nodeType
+{
+	return @"xs:duration";
+}
+
 - (BOOL)isNull
 {
-	return YES;
+	return ([duration length] < 1);
 }
+
+- (NSString *)xml
+{
+	if ([self isNull]) {
+		return @"";
+	}
+	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [self.duration xmlSafe], self.nodeName];
+}
+
 
 @end
