@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoRange.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,17 +20,44 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoRange.h"
 
 
+@implementation IndivoRange
+
+@synthesize minimum, maximum, unit;
+
+
++ (NSString *)nodeName
+{
+	return @"Range";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:Range";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INDouble", @"minimum",
+			@"INDouble", @"maximum",
+			@"INCodedValue", @"unit",
+			nil];
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:nil, nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:nil, nil];
+	}
 	
-
-/**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
- */
-@interface IndivoCreated : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+	return nonNilPropertyNames;	*/
+}
 
 
 @end

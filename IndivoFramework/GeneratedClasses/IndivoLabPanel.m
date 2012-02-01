@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoLabPanel.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,17 +20,43 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoLabPanel.h"
 
 
+@implementation IndivoLabPanel
+
+@synthesize name, labTest;
+
+
++ (NSString *)nodeName
+{
+	return @"LabPanel";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:LabPanel";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INCodedValue", @"name",
+			@"IndivoLabTest", @"labTest",
+			nil];
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"name", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", nil];
+	}
 	
-
-/**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
- */
-@interface IndivoCreated : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+	return nonNilPropertyNames;	*/
+}
 
 
 @end

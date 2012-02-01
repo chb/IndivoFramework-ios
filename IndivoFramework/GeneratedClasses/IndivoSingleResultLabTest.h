@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoSingleResultLabTest.h
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,17 +20,17 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoLabTest.h"
 
-
+@class IndivoResult;
 	
 
 /**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
+ *	A class representing "indivo:SingleResultLabTest" objects, generated from lab.xsd.
  */
-@interface IndivoCreated : IndivoDocument
+@interface IndivoSingleResultLabTest : IndivoLabTest
 
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) IndivoResult *result;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 
 
 @end

@@ -1,5 +1,5 @@
 /*
- IndivoMedication.m
+ IndivoResult.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,48 +20,43 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoMedication.h"
+#import "IndivoResult.h"
 
 
-@implementation IndivoMedication
+@implementation IndivoResult
 
-@synthesize dateStarted, dateStopped, reasonStopped, name, brandName, dose, route, strength, frequency, prescription, details;
+@synthesize isolate, identity, organism, sensitivity, interpretation, comments;
 
 
 + (NSString *)nodeName
 {
-	return @"Medication";
+	return @"result";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:Medication";
+	return @"indivo:result";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDate", @"dateStarted",
-			@"INDate", @"dateStopped",
-			@"INString", @"reasonStopped",
-			@"INCodedValue", @"name",
-			@"INCodedValue", @"brandName",
-			@"INUnitValue", @"dose",
-			@"INCodedValue", @"route",
-			@"INUnitValue", @"strength",
-			@"INCodedValue", @"frequency",
-			@"IndivoPrescription", @"prescription",
-			@"INString", @"details",
+			@"INString", @"isolate",
+			@"INString", @"identity",
+			@"INCodedValue", @"organism",
+			@"IndivoSensitivity", @"sensitivity",
+			@"INString", @"interpretation",
+			@"INString", @"comments",
 			nil];
 }
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"name", @"dose", @"frequency", nil];
+	return [NSArray arrayWithObjects:@"isolate", @"organism", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"dose", @"frequency", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"isolate", @"organism", nil];
 	}
 	
 	return nonNilPropertyNames;	*/

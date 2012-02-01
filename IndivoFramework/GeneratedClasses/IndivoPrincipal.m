@@ -2,7 +2,7 @@
  IndivoPrincipal.m
  IndivoFramework
  
- Created by Indivo Class Generator on 1/31/2012.
+ Created by Indivo Class Generator on 2/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -33,9 +33,17 @@
 	return @"Principal";
 }
 
-+ (NSString *)type
++ (NSString *)nodeType
 {
 	return @"indivo:Principal";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INString", @"type",
+			@"INString", @"fullname",
+			nil];
 }
 
 + (NSArray *)nonNilPropertyNames

@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoResultInSet.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,17 +20,43 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoResultInSet.h"
 
 
+@implementation IndivoResultInSet
+
+@synthesize value, option;
+
+
++ (NSString *)nodeName
+{
+	return @"ResultInSet";
+}
+
++ (NSString *)nodeType
+{
+	return @"ResultInSet";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INString", @"value",
+			@"IndivoOption", @"option",
+			nil];
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"value", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"value", nil];
+	}
 	
-
-/**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
- */
-@interface IndivoCreated : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+	return nonNilPropertyNames;	*/
+}
 
 
 @end

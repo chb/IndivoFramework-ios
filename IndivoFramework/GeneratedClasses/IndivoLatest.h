@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoLatest.h
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -26,11 +26,12 @@
 	
 
 /**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
+ *	A class representing "indivo:latest" objects, generated from metadata.xsd.
  */
-@interface IndivoCreated : IndivoDocument
+@interface IndivoLatest : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INDateTime *createdAt;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INString *createdBy;					///< Must not be nil nor return YES on isNull
 
 
 @end

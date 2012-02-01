@@ -35,6 +35,8 @@ extern NSString *const INResponseArrayKey;				///< Dictionaries return an NSArra
 
 // Other globals
 extern NSString *const INInternalScheme;				///< The URL scheme we use to identify when the framework should intercept a request
+extern NSString *const INClassGeneratorClassPrefix;		///< The class generator uses this prefix for our classes ("Indivo" by default). We need to know it to instantiate nodes from XML.
+extern NSString *const INClassGeneratorTypePrefix;		///< The class generator uses this prefix for our types ("indivo" by default).
 
 // Notifications
 extern NSString *const INRecordDocumentsDidChangeNotification;		///< Notifications with this name will be posted if documents did change, right AFTER the callback has been called

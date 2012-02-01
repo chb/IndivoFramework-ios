@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoLatest.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,17 +20,43 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoLatest.h"
 
 
+@implementation IndivoLatest
+
+@synthesize createdAt, createdBy;
+
+
++ (NSString *)nodeName
+{
+	return @"latest";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:latest";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INDateTime", @"createdAt",
+			@"INString", @"createdBy",
+			nil];
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"createdAt", @"createdBy", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"createdAt", @"createdBy", nil];
+	}
 	
-
-/**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
- */
-@interface IndivoCreated : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+	return nonNilPropertyNames;	*/
+}
 
 
 @end

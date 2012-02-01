@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoLab.h
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -22,15 +22,20 @@
 
 #import "IndivoDocument.h"
 
-
+@class IndivoLabProvider;
 	
 
 /**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
+ *	A class representing "indivo:Lab" objects, generated from lab.xsd.
  */
-@interface IndivoCreated : IndivoDocument
+@interface IndivoLab : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INDateTime *dateMeasured;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INString *labType;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) IndivoLabProvider *laboratory;
+@property (nonatomic, strong) NSArray *labPanel;					///< An array containing IndivoLabPanel objects
+@property (nonatomic, strong) NSArray *labTest;					///< An array containing IndivoLabTest objects
+@property (nonatomic, strong) INString *comments;
 
 
 @end

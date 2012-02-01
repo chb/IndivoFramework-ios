@@ -20,15 +20,15 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "{{ CLASS_SUPERCLASS }}.h"
 {{ CLASS_IMPORTS }}
 {{ CLASS_FORWARDS }}
 	
 
 /**
- *	A class representing "{{ INDIVO_TYPE }}" objects.
+ *	A class representing "{{ INDIVO_TYPE }}" objects, generated from {{ TEMPLATE_PATH }}.
  */
-@interface {{ CLASS_NAME }} : IndivoDocument
+@interface {{ CLASS_NAME }} : {{ CLASS_SUPERCLASS }}
 
 {{ CLASS_PROPERTIES }}
 

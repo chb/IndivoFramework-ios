@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoRange.h
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -26,11 +26,13 @@
 	
 
 /**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
+ *	A class representing "indivo:Range" objects, generated from values.xsd.
  */
-@interface IndivoCreated : IndivoDocument
+@interface IndivoRange : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INDouble *minimum;
+@property (nonatomic, strong) INDouble *maximum;
+@property (nonatomic, strong) INCodedValue *unit;
 
 
 @end

@@ -33,9 +33,16 @@
 	return @"{{ CLASS_NODENAME }}";
 }
 
-+ (NSString *)type
++ (NSString *)nodeType
 {
 	return @"{{ CLASS_TYPENAME }}";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			{{ CLASS_PROPERTY_MAP }},
+			nil];
 }
 
 + (NSArray *)nonNilPropertyNames

@@ -33,7 +33,7 @@
 	[super setFromNode:node];
 	
 	self.value = [[node childNamed:@"value"] text];
-	self.unit = [INCodedValue objectFromNode:node forChildNamed:@"unit"];
+	self.unit = [INCodedValue objectFromNode:[node childNamed:@"unit"]];
 }
 
 - (INCodedValue *)unit

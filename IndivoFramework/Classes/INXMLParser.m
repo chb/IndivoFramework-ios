@@ -224,7 +224,7 @@ void xmlSchemaValidityError(void **ctx, const char *format, ...);
 	// get our XML into an xmlDocPtr
 	else {
 		const char *xml = [xmlString cStringUsingEncoding:NSUTF8StringEncoding];
-		int len = strlen(xml);
+		int len = (int)strlen(xml);
 		xmlDocPtr doc = xmlParseMemory(xml, len);
 		
 		if (NULL == doc) {

@@ -28,7 +28,6 @@
 
 @interface IndivoAbstractDocument ()
 
-- (NSString *)xmlForPropertyNamed:(NSString *)aName;
 - (NSString *)xmlForObject:(id)anObject nodeName:(NSString *)nodeName;
 
 @end
@@ -64,43 +63,73 @@
 
 
 #pragma mark - From and To XML
+/**
+ *	Sets our class properties from the given node and its child nodes.
+ *	This method collects all class ivars from this class up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
+ *	subclasses, but if not we need to walk the class hierarchy upwards until one below IndivoDocument in order to collect the inherited ivars.
+ */
 - (void)setFromNode:(INXMLNode *)node
 {
 	[super setFromNode:node];
 	
 	// document id
-	if (node) {
+	if (node && [node attr:@"id"]) {
 		self.udid = [node attr:@"id"];
 	}
 	
-	// collect all ivars that are subclasses of INObject and instantiate them from XML nodes with the same name
-	unsigned int num, i;
-	Ivar *ivars = class_copyIvarList([self class], &num);
-	for (i = 0; i < num; i++) {
-		id ivarObj = object_getIvar(self, ivars[i]);
-		Class ivarClass = [ivarObj class];
-		
-		// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
-		if (!ivarClass) {
-			NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivars[i])];
-			if ([ivarType length] > 3) {
-				NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
-				ivarClass = NSClassFromString(className);
-			}
-		}
-		
-		// we got an instance variable of INObject kind, instantiate
-		if ([ivarClass isSubclassOfClass:[INObject class]]) {
+	// collect all ivars that are subclasses of NSArray or INObject and instantiate them from XML nodes with the same name
+	Class currentClass = [self class];
+	NSMutableArray *hierarchy = [NSMutableArray arrayWithCapacity:1];
+	while (currentClass && 0 != strcmp("IndivoDocument", class_getName(currentClass)) && currentClass != [IndivoAbstractDocument class]) {
+		unsigned int num, i;
+		Ivar *ivars = class_copyIvarList(currentClass, &num);
+		for (i = 0; i < num; i++) {
+			id ivarObj = object_getIvar(self, ivars[i]);
 			const char *ivar_name = ivar_getName(ivars[i]);
 			NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
-			id newVal = [ivarClass objectFromNode:node forChildNamed:ivarName];
+			Class ivarClass = [ivarObj class];
 			
-			/// @todo Prevent overwriting existing nodes if the node was not provided
-			object_setIvar(self, ivars[i], newVal);
+			// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
+			if (!ivarClass) {
+				NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivars[i])];
+				if ([ivarType length] > 3) {
+					NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
+					ivarClass = NSClassFromString(className);
+				}
+				if (!ivarClass) {
+					DLog(@"WARNING: Class for \"%@\" not loaded: \"%@\"", ivarName, ivarType);
+				}
+			}
+			
+			// we got an array instance, try to fill it
+			if ([ivarClass isSubclassOfClass:[NSArray class]]) {
+				Class itemClass = [currentClass classforProperty:ivarName];
+				
+				NSArray *children = [node childrenNamed:ivarName];
+				NSMutableArray *objects = [NSMutableArray arrayWithCapacity:[children count]];
+				for (INXMLNode *child in children) {
+					INObject *newObject = [itemClass objectFromNode:child];
+					[objects addObjectIfNotNil:newObject];
+				}
+				
+				/// @todo Prevent overwriting existing nodes if the node was not provided
+				object_setIvar(self, ivars[i], [objects copy]);
+			}
+			
+			// we got an instance variable of INObject kind, instantiate
+			else if ([ivarClass isSubclassOfClass:[INObject class]]) {
+				id newVal = [ivarClass objectFromNode:[node childNamed:ivarName]];
+				
+				/// @todo Prevent overwriting existing nodes if the node was not provided
+				object_setIvar(self, ivars[i], newVal);
+			}
 		}
+		free(ivars);
+		
+		currentClass = [currentClass superclass];
 	}
-	free(ivars);
 }
+
 
 /**
  *	Our subclasses sport an automatic isNull method that returns YES if all ivars of INObject subclass are nil
@@ -130,10 +159,16 @@
 - (NSString *)xml
 {
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@ xmlns=\"%@\">\n\t%@\n</%@>", self.nodeName, self.nameSpace, [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>\n\t%@\n</%@>", [self tagXML], [self innerXML], self.nodeName];
 #else
-	return [NSString stringWithFormat:@"<%@ xmlns=\"%@\">%@</%@>", self.nodeName, self.nameSpace, [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagXML], [self innerXML], self.nodeName];
 #endif
+}
+
+
+- (NSString *)tagXML
+{
+	return [NSString stringWithFormat:@"%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", [super tagXML], self.nameSpace];
 }
 
 
@@ -187,6 +222,7 @@
 	}
 	
 	// any other object
+	/// @todo if the object is nil but it must be present (canBeNull: returns NO), we should add an empty node maybe?
 	return [self xmlForObject:anObject nodeName:aName];
 }
 
@@ -268,6 +304,29 @@
 + (NSString *)type
 {
 	return @"";
+}
+
+
+/**
+ *	Returns the class of a property from the property map dictionary
+ */
++ (Class)classforProperty:(NSString *)propertyName
+{
+	NSDictionary *map = [self propertyClassMapper];
+	NSString *className = [map objectForKey:propertyName];
+	if (className) {
+		return NSClassFromString(className);
+	}
+	return nil;
+}
+
+/**
+ *	The automatically generated IndivoDocument subclasses return a dictionary with property->class mappings. This is important for NSArray properties
+ *	to determine the class of the array items.
+ */
++ (NSDictionary *)propertyClassMapper
+{
+	return nil;
 }
 
 

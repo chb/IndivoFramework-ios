@@ -21,11 +21,16 @@
  */
 
 #import "INObject.h"
+#import "NSArray+NilProtection.h"
+
+
+NSString *const INClassGeneratorClassPrefix = @"Indivo";
+NSString *const INClassGeneratorTypePrefix = @"indivo";
 
 
 @implementation INObject
 
-@synthesize nodeName = _nodeName, nodeType;
+@synthesize nodeName = _nodeName, nodeType, mustDeclareType;
 
 
 /**
@@ -52,14 +57,14 @@
 }
 
 /**
- *	The INObject implementation sets the node name and node type (if a type attribute is found in the XML node) from an
- *	INXMLNode parsed from an Indivo XML (!).
- *	In subclasses, this methed replaces all properties with values found in the node, leaves those not present untouched.
- *	This method is called from the designated initializer, subclasses should override it to set custom properties and call
+ *	The INObject implementation sets the node name and node type (if a type attribute is found in the XML node) from an INXMLNode parsed
+ *	from an Indivo XML (!).
+ *	In subclasses, this methed replaces all properties with values found in the node, leaves those not present untouched. This method is
+ *	called from the designated initializer, subclasses should override it to set custom properties and call
  *	[super setFromNode:<node>]
- *	@attention If you are using INXMLNodes to parse your custom XML this method will only do the right thing if your XML
- *	has the same structure as Indivo has for the specific node. For custom XML it's usually better to create blank new
- *	INObjects and set their properties by hand.
+ *	@attention If you are using INXMLNodes to parse your custom XML this method will only do the right thing if your XML has the same
+ *	structure as Indivo has for the specific node. For custom XML it's usually better to create blank new INObjects and set their properties
+ *	by hand.
  */
 - (void)setFromNode:(INXMLNode *)node
 {
@@ -74,26 +79,32 @@
 }
 
 /**
- *	This method returns an object for the first child node found with the given name in the given node
- *	@param aNode A node to be searched for the child
- *	@param childName The name of the child node to find
- *	@param deaultObj If no desired child node exists, the default object will be returned
+ *	This method returns an object created representing the the node.
+ *	@attention This method may return a subclass of itself if the node specifies an "xsi:type" attribute representing a subclass.
+ *	@param aNode A node to be used to initialize the object
  */
-+ (id)objectFromNode:(INXMLNode *)aNode forChildNamed:(NSString *)childName
++ (id)objectFromNode:(INXMLNode *)aNode
 {
-	if (!childName) {
+	if (!aNode) {
 		return nil;
 	}
 	
-	INXMLNode *child = [aNode childNamed:childName];
-	
-	// create new
-	INObject *newObject = [[self alloc] initFromNode:child];
-	if (!child) {
-		newObject.nodeName = childName;
+	// if the XML node does specify a type, check whether we have the desired class and we are, in fact, a subclass of the suggested class
+	NSString *xsiType = [aNode attr:@"xsi:type"];
+	if ([xsiType length] > 0) {
+		NSString *newClassName = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, xsiType];
+		Class newClass = NSClassFromString(newClassName);
+		if (!newClass) {
+			DLog(@"Should override class of %@ to %@, as specified by xsi:type, but that class does not exist", NSStringFromClass(self), newClassName);
+		}
+		else if (newClass != self && [newClass isSubclassOfClass:self]) {
+			INObject *obj = [newClass objectFromNode:aNode];
+			obj.mustDeclareType = YES;
+			return obj;
+		}
 	}
 	
-	return newObject;
+	return [[self alloc] initFromNode:aNode];
 }
 
 
@@ -113,7 +124,18 @@
  */
 - (NSString *)xml
 {
-	return [NSString stringWithFormat:@"<%@ />", self.nodeName];
+	return [NSString stringWithFormat:@"<%@ />", [self tagXML]];
+}
+
+/**
+ *	Returns the tag name and, if mustDeclareType is YES, the xsi:type-attribute, ready to be used as tag name.
+ */
+- (NSString *)tagXML
+{
+	if (mustDeclareType) {
+		return [NSString stringWithFormat:@"%@ xsi:type=\"%@\"", self.nodeName, self.nodeType];
+	}
+	return self.nodeName;
 }
 
 /**

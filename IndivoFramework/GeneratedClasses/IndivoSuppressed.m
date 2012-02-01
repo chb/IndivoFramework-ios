@@ -2,7 +2,7 @@
  IndivoSuppressed.m
  IndivoFramework
  
- Created by Indivo Class Generator on 1/31/2012.
+ Created by Indivo Class Generator on 2/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -33,9 +33,16 @@
 	return @"suppressed";
 }
 
-+ (NSString *)type
++ (NSString *)nodeType
 {
 	return @"indivo:suppressed";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INDateTime", @"at",
+			nil];
 }
 
 + (NSArray *)nonNilPropertyNames

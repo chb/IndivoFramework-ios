@@ -59,6 +59,31 @@
 	STAssertFalse([INXMLParser validateXML:[medication xml] againstXSD:medXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [medication xml]);
 }
 
+- (void)testLabPanel
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *labXML = [self readFixture:@"lab"];
+	INXMLNode *labNode = [INXMLParser parseXML:labXML error:&error];
+	IndivoLab *lab = [[IndivoLab alloc] initFromNode:labNode];
+	
+	STAssertNotNil(lab, @"Lab");
+	STAssertEqualObjects(@"2009-07-16T12:00:00", [lab.dateMeasured isoString], @"measure date");
+	STAssertEqualObjects(@"hematology", lab.labType.string, @"lab type");
+	
+	// test value changes
+	lab.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41", [lab.dateMeasured isoString], @"changed date");
+	NSLog(@"%@", [lab xml]);
+	
+	// validate
+	NSString *labXSDPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"lab" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[lab xml] againstXSD:labXSDPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [lab xml]);
+	
+	lab.dateMeasured = nil;
+	STAssertFalse([INXMLParser validateXML:[lab xml] againstXSD:labXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [lab xml]);
+}
 
 
 #pragma mark - Utilities

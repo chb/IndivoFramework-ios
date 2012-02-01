@@ -46,8 +46,12 @@
 - (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord;
 + (id)newWithRecord:(IndivoRecord *)aRecord;
 
+- (NSString *)xmlForPropertyNamed:(NSString *)aName;
+
 + (NSString *)nameSpace;
 + (NSString *)type;
++ (Class)classforProperty:(NSString *)propertyName;
++ (NSDictionary *)propertyClassMapper;
 + (BOOL)canBeNull:(NSString *)propertyName;
 + (NSArray *)nonNilPropertyNames;
 

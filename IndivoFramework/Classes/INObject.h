@@ -39,15 +39,18 @@
 
 @property (nonatomic, copy) NSString *nodeName;						///< The object's nodeName
 @property (nonatomic, copy) NSString *nodeType;						///< The type, e.g. "indivo:ValueAndUnit" or "xs:date"
+@property (nonatomic, assign) BOOL mustDeclareType;					///< NO by default. If YES, the XML output should contain "xsi:type"
 
 + (id)newWithNodeName:(NSString *)aNodeName;
 
 - (id)initFromNode:(INXMLNode *)node;
-+ (id)objectFromNode:(INXMLNode *)aNode forChildNamed:(NSString *)childName;
++ (id)objectFromNode:(INXMLNode *)aNode;
+
 - (void)setFromNode:(INXMLNode *)node;
 
 - (BOOL)isNull;
 - (NSString *)xml;
+- (NSString *)tagXML;
 - (NSString *)innerXML;
 
 + (NSString *)nodeName;

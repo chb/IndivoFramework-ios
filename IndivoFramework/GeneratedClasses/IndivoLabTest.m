@@ -1,5 +1,5 @@
 /*
- IndivoCreated.h
+ IndivoLabTest.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/1/2012.
@@ -20,17 +20,44 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoLabTest.h"
 
 
+@implementation IndivoLabTest
+
+@synthesize dateMeasured, name, final;
+
+
++ (NSString *)nodeName
+{
+	return @"LabTest";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:LabTest";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INDateTime", @"dateMeasured",
+			@"INCodedValue", @"name",
+			@"INBool", @"final",
+			nil];
+}
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"dateMeasured", @"name", @"final", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"dateMeasured", @"name", @"final", nil];
+	}
 	
-
-/**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
- */
-@interface IndivoCreated : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+	return nonNilPropertyNames;	*/
+}
 
 
 @end

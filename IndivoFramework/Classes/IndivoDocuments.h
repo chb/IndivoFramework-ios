@@ -33,4 +33,10 @@
 #import "IndivoPrincipal.h"
 #import "IndivoCreated.h"
 #import "IndivoSuppressed.h"
+#import "IndivoLatest.h"
+#import "IndivoLab.h"
+#import "IndivoLabPanel.h"
+#import "IndivoLabProvider.h"
+#import "IndivoLabReport.h"
+#import "IndivoLabTest.h"
 
