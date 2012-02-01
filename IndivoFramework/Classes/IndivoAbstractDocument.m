@@ -23,6 +23,15 @@
 #import "IndivoAbstractDocument.h"
 #import <objc/runtime.h>
 #import "IndivoRecord.h"
+#import "NSArray+NilProtection.h"
+
+
+@interface IndivoAbstractDocument ()
+
+- (NSString *)xmlForPropertyNamed:(NSString *)aName;
+- (NSString *)xmlForObject:(id)anObject nodeName:(NSString *)nodeName;
+
+@end
 
 
 @implementation IndivoAbstractDocument
@@ -133,41 +142,18 @@
  *	This method walks all direct properties of the method and if they respond to the "xml" selector, adds the returned XML to this instance's
  *	XML representation. The main "xml" method creates our own node (e.g. <Document xmlns="something">) and adds the result of this method as
  *	the node's inner XML.
+ *	@return An XML string or nil
  */
 - (NSString *)innerXML
 {
 	unsigned int num, i;
 	
-	// collect all ivars responding to "xml"
+	// collect XML for all ivars
 	NSMutableArray *xmlValues = [NSMutableArray array];
 	Ivar *ivars = class_copyIvarList([self class], &num);
 	for (i = 0; i < num; ++i) {
-		id ivar = object_getIvar(self, ivars[i]);
-		if ([ivar respondsToSelector:@selector(xml)]) {
-			NSString *nodeName = nil;
-			
-			// if the node does not have a nodeName, apply the ivar name as nodeName
-			if ([ivar isKindOfClass:[INObject class]]) {
-				INObject *node = (INObject *)ivar;
-				if (!node.nodeName) {
-					node.nodeName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
-				}
-				nodeName = node.nodeName;
-			}
-			
-			// warn if we may not validate but do not block XML creation
-			if (nodeName && (!ivar || ([ivar respondsToSelector:@selector(isNull)] && [ivar isNull])) && ![[self class] canBeNull:nodeName]) {
-				DLog(@"WARNING: %@ is nil or isNull, but it should be set to generate valid XML. Will add \"%@\"", nodeName, [ivar xml]);
-			}
-			
-			// generate node XML
-#ifdef INDIVO_XML_PRETTY_FORMAT
-			NSString *subXML = [[ivar xml] stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"];
-			[xmlValues addObject:subXML];
-#else
-			[xmlValues addObject:[ivar xml]];
-#endif
-		}
+		NSString *ivarName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
+		[xmlValues addObjectIfNotNil:[self xmlForPropertyNamed:ivarName]];
 	}
 	free(ivars);
 	
@@ -176,6 +162,65 @@
 #else
 	return [xmlValues componentsJoinedByString:@""];
 #endif
+}
+
+
+/**
+ *	If the property in an array, calls "xmlForObject:nodeName:" on all elements in the array, otherwise calls that same function on the object.
+ *	@return An XML string or nil
+ */
+- (NSString *)xmlForPropertyNamed:(NSString *)aName
+{
+	id anObject = [self valueForKey:aName];
+	
+	// array - loop objects
+	if ([anObject isKindOfClass:[NSArray class]]) {
+		NSMutableArray *xmlValues = [NSMutableArray array];
+		for (id object in anObject) {
+			[xmlValues addObjectIfNotNil:[self xmlForObject:object nodeName:aName]];
+		}
+#ifdef INDIVO_XML_PRETTY_FORMAT
+		return [xmlValues componentsJoinedByString:@"\n"];
+#else
+		return [xmlValues componentsJoinedByString:@""];
+#endif
+	}
+	
+	// any other object
+	return [self xmlForObject:anObject nodeName:aName];
+}
+
+
+/**
+ *	Takes any object and tries to return the result of its "xml" selector, if it responds to that. If the object is of INObject ancestry, sets
+ *	its nodeName to the passed nodeName if it's not yet set.
+ *	@return An XML string or nil
+ */
+- (NSString *)xmlForObject:(id)anObject nodeName:(NSString *)nodeName
+{
+	if ([anObject respondsToSelector:@selector(xml)]) {
+		
+		// if the node does not have its own nodeName (ignoring the class nodeName), set the ivar name as nodeName
+		if ([anObject isKindOfClass:[INObject class]]) {
+			INObject *node = (INObject *)anObject;
+			if (!node->_nodeName) {
+				node.nodeName = nodeName;
+			}
+			
+			// warn if we may not validate but do not block XML creation
+			if ([node isNull] && ![[self class] canBeNull:node.nodeName]) {
+				DLog(@"WARNING: %@ is not set, may generate invalid XML. Will add \"%@\"", node.nodeName, [node xml]);
+			}
+		}
+		
+		// get object's XML
+		NSString *subXML = [anObject performSelector:@selector(xml)];
+#ifdef INDIVO_XML_PRETTY_FORMAT
+		subXML = [subXML stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"];
+#endif
+		return subXML;
+	}
+	return nil;
 }
 
 

@@ -314,9 +314,6 @@ void runOnMainQueue(dispatch_block_t block)
 	// do we accept multiple instances?
 	if ([@"unbounded" isEqualToString:max] || ![@"1" isEqualToString:max]) {
 		comment = [NSString stringWithFormat:@"An array containing %@ objects", useClass];
-		if (![@"s" isEqualToString:[cName substringFromIndex:[cName length] - 2]]) {
-			cName = [cName stringByAppendingString:@"s"];
-		}
 		useClass = @"NSArray";
 	}
 	
@@ -330,9 +327,7 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 	}
 	
-	// make sure the name starts with a lowercase letter
-	cName = [[[cName substringToIndex:1] lowercaseString] stringByAppendingString:[cName substringFromIndex:1]];
-	
+	// compose and return
 	NSDictionary *elemDict = [NSDictionary dictionaryWithObjectsAndKeys:
 							  cName, @"name",
 							  cType, @"type",
@@ -371,9 +366,6 @@ void runOnMainQueue(dispatch_block_t block)
 			attrType = xsType;
 		}
 	}
-	
-	// make sure the name's first letter is lowercase
-	attrName = [[[attrName substringToIndex:1] lowercaseString] stringByAppendingString:[attrName substringFromIndex:1]];
 	
 	// compose and return
 	NSDictionary *attrDict = [NSDictionary dictionaryWithObjectsAndKeys:

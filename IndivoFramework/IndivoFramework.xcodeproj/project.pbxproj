@@ -19,6 +19,10 @@
 		EE09B5FC14D8517600E99A67 /* codes.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EE09B5FB14D8517600E99A67 /* codes.xsd */; };
 		EE09B5FF14D851AA00E99A67 /* provider.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EE09B5FE14D851AA00E99A67 /* provider.xsd */; };
 		EE09B60114D851EA00E99A67 /* values.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EE09B60014D851EA00E99A67 /* values.xsd */; };
+		EE09B62C14D9B9EA00E99A67 /* NSArray+NilProtection.h in Headers */ = {isa = PBXBuildFile; fileRef = EE09B62A14D9B9EA00E99A67 /* NSArray+NilProtection.h */; };
+		EE09B62D14D9B9EA00E99A67 /* NSArray+NilProtection.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09B62B14D9B9EA00E99A67 /* NSArray+NilProtection.m */; };
+		EE09B62E14D9B9EA00E99A67 /* NSArray+NilProtection.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09B62B14D9B9EA00E99A67 /* NSArray+NilProtection.m */; };
+		EE09B62F14D9B9EA00E99A67 /* NSArray+NilProtection.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09B62B14D9B9EA00E99A67 /* NSArray+NilProtection.m */; };
 		EE13448C141AB99D00D167B2 /* IndivoWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = EE13448A141AB99D00D167B2 /* IndivoWebView.h */; };
 		EE13448D141AB99D00D167B2 /* IndivoWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE13448B141AB99D00D167B2 /* IndivoWebView.m */; };
 		EE18082614BCF5BC009D7873 /* IndivoConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = EE18082514BCF5BC009D7873 /* IndivoConfig.h */; };
@@ -30,8 +34,8 @@
 		EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
 		EE34D98414244818001A95AD /* INServerObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE34D98214244818001A95AD /* INServerObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE34D98514244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
-		EE37571F1431021B002ABE18 /* IndivoMedication+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication+Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE3757201431021B002ABE18 /* IndivoMedication+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */; };
+		EE37571F1431021B002ABE18 /* IndivoMedication+Ext.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication+Ext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE3757201431021B002ABE18 /* IndivoMedication+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication+Ext.m */; };
 		EE37572614314179002ABE18 /* INObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572414314179002ABE18 /* INObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37572714314179002ABE18 /* INObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37572514314179002ABE18 /* INObject.m */; };
 		EE37572A14314C52002ABE18 /* INObjects.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37572914314C52002ABE18 /* INObjects.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -89,7 +93,7 @@
 		EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
 		EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
 		EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */; };
-		EEA044F714CA1BDE00C28C61 /* IndivoMedication+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */; };
+		EEA044F714CA1BDE00C28C61 /* IndivoMedication+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37571E1431021B002ABE18 /* IndivoMedication+Ext.m */; };
 		EEA044F914CA1BE500C28C61 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
 		EEA044FA14CA1BE500C28C61 /* INURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5DE92B1468447A004CC666 /* INURLFetcher.m */; };
 		EEA044FB14CA1BE500C28C61 /* INURLLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE05DE091447835D00920A4B /* INURLLoader.m */; };
@@ -222,6 +226,8 @@
 		EE09B5FB14D8517600E99A67 /* codes.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = codes.xsd; sourceTree = "<group>"; };
 		EE09B5FE14D851AA00E99A67 /* provider.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = provider.xsd; sourceTree = "<group>"; };
 		EE09B60014D851EA00E99A67 /* values.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = values.xsd; sourceTree = "<group>"; };
+		EE09B62A14D9B9EA00E99A67 /* NSArray+NilProtection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+NilProtection.h"; sourceTree = "<group>"; };
+		EE09B62B14D9B9EA00E99A67 /* NSArray+NilProtection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+NilProtection.m"; sourceTree = "<group>"; };
 		EE13448A141AB99D00D167B2 /* IndivoWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoWebView.h; sourceTree = "<group>"; };
 		EE13448B141AB99D00D167B2 /* IndivoWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoWebView.m; sourceTree = "<group>"; };
 		EE18082514BCF5BC009D7873 /* IndivoConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoConfig.h; sourceTree = SOURCE_ROOT; };
@@ -233,8 +239,8 @@
 		EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoAbstractDocument.m; sourceTree = "<group>"; };
 		EE34D98214244818001A95AD /* INServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerObject.h; sourceTree = "<group>"; };
 		EE34D98314244818001A95AD /* INServerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INServerObject.m; sourceTree = "<group>"; };
-		EE37571D1431021B002ABE18 /* IndivoMedication+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IndivoMedication+Utils.h"; sourceTree = "<group>"; };
-		EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IndivoMedication+Utils.m"; sourceTree = "<group>"; };
+		EE37571D1431021B002ABE18 /* IndivoMedication+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IndivoMedication+Ext.h"; sourceTree = "<group>"; };
+		EE37571E1431021B002ABE18 /* IndivoMedication+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IndivoMedication+Ext.m"; sourceTree = "<group>"; };
 		EE37572414314179002ABE18 /* INObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INObject.h; sourceTree = "<group>"; };
 		EE37572514314179002ABE18 /* INObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INObject.m; sourceTree = "<group>"; };
 		EE37572914314C52002ABE18 /* INObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INObjects.h; sourceTree = "<group>"; };
@@ -436,8 +442,8 @@
 				EE3C95F6141178CC002BA967 /* IndivoDocument.m */,
 				EE1E2CC0144B5BAB001A1E72 /* IndivoMetaDocument.h */,
 				EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */,
-				EE37571D1431021B002ABE18 /* IndivoMedication+Utils.h */,
-				EE37571E1431021B002ABE18 /* IndivoMedication+Utils.m */,
+				EE37571D1431021B002ABE18 /* IndivoMedication+Ext.h */,
+				EE37571E1431021B002ABE18 /* IndivoMedication+Ext.m */,
 			);
 			name = "Indivo Documents";
 			sourceTree = "<group>";
@@ -590,6 +596,8 @@
 				EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */,
 				EEF2061D14C0BB4E00808F24 /* NSString+XML.h */,
 				EEF2061E14C0BB4E00808F24 /* NSString+XML.m */,
+				EE09B62A14D9B9EA00E99A67 /* NSArray+NilProtection.h */,
+				EE09B62B14D9B9EA00E99A67 /* NSArray+NilProtection.m */,
 			);
 			name = "Helper Classes";
 			sourceTree = "<group>";
@@ -762,7 +770,7 @@
 				EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */,
 				EE9FFA9C142D13F700120C0F /* INXMLParser.h in Headers */,
 				EE079FE1142D3E9A00A92904 /* INXMLNode.h in Headers */,
-				EE37571F1431021B002ABE18 /* IndivoMedication+Utils.h in Headers */,
+				EE37571F1431021B002ABE18 /* IndivoMedication+Ext.h in Headers */,
 				EE37572614314179002ABE18 /* INObject.h in Headers */,
 				EE37572A14314C52002ABE18 /* INObjects.h in Headers */,
 				EE37572E14314CF6002ABE18 /* INDate.h in Headers */,
@@ -814,6 +822,7 @@
 				EECC234A14D74BCA00B4FC30 /* IndivoPrincipal.h in Headers */,
 				EECC234F14D7580900B4FC30 /* IndivoPrescription.h in Headers */,
 				EECC235314D75A0500B4FC30 /* IndivoDocuments.h in Headers */,
+				EE09B62C14D9B9EA00E99A67 /* NSArray+NilProtection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -958,7 +967,7 @@
 				EE34D98514244818001A95AD /* INServerObject.m in Sources */,
 				EE9FFA9D142D13F700120C0F /* INXMLParser.m in Sources */,
 				EE079FE2142D3E9A00A92904 /* INXMLNode.m in Sources */,
-				EE3757201431021B002ABE18 /* IndivoMedication+Utils.m in Sources */,
+				EE3757201431021B002ABE18 /* IndivoMedication+Ext.m in Sources */,
 				EE37572714314179002ABE18 /* INObject.m in Sources */,
 				EE37572F14314CF6002ABE18 /* INDate.m in Sources */,
 				EE37573414314D04002ABE18 /* INCodedValue.m in Sources */,
@@ -1003,6 +1012,7 @@
 				EECC234814D74BC700B4FC30 /* IndivoProvider.m in Sources */,
 				EECC234B14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */,
 				EECC235014D7580900B4FC30 /* IndivoPrescription.m in Sources */,
+				EE09B62D14D9B9EA00E99A67 /* NSArray+NilProtection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,7 +1039,7 @@
 				EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */,
 				EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */,
 				EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */,
-				EEA044F714CA1BDE00C28C61 /* IndivoMedication+Utils.m in Sources */,
+				EEA044F714CA1BDE00C28C61 /* IndivoMedication+Ext.m in Sources */,
 				EEA044F914CA1BE500C28C61 /* INServerCall.m in Sources */,
 				EEA044FA14CA1BE500C28C61 /* INURLFetcher.m in Sources */,
 				EEA044FB14CA1BE500C28C61 /* INURLLoader.m in Sources */,
@@ -1066,6 +1076,7 @@
 				EECC234914D74BC700B4FC30 /* IndivoProvider.m in Sources */,
 				EECC234C14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */,
 				EECC235114D7580900B4FC30 /* IndivoPrescription.m in Sources */,
+				EE09B62E14D9B9EA00E99A67 /* NSArray+NilProtection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1079,6 +1090,7 @@
 				EEA0455A14CA3EC900C28C61 /* INXMLParser.m in Sources */,
 				EEA0455B14CA3EC900C28C61 /* INXMLNode.m in Sources */,
 				EEA0455D14CA3ED400C28C61 /* INXMLReport.m in Sources */,
+				EE09B62F14D9B9EA00E99A67 /* NSArray+NilProtection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

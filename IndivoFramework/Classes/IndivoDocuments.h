@@ -27,7 +27,7 @@
 
 #import "IndivoDocument.h"
 #import "IndivoMetaDocument.h"
-#import "IndivoMedication+Utils.h"
+#import "IndivoMedication+Ext.h"
 #import "IndivoPrescription.h"
 #import "IndivoProvider.h"
 #import "IndivoPrincipal.h"

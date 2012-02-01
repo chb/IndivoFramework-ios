@@ -20,7 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoMedication+Utils.h"
+#import "IndivoMedication+Ext.h"
 #import "IndivoRecord.h"
 #import "INXMLNode.h"
 #import "INObjects.h"
@@ -59,7 +59,7 @@
 #pragma mark - Pill Image
 - (UIImage *)pillImage
 {
-	return nil;
+	return [self cachedObjectOfType:@"pillImage"];
 }
 
 /**
@@ -117,9 +117,11 @@
 									imgLoader.expectBinaryData = YES;
 									[imgLoader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 										if (!errorMessage && !userDidCancel) {
-											//self.pillImage = [UIImage imageWithData:imgLoader.responseData];
-											
-											/// @todo cache!!
+											UIImage *pImage = [UIImage imageWithData:imgLoader.responseData];
+											NSError *cError = nil;
+											if (![self cacheObject:pImage asType:@"pillImage" error:&cError]) {
+												DLog(@"Error caching: %@", [cError localizedDescription]);
+											}
 										}
 										CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, errorMessage)
 									}];
@@ -134,6 +136,14 @@
 			}
 		}];
 	}
+}
+
+
+
+#pragma mark - Report Path
++ (NSString *)reportType
+{
+	return @"medications";
 }
 
 

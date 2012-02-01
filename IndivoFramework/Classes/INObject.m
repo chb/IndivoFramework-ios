@@ -25,7 +25,7 @@
 
 @implementation INObject
 
-@synthesize nodeName, nodeType;
+@synthesize nodeName = _nodeName, nodeType;
 
 
 /**
@@ -129,8 +129,8 @@
  */
 - (NSString *)nodeName
 {
-	if (nodeName) {
-		return nodeName;
+	if (_nodeName) {
+		return _nodeName;
 	}
 	return [[self class] nodeName];
 }

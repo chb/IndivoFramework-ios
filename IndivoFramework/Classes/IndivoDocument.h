@@ -43,7 +43,8 @@
 - (NSString *)documentPath;
 - (NSString *)basePostPath;
 
-// Document status
+// Document properties
++ (NSString *)reportType;
 - (BOOL)hasStatus:(INDocumentStatus)aStatus;
 
 // Document actions
@@ -53,6 +54,12 @@
 - (void)setLabel:(NSString *)aLabel callback:(INCancelErrorBlock)callback;
 - (void)void:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback;
 - (void)archive:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback;
+
+// Caching
+- (BOOL)cacheObject:(id)anObject asType:(NSString *)aType error:(__autoreleasing NSError **)error;
+- (id)cachedObjectOfType:(NSString *)aType;
++ (BOOL)cacheObject:(id)anObject asType:(NSString *)aType forId:(NSString *)aUdid error:(__autoreleasing NSError **)error;
++ (id)cachedObjectOfType:(NSString *)aType forId:(NSString *)aUdid;
 
 
 @end

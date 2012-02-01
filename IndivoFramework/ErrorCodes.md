@@ -7,6 +7,8 @@ Error Code Reference Sheet
 ### Cocoa
 - 10 -- Invalid Class
 - 11 -- Failed to instantiate Class
+- 20 -- Invalid Object
+- 21 -- No object given
 
 ### Connection
 - 1001 -- No server URL given

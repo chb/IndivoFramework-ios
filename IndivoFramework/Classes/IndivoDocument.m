@@ -30,6 +30,9 @@
 @property (nonatomic, readwrite, assign) INDocumentStatus status;
 @property (nonatomic, readwrite, assign) BOOL fetched;
 
++ (NSMutableDictionary *)cacheDictionary;
++ (dispatch_queue_t)cacheQueue;
+
 @end
 
 
@@ -59,7 +62,7 @@
  */
 + (NSString *)fetchReportPathForRecord:(IndivoRecord *)aRecord
 {
-	return [NSString stringWithFormat:@"/records/%@/documents/types/%@/", aRecord.udid, [self type]];
+	return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.udid, [self reportType]];
 }
 
 /**
@@ -81,7 +84,17 @@
 
 
 
-#pragma mark - Document Status
+#pragma mark - Document Properties
+/**
+ *	This name is used to construct the report path for this kind of document. For example, "IndivoMedication" will return "medications" from
+ *	this method, so the path will be "/records/<record-id>/reports/minimal/medications/".
+ */
++ (NSString *)reportType
+{
+	return @"";
+}
+
+
 /**
  *	Returns YES if the receiver's status matches the supplied status, which can be an OR-ed list of status
  */
@@ -248,6 +261,113 @@
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, userInfo)
 		}
 	}];
+}
+
+
+
+#pragma mark - Caching Facility
+/**
+ *	Caches the object for a given type.
+ */
+- (BOOL)cacheObject:(id)anObject asType:(NSString *)aType error:(__autoreleasing NSError **)error
+{
+	return [[self class] cacheObject:anObject asType:aType forId:self.udid error:error];
+}
+
+/**
+ *	Retrieves the object for a given type from cache.
+ */
+- (id)cachedObjectOfType:(NSString *)aType
+{
+	return [[self class] cachedObjectOfType:aType forId:self.udid];
+}
+
+
+/**
+ *	Stores an object of a given type for the document of the given udid.
+ */
++ (BOOL)cacheObject:(id)anObject asType:(NSString *)aType forId:(NSString *)aUdid error:(__autoreleasing NSError **)error
+{
+	if (!anObject) {
+		ERR(error, @"No object given", 21)
+		return NO;
+	}
+	if (!aUdid) {
+		ERR(error, @"No id given", 0)
+		return NO;
+	}
+	if (!aType) {
+		aType = @"generic";
+	}
+	
+	// get global objects
+	NSMutableDictionary *cacheDict = [self cacheDictionary];
+	dispatch_queue_t cacheQueue = [self cacheQueue];
+	
+	// store the object in cache
+	dispatch_sync(cacheQueue, ^{
+		NSMutableDictionary *typeDictionary = [cacheDict objectForKey:aType];
+		if (!typeDictionary) {
+			typeDictionary = [NSMutableDictionary dictionaryWithObject:anObject forKey:aUdid];
+			[cacheDict setObject:typeDictionary forKey:aType];
+		}
+		else {
+			[typeDictionary setObject:anObject forKey:aUdid];
+		}
+		
+		/// @todo cache to disk
+	});
+	return YES;
+}
+
+
+/**
+ *	Retrieves the cached object of a given type for a given document udid.
+ */
++ (id)cachedObjectOfType:(NSString *)aType forId:(NSString *)aUdid
+{
+	if (!aUdid) {
+		return nil;
+	}
+	if (!aType) {
+		aType = @"generic";
+	}
+	
+	// get global objects
+	NSMutableDictionary *cacheDict = [self cacheDictionary];
+	dispatch_queue_t cacheQueue = [self cacheQueue];
+	
+	// retrieve the object
+	__block id theObject = nil;
+	dispatch_sync(cacheQueue, ^{
+		theObject = [[cacheDict objectForKey:aType] objectForKey:aUdid];
+		
+		// not loaded, try to load from disk
+		if (!theObject) {
+			/// @todo load from disk
+		}
+	});
+	return theObject;
+}
+
+
++ (NSMutableDictionary *)cacheDictionary
+{
+	static NSMutableDictionary *cacheDict = nil;
+	if (!cacheDict) {
+		cacheDict = [[NSMutableDictionary alloc] init];
+	}
+	return cacheDict;
+}
+
+
++ (dispatch_queue_t)cacheQueue
+{
+	static dispatch_queue_t cacheQueue = NULL;
+	if (!cacheQueue) {
+		cacheQueue = dispatch_queue_create("org.chip.indivo.framework.cachequeue", NULL);
+	}
+	return cacheQueue;
 }
 
 

@@ -33,7 +33,9 @@
  *	Subclasses should override -setFromNode: (to set their properties from an XML node+type (to return their respective
  *	type) and -xml (to return valid XML representations)
  */
-@interface INObject : NSObject /*<NSCopying>*/
+@interface INObject : NSObject /*<NSCopying>*/ {
+	NSString *_nodeName;
+}
 
 @property (nonatomic, copy) NSString *nodeName;						///< The object's nodeName
 @property (nonatomic, copy) NSString *nodeType;						///< The type, e.g. "indivo:ValueAndUnit" or "xs:date"
