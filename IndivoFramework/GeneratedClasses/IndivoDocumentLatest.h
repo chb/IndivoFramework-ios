@@ -1,8 +1,8 @@
 /*
- IndivoLatest.m
+ IndivoDocumentLatest.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,43 +20,19 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoLatest.h"
+#import "IndivoDocument.h"
+#import "INObjects.h"
 
 
-@implementation IndivoLatest
-
-@synthesize createdAt, createdBy;
-
-
-+ (NSString *)nodeName
-{
-	return @"latest";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:latest";
-}
-
-+ (NSDictionary *)propertyClassMapper
-{
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"createdAt",
-			@"INString", @"createdBy",
-			nil];
-}
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"createdAt", @"createdBy", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"createdAt", @"createdBy", nil];
-	}
 	
-	return nonNilPropertyNames;	*/
-}
+
+/**
+ *	A class representing "indivo:DocumentLatest" objects, generated from metadata.xsd.
+ */
+@interface IndivoDocumentLatest : IndivoDocument
+
+@property (nonatomic, strong) INDateTime *createdAt;					///< Must be present as an attribute
+@property (nonatomic, strong) INString *createdBy;					///< Must be present as an attribute
 
 
 @end

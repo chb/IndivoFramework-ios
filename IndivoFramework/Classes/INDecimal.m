@@ -33,6 +33,12 @@
 	self.number = [NSDecimalNumber decimalNumberWithString:node.text];
 }
 
+- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
+{
+	self.number = [NSDecimalNumber decimalNumberWithString:[aNode attr:attrName]];
+}
+
+
 + (NSString *)nodeType
 {
 	return @"xs:decimal";
@@ -48,7 +54,12 @@
 	if ([self isNull]) {
 		return @"";
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, self.number, self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.number ? self.number : @""), self.nodeName];
+}
+
+- (NSString *)asAttribute
+{
+	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.number ? self.number : @"")];
 }
 
 

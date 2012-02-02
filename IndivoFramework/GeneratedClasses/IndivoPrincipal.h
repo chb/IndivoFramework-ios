@@ -2,7 +2,7 @@
  IndivoPrincipal.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
  */
 
 #import "IndivoDocument.h"
+#import "INObjects.h"
 
 
 	
@@ -30,7 +31,7 @@
  */
 @interface IndivoPrincipal : IndivoDocument
 
-@property (nonatomic, strong) INString *type;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INString *type;					///< Must be present as an attribute
 @property (nonatomic, strong) INString *fullname;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
 
 

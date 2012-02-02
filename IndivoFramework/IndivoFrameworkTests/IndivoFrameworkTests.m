@@ -53,10 +53,10 @@
 	
 	// validate
 	NSString *medXSDPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"medication" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[medication xml] againstXSD:medXSDPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [medication xml]);
+	STAssertTrue([INXMLParser validateXML:[medication documentXML] againstXSD:medXSDPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [medication documentXML]);
 	
 	medication.frequency = nil;
-	STAssertFalse([INXMLParser validateXML:[medication xml] againstXSD:medXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [medication xml]);
+	STAssertFalse([INXMLParser validateXML:[medication documentXML] againstXSD:medXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [medication documentXML]);
 }
 
 - (void)testLabPanel
@@ -71,18 +71,18 @@
 	STAssertNotNil(lab, @"Lab");
 	STAssertEqualObjects(@"2009-07-16T12:00:00", [lab.dateMeasured isoString], @"measure date");
 	STAssertEqualObjects(@"hematology", lab.labType.string, @"lab type");
+	NSLog(@"%@", [lab documentXML]);
 	
 	// test value changes
 	lab.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
 	STAssertEqualObjects(@"2012-01-31T10:40:41", [lab.dateMeasured isoString], @"changed date");
-	NSLog(@"%@", [lab xml]);
 	
 	// validate
 	NSString *labXSDPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"lab" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[lab xml] againstXSD:labXSDPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [lab xml]);
+	STAssertTrue([INXMLParser validateXML:[lab documentXML] againstXSD:labXSDPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [lab documentXML]);
 	
 	lab.dateMeasured = nil;
-	STAssertFalse([INXMLParser validateXML:[lab xml] againstXSD:labXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [lab xml]);
+	STAssertFalse([INXMLParser validateXML:[lab documentXML] againstXSD:labXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [lab documentXML]);
 }
 
 

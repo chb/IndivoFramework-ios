@@ -43,10 +43,10 @@
 	return ([attributes count] < 1);
 }
 
-- (NSString *)tagXML
+- (NSString *)tagString
 {
 	if ([attributes count] < 1) {
-		return [super tagXML];
+		return [super tagString];
 	}
 	
 	NSMutableString *attrString = [NSMutableString string];
@@ -56,7 +56,7 @@
 			[attrString appendFormat:@" %@=\"%@\"", key, value];
 		}
 	}
-	return [NSString stringWithFormat:@"%@%@", [super tagXML], attrString];
+	return [NSString stringWithFormat:@"%@%@", [super tagString], attrString];
 }
 
 

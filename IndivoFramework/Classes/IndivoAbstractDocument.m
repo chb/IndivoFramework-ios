@@ -29,6 +29,7 @@
 @interface IndivoAbstractDocument ()
 
 - (NSString *)xmlForObject:(id)anObject nodeName:(NSString *)nodeName;
+- (NSString *)attributeStringForObject:(id)anObject nodeName:(NSString *)nodeName;
 
 @end
 
@@ -62,7 +63,7 @@
 
 
 
-#pragma mark - From and To XML
+#pragma mark - Instantiation from XML
 /**
  *	Sets our class properties from the given node and its child nodes.
  *	This method collects all class ivars from this class up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
@@ -77,9 +78,10 @@
 		self.udid = [node attr:@"id"];
 	}
 	
+	NSArray *attributes = [[self class] attributeNames];
+	
 	// collect all ivars that are subclasses of NSArray or INObject and instantiate them from XML nodes with the same name
 	Class currentClass = [self class];
-	NSMutableArray *hierarchy = [NSMutableArray arrayWithCapacity:1];
 	while (currentClass && 0 != strcmp("IndivoDocument", class_getName(currentClass)) && currentClass != [IndivoAbstractDocument class]) {
 		unsigned int num, i;
 		Ivar *ivars = class_copyIvarList(currentClass, &num);
@@ -118,10 +120,19 @@
 			
 			// we got an instance variable of INObject kind, instantiate
 			else if ([ivarClass isSubclassOfClass:[INObject class]]) {
-				id newVal = [ivarClass objectFromNode:[node childNamed:ivarName]];
+				id newVal = nil;
 				
-				/// @todo Prevent overwriting existing nodes if the node was not provided
-				object_setIvar(self, ivars[i], newVal);
+				// parse from attribute or child node
+				if ([attributes containsObject:ivarName]) {
+					newVal = [ivarClass objectFromAttribute:ivarName inNode:node];
+				}
+				else {
+					newVal = [ivarClass objectFromNode:[node childNamed:ivarName]];
+				}
+				
+				if (newVal) {
+					object_setIvar(self, ivars[i], newVal);
+				}
 			}
 		}
 		free(ivars);
@@ -131,99 +142,96 @@
 }
 
 
+
+#pragma mark - Generating XML
 /**
- *	Our subclasses sport an automatic isNull method that returns YES if all ivars of INObject subclass are nil
+ *	Returns an XML representation of the receiver, like "xml" does, but adds namespace information. You should use this method to generate
+ *	an XML representation for the document, "xml" will be used for sub-documents.
+ *	@return An XML representation of the receiver
  */
-- (BOOL)isNull
+- (NSString *)documentXML
 {
-	unsigned int num, i;
-	
-	// return NO as soon as one ivar responding to "xml" is not nil
-	Ivar *ivars = class_copyIvarList([self class], &num);
-	for (i = 0; i < num; ++i) {
-		id ivar = object_getIvar(self, ivars[i]);
-		if ([ivar respondsToSelector:@selector(xml)]) {
-			free(ivars);
-			return NO;
-		}
-	}
-	free(ivars);
-	return YES;
+#ifdef INDIVO_XML_PRETTY_FORMAT
+	return [NSString stringWithFormat:@"<%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\t%@\n</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
+#else
+	return [NSString stringWithFormat:@"<%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">%@</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
+#endif
 }
 
 /**
  *	Returns an XML representation of the receiver, automatically collected from all instance variables responding to the "xml" selector.
- *	@attention This method does only collect all direct instance variables, NO instance variables from superclasses are included.
  *	@return An XML representation of the receiver
  */
 - (NSString *)xml
 {
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@>\n\t%@\n</%@>", [self tagXML], [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>\n\t%@\n</%@>", [self tagString], [self innerXML], self.nodeName];
 #else
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagXML], [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], [self innerXML], self.nodeName];
 #endif
 }
 
 
-- (NSString *)tagXML
-{
-	return [NSString stringWithFormat:@"%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", [super tagXML], self.nameSpace];
-}
-
-
 /**
- *	This is the main XML generating method.
- *	This method walks all direct properties of the method and if they respond to the "xml" selector, adds the returned XML to this instance's
- *	XML representation. The main "xml" method creates our own node (e.g. <Document xmlns="something">) and adds the result of this method as
- *	the node's inner XML.
+ *	This is the main XML generating method, overridden from IndivoAbstractDocument.
+ *	This method collects all class ivars from ourselves up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
+ *	subclasses, but if not we need to walk the class hierarchy upwards until one below IndivoDocument in order to collect the inherited ivars.
  *	@return An XML string or nil
  */
 - (NSString *)innerXML
 {
 	unsigned int num, i;
 	
-	// collect XML for all ivars
-	NSMutableArray *xmlValues = [NSMutableArray array];
-	Ivar *ivars = class_copyIvarList([self class], &num);
-	for (i = 0; i < num; ++i) {
-		NSString *ivarName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
-		[xmlValues addObjectIfNotNil:[self xmlForPropertyNamed:ivarName]];
+	// collect class hierarchy up to IndivoDocument
+	// we also need to break before IndivoAbstractDocument for those classes directly inheriting from it, like IndivoMetaDocument
+	Class currentClass = [self class];
+	NSMutableArray *hierarchy = [NSMutableArray arrayWithCapacity:1];
+	while (currentClass && 0 != strcmp("IndivoDocument", class_getName(currentClass)) && currentClass != [IndivoAbstractDocument class]) {
+		[hierarchy addObject:currentClass];
+		currentClass = [currentClass superclass];
 	}
-	free(ivars);
+	
+	// collect XML for all ivars of all classes in the hierarchy
+	NSArray *attrNames = [[self class] attributeNames];
+	NSMutableArray *xmlValues = [NSMutableArray array];
+	for (Class currentClass in [hierarchy reverseObjectEnumerator]) {
+		Ivar *ivars = class_copyIvarList(currentClass, &num);
+		for (i = 0; i < num; ++i) {
+			id anObject = object_getIvar(self, ivars[i]);
+			NSString *propertyName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
+			
+			// array - loop objects
+			if ([anObject isKindOfClass:[NSArray class]]) {
+				NSMutableArray *xmlSubValues = [NSMutableArray array];
+				for (id object in anObject) {
+					[xmlSubValues addObjectIfNotNil:[self xmlForObject:object nodeName:propertyName]];
+				}
+#ifdef INDIVO_XML_PRETTY_FORMAT
+				NSString *propertyXML = [xmlSubValues componentsJoinedByString:@"\n"];
+#else
+				NSString *propertyXML = [xmlSubValues componentsJoinedByString:@""];
+#endif
+				[xmlValues addObjectIfNotNil:propertyXML];
+			}
+			
+			// any other object if it's NOT an attribute. We assume that NSArray properties are never attributes, which is probably not far from the truth.
+			else {
+				if (![attrNames containsObject:propertyName]) {
+					NSString *propertyXML = [self xmlForObject:anObject nodeName:propertyName];
+					[xmlValues addObjectIfNotNil:propertyXML];
+				}
+			}
+
+		}
+		free(ivars);
+		currentClass = class_getSuperclass(currentClass);
+	}
 	
 #ifdef INDIVO_XML_PRETTY_FORMAT
 	return [xmlValues componentsJoinedByString:@"\n\t"];
 #else
 	return [xmlValues componentsJoinedByString:@""];
 #endif
-}
-
-
-/**
- *	If the property in an array, calls "xmlForObject:nodeName:" on all elements in the array, otherwise calls that same function on the object.
- *	@return An XML string or nil
- */
-- (NSString *)xmlForPropertyNamed:(NSString *)aName
-{
-	id anObject = [self valueForKey:aName];
-	
-	// array - loop objects
-	if ([anObject isKindOfClass:[NSArray class]]) {
-		NSMutableArray *xmlValues = [NSMutableArray array];
-		for (id object in anObject) {
-			[xmlValues addObjectIfNotNil:[self xmlForObject:object nodeName:aName]];
-		}
-#ifdef INDIVO_XML_PRETTY_FORMAT
-		return [xmlValues componentsJoinedByString:@"\n"];
-#else
-		return [xmlValues componentsJoinedByString:@""];
-#endif
-	}
-	
-	// any other object
-	/// @todo if the object is nil but it must be present (canBeNull: returns NO), we should add an empty node maybe?
-	return [self xmlForObject:anObject nodeName:aName];
 }
 
 
@@ -255,6 +263,49 @@
 		subXML = [subXML stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"];
 #endif
 		return subXML;
+	}
+	return nil;
+}
+
+
+- (NSString *)tagString
+{
+	NSString *nodeStr = [super tagString];
+	NSArray *attrs = [[self class] attributeNames];
+	
+	// add attributes
+	if ([attrs count] > 0) {
+		NSMutableArray *propArr = [NSMutableArray arrayWithCapacity:[attrs count]];
+		for (NSString *prop in attrs) {
+			id object = [self valueForKey:prop];
+			if (([object respondsToSelector:@selector(isNull)] && ![object isNull]) || ![[self class] canBeNull:prop]) {
+				[propArr addObjectIfNotNil:[self attributeStringForObject:object nodeName:prop]];
+			}
+		}
+		nodeStr = [nodeStr stringByAppendingFormat:@" %@", [propArr componentsJoinedByString:@" "]];
+	}
+	return nodeStr;
+}
+
+
+/**
+ *	Takes any object and tries to return the result of its "asAttribute" selector, if it responds to that. If the object is of INObject ancestry, sets
+ *	its nodeName to the passed nodeName if it's not yet set.
+ *	@return A string or nil
+ */
+- (NSString *)attributeStringForObject:(id)anObject nodeName:(NSString *)nodeName
+{
+	if ([anObject respondsToSelector:@selector(asAttribute)]) {
+		
+		// if the node does not have its own nodeName (ignoring the class nodeName), set the ivar name as nodeName
+		if ([anObject isKindOfClass:[INObject class]]) {
+			INObject *node = (INObject *)anObject;
+			if (!node->_nodeName) {
+				node.nodeName = nodeName;
+			}
+		}
+		
+		return [anObject performSelector:@selector(asAttribute)];
 	}
 	return nil;
 }
@@ -320,6 +371,9 @@
 	return nil;
 }
 
+
+
+#pragma mark - XML Generation Helper
 /**
  *	The automatically generated IndivoDocument subclasses return a dictionary with property->class mappings. This is important for NSArray properties
  *	to determine the class of the array items.
@@ -347,6 +401,15 @@
 	return nil;
 }
 
+/**
+ *	The properties whose names are returned here are expected to be XML node attributes rather than complete nodes.
+ *	XML generation relies on this information, it will not go through the ivar list but only pick properties listed here.
+ */
++ (NSArray *)attributeNames
+{
+	return nil;
+}
+
 
 
 #pragma mark - KVC
@@ -359,6 +422,27 @@
 		record = aRecord;
 		self.server = record.server;
 	}
+}
+
+
+/**
+ *	Our subclasses sport an automatic isNull method that returns YES if all ivars of INObject subclass are nil
+ */
+- (BOOL)isNull
+{
+	unsigned int num, i;
+	
+	// return NO as soon as one ivar responding to "xml" is not nil
+	Ivar *ivars = class_copyIvarList([self class], &num);
+	for (i = 0; i < num; ++i) {
+		id ivar = object_getIvar(self, ivars[i]);
+		if ([ivar respondsToSelector:@selector(xml)]) {
+			free(ivars);
+			return NO;
+		}
+	}
+	free(ivars);
+	return YES;
 }
 
 

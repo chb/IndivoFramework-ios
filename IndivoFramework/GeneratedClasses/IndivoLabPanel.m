@@ -2,7 +2,7 @@
  IndivoLabPanel.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -56,6 +56,16 @@
 	}
 	
 	return nonNilPropertyNames;	*/
+}
+
++ (NSArray *)attributeNames
+{
+	NSArray *myAttributes = [NSArray arrayWithObjects:nil, nil];
+	NSArray *superAttr = [super attributeNames];
+	if (superAttr) {
+		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];
+	}
+	return myAttributes;
 }
 
 

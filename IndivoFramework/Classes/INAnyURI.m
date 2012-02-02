@@ -1,8 +1,8 @@
 /*
- INBool.m
+ INAnyURI.m
  IndivoFramework
  
- Created by Pascal Pfiffner on 10/17/11.
+ Created by Pascal Pfiffner on 9/26/11.
  Copyright (c) 2011 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,53 +20,50 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INBool.h"
+#import "INAnyURI.h"
 
-@implementation INBool
+@implementation INAnyURI
 
-@synthesize flag;
+@synthesize uri;
 
 
-+ (id)newYes
++ (id)newWithURIString:(NSString *)aString
 {
-	INBool *b = [self new];
-	b.flag = YES;
-	return b;
+	INAnyURI *u = [self new];
+	u.uri = aString;
+	return u;
 }
-
-+ (id)newNo
-{
-	INBool *b = [self new];
-	b.flag = NO;
-	return b;
-}
-
 
 - (void)setFromNode:(INXMLNode *)node
 {
 	[super setFromNode:node];
-	self.flag = [node.text boolValue];
+	self.uri = node.text;
 }
 
 - (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
 {
-	self.flag = [aNode boolAttr:attrName];
+	self.uri = [aNode attr:attrName];
 }
 
 
 + (NSString *)nodeType
 {
-	return @"xs:boolean";
+	return @"xs:anyURI";
+}
+
+- (BOOL)isNull
+{
+	return ([uri length] < 1);
 }
 
 - (NSString *)xml
 {
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.flag ? @"true" : @"false"), self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.uri ? [self.uri xmlSafe] : @""), self.nodeName];
 }
 
 - (NSString *)asAttribute
 {
-	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.flag ? @"true" : @"false")];
+	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.uri ? [self.uri xmlSafe] : @"")];
 }
 
 

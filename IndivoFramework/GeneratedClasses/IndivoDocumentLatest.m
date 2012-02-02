@@ -1,8 +1,8 @@
 /*
- IndivoSuppressed.m
+ IndivoDocumentLatest.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,41 +20,52 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoSuppressed.h"
+#import "IndivoDocumentLatest.h"
 
 
-@implementation IndivoSuppressed
+@implementation IndivoDocumentLatest
 
-@synthesize at;
+@synthesize createdAt, createdBy;
 
 
 + (NSString *)nodeName
 {
-	return @"suppressed";
+	return @"DocumentLatest";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:suppressed";
+	return @"indivo:DocumentLatest";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"at",
+			@"INDateTime", @"createdAt",
+			@"INString", @"createdBy",
 			nil];
 }
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"at", nil];
+	return [NSArray arrayWithObjects:@"createdAt", @"createdBy", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"at", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"createdAt", @"createdBy", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
+}
+
++ (NSArray *)attributeNames
+{
+	NSArray *myAttributes = [NSArray arrayWithObjects:@"createdAt", @"createdBy", nil];
+	NSArray *superAttr = [super attributeNames];
+	if (superAttr) {
+		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];
+	}
+	return myAttributes;
 }
 
 

@@ -46,7 +46,7 @@
 - (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord;
 + (id)newWithRecord:(IndivoRecord *)aRecord;
 
-- (NSString *)xmlForPropertyNamed:(NSString *)aName;
+- (NSString *)documentXML;
 
 + (NSString *)nameSpace;
 + (NSString *)type;
@@ -54,6 +54,7 @@
 + (NSDictionary *)propertyClassMapper;
 + (BOOL)canBeNull:(NSString *)propertyName;
 + (NSArray *)nonNilPropertyNames;
++ (NSArray *)attributeNames;
 
 
 @end

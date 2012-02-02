@@ -4,6 +4,8 @@
 <dict>
 	<key>xs:string</key>
 	<string>INString</string>
+	<key>xs:anyURI</key>
+	<string>INAnyURI</string>
 	<key>xs:date</key>
 	<string>INDate</string>
 	<key>xs:dateTime</key>

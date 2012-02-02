@@ -2,7 +2,7 @@
  IndivoResult.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -25,41 +25,46 @@
 
 @implementation IndivoResult
 
-@synthesize isolate, identity, organism, sensitivity, interpretation, comments;
+@synthesize flag;
 
 
 + (NSString *)nodeName
 {
-	return @"result";
+	return @"Result";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:result";
+	return @"indivo:Result";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"isolate",
-			@"INString", @"identity",
-			@"INCodedValue", @"organism",
-			@"IndivoSensitivity", @"sensitivity",
-			@"INString", @"interpretation",
-			@"INString", @"comments",
+			@"INCodedValue", @"flag",
 			nil];
 }
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"isolate", @"organism", nil];
+	return [NSArray arrayWithObjects:nil, nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"isolate", @"organism", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:nil, nil];
 	}
 	
 	return nonNilPropertyNames;	*/
+}
+
++ (NSArray *)attributeNames
+{
+	NSArray *myAttributes = [NSArray arrayWithObjects:nil, nil];
+	NSArray *superAttr = [super attributeNames];
+	if (superAttr) {
+		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];
+	}
+	return myAttributes;
 }
 
 

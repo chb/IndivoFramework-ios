@@ -2,7 +2,7 @@
  IndivoResult.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,21 +21,17 @@
  */
 
 #import "IndivoDocument.h"
+#import "INObjects.h"
 
 
 	
 
 /**
- *	A class representing "indivo:result" objects, generated from lab.xsd.
+ *	A class representing "indivo:Result" objects, generated from values.xsd.
  */
 @interface IndivoResult : IndivoDocument
 
-@property (nonatomic, strong) INString *isolate;					///< Must not be nil nor return YES on isNull
-@property (nonatomic, strong) INString *identity;
-@property (nonatomic, strong) INCodedValue *organism;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) NSArray *sensitivity;					///< An array containing IndivoSensitivity objects
-@property (nonatomic, strong) INString *interpretation;
-@property (nonatomic, strong) INString *comments;
+@property (nonatomic, strong) INCodedValue *flag;
 
 
 @end

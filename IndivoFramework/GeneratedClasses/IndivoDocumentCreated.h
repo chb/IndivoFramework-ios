@@ -1,8 +1,8 @@
 /*
- IndivoLatest.h
+ IndivoDocumentCreated.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,17 +21,17 @@
  */
 
 #import "IndivoDocument.h"
+#import "INObjects.h"
 
 
 	
 
 /**
- *	A class representing "indivo:latest" objects, generated from metadata.xsd.
+ *	A class representing "indivo:DocumentCreated" objects, generated from hospital-api-metadata.xsd.
  */
-@interface IndivoLatest : IndivoDocument
+@interface IndivoDocumentCreated : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *createdAt;					///< Must not be nil nor return YES on isNull
-@property (nonatomic, strong) INString *createdBy;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INDateTime *at;					///< Must be present as an attribute
 
 
 @end

@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "Indivo.h"
 
+#define SKIP_ID_ATTRIBUTES 1				///< If set to 1, attributes named "id" will be skipped (it's in our superclass anyway, so we always skip it)
+
+
 extern NSString *const INClassGeneratorDidProduceLogNotification;
 extern NSString *const INClassGeneratorLogStringKey;
+extern NSString *const INClassGeneratorBaseClass;
 extern NSString *const INClassGeneratorClassPrefix;
 extern NSString *const INClassGeneratorTypePrefix;
 

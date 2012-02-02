@@ -1,5 +1,5 @@
 /*
- IndivoSingleResultLabTest.m
+ IndivoResultInSetOption.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/2/2012.
@@ -20,38 +20,39 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoSingleResultLabTest.h"
+#import "IndivoResultInSetOption.h"
 
 
-@implementation IndivoSingleResultLabTest
+@implementation IndivoResultInSetOption
 
-@synthesize result;
+@synthesize normal, description;
 
 
 + (NSString *)nodeName
 {
-	return @"SingleResultLabTest";
+	return @"ResultInSetOption";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:SingleResultLabTest";
+	return @"indivo:ResultInSetOption";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"IndivoResult", @"result",
+			@"INBool", @"normal",
+			@"INString", @"description",
 			nil];
 }
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"result", nil];
+	return [NSArray arrayWithObjects:@"normal", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"result", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"normal", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
@@ -59,7 +60,7 @@
 
 + (NSArray *)attributeNames
 {
-	NSArray *myAttributes = [NSArray arrayWithObjects:nil, nil];
+	NSArray *myAttributes = [NSArray arrayWithObjects:@"normal", @"description", nil];
 	NSArray *superAttr = [super attributeNames];
 	if (superAttr) {
 		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];

@@ -1,9 +1,9 @@
 /*
- IndivoLabPanel.h
+ INAnyURI.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/2/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Pascal Pfiffner on 9/26/11.
+ Copyright (c) 2011 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,17 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "INObject.h"
 
-
-	
 
 /**
- *	A class representing "indivo:LabPanel" objects, generated from lab.xsd.
+ *	A class to represent "xs:anyURI" elements.
  */
-@interface IndivoLabPanel : IndivoDocument
+@interface INAnyURI : INObject
 
-@property (nonatomic, strong) INCodedValue *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) NSArray *labTest;					///< An array containing IndivoLabTest objects
+@property (nonatomic, copy) NSString *uri;
+
++ (id)newWithURIString:(NSString *)aString;
 
 
 @end

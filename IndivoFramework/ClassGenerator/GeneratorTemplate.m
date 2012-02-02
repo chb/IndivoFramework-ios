@@ -57,5 +57,15 @@
 	return nonNilPropertyNames;	*/
 }
 
++ (NSArray *)attributeNames
+{
+	NSArray *myAttributes = [NSArray arrayWithObjects:{{ CLASS_ATTRIBUTE_NAMES }}, nil];
+	NSArray *superAttr = [super attributeNames];
+	if (superAttr) {
+		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];
+	}
+	return myAttributes;
+}
+
 
 @end

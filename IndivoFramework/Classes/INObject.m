@@ -34,7 +34,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 
 
 /**
- *	Returns a fresh node with nodeName set
+ *	Returns a fresh node with nodeName set.
  */
 + (id)newWithNodeName:(NSString *)aNodeName
 {
@@ -56,27 +56,6 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 	return self;
 }
 
-/**
- *	The INObject implementation sets the node name and node type (if a type attribute is found in the XML node) from an INXMLNode parsed
- *	from an Indivo XML (!).
- *	In subclasses, this methed replaces all properties with values found in the node, leaves those not present untouched. This method is
- *	called from the designated initializer, subclasses should override it to set custom properties and call
- *	[super setFromNode:<node>]
- *	@attention If you are using INXMLNodes to parse your custom XML this method will only do the right thing if your XML has the same
- *	structure as Indivo has for the specific node. For custom XML it's usually better to create blank new INObjects and set their properties
- *	by hand.
- */
-- (void)setFromNode:(INXMLNode *)node
-{
-	if (node) {
-		self.nodeName = node.name;
-		
-		NSString *newType = [node attr:@"type"];
-		if (newType) {
-			self.nodeType = newType;
-		}
-	}
-}
 
 /**
  *	This method returns an object created representing the the node.
@@ -107,6 +86,50 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 	return [[self alloc] initFromNode:aNode];
 }
 
+/**
+ *	This method returns an object created from the string contents of a node attribute.
+ *	You should use this method instead of using "newFromString:" directly.
+ */
++ (id)objectFromAttribute:(NSString *)anAttribute inNode:(INXMLNode *)aNode
+{
+	if (!aNode || [anAttribute length] < 1) {
+		return nil;
+	}
+	
+	INObject *o = [self new];
+	[o setWithAttr:anAttribute fromNode:aNode];
+	return o;
+}
+
+/**
+ *	The INObject implementation sets the node name and node type (if a "type" attribute is found in the XML node) from an INXMLNode parsed
+ *	from an Indivo XML (!).
+ *	In subclasses, this methed replaces all properties with values found in the node, leaves those not present untouched. This method is
+ *	called from the designated initializer, subclasses should override it to set custom properties and call  [super setFromNode:<node>]
+ *	
+ *	@attention If you are using INXMLNodes to parse your custom XML this method will only do the right thing if your XML has the same
+ *	structure as Indivo has for the specific node. For custom XML it's usually better to create blank new INObjects and set their properties
+ *	by hand.
+ */
+- (void)setFromNode:(INXMLNode *)node
+{
+	if (node) {
+		self.nodeName = node.name;
+		
+		NSString *newType = [node attr:@"type"];
+		if (newType) {
+			self.nodeType = newType;
+		}
+	}
+}
+
+/**
+ *	Tries to interpret the attribute string as representing our value. The INObject implementation does nothing.
+ */
+- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
+{
+}
+
 
 
 #pragma mark - Returning Data
@@ -120,26 +143,30 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 }
 
 /**
- *	Return an XML representation of the object
+ *	Return an XML representation of the object.
  */
 - (NSString *)xml
 {
-	return [NSString stringWithFormat:@"<%@ />", [self tagXML]];
+	return [NSString stringWithFormat:@"<%@ />", [self tagString]];
 }
 
 /**
  *	Returns the tag name and, if mustDeclareType is YES, the xsi:type-attribute, ready to be used as tag name.
  */
-- (NSString *)tagXML
+- (NSString *)tagString
 {
 	if (mustDeclareType) {
-		return [NSString stringWithFormat:@"%@ xsi:type=\"%@\"", self.nodeName, self.nodeType];
+		NSString *myType = self.nodeType;
+		if (0 == [myType rangeOfString:INClassGeneratorTypePrefix].location) {
+			myType = [myType substringFromIndex:[INClassGeneratorTypePrefix length] + 1];
+		}
+		return [NSString stringWithFormat:@"%@ xsi:type=\"%@\"", self.nodeName, myType];
 	}
 	return self.nodeName;
 }
 
 /**
- *	Returns the XML of all child nodes
+ *	Returns the XML of all child nodes.
  */
 - (NSString *)innerXML
 {
@@ -147,7 +174,16 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 }
 
 /**
- *	We forward the class method on instance calls unless we have a personal nodeName
+ *	Returns the value of this node usable as attribute to another node. Only some of our subclasses support being used as attributes, obviously.
+ */
+- (NSString *)asAttribute
+{
+	return nil;
+}
+
+
+/**
+ *	We forward the class method on instance calls unless we have a personal nodeName.
  */
 - (NSString *)nodeName
 {

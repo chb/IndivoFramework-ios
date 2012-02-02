@@ -45,13 +45,16 @@
 
 - (id)initFromNode:(INXMLNode *)node;
 + (id)objectFromNode:(INXMLNode *)aNode;
++ (id)objectFromAttribute:(NSString *)anAttribute inNode:(INXMLNode *)aNode;
 
 - (void)setFromNode:(INXMLNode *)node;
+- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode;
 
 - (BOOL)isNull;
 - (NSString *)xml;
-- (NSString *)tagXML;
+- (NSString *)tagString;
 - (NSString *)innerXML;
+- (NSString *)asAttribute;
 
 + (NSString *)nodeName;
 + (NSString *)nodeType;

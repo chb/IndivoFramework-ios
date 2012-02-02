@@ -59,6 +59,12 @@ static NSDateFormatter *isoDateFormatter = nil;
 	self.date = [[self class] parseDateFromISOString:node.text];
 }
 
+- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
+{
+	self.date = [[self class] parseDateFromISOString:[aNode attr:attrName]];
+}
+
+
 + (NSString *)nodeType
 {
 	return @"xs:date";
@@ -75,6 +81,11 @@ static NSDateFormatter *isoDateFormatter = nil;
 		return @"";
 	}
 	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [self isoString], self.nodeName];
+}
+
+- (NSString *)asAttribute
+{
+	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, [self isoString]];
 }
 
 

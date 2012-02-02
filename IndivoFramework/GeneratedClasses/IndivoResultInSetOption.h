@@ -1,8 +1,8 @@
 /*
- IndivoCreated.h
+ IndivoResultInSetOption.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/1/2012.
+ Created by Indivo Class Generator on 2/2/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,16 +21,18 @@
  */
 
 #import "IndivoDocument.h"
+#import "INObjects.h"
 
 
 	
 
 /**
- *	A class representing "indivo:created" objects, generated from hospital-api-metadata.xsd.
+ *	A class representing "indivo:ResultInSetOption" objects, generated from values.xsd.
  */
-@interface IndivoCreated : IndivoDocument
+@interface IndivoResultInSetOption : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *at;					///< Must not be nil nor return YES on isNull
+@property (nonatomic, strong) INBool *normal;					///< Must be present as an attribute
+@property (nonatomic, strong) INString *description;
 
 
 @end

@@ -1,5 +1,5 @@
 /*
- IndivoSingleResultLabTest.m
+ IndivoDocumentSuppressed.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/2/2012.
@@ -20,38 +20,38 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoSingleResultLabTest.h"
+#import "IndivoDocumentSuppressed.h"
 
 
-@implementation IndivoSingleResultLabTest
+@implementation IndivoDocumentSuppressed
 
-@synthesize result;
+@synthesize at;
 
 
 + (NSString *)nodeName
 {
-	return @"SingleResultLabTest";
+	return @"DocumentSuppressed";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:SingleResultLabTest";
+	return @"indivo:DocumentSuppressed";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"IndivoResult", @"result",
+			@"INDateTime", @"at",
 			nil];
 }
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"result", nil];
+	return [NSArray arrayWithObjects:@"at", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"result", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"at", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
@@ -59,7 +59,7 @@
 
 + (NSArray *)attributeNames
 {
-	NSArray *myAttributes = [NSArray arrayWithObjects:nil, nil];
+	NSArray *myAttributes = [NSArray arrayWithObjects:@"at", nil];
 	NSArray *superAttr = [super attributeNames];
 	if (superAttr) {
 		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];

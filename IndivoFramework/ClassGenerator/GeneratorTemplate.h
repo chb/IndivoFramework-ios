@@ -21,6 +21,7 @@
  */
 
 #import "{{ CLASS_SUPERCLASS }}.h"
+#import "INObjects.h"
 {{ CLASS_IMPORTS }}
 {{ CLASS_FORWARDS }}
 	

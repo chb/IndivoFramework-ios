@@ -40,6 +40,12 @@
 	self.string = node.text;
 }
 
+- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
+{
+	self.string = [aNode attr:attrName];
+}
+
+
 + (NSString *)nodeType
 {
 	return @"xs:string";
@@ -53,6 +59,11 @@
 - (NSString *)xml
 {
 	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.string ? [self.string xmlSafe] : @""), self.nodeName];
+}
+
+- (NSString *)asAttribute
+{
+	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.string ? [self.string xmlSafe] : @"")];
 }
 
 

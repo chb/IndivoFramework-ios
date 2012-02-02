@@ -40,6 +40,12 @@
 	self.duration = node.text;
 }
 
+- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
+{
+	self.duration = [aNode attr:attrName];
+}
+
+
 + (NSString *)nodeType
 {
 	return @"xs:duration";
@@ -55,7 +61,12 @@
 	if ([self isNull]) {
 		return @"";
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [self.duration xmlSafe], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.duration ? [self.duration xmlSafe] : @""), self.nodeName];
+}
+
+- (NSString *)asAttribute
+{
+	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.duration ? [self.duration xmlSafe] : @"")];
 }
 
 

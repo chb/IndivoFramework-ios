@@ -106,44 +106,6 @@
 }
 
 
-/**
- *	This is the main XML generating method, overridden from IndivoAbstractDocument.
- *	This method collects all class ivars from ourselves up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
- *	subclasses, but if not we need to walk the class hierarchy upwards until one below IndivoDocument in order to collect the inherited ivars.
- *	@return An XML string or nil
- */
-- (NSString *)innerXML
-{
-	unsigned int num, i;
-	
-	// collect class hierarchy up to IndivoDocument
-	Class currentClass = [self class];
-	NSMutableArray *hierarchy = [NSMutableArray arrayWithCapacity:1];
-	while (currentClass && currentClass != [IndivoDocument class]) {
-		[hierarchy addObject:currentClass];
-		currentClass = [currentClass superclass];
-	}
-	
-	// collect XML for all ivars
-	NSMutableArray *xmlValues = [NSMutableArray array];
-	for (Class currentClass in [hierarchy reverseObjectEnumerator]) {
-		Ivar *ivars = class_copyIvarList(currentClass, &num);
-		for (i = 0; i < num; ++i) {
-			NSString *ivarName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
-			[xmlValues addObjectIfNotNil:[self xmlForPropertyNamed:ivarName]];
-		}
-		free(ivars);
-		currentClass = class_getSuperclass(currentClass);
-	}
-	
-#ifdef INDIVO_XML_PRETTY_FORMAT
-	return [xmlValues componentsJoinedByString:@"\n\t"];
-#else
-	return [xmlValues componentsJoinedByString:@""];
-#endif
-}
-
-
 
 #pragma mark - Getting documents
 - (void)pull:(INCancelErrorBlock)callback
@@ -182,7 +144,7 @@
 {
 	if (!self.onServer) {
 		[self post:[self basePostPath]
-			  body:[self xml]
+			  body:[self documentXML]
 		  callback:^(BOOL success, NSDictionary *userInfo) {
 			  if (success) {
 				  if (callback) {
@@ -213,7 +175,7 @@
 		NSString *updatePath = [self.documentPath stringByAppendingPathComponent:@"replace"];
 		__block IndivoDocument *this = self;
 		[self post:updatePath
-			  body:[self xml]
+			  body:[self documentXML]
 		  callback:^(BOOL success, NSDictionary *userInfo) {
 			  if (success) {
 				  this.status = INDocumentStatusArchived;

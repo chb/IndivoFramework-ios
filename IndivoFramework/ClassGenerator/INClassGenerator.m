@@ -13,6 +13,7 @@
 
 NSString *const INClassGeneratorDidProduceLogNotification = @"INClassGeneratorDidProduceLog";
 NSString *const INClassGeneratorLogStringKey = @"INClassGeneratorLogString";
+NSString *const INClassGeneratorBaseClass = @"IndivoDocument";
 
 
 void runOnMainQueue(dispatch_block_t block)
@@ -28,10 +29,11 @@ void runOnMainQueue(dispatch_block_t block)
 
 @interface INClassGenerator ()
 
-@property (nonatomic, copy) NSString *writeToDir;
-@property (nonatomic, copy) NSString *currentInputPath;
+@property (nonatomic, copy) NSString *writeToDir;						///< Path to the directory to put the class files into.
+@property (nonatomic, copy) NSString *currentInputPath;					///< Set by "runFile:".
+@property (nonatomic, strong) NSMutableArray *typeStack;				///< Every time we encounter a type definition, its name is pushed here so we always know where we are.
 
-- (NSDictionary *)processType:(INXMLNode *)type withName:(NSString *)aName mapping:(NSMutableDictionary *)mapping;
+- (NSDictionary *)processType:(INXMLNode *)type withMapping:(NSMutableDictionary *)mapping;
 - (NSDictionary *)processElement:(INXMLNode *)element withMapping:(NSMutableDictionary *)mapping;
 - (NSDictionary *)processAttribute:(INXMLNode *)attribute withMapping:(NSMutableDictionary *)mapping;
 
@@ -50,7 +52,7 @@ void runOnMainQueue(dispatch_block_t block)
 @implementation INClassGenerator
 
 @synthesize numSchemasParsed, numClassesGenerated;
-@synthesize writeToDir, currentInputPath;
+@synthesize writeToDir, currentInputPath, typeStack;
 
 
 /**
@@ -168,6 +170,10 @@ void runOnMainQueue(dispatch_block_t block)
 		return NO;
 	}
 	
+	if (!typeStack) {
+		self.typeStack = [NSMutableArray array];
+	}
+	
 	// process includes first
 	NSArray *includes = [schema childrenNamed:@"include"];
 	if ([includes count] > 0) {
@@ -193,7 +199,7 @@ void runOnMainQueue(dispatch_block_t block)
 	if ([types count] > 0) {
 		for (INXMLNode *type in types) {
 			/// @todo Do we need to handle this more carefully here?
-			[self processType:type withName:nil mapping:mapping];
+			[self processType:type withMapping:mapping];
 		}
 	}
 	
@@ -215,11 +221,11 @@ void runOnMainQueue(dispatch_block_t block)
  *	their name and type.
  *	@return A dictionary containing a "className" element with the class name and possibly a "superclass" containing the superclass name.
  */
-- (NSDictionary *)processType:(INXMLNode *)type withName:(NSString *)aName mapping:(NSMutableDictionary *)mapping
+- (NSDictionary *)processType:(INXMLNode *)type withMapping:(NSMutableDictionary *)mapping
 {
 	BOOL write = NO;
 	NSMutableArray *properties = nil;
-	NSString *name = aName ? aName : [type attr:@"name"];
+	NSString *name = [type attr:@"name"];
 	NSString *superclass = nil;
 	if ([name length] < 1) {
 		[self sendLog:@"Cannot process type without a name"];
@@ -227,8 +233,8 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// the class name
-	NSString *capName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
-	NSString *className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, capName];
+	NSString *ucFirstName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
+	NSString *className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, ucFirstName];
 	NSString *indivoTypeName = [NSString stringWithFormat:@"indivo:%@", name];
 	if (![mapping objectForKey:indivoTypeName]) {
 		[mapping setObject:className forKey:indivoTypeName];
@@ -238,8 +244,37 @@ void runOnMainQueue(dispatch_block_t block)
 		//[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
 	}
 	
-	// read "attributes" nodes
-	NSArray *attributes = [type childrenNamed:@"attribute"];
+	[typeStack addObject:name];
+	
+	// get definitions (attributes and sequence/element) from the correct node
+	NSArray *attributes = nil;
+	NSArray *elements = nil;
+	INXMLNode *content = [type childNamed:@"complexContent"];
+	if (!content) {
+		content = [type childNamed:@"simpleContent"];
+	}
+	
+	// determine the superclass (must start with INClassGeneratorClassPrefix)
+	INXMLNode *extension = [content childNamed:@"extension"];
+	if (extension) {
+		NSString *base = [extension attr:@"base"];
+		superclass = [mapping objectForKey:base];
+		if (!superclass) {
+			DLog(@"There is no mapping for \"%@\", assuming class \"%@\"", base, base);
+			superclass = base;
+		}
+		else if (![INClassGeneratorClassPrefix isEqualToString:[superclass substringToIndex:[INClassGeneratorClassPrefix length]]]) {
+			superclass = INClassGeneratorBaseClass;
+		}
+		attributes = [extension childrenNamed:@"attribute"];
+		elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];
+	}
+	else {
+		attributes = [type childrenNamed:@"attribute"];
+		elements = [[type childNamed:@"sequence"] childrenNamed:@"element"];
+	}
+	
+	// parse attributes
 	if ([attributes count] > 0) {
 		properties = [NSMutableArray arrayWithCapacity:[attributes count]];
 		
@@ -249,22 +284,6 @@ void runOnMainQueue(dispatch_block_t block)
 				[properties addObject:attrDict];
 			}
 		}
-	}
-	
-	// is this an extension?
-	NSArray *elements = nil;
-	INXMLNode *extension = [[type childNamed:@"complexContent"] childNamed:@"extension"];
-	if (extension) {
-		NSString *base = [extension attr:@"base"];
-		superclass = [mapping objectForKey:base];
-		if (!superclass) {
-			DLog(@"There is no mapping for \"%@\", assuming class \"%@\"", base, base);
-			superclass = base;
-		}
-		elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];
-	}
-	else {
-		elements = [[type childNamed:@"sequence"] childrenNamed:@"element"];
 	}
 	
 	// parse elements
@@ -287,9 +306,13 @@ void runOnMainQueue(dispatch_block_t block)
 		if (![self createClass:className withName:name superclass:superclass forType:indivoTypeName properties:properties error:&error]) {
 			[self sendLog:[NSString stringWithFormat:@"Failed to create class \"%@\": %@", name, [error localizedDescription]]];
 		}
+		else {
+			[self sendLog:[NSString stringWithFormat:@"Created class \"%@\" for \"%@\"", className, name]];
+		}
 	}
 	
-	return [NSDictionary dictionaryWithObjectsAndKeys:className, @"className", superclass, @"superclass", nil];
+	[typeStack removeLastObject];
+	return [NSDictionary dictionaryWithObjectsAndKeys:indivoTypeName, @"type", className, @"className", superclass, @"superclass", nil];
 }
 
 
@@ -299,12 +322,9 @@ void runOnMainQueue(dispatch_block_t block)
  */
 - (NSDictionary *)processElement:(INXMLNode *)element withMapping:(NSMutableDictionary *)mapping
 {
-	NSString *cName = [element attr:@"name"];
-	NSString *cType = [element attr:@"type"];
-	if (!cType) {
-		cType = @"";
-	}
-	NSNumber *minOccurs = [element numAttr:@"minOccurs"];
+	NSString *name = [element attr:@"name"];
+	NSString *type = [element attr:@"type"];
+	NSNumber *min = [element numAttr:@"minOccurs"];
 	NSString *max = [element attr:@"maxOccurs"];
 	NSString *useClass = nil;
 	NSString *superclass = nil;
@@ -312,25 +332,33 @@ void runOnMainQueue(dispatch_block_t block)
 	NSString *comment = nil;
 	
 	// do we define the type (i.e. do we have a "complexType" child node)?
-	INXMLNode *type = [element childNamed:@"complexType"];
-	if (type) {
-		NSDictionary *typeDict = [self processType:type withName:cName mapping:mapping];
+	INXMLNode *typeNode = [element childNamed:@"complexType"];
+	if (typeNode) {
+		if (![typeNode attr:@"name"]) {
+			NSString *newTypeName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
+			if ([typeStack count] > 0) {
+				newTypeName = [NSString stringWithFormat:@"%@%@", [typeStack lastObject], newTypeName];
+			}
+			[typeNode setAttr:newTypeName forKey:@"name"];
+		}
+		NSDictionary *typeDict = [self processType:typeNode withMapping:mapping];
+		type = [typeDict objectForKey:@"type"];
 		useClass = [typeDict objectForKey:@"className"];
 		superclass = [typeDict objectForKey:@"superclass"];
 	}
 	
 	// type of element
-	if ([cType length] > 0 && !useClass) {
-		useClass = [mapping objectForKey:cType];
+	if ([type length] > 0 && !useClass) {
+		useClass = [mapping objectForKey:type];
 		if ([useClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes
-			NSString *xsType = [@"xs:" stringByAppendingString:cType];
+			NSString *xsType = [@"xs:" stringByAppendingString:type];
 			useClass = [mapping objectForKey:xsType];
 			if ([useClass length] < 1) {								// still no luck, give up
-				useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, cType];
-				[self sendLog:[NSString stringWithFormat:@"I do not know which class to use for \"%@\", assuming \"%@\"", cType, useClass]];
+				useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, type];
+				[self sendLog:[NSString stringWithFormat:@"I do not know which class to use for \"%@\", assuming \"%@\"", type, useClass]];
 			}
 			else {
-				cType = xsType;
+				type = xsType;
 			}
 		}
 	}
@@ -343,20 +371,20 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// are we required?
-	if ([minOccurs integerValue] > 0) {
+	if ([min integerValue] > 0) {
 		if (comment) {
-			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %@u)", minOccurs];
+			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %@u)", min];
 		}
 		else {
-			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %@)", minOccurs];
+			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %@)", min];
 		}
 	}
 	
 	// compose and return
 	NSMutableDictionary *elemDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-									 cName, @"name",
-									 cType, @"type",
-									 minOccurs, @"minOccurs",
+									 name, @"name",
+									 type, @"type",
+									 min, @"minOccurs",
 									 useClass, @"class", nil];
 	if (itemClass) {
 		[elemDict setObject:itemClass forKey:@"itemClass"];
@@ -385,7 +413,7 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	NSNumber *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
-	NSString *comment = ([minOccurs integerValue] > 0) ? @"Must not be nil nor return YES on isNull" : nil;
+	NSString *comment = ([minOccurs integerValue] > 0) ? @"Must be present as an attribute" : nil;
 	
 	NSString *attrClass = [mapping objectForKey:attrType];
 	if ([attrClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes
@@ -402,6 +430,7 @@ void runOnMainQueue(dispatch_block_t block)
 	
 	// compose and return
 	NSDictionary *attrDict = [NSDictionary dictionaryWithObjectsAndKeys:
+							  [NSNumber numberWithBool:YES], @"isAttribute",
 							  attrName, @"name",
 							  attrType, @"type",
 							  minOccurs, @"minOccurs",
@@ -436,15 +465,18 @@ void runOnMainQueue(dispatch_block_t block)
 	NSMutableArray *forwardClasses = [NSMutableArray array];
 	NSMutableArray *propertyMap = [NSMutableArray array];
 	NSMutableArray *nonNilNames = [NSMutableArray array];
+	NSMutableArray *attributeNames = [NSMutableArray array];
 	if ([properties count] > 0) {
 		for (NSDictionary *propDict in properties) {
 			NSString *name = [propDict objectForKey:@"name"];
 			NSInteger minOccurs = [[propDict objectForKey:@"minOccurs"] integerValue];
 			
 			// we do not need "id" properties for subclasses, they all have the "udid" property
+#if SKIP_ID_ATTRIBUTES
 			if ([name isEqualToString:@"id"]) {
 				continue;
 			}
+#endif
 			NSString *className = [propDict objectForKey:@"class"];
 			
 			// create class property strings
@@ -471,6 +503,11 @@ void runOnMainQueue(dispatch_block_t block)
 				[nonNilNames addObject:[NSString stringWithFormat:@"@\"%@\"", name]];
 			}
 			
+			// collect attributes
+			if ([[propDict objectForKey:@"isAttribute"] boolValue]) {
+				[attributeNames addObject:[NSString stringWithFormat:@"@\"%@\"", name]];
+			}
+			
 			// collect class mappings
 			NSString *itemClass = [propDict objectForKey:@"itemClass"];
 			[propertyMap addObject:[NSString stringWithFormat:@"@\"%@\", @\"%@\"", itemClass ? itemClass : className, name]];
@@ -478,6 +515,7 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	NSString *synthString = ([synthNames count] > 0) ? [NSString stringWithFormat:@"@synthesize %@;", [synthNames componentsJoinedByString:@", "]] : @"";
 	NSString *nonNilString = ([nonNilNames count] > 0) ? [nonNilNames componentsJoinedByString:@", "] : @"nil";
+	NSString *attributeString = ([attributeNames count] > 0) ? [attributeNames componentsJoinedByString:@", "] : @"nil";
 	
 	NSDictionary *substitutions = [NSDictionary dictionaryWithObjectsAndKeys:
 								   @"Indivo Class Generator", @"AUTHOR",
@@ -485,7 +523,7 @@ void runOnMainQueue(dispatch_block_t block)
 								   [NSString stringWithFormat:@"%d", comp.year], @"YEAR",
 								   (currentInputPath ? [currentInputPath lastPathComponent] : @"<unknown>"), @"TEMPLATE_PATH",
 								   className, @"CLASS_NAME",
-								   (superclass ? superclass : @"IndivoDocument"), @"CLASS_SUPERCLASS",
+								   (superclass ? superclass : INClassGeneratorBaseClass), @"CLASS_SUPERCLASS",
 								   bareName, @"CLASS_NODENAME",
 								   indivoType, @"CLASS_TYPENAME",
 								   propString, @"CLASS_PROPERTIES",
@@ -495,6 +533,7 @@ void runOnMainQueue(dispatch_block_t block)
 								   [forwardClasses componentsJoinedByString:@"\n"], @"CLASS_FORWARDS",
 								   [propertyMap componentsJoinedByString:@",\n\t\t\t"], @"CLASS_PROPERTY_MAP",
 								   nonNilString, @"CLASS_NON_NIL_NAMES",
+								   attributeString, @"CLASS_ATTRIBUTE_NAMES",
 								   nil];
 	
 	// create header
