@@ -41,4 +41,5 @@
 #import "IndivoLabProvider.h"
 #import "IndivoLabReport.h"
 #import "IndivoLabTest.h"
+#import "IndivoEquipment.h"
 

@@ -265,6 +265,8 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 		attributes = [extension childrenNamed:@"attribute"];
 		elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];
+		
+		/// @todo Check for restrictions
 	}
 	else {
 		attributes = [type childrenNamed:@"attribute"];

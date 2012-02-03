@@ -136,6 +136,37 @@
 	STAssertFalse([INXMLParser validateXML:[lab documentXML] againstXSD:labXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [lab documentXML]);
 }
 
+- (void)testEquipment
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *equip = [self readFixture:@"equipment"];
+	INXMLNode *node = [INXMLParser parseXML:equip error:&error];
+	IndivoEquipment *doc = [[IndivoEquipment alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Equipment Document");
+	STAssertEqualObjects(@"2009-02-05", [doc.dateStarted isoString], @"date started");
+	STAssertEqualObjects(@"Acme Medical Devices", doc.vendor.string, @"vendor");
+	
+	// test value changes
+	doc.dateStopped.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31", [doc.dateStopped isoString], @"New date stopped");
+	doc.specification = [INString newWithString:@"no specification available"];
+	STAssertEqualObjects(@"no specification available", doc.specification.string, @"New specification");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"equipment" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	
+	doc.name = nil;
+	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
+	
+	doc.name = [INString new];
+	doc.name.string = @"Pacemaker 2000";
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
 
 #pragma mark - Utilities
 - (NSString *)readFixture:(NSString *)fileName
