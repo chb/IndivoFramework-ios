@@ -254,7 +254,7 @@ void runOnMainQueue(dispatch_block_t block)
 		content = [type childNamed:@"simpleContent"];
 	}
 	
-	// determine the superclass (must start with INClassGeneratorClassPrefix)
+	// determine the superclass
 	INXMLNode *extension = [content childNamed:@"extension"];
 	if (extension) {
 		NSString *base = [extension attr:@"base"];
@@ -262,9 +262,6 @@ void runOnMainQueue(dispatch_block_t block)
 		if (!superclass) {
 			DLog(@"There is no mapping for \"%@\", assuming class \"%@\"", base, base);
 			superclass = base;
-		}
-		else if (![INClassGeneratorClassPrefix isEqualToString:[superclass substringToIndex:[INClassGeneratorClassPrefix length]]]) {
-			superclass = INClassGeneratorBaseClass;
 		}
 		attributes = [extension childrenNamed:@"attribute"];
 		elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];

@@ -54,11 +54,11 @@
 - (NSString *)xml
 {
 	if ([self isNull]) {
-		return [NSString stringWithFormat:@"<%@ />", self.nodeName];
+		return [NSString stringWithFormat:@"<%@ />", [self tagString]];
 	}
 	if ([text length] > 0) {
 		return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\">%@</%@>",
-				self.nodeName,
+				[self tagString],
 				self.type,
 				(self.abbrev ? [self.abbrev xmlSafe] : @""),
 				(self.value ? [self.value xmlSafe] : @""),
@@ -66,7 +66,7 @@
 				self.nodeName];
 	}
 	return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\" />",
-			self.nodeName,
+			[self tagString],
 			self.type,
 			(self.abbrev ? [self.abbrev xmlSafe] : @""),
 			(self.value ? [self.value xmlSafe] : @"")];

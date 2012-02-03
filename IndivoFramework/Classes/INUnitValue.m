@@ -58,10 +58,13 @@
 - (NSString *)xml
 {
 	if ([self isNull]) {
-		return [NSString stringWithFormat:@"<%@ />", self.nodeName];
+		return [NSString stringWithFormat:@"<%@ />", [self tagString]];
 	}
-	
-	return [NSString stringWithFormat:@"<%@><value>%@</value>%@</%@>", self.nodeName, self.value ? [self.value xmlSafe] : @"", [self.unit xml], self.nodeName];
+#ifdef INDIVO_XML_PRETTY_FORMAT
+	return [NSString stringWithFormat:@"<%@>\n\t<value>%@</value>\n\t%@\n</%@>", [self tagString], self.value ? [self.value xmlSafe] : @"", [self.unit xml], self.nodeName];
+#else
+	return [NSString stringWithFormat:@"<%@><value>%@</value>%@</%@>", [self tagString], self.value ? [self.value xmlSafe] : @"", [self.unit xml], self.nodeName];
+#endif
 }
 
 

@@ -68,13 +68,21 @@
  *	Sets our class properties from the given node and its child nodes.
  *	This method collects all class ivars from this class up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
  *	subclasses, but if not we need to walk the class hierarchy upwards until one below IndivoDocument in order to collect the inherited ivars.
+ *	
+ *	We do not call the superclass implementation here (IndivoServerObject > INObject) because INObject also walks the instance variables for subclasses
+ *	of INObject that are NOT subclasses of us.
  */
 - (void)setFromNode:(INXMLNode *)node
 {
-	[super setFromNode:node];
+	// node name and node type
+	self.nodeName = node.name;
+	NSString *newType = [node attr:@"type"];
+	if (newType) {
+		self.nodeType = newType;
+	}
 	
 	// document id
-	if (node && [node attr:@"id"]) {
+	if ([node attr:@"id"]) {
 		self.udid = [node attr:@"id"];
 	}
 	
@@ -207,7 +215,7 @@
 					[xmlSubValues addObjectIfNotNil:[self xmlForObject:object nodeName:propertyName]];
 				}
 #ifdef INDIVO_XML_PRETTY_FORMAT
-				NSString *propertyXML = [xmlSubValues componentsJoinedByString:@"\n"];
+				NSString *propertyXML = [xmlSubValues componentsJoinedByString:@"\n\t"];
 #else
 				NSString *propertyXML = [xmlSubValues componentsJoinedByString:@""];
 #endif
@@ -265,26 +273,6 @@
 		return subXML;
 	}
 	return nil;
-}
-
-
-- (NSString *)tagString
-{
-	NSString *nodeStr = [super tagString];
-	NSArray *attrs = [[self class] attributeNames];
-	
-	// add attributes
-	if ([attrs count] > 0) {
-		NSMutableArray *propArr = [NSMutableArray arrayWithCapacity:[attrs count]];
-		for (NSString *prop in attrs) {
-			id object = [self valueForKey:prop];
-			if (([object respondsToSelector:@selector(isNull)] && ![object isNull]) || ![[self class] canBeNull:prop]) {
-				[propArr addObjectIfNotNil:[self attributeStringForObject:object nodeName:prop]];
-			}
-		}
-		nodeStr = [nodeStr stringByAppendingFormat:@" %@", [propArr componentsJoinedByString:@" "]];
-	}
-	return nodeStr;
 }
 
 
@@ -372,40 +360,11 @@
 }
 
 
-
-#pragma mark - XML Generation Helper
 /**
  *	The automatically generated IndivoDocument subclasses return a dictionary with property->class mappings. This is important for NSArray properties
  *	to determine the class of the array items.
  */
 + (NSDictionary *)propertyClassMapper
-{
-	return nil;
-}
-
-
-/**
- *	If a property returns YES from its "isNull" selector and this method returns NO for that property, the XML is highly unlikely to validate
- *	with the server.
- */
-+ (BOOL)canBeNull:(NSString *)propertyName
-{
-	return ![[self nonNilPropertyNames] containsObject:propertyName];
-}
-
-/**
- *	Should return the names for properties that cannot be nil (because the XML would not validate).
- */
-+ (NSArray *)nonNilPropertyNames
-{
-	return nil;
-}
-
-/**
- *	The properties whose names are returned here are expected to be XML node attributes rather than complete nodes.
- *	XML generation relies on this information, it will not go through the ivar list but only pick properties listed here.
- */
-+ (NSArray *)attributeNames
 {
 	return nil;
 }

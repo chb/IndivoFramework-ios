@@ -80,12 +80,12 @@ static NSDateFormatter *isoDateFormatter = nil;
 	if ([self isNull]) {
 		return @"";
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, [self isoString], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], [self isoString], self.nodeName];
 }
 
-- (NSString *)asAttribute
+- (NSString *)attributeValue
 {
-	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, [self isoString]];
+	return [self isoString];
 }
 
 

@@ -21,6 +21,7 @@
  */
 
 #import "INObject.h"
+#import <objc/runtime.h>
 #import "NSArray+NilProtection.h"
 
 
@@ -103,22 +104,64 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 
 /**
  *	The INObject implementation sets the node name and node type (if a "type" attribute is found in the XML node) from an INXMLNode parsed
- *	from an Indivo XML (!).
- *	In subclasses, this methed replaces all properties with values found in the node, leaves those not present untouched. This method is
- *	called from the designated initializer, subclasses should override it to set custom properties and call  [super setFromNode:<node>]
- *	
- *	@attention If you are using INXMLNodes to parse your custom XML this method will only do the right thing if your XML has the same
- *	structure as Indivo has for the specific node. For custom XML it's usually better to create blank new INObjects and set their properties
- *	by hand.
+ *	from an Indivo XML.
+ *	This methed replaces all properties with values found in the node, leaves those not present untouched. This method is called from the
+ *	designated initializer, subclasses should override it to set custom properties and call  [super setFromNode:<node>]
  */
-- (void)setFromNode:(INXMLNode *)node
+- (void)setFromNode:(INXMLNode *)aNode
 {
-	if (node) {
-		self.nodeName = node.name;
+	if (aNode) {
+		self.nodeName = aNode.name;
 		
-		NSString *newType = [node attr:@"type"];
+		NSString *newType = [aNode attr:@"type"];
 		if (newType) {
 			self.nodeType = newType;
+		}
+		
+		// if we have defined attributes, loop our ivars to find the ones we must assign from node attributes
+		NSArray *myAttrs = [[self class] attributeNames];
+		if ([myAttrs count] > 0) {
+			unsigned int num, i;
+			Ivar *ivars = class_copyIvarList([self class], &num);
+			for (i = 0; i < num; i++) {
+				id ivarObj = object_getIvar(self, ivars[i]);
+				const char *ivar_name = ivar_getName(ivars[i]);
+				NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
+				
+				// found the ivar we need
+				if ([myAttrs containsObject:ivarName]) {
+					NSString *attr = [aNode attr:ivarName];
+					if ([attr length] > 0) {
+						Class ivarClass = [ivarObj class];
+						
+						// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
+						if (!ivarClass) {
+							NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivars[i])];
+							if ([ivarType length] > 3) {
+								NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
+								ivarClass = NSClassFromString(className);
+							}
+							if (!ivarClass) {
+								DLog(@"WARNING: Class for \"%@\" not loaded: \"%@\"", ivarName, ivarType);
+							}
+						}
+						
+						// depending on the class, set our property
+						if ([ivarClass isSubclassOfClass:[INObject class]]) {							// INObject
+							[self setValue:[ivarClass objectFromAttribute:ivarName inNode:aNode] forKey:ivarName];
+						}
+						else if ([ivarClass isSubclassOfClass:[NSString class]]) {						// NSString
+							[self setValue:attr forKey:ivarName];
+						}
+						else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {						// NSNumber
+							[self setValue:[NSDecimalNumber decimalNumberWithString:attr] forKey:ivarName];
+						}
+						else {
+							DLog(@"I don't know how to generate an object of class %@ as an attribute for %@", NSStringFromClass(ivarClass), ivarName);
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -132,7 +175,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 
 
 
-#pragma mark - Returning Data
+#pragma mark - State Checking
 /**
  *	An object can decide that it is null, i.e. does not carry data. This is useful for creating empty XML nodes instead of omitting the
  *	node at all by setting the property to nil.
@@ -142,6 +185,35 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 	return NO;
 }
 
+/**
+  *	If a property returns YES from its "isNull" selector and this method returns NO for that property, the XML is highly unlikely to validate
+  *	with the server.
+  */
++ (BOOL)canBeNull:(NSString *)propertyName
+{
+	return ![[self nonNilPropertyNames] containsObject:propertyName];
+}
+
+/**
+ *	Should return the names for properties that cannot be nil (because the XML would not validate).
+ */
++ (NSArray *)nonNilPropertyNames
+{
+	return nil;
+}
+
+/**
+ *	The properties whose names are returned here are expected to be XML node attributes rather than complete nodes.
+ *	XML generation relies on this information, it will not go through the ivar list but only pick properties listed here.
+ */
++ (NSArray *)attributeNames
+{
+	return nil;
+}
+
+
+
+#pragma mark - Returning XML
 /**
  *	Return an XML representation of the object.
  */
@@ -155,14 +227,52 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
  */
 - (NSString *)tagString
 {
+	NSString *tagStr = self.nodeName;
+	
+	// declare our type?
 	if (mustDeclareType) {
 		NSString *myType = self.nodeType;
-		if (0 == [myType rangeOfString:INClassGeneratorTypePrefix].location) {
+		if (0 == [myType rangeOfString:INClassGeneratorTypePrefix].location) {					/// @todo Here we remove the namespace prefix based on how we generated the class. Cheap.
 			myType = [myType substringFromIndex:[INClassGeneratorTypePrefix length] + 1];
 		}
-		return [NSString stringWithFormat:@"%@ xsi:type=\"%@\"", self.nodeName, myType];
+		tagStr = [tagStr stringByAppendingFormat:@" xsi:type=\"%@\"", myType];
 	}
-	return self.nodeName;
+	
+	// add attributes
+	NSArray *attrs = [[self class] attributeNames];
+	if ([attrs count] > 0) {
+		NSMutableArray *propArr = [NSMutableArray arrayWithCapacity:[attrs count]];
+		for (NSString *prop in attrs) {
+			id object = [self valueForKey:prop];
+			
+			if (object || ![[self class] canBeNull:prop]) {
+				NSString *value = nil;
+				if ([object isKindOfClass:[INObject class]]) {					// INObject
+					value = [(INObject *)object attributeValue];
+				}
+				else if ([object isKindOfClass:[NSString class]]) {				// string
+					value = object;
+				}
+				else if ([object isKindOfClass:[NSNumber class]]) {				// number
+					value = [object stringValue];
+				}
+				else if ([object respondsToSelector:@selector(boolValue)]) {	// responds to bool
+					value = [object performSelector:@selector(boolValue)] ? @"true" : @"false";
+				}
+				else {
+					DLog(@"Not sure what to do with attribute %@ of class %@", object, NSStringFromClass([object class]));
+				}
+				
+				// add
+				if (value) {
+					[propArr addObject:[NSString stringWithFormat:@"%@=\"%@\"", prop, value]];
+				}
+			}
+		}
+		tagStr = [tagStr stringByAppendingFormat:@" %@", [propArr componentsJoinedByString:@" "]];
+	}
+	
+	return tagStr;
 }
 
 /**
@@ -178,10 +288,21 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
  */
 - (NSString *)asAttribute
 {
+	NSString *attrStr = [self attributeValue];
+	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (attrStr ? [attrStr xmlSafe] : @"")];
+}
+
+/**
+ *	Returns the string that goes into the attribute value.
+ */
+- (NSString *)attributeValue
+{
 	return nil;
 }
 
 
+
+#pragma mark - Properties
 /**
  *	We forward the class method on instance calls unless we have a personal nodeName.
  */

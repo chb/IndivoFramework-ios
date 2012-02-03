@@ -54,12 +54,12 @@
 	if ([self isNull]) {
 		return @"";
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.number ? self.number : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.number ? self.number : @""), self.nodeName];
 }
 
-- (NSString *)asAttribute
+- (NSString *)attributeValue
 {
-	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.number ? self.number : @"")];
+	return self.number ? [self.number stringValue] : @"";
 }
 
 

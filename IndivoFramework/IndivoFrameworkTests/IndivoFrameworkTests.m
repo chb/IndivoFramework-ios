@@ -10,6 +10,7 @@
 #import "IndivoServer.h"
 #import "IndivoDocuments.h"
 #import "INXMLParser.h"
+#import <mach/mach_time.h>
 
 
 @implementation IndivoFrameworkTests
@@ -71,11 +72,25 @@
 	STAssertNotNil(lab, @"Lab");
 	STAssertEqualObjects(@"2009-07-16T12:00:00", [lab.dateMeasured isoString], @"measure date");
 	STAssertEqualObjects(@"hematology", lab.labType.string, @"lab type");
-	NSLog(@"%@", [lab documentXML]);
 	
 	// test value changes
 	lab.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
 	STAssertEqualObjects(@"2012-01-31T10:40:41", [lab.dateMeasured isoString], @"changed date");
+	
+	// timing
+	mach_timebase_info_data_t timebase;
+	mach_timebase_info(&timebase);
+	double ticksToNanoseconds = (double)timebase.numer / timebase.denom;
+	uint64_t startTime = mach_absolute_time();
+	
+	NSUInteger i = 0;
+	for (; i < 1000; i++) {
+		[lab documentXML];
+	}
+	
+	uint64_t elapsedTime = mach_absolute_time() - startTime;
+	double elapsedTimeInNanoseconds = elapsedTime * ticksToNanoseconds;
+	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 2/2/2012, iMac i7 2.8: ~0.6 sec
 	
 	// validate
 	NSString *labXSDPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"lab" ofType:@"xsd"];

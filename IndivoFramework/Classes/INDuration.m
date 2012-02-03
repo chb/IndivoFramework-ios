@@ -61,12 +61,12 @@
 	if ([self isNull]) {
 		return @"";
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.duration ? [self.duration xmlSafe] : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.duration ? [self.duration xmlSafe] : @""), self.nodeName];
 }
 
-- (NSString *)asAttribute
+- (NSString *)attributeValue
 {
-	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.duration ? [self.duration xmlSafe] : @"")];
+	return self.duration ? [self.duration xmlSafe] : @"";
 }
 
 

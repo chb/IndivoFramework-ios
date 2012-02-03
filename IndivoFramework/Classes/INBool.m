@@ -64,9 +64,9 @@
 	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.flag ? @"true" : @"false"), self.nodeName];
 }
 
-- (NSString *)asAttribute
+- (NSString *)attributeValue
 {
-	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.flag ? @"true" : @"false")];
+	return self.flag ? @"true" : @"false";
 }
 
 

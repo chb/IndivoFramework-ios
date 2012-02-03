@@ -20,7 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "INString.h"
 #import "INObjects.h"
 
 
@@ -29,7 +29,7 @@
 /**
  *	A class representing "indivo:ResultInSetOption" objects, generated from values.xsd.
  */
-@interface IndivoResultInSetOption : IndivoDocument
+@interface IndivoResultInSetOption : INString
 
 @property (nonatomic, strong) INBool *normal;					///< Must be present as an attribute
 @property (nonatomic, strong) INString *description;

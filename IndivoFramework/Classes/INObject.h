@@ -55,9 +55,14 @@
 - (NSString *)tagString;
 - (NSString *)innerXML;
 - (NSString *)asAttribute;
+- (NSString *)attributeValue;
 
 + (NSString *)nodeName;
 + (NSString *)nodeType;
+
++ (BOOL)canBeNull:(NSString *)propertyName;
++ (NSArray *)nonNilPropertyNames;
++ (NSArray *)attributeNames;
 
 
 @end

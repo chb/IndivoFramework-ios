@@ -52,9 +52,6 @@
 + (NSString *)type;
 + (Class)classforProperty:(NSString *)propertyName;
 + (NSDictionary *)propertyClassMapper;
-+ (BOOL)canBeNull:(NSString *)propertyName;
-+ (NSArray *)nonNilPropertyNames;
-+ (NSArray *)attributeNames;
 
 
 @end

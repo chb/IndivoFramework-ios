@@ -58,12 +58,12 @@
 
 - (NSString *)xml
 {
-	return [NSString stringWithFormat:@"<%@>%@</%@>", self.nodeName, (self.uri ? [self.uri xmlSafe] : @""), self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.uri ? [self.uri xmlSafe] : @""), self.nodeName];
 }
 
-- (NSString *)asAttribute
+- (NSString *)attributeValue
 {
-	return [NSString stringWithFormat:@"%@=\"%@\"", self.nodeName, (self.uri ? [self.uri xmlSafe] : @"")];
+	return self.uri ? [self.uri xmlSafe] : @"";
 }
 
 
