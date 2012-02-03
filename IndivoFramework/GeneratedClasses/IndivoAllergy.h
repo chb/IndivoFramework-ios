@@ -1,9 +1,9 @@
 /*
- INObjects.h
+ IndivoAllergy.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 1/30/12.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 2/2/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,25 +20,22 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#import "IndivoDocument.h"
+#import "INObjects.h"
+
+@class IndivoAllergyAllergen;
+	
 
 /**
- *	Header file which includes all our IndivoDocument subclasses. Include this header where you use these classes.
+ *	A class representing "indivo:Allergy" objects, generated from allergy.xsd.
  */
+@interface IndivoAllergy : IndivoDocument
 
-#import "IndivoDocument.h"
-#import "IndivoMetaDocument.h"
-#import "IndivoDocumentCreated.h"
-#import "IndivoDocumentSuppressed.h"
-#import "IndivoDocumentLatest.h"
-#import "IndivoPrincipal.h"
-#import "IndivoMedication+Ext.h"
-#import "IndivoPrescription.h"
-#import "IndivoProvider.h"
-#import "IndivoAllergy.h"
-#import "IndivoAllergyAllergen.h"
-#import "IndivoLab.h"
-#import "IndivoLabPanel.h"
-#import "IndivoLabProvider.h"
-#import "IndivoLabReport.h"
-#import "IndivoLabTest.h"
+@property (nonatomic, strong) INDate *dateDiagnosed;
+@property (nonatomic, strong) INString *diagnosedBy;
+@property (nonatomic, strong) IndivoAllergyAllergen *allergen;
+@property (nonatomic, strong) INString *reaction;
+@property (nonatomic, strong) INString *specifics;
 
+
+@end

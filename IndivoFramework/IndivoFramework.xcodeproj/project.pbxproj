@@ -188,6 +188,14 @@
 		EEAA503014DB144400FBFE66 /* INAnyURI.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA502E14DB144400FBFE66 /* INAnyURI.h */; };
 		EEAA503114DB144400FBFE66 /* INAnyURI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502F14DB144400FBFE66 /* INAnyURI.m */; };
 		EEAA503214DB144400FBFE66 /* INAnyURI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502F14DB144400FBFE66 /* INAnyURI.m */; };
+		EEAA503814DB5C1800FBFE66 /* IndivoAllergy.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA503414DB5C1600FBFE66 /* IndivoAllergy.h */; };
+		EEAA503914DB5C1800FBFE66 /* IndivoAllergy.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA503514DB5C1700FBFE66 /* IndivoAllergy.m */; };
+		EEAA503A14DB5C1800FBFE66 /* IndivoAllergy.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA503514DB5C1700FBFE66 /* IndivoAllergy.m */; };
+		EEAA503B14DB5C1800FBFE66 /* IndivoAllergyAllergen.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA503614DB5C1700FBFE66 /* IndivoAllergyAllergen.h */; };
+		EEAA503C14DB5C1800FBFE66 /* IndivoAllergyAllergen.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA503714DB5C1800FBFE66 /* IndivoAllergyAllergen.m */; };
+		EEAA503D14DB5C1800FBFE66 /* IndivoAllergyAllergen.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA503714DB5C1800FBFE66 /* IndivoAllergyAllergen.m */; };
+		EEAA503F14DB5C2B00FBFE66 /* allergy.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEAA503E14DB5C2B00FBFE66 /* allergy.xml */; };
+		EEAA504114DB5C3600FBFE66 /* allergy.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EEAA504014DB5C3600FBFE66 /* allergy.xsd */; };
 		EECC232F14D70E9400B4FC30 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC232D14D70E9400B4FC30 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EECC233014D70E9400B4FC30 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC232E14D70E9400B4FC30 /* IndivoMedication.m */; };
 		EECC233414D70FC300B4FC30 /* IndivoDocumentSuppressed.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC233214D70FC300B4FC30 /* IndivoDocumentSuppressed.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -381,6 +389,12 @@
 		EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoResultInSetOption.m; sourceTree = "<group>"; };
 		EEAA502E14DB144400FBFE66 /* INAnyURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAnyURI.h; sourceTree = "<group>"; };
 		EEAA502F14DB144400FBFE66 /* INAnyURI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAnyURI.m; sourceTree = "<group>"; };
+		EEAA503414DB5C1600FBFE66 /* IndivoAllergy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoAllergy.h; sourceTree = "<group>"; };
+		EEAA503514DB5C1700FBFE66 /* IndivoAllergy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoAllergy.m; sourceTree = "<group>"; };
+		EEAA503614DB5C1700FBFE66 /* IndivoAllergyAllergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoAllergyAllergen.h; sourceTree = "<group>"; };
+		EEAA503714DB5C1800FBFE66 /* IndivoAllergyAllergen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoAllergyAllergen.m; sourceTree = "<group>"; };
+		EEAA503E14DB5C2B00FBFE66 /* allergy.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allergy.xml; sourceTree = "<group>"; };
+		EEAA504014DB5C3600FBFE66 /* allergy.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = allergy.xsd; sourceTree = "<group>"; };
 		EEC5C4051416B3E900E1A349 /* ErrorCodes.md */ = {isa = PBXFileReference; explicitFileType = text; path = ErrorCodes.md; sourceTree = SOURCE_ROOT; };
 		EECC232D14D70E9400B4FC30 /* IndivoMedication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndivoMedication.h; path = GeneratedClasses/IndivoMedication.h; sourceTree = SOURCE_ROOT; };
 		EECC232E14D70E9400B4FC30 /* IndivoMedication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndivoMedication.m; path = GeneratedClasses/IndivoMedication.m; sourceTree = SOURCE_ROOT; };
@@ -490,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				EE09B5F414D83B7C00E99A67 /* medication.xml */,
+				EEAA503E14DB5C2B00FBFE66 /* allergy.xml */,
 				EE09B63314D9C3BB00E99A67 /* lab.xml */,
 			);
 			name = Fixtures;
@@ -499,6 +514,7 @@
 			isa = PBXGroup;
 			children = (
 				EE09B5F814D84F6200E99A67 /* medication.xsd */,
+				EEAA504014DB5C3600FBFE66 /* allergy.xsd */,
 				EE09B63514D9C3C800E99A67 /* lab.xsd */,
 				EE09B5FB14D8517600E99A67 /* codes.xsd */,
 				EE09B5FE14D851AA00E99A67 /* provider.xsd */,
@@ -748,20 +764,24 @@
 		EECC233114D70E9900B4FC30 /* Generated Documents */ = {
 			isa = PBXGroup;
 			children = (
-				EECC232D14D70E9400B4FC30 /* IndivoMedication.h */,
-				EECC232E14D70E9400B4FC30 /* IndivoMedication.m */,
-				EECC234D14D7580800B4FC30 /* IndivoPrescription.h */,
-				EECC234E14D7580800B4FC30 /* IndivoPrescription.m */,
-				EECC233C14D7137F00B4FC30 /* IndivoProvider.h */,
-				EECC233D14D7137F00B4FC30 /* IndivoProvider.m */,
-				EECC234114D7138C00B4FC30 /* IndivoPrincipal.h */,
-				EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */,
 				EECC233714D70FCF00B4FC30 /* IndivoDocumentCreated.h */,
 				EECC233814D70FCF00B4FC30 /* IndivoDocumentCreated.m */,
 				EECC233214D70FC300B4FC30 /* IndivoDocumentSuppressed.h */,
 				EECC233314D70FC300B4FC30 /* IndivoDocumentSuppressed.m */,
 				EE09B64114D9C42D00E99A67 /* IndivoDocumentLatest.h */,
 				EE09B64214D9C42D00E99A67 /* IndivoDocumentLatest.m */,
+				EECC234114D7138C00B4FC30 /* IndivoPrincipal.h */,
+				EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */,
+				EECC232D14D70E9400B4FC30 /* IndivoMedication.h */,
+				EECC232E14D70E9400B4FC30 /* IndivoMedication.m */,
+				EECC234D14D7580800B4FC30 /* IndivoPrescription.h */,
+				EECC234E14D7580800B4FC30 /* IndivoPrescription.m */,
+				EECC233C14D7137F00B4FC30 /* IndivoProvider.h */,
+				EECC233D14D7137F00B4FC30 /* IndivoProvider.m */,
+				EEAA503414DB5C1600FBFE66 /* IndivoAllergy.h */,
+				EEAA503514DB5C1700FBFE66 /* IndivoAllergy.m */,
+				EEAA503614DB5C1700FBFE66 /* IndivoAllergyAllergen.h */,
+				EEAA503714DB5C1800FBFE66 /* IndivoAllergyAllergen.m */,
 				EE09B63714D9C42C00E99A67 /* IndivoLab.h */,
 				EE09B63814D9C42C00E99A67 /* IndivoLab.m */,
 				EE09B63914D9C42C00E99A67 /* IndivoLabPanel.h */,
@@ -938,6 +958,8 @@
 				EE09B66C14D9F29900E99A67 /* IndivoRange.h in Headers */,
 				EEAA502B14DB130B00FBFE66 /* IndivoResultInSetOption.h in Headers */,
 				EEAA503014DB144400FBFE66 /* INAnyURI.h in Headers */,
+				EEAA503814DB5C1800FBFE66 /* IndivoAllergy.h in Headers */,
+				EEAA503B14DB5C1800FBFE66 /* IndivoAllergyAllergen.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1036,6 +1058,8 @@
 				EE09B60114D851EA00E99A67 /* values.xsd in Resources */,
 				EE09B63414D9C3BB00E99A67 /* lab.xml in Resources */,
 				EE09B63614D9C3C800E99A67 /* lab.xsd in Resources */,
+				EEAA503F14DB5C2B00FBFE66 /* allergy.xml in Resources */,
+				EEAA504114DB5C3600FBFE66 /* allergy.xsd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,6 +1167,8 @@
 				EE09B66D14D9F29900E99A67 /* IndivoRange.m in Sources */,
 				EEAA502C14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */,
 				EEAA503114DB144400FBFE66 /* INAnyURI.m in Sources */,
+				EEAA503914DB5C1800FBFE66 /* IndivoAllergy.m in Sources */,
+				EEAA503C14DB5C1800FBFE66 /* IndivoAllergyAllergen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,6 +1246,8 @@
 				EE09B66E14D9F29900E99A67 /* IndivoRange.m in Sources */,
 				EEAA502D14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */,
 				EEAA503214DB144400FBFE66 /* INAnyURI.m in Sources */,
+				EEAA503A14DB5C1800FBFE66 /* IndivoAllergy.m in Sources */,
+				EEAA503D14DB5C1800FBFE66 /* IndivoAllergyAllergen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

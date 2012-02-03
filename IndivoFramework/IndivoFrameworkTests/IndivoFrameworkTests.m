@@ -60,6 +60,42 @@
 	STAssertFalse([INXMLParser validateXML:[medication documentXML] againstXSD:medXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [medication documentXML]);
 }
 
+- (void)testAllergy
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *med = [self readFixture:@"allergy"];
+	INXMLNode *node = [INXMLParser parseXML:med error:&error];
+	IndivoAllergy *doc = [[IndivoAllergy alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Allergy");
+	STAssertEqualObjects(@"2009-05-16", [doc.dateDiagnosed isoString], @"date diagnosed");
+	STAssertEqualObjects(@"blue rash", doc.reaction.string, @"reaction");
+	
+	// test allergens
+	IndivoAllergyAllergen *allergen = doc.allergen;
+	STAssertEqualObjects(@"drugs", allergen.type.value, @"allergen: %@", [allergen xml]);
+	
+	// test value changes
+	doc.dateDiagnosed.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31", [doc.dateDiagnosed isoString], @"New date diagnosed");
+	doc.specifics = [INString newWithString:@"happens on weekends and Tuesdays"];
+	STAssertEqualObjects(@"happens on weekends and Tuesdays", doc.specifics.string, @"New specifics");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"allergy" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	
+	doc.allergen = nil;
+	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
+	
+	doc.allergen = [IndivoAllergyAllergen new];
+	doc.allergen.type = [INCodedValue new];
+	doc.allergen.name = [INCodedValue new];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
 - (void)testLabPanel
 {
 	NSError *error = nil;

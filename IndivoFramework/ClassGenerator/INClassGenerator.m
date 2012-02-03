@@ -361,7 +361,7 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// do we accept multiple instances? -> we need an array property
-	if ([@"unbounded" isEqualToString:max] || ![@"1" isEqualToString:max]) {
+	if (max && ([@"unbounded" isEqualToString:max] || ![@"1" isEqualToString:max])) {
 		comment = [NSString stringWithFormat:@"An array containing %@ objects", useClass];
 		itemClass = useClass;
 		useClass = @"NSArray";
@@ -466,7 +466,8 @@ void runOnMainQueue(dispatch_block_t block)
 	if ([properties count] > 0) {
 		for (NSDictionary *propDict in properties) {
 			NSString *name = [propDict objectForKey:@"name"];
-			NSInteger minOccurs = [[propDict objectForKey:@"minOccurs"] integerValue];
+			NSString *min = [propDict objectForKey:@"minOccurs"];
+			NSInteger minOccurs = min ? [min integerValue] : 1;
 			
 			// we do not need "id" properties for subclasses, they all have the "udid" property
 #if SKIP_ID_ATTRIBUTES
