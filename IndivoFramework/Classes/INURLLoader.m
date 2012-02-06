@@ -83,7 +83,7 @@
 - (void)getWithCallback:(INCancelErrorBlock)aCallback
 {
 	if (!url) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"No URL given");
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"No URL given");
 		return;
 	}
 	
@@ -97,7 +97,7 @@
 - (void)post:(NSString *)postBody withCallback:(INCancelErrorBlock)aCallback
 {
 	if (!url) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"No URL given");
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"No URL given");
 		return;
 	}
 	
@@ -116,7 +116,7 @@
 	if (!url) {
 		self.url = aRequest.URL;
 		if (!url) {
-			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"No URL given");
+			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"No URL given");
 			return;
 		}
 	}

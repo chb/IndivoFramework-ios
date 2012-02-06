@@ -112,7 +112,7 @@ void xmlSchemaValidityError(void **ctx, const char *format, ...);
 		
 		self.rootNode = nil;
 	}
-	else {
+	else if (error) {
 		*error = nil;
 	}
 	

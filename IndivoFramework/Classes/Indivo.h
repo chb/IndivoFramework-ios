@@ -100,12 +100,12 @@ typedef enum {
 	}
 #endif
 #ifndef CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING
-# define CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(cb, errstr)\
+# define CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(cb, didCancel, errstr)\
 	if (cb) {\
-		cb(NO, errstr);\
+		cb(didCancel, errstr);\
 	}\
 	else {\
-		DLog(@"%@", errstr);\
+		DLog(@"%@ (Cancelled: %d)", errstr, didCancel);\
 	}
 #endif
 #ifndef SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO

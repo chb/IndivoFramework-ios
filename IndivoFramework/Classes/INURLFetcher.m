@@ -54,7 +54,7 @@
 - (void)getURLs:(NSArray *)anURLArray callback:(INCancelErrorBlock)aCallback
 {
 	if (queuedLoaders) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"A queue is already being loaded, cannot begin a new one")
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"A queue is already being loaded, cannot begin a new one")
 		return;
 	}
 	

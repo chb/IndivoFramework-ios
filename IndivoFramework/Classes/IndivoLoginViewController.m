@@ -287,7 +287,6 @@
  */
 - (void)dismiss:(id)sender
 {
-	[webView stopLoading];
 	[self dismissAnimated:(nil != sender)];
 }
 
@@ -296,6 +295,9 @@
  */
 - (void)dismissAnimated:(BOOL)animated
 {
+	[webView stopLoading];
+	[self hideLoadingIndicator:nil];
+	
 	if ([self respondsToSelector:@selector(presentingViewController)]) {			// iOS 5+ only
 		[[self presentingViewController] dismissViewControllerAnimated:animated completion:NULL];
 	}

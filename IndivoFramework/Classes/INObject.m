@@ -136,13 +136,14 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 						
 						// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
 						if (!ivarClass) {
-							NSString *ivarType = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivars[i])];
+							const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
+							NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
 							if ([ivarType length] > 3) {
 								NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
 								ivarClass = NSClassFromString(className);
 							}
-							if (!ivarClass) {
-								DLog(@"WARNING: Class for \"%@\" not loaded: \"%@\"", ivarName, ivarType);
+							if (!ivarClass && 0 != strcmp("#", ivar_type)) {
+								DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
 							}
 						}
 						

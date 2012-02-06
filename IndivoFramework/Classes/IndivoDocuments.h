@@ -42,4 +42,11 @@
 #import "IndivoLabReport.h"
 #import "IndivoLabTest.h"
 #import "IndivoEquipment.h"
+#import "IndivoContact.h"
+#import "IndivoContactName.h"
+#import "IndivoContactAddress.h"
+#import "IndivoContactLocation.h"
+#import "IndivoContactEmail.h"
+#import "IndivoContactPhoneNumber.h"
+#import "IndivoContactInstantMessengerName.h"
 

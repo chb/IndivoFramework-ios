@@ -21,13 +21,17 @@
  */
 
 #import "IndivoRecord.h"
-#import "IndivoDocument.h"
-#import "IndivoMetaDocument.h"
+#import "IndivoDocuments.h"
 #import "INXMLParser.h"
 #import "INXMLReport.h"
 
 
 @interface IndivoRecord ()
+
+@property (nonatomic, readwrite, assign) BOOL hasContactDoc;
+@property (nonatomic, readwrite, strong) IndivoContact *contactDoc;
+@property (nonatomic, readwrite, assign) BOOL hasDemographicsDoc;
+@property (nonatomic, readwrite, strong) NSDate *created;
 
 @property (nonatomic, strong) NSMutableArray *metaDocuments;					///< Storage for this records fetched document metadata
 @property (nonatomic, strong) NSMutableArray *documents;						///< Storage for this records fetched documents: Does NOT automatically contain all documents
@@ -37,7 +41,7 @@
 
 @implementation IndivoRecord
 
-@synthesize label;
+@synthesize label, hasContactDoc, contactDoc, hasDemographicsDoc, created;
 @synthesize accessToken, accessTokenSecret;
 @synthesize metaDocuments, documents;
 
@@ -63,6 +67,86 @@
 		self.label = aName;
 	}
 	return self;
+}
+
+
+
+#pragma mark - Record Details
+/**
+ *	Fetches basic record info.
+ */
+- (void)fetchRecordInfoWithCallback:(INCancelErrorBlock)aCallback
+{
+	NSString *path = [NSString stringWithFormat:@"/records/%@", self.udid];
+	
+	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		
+		// success, extract information
+		if (success) {
+			INXMLNode *doc = [userInfo objectForKey:INResponseXMLKey];
+			if (!doc) {
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Record Info XML was not valid")
+			}
+			else {
+				if ([doc attr:@"label"]) {
+					self.label = [doc attr:@"label"];
+				}
+				if ([[[doc childNamed:@"contact"] attr:@"document_id"] length] > 0) {
+					self.hasContactDoc = YES;
+				}
+				if ([[[doc childNamed:@"demographics"] attr:@"document_id"] length] > 0) {
+					self.hasContactDoc = YES;
+				}
+				
+				NSString *docCreated = [[doc childNamed:@"created"] attr:@"at"];
+				if ([docCreated length] > 0) {
+					self.created = [INDateTime parseDateFromISOString:docCreated];
+				}
+				
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, nil)
+			}
+		}
+		
+		// no success today
+		else {
+			NSError *error = [userInfo objectForKey:INErrorKey];
+			NSString *errorMsg = error ? [error localizedDescription] : nil;
+			
+			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, (nil == error), errorMsg)
+		}
+	}];
+}
+
+/**
+ *	Fetches the record's contact document.
+ */
+- (void)fetchContactDocumentWithCallback:(INCancelErrorBlock)aCallback
+{
+	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/contact", self.udid];
+	
+	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		
+		// success, store the document
+		if (success) {
+			INXMLNode *doc = [userInfo objectForKey:INResponseXMLKey];
+			if (!doc) {
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Contact XML was not valid")
+			}
+			else {
+				self.contactDoc = [[IndivoContact alloc] initFromNode:doc forRecord:self withMeta:nil];
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, nil)
+			}
+		}
+		
+		// we're in trouble!
+		else {
+			/// @todo Treat 404 differently
+			NSError *error = [userInfo objectForKey:INErrorKey];
+			NSString *errorMsg = error ? [error localizedDescription] : nil;
+			
+			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, (nil == error), errorMsg)
+		}
+	}];
 }
 
 

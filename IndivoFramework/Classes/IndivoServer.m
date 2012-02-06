@@ -236,7 +236,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 	// check whether we are ready
 	if (![self readyToConnect:&error]) {
 		NSString *errorStr = error ? [error localizedDescription] : @"Error Connecting";
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, errorStr)
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, errorStr)
 		return;
 	}
 	
@@ -248,10 +248,6 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 	
 	// here's the callback once record selection has finished
 	recSelectCall.myCallback = ^(BOOL success, NSDictionary *userInfo) {
-		if (this.loginVC) {
-			[this.loginVC dismissAnimated:YES];
-			this.loginVC = nil;
-		}
 		
 		// successfully selected a record
 		if (success) {
@@ -260,13 +256,30 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 				this.activeRecord.accessToken = [userInfo objectForKey:@"oauth_token"];
 				this.activeRecord.accessTokenSecret = [userInfo objectForKey:@"oauth_token_secret"];
 			}
-			if (callback) {
-				callback(NO, nil);
-			}
+			
+			// fetch the contact document
+			[this.activeRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+				if (this.loginVC) {
+					[this.loginVC dismissAnimated:YES];
+					this.loginVC = nil;
+				}
+				
+				// we ignore errors fetching the contact document. Errors will only be logged, not passed on to the callback as the record was still selected successfully
+				if (errorMessage) {
+					DLog(@"Error fetching contact document: %@", errorMessage);
+				}
+				
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
+			}];
 		}
 		
 		// failed: Cancelled or other failure
 		else {
+			if (this.loginVC) {
+				[this.loginVC dismissAnimated:YES];
+				this.loginVC = nil;
+			}
+			
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, userInfo)
 		}
 	};
@@ -342,10 +355,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		}
 		self.activeRecord = selectedRecord;
 		
-		// authorize record
-		if (!recSelectCall) {
-			DLog(@"WARNING -- No recSelectCall in place, which should be impossible");
-		}
+		// finish the record selection process
 		[self performCall:recSelectCall];
 	}
 	
@@ -383,7 +393,19 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
  */
 - (void)loginViewDidCancel:(IndivoLoginViewController *)loginController
 {
-	[recSelectCall abortWithError:nil];
+	if (recSelectCall) {
+		[recSelectCall abortWithError:nil];
+	}
+	else {
+		if (loginController != loginVC) {
+			DLog(@"Very strange, an unknown login controller did just cancel...");
+			[loginController dismissAnimated:YES];
+		}
+		else {
+			[loginVC dismissAnimated:YES];
+		}
+		self.loginVC = nil;
+	}
 }
 
 /**

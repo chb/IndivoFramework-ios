@@ -53,7 +53,7 @@ static NSDateFormatter *isoDateFormatter = nil;
 {
 	if (!isoDateFormatter) {
 		isoDateFormatter = [NSDateFormatter new];
-		[isoDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+		[isoDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 	}
 	
 	return [isoDateFormatter dateFromString:dateString];

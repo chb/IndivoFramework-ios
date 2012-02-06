@@ -49,9 +49,11 @@
 - (id)initFromNode:(INXMLNode *)aNode forRecord:(IndivoRecord *)aRecord withMeta:(IndivoMetaDocument *)aMetaDocument
 {
 	if ((self = [super initFromNode:aNode forRecord:(aRecord ? aRecord : aMetaDocument.record)])) {
-		self.udid = aMetaDocument.udid;
-		self.type = aMetaDocument.type;
-		status = documentStatusFor(aMetaDocument.status.string);
+		if (aMetaDocument) {
+			self.udid = aMetaDocument.udid;
+			self.type = aMetaDocument.type;
+			status = documentStatusFor(aMetaDocument.status.string);
+		}
 	}
 	return self;
 }

@@ -71,11 +71,11 @@ void runOnMainQueue(dispatch_block_t block)
 	BOOL inputIsDir = NO;
 	BOOL flag = NO;
 	if (![fm fileExistsAtPath:inputPath isDirectory:&inputIsDir]) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"Error: Input directory or file does not exist")
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Error: Input directory or file does not exist")
 		return;
 	}
 	if (![fm fileExistsAtPath:outDirectory isDirectory:&flag] || !flag) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"Error: Output directory does not exist")
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Error: Output directory does not exist")
 		return;
 	}
 	self.writeToDir = outDirectory;
@@ -84,7 +84,7 @@ void runOnMainQueue(dispatch_block_t block)
 	NSString *mapPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"Mapping" ofType:@"plist"];
 	NSMutableDictionary *map = [[NSDictionary dictionaryWithContentsOfFile:mapPath] mutableCopy];
 	if (!map) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"Did not find Mapping.plist, cannot continue")
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Did not find Mapping.plist, cannot continue")
 		return;
 	}
 	
@@ -95,7 +95,7 @@ void runOnMainQueue(dispatch_block_t block)
 		all = [fm contentsOfDirectoryAtPath:inputPath error:&error];
 		if (!all) {
 			NSString *errStr = [error localizedDescription];
-			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, errStr)
+			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, errStr)
 			return;
 		}
 	}
@@ -110,7 +110,7 @@ void runOnMainQueue(dispatch_block_t block)
 	NSPredicate *filter = [NSPredicate predicateWithFormat:@"self ENDSWITH '.xsd'"];
 	NSArray *xsd = [all filteredArrayUsingPredicate:filter];
 	if ([xsd count] < 1) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, @"There were no XSD files in the input path")
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"There were no XSD files in the input path")
 		return;
 	}
 	
@@ -372,7 +372,7 @@ void runOnMainQueue(dispatch_block_t block)
 	// are we required?
 	if ([min integerValue] > 0) {
 		if (comment) {
-			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %@u)", min];
+			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %@)", min];
 		}
 		else {
 			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %@)", min];

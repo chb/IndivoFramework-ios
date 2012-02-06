@@ -79,7 +79,7 @@
 		INURLLoader *loader = [INURLLoader loaderWithURL:[NSURL URLWithString:url]];
 		[loader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 			if (errorMessage) {
-				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, errorMessage)
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, errorMessage)
 			}
 			else if (!userDidCancel) {
 				
@@ -88,7 +88,7 @@
 					NSError *error = nil;
 					INXMLNode *root = [INXMLParser parseXML:loader.responseString error:&error];
 					if (!root) {
-						CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, [error localizedDescription])
+						CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, [error localizedDescription])
 					}
 					
 					// got pills matching the ingredient, find our rxcui
@@ -123,7 +123,7 @@
 												DLog(@"Error caching: %@", [cError localizedDescription]);
 											}
 										}
-										CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, errorMessage)
+										CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, errorMessage)
 									}];
 									return;
 								}
@@ -132,7 +132,7 @@
 					}
 				}		// end if (XML)
 				
-				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, nil)
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
 			}
 		}];
 	}
