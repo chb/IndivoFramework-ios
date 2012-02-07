@@ -55,6 +55,29 @@ typedef enum {
 	INDocumentStatusVoid								///< This document has been voided, i.e. is to be considered deleted
 } INDocumentStatus;
 
+INDocumentStatus documentStatusFor(NSString *stringStatus);
+NSString* stringStatusFor(INDocumentStatus documentStatus);
+
+// Message severity and type
+typedef enum {
+	INMessageSeverityUnknown = 0,
+	INMessageSeverityLow,								///< "low" message priority/severity
+	INMessageSeverityMedium,							///< "medium" message priority/severity
+	INMessageSeverityHigh								///< "high" message priority/severity
+} INMessageSeverity;
+
+typedef enum {
+	INMessageTypeUnknown = 0,
+	INMessageTypePlaintext,								///< A plaintext message
+	INMessageTypeMarkdown								///< A message formatted with markdown
+} INMessageType;
+
+INMessageSeverity messageSeverityFor(NSString *stringSeverity);
+NSString* messageSeverityStringFor(INMessageSeverity severity);
+INMessageType messageTypeFor(NSString *stringType);
+NSString* messageTypeStringFor(INMessageType type);
+
+
 // You can uncomment this to not have XML pretty-formatted to save a couple of bytes
 #define INDIVO_XML_PRETTY_FORMAT
 

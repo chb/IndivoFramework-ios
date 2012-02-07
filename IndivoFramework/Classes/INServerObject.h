@@ -30,7 +30,7 @@
 @interface INServerObject : INObject
 
 @property (nonatomic, assign) IndivoServer *server;									///< Our beloved server
-@property (nonatomic, strong) NSString *udid;										///< This object's udid
+@property (nonatomic, strong) NSString *uuid;										///< This object's udid
 @property (nonatomic, readonly, assign, getter=isOnServer) BOOL onServer;			///< Indicates whether this document lives on the server
 
 - (id)initFromNode:(INXMLNode *)node withServer:(IndivoServer *)aServer;

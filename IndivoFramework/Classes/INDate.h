@@ -30,13 +30,14 @@
 
 @property (nonatomic, strong) NSDate *date;
 
-- (NSString *)isoString;
-
++ (INDate *)now;
 + (INDate *)dateWithDate:(NSDate *)aDate;
 + (INDate *)dateFromISOString:(NSString *)dateString;
 
 + (NSString *)isoStringFrom:(NSDate *)aDate;
 + (NSDate *)parseDateFromISOString:(NSString *)dateString;
+
+- (NSString *)isoString;
 
 
 @end

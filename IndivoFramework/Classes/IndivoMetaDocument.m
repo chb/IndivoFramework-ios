@@ -113,7 +113,7 @@
 - (NSString *)xml
 {
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\" size=\"\" digest=\"%@\" record_id=\"%@\">\n\t%@\n</%@>", self.nodeName, self.udid, self.nameSpace, self.digest, self.record.udid, [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\" size=\"\" digest=\"%@\" record_id=\"%@\">\n\t%@\n</%@>", self.nodeName, self.uuid, self.nameSpace, self.digest, self.record.uuid, [self innerXML], self.nodeName];
 #else
 	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\" size=\"\" digest=\"%@\" record_id=\"%@\">%@</%@>", self.nodeName, self.udid, self.namespace, self.digest, self.record.udid, [self innerXML], self.nodeName];
 #endif

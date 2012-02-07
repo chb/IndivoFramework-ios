@@ -83,7 +83,7 @@
 	
 	// document id
 	if ([node attr:@"id"]) {
-		self.udid = [node attr:@"id"];
+		self.uuid = [node attr:@"id"];
 	}
 	
 	NSArray *attributes = [[self class] attributeNames];
@@ -272,6 +272,9 @@
 		subXML = [subXML stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"];
 #endif
 		return subXML;
+	}
+	else if (![[self class] canBeNull:nodeName]) {
+		DLog(@"WARNING: %@ is not set, may generate invalid XML", nodeName);
 	}
 	return nil;
 }

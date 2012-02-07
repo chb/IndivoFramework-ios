@@ -55,8 +55,3 @@
 
 
 @end
-
-
-INDocumentStatus documentStatusFor(NSString *stringStatus);
-NSString* stringStatusFor(INDocumentStatus documentStatus);
-

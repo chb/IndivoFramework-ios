@@ -28,8 +28,10 @@ The easiest way to do this is to open the Doxyfile with DoxyWizard and press "Ru
 
 #### Embedding the documentation into Xcode ####
 After building the documentation like mentioned above, you just need to install it:
+
     $ cd IndivoFramework-ios/Docs/html
     $ make install
+
 After you relaunch Xcode, the documentation should be available in the Organizer and can be accessed like the standard Cocoa documentation by `ALT`-clicking code parts.
 
 [doxygen]: http://www.doxygen.org/
@@ -52,9 +54,27 @@ You now have the latest source code of the framework as well as the subprojects 
 
 ## Server Side Setup ##
 
-The Indivo Server you want to connect to needs to know your app. This means you'll have to tell the server to add your app as a **user_app**. You'll get a **consumer_key** and a **consumer_secret** which you need in Framework Setup.
+The Indivo Server you want to connect to needs to know your app. This means you will have to tell the server to add your app as a **user_app**. You will get a **consumer_key** and a **consumer_secret** which you need during Framework Setup, without these your app will not receive any data from the server. Keep your consumer_key and consumer_secret safe in order to prevent somebody posing as your App. For general installation instructions see the [Indivo Installation Instructions][installation].
+
+As of Indivo 1.0, the setup for an App using the framework in `server/utils/indivo_data.xml` will look like this:
+
+    <user_app name='Medications Mobile' email='medsample@apps.indivo.org'>
+        <consumer_key>medsample@apps.indivo.org</consumer_key>
+        <secret>your-crazy-secure-secret-string</secret>
+        <frameable>False</frameable>
+        <has_ui>False</has_ui>
+        <start_url_template>
+          	indivo-framework:///did_select_record?record_id={record_id}&amp;carenet_id={carenet_id}
+        </start_url_template>
+        <callback_url></callback_url>
+    </user_app>
+
+The `has_ui` setting currently means "show up in the UI Server sidebar", so we want to set this to false. We may rework the App manifest in the future so these settings may change.
+
+When the server knows about your App, you're ready to use the framework.
 	
->>>> INSTRUCTIONS MISSING FOR NOW...
+
+[installation]: http://docs.indivohealth.org/en/latest/index.html#indivo-administrators
 
 
 ## Framework Setup ##

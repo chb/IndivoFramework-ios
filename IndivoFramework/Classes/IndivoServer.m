@@ -174,7 +174,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
  */
 - (NSString *)activeRecordId
 {
-	return activeRecord.udid;
+	return activeRecord.uuid;
 }
 
 /**
@@ -183,7 +183,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 - (IndivoRecord *)recordWithId:(NSString *)recordId
 {
 	for (IndivoRecord *record in knownRecords) {
-		if ([record.udid isEqualToString:recordId]) {
+		if ([record.uuid isEqualToString:recordId]) {
 			return record;
 		}
 	}

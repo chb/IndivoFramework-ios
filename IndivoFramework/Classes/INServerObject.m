@@ -33,7 +33,7 @@
 
 @implementation INServerObject
 
-@synthesize server, udid, onServer;
+@synthesize server, uuid, onServer;
 
 
 /**
@@ -56,7 +56,7 @@
 	
 	NSString *newId = [node attr:@"id"];
 	if (newId) {
-		self.udid = newId;
+		self.uuid = newId;
 	}
 }
 
@@ -150,7 +150,7 @@
  */
 - (BOOL)is:(NSString *)anId
 {
-	return [self.udid isEqualToString:anId];
+	return [self.uuid isEqualToString:anId];
 }
 
 /**
@@ -164,7 +164,7 @@
 		return YES;
 	}
 	if ([object isMemberOfClass:[self class]]) {
-		if ([[object udid] isEqualToString:[self udid]]) {
+		if ([[object uuid] isEqualToString:[self uuid]]) {
 			return YES;
 		}
 	}
@@ -173,7 +173,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <%@ id=\"%@\" /> (0x%x)", NSStringFromClass([self class]), self.nodeName, self.udid, self];
+	return [NSString stringWithFormat:@"%@ <%@ id=\"%@\" /> (0x%x)", NSStringFromClass([self class]), self.nodeName, self.uuid, self];
 }
 
 

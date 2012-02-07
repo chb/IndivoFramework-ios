@@ -29,6 +29,14 @@ static NSDateFormatter *isoDateFormatter = nil;
 @synthesize date;
 
 
++ (INDate *)now
+{
+	INDate *d = [super new];
+	d.date = [NSDate date];
+	return d;
+}
+
+
 /**
  *	Allocate and initialize an INDate from an NSDate
  */

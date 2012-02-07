@@ -64,7 +64,7 @@
 - (id)initWithId:(NSString *)anId name:(NSString *)aName onServer:(IndivoServer *)aServer
 {
 	if ((self = [super initFromNode:nil withServer:aServer])) {
-		self.udid = anId;
+		self.uuid = anId;
 		self.label = aName;
 	}
 	return self;
@@ -78,7 +78,7 @@
  */
 - (void)fetchRecordInfoWithCallback:(INCancelErrorBlock)aCallback
 {
-	NSString *path = [NSString stringWithFormat:@"/records/%@", self.udid];
+	NSString *path = [NSString stringWithFormat:@"/records/%@", self.uuid];
 	
 	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		
@@ -123,7 +123,7 @@
  */
 - (void)fetchContactDocumentWithCallback:(INCancelErrorBlock)aCallback
 {
-	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/contact", self.udid];
+	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/contact", self.uuid];
 	
 	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		
@@ -159,7 +159,7 @@
  */
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback
 {
-	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/demographics", self.udid];
+	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/demographics", self.uuid];
 	
 	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		
@@ -327,11 +327,164 @@
 
 
 
+#pragma mark - Messaging
+/**
+ *	Posts a message to the record's inbox. This method auto-generates a message id, which generally is what you want.
+ *	This method generates an API call POST /records/{RECORD_ID}/inbox/{MESSAGE_ID} with the given arguments. If attachments are supplied, the callback will only be called
+ *	once all attachments have been uploaded.
+ *	@param messageBody The message body
+ *	@param type How to interpret the message body
+ *	@param messageSubject The message's subject
+ *	@param severity The severity or priority of the message
+ *	@param attachments An array containing IndivoDocument instances.
+ *	@param callback The block to be called when the operation finishes.
+ */
+- (void)sendMessage:(NSString *)messageBody
+			 ofType:(INMessageType)type
+		withSubject:(NSString *)messageSubject
+		   severity:(INMessageSeverity)severity
+		attachments:(NSArray *)attachments
+		   callback:(INCancelErrorBlock)callback
+{
+	CFUUIDRef generatedUUID = CFUUIDCreate(kCFAllocatorDefault);
+	NSString *newUUID = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, generatedUUID);
+	CFRelease(generatedUUID);
+	
+	[self sendMessage:messageBody ofType:type withSubject:messageSubject severity:severity attachments:attachments messageId:[newUUID lowercaseString] callback:callback];
+}
+
+/**
+ *	Posts a message to the record's inbox.
+ *	This method generates an API call POST /records/{RECORD_ID}/inbox/{MESSAGE_ID} with the given arguments. If attachments are supplied, the callback will only be called
+ *	once all attachments have been uploaded.
+ *	@param messageBody The message body
+ *	@param type How to interpret the message body
+ *	@param messageSubject The message's subject
+ *	@param severity The severity or priority of the message
+ *	@param attachments An array containing IndivoDocument instances.
+ *	@param messageId A message id
+ *	@param callback The block to be called when the operation finishes.
+ */
+- (void)sendMessage:(NSString *)messageBody
+			 ofType:(INMessageType)type
+		withSubject:(NSString *)messageSubject
+		   severity:(INMessageSeverity)severity
+		attachments:(NSArray *)attachments
+		  messageId:(NSString *)messageId
+		   callback:(INCancelErrorBlock)callback
+{
+	NSString *path = [NSString stringWithFormat:@"/records/%@/inbox/%@", self.uuid, messageId];
+	NSString *body = [NSString stringWithFormat:
+					  @"body=%@&body_type=%@&subject=%@&severity=%@&num_attachments=%d",
+					  messageBody ? [messageBody stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] : @"",
+					  messageTypeStringFor(type),
+					  [messageSubject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+					  messageSeverityStringFor(severity),
+					  [attachments count]
+					  ];
+	
+	// sending a message with attachments
+	if ([attachments count] > 0) {
+		[self post:path body:body callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+			if (!success) {
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, @"failed")
+			}
+			else {
+				NSUInteger i = 0;
+				for (IndivoDocument *doc in attachments) {
+					i++;			// increment before as the attachment-number is 1-based
+					NSString *postPath = [NSString stringWithFormat:@"/records/%@/inbox/%@/attachments/%d", self.uuid, messageId, i];
+					[self post:postPath body:[doc documentXML] callback:NULL];
+				}
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
+			}
+		}];
+	}
+	
+	// sending a message without attachments
+	else {
+		[self post:path body:body callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+			if (success) {
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
+			}
+			else {
+				NSError *error = [userInfo objectForKey:INErrorKey];
+				NSString *errMsg = error ? [error localizedDescription] : @"Failed to send a message";
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, errMsg)
+			}
+		}];
+	}
+}
+
+
+
 #pragma mark - Utilities
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <0x%X> \"%@\" (id: %@)", NSStringFromClass([self class]), self, label, self.udid];
+	return [NSString stringWithFormat:@"%@ <0x%X> \"%@\" (id: %@)", NSStringFromClass([self class]), self, label, self.uuid];
 }
 
 
 @end
+
+
+
+#pragma mark - Message Utility Functions
+INMessageSeverity messageSeverityFor(NSString *stringSeverity)
+{
+	if ([@"low" isEqualToString:stringSeverity]) {
+		return INMessageSeverityLow;
+	}
+	else if ([@"medium" isEqualToString:stringSeverity]) {
+		return INMessageSeverityMedium;
+	}
+	else if ([@"high" isEqualToString:stringSeverity]) {
+		return INMessageSeverityHigh;
+	}
+	
+	DLog(@"Unknown message severity: \"%@\"", stringSeverity);
+	return INMessageSeverityUnknown;
+}
+
+NSString* messageSeverityStringFor(INMessageSeverity severity)
+{
+	if (INMessageSeverityLow == severity) {
+		return @"low";
+	}
+	else if (INMessageSeverityMedium == severity) {
+		return @"medium";
+	}
+	else if (INMessageSeverityHigh == severity) {
+		return @"high";
+	}
+	
+	DLog(@"Unknown message severity, returning low");
+	return @"low";
+}
+
+INMessageType messageTypeFor(NSString *stringType)
+{
+	if ([@"plaintext" isEqualToString:stringType]) {
+		return INMessageTypePlaintext;
+	}
+	else if ([@"markdown" isEqualToString:stringType]) {
+		return INMessageTypeMarkdown;
+	}
+	
+	DLog(@"Unknown message type: \"%@\"", stringType);
+	return INMessageTypeUnknown;
+}
+
+NSString* messageTypeStringFor(INMessageType type)
+{
+	if (INMessageTypePlaintext == type) {
+		return @"plaintext";
+	}
+	else if (INMessageTypeMarkdown == type) {
+		return @"markdown";
+	}
+	
+	DLog(@"Unknown message type, returning plaintext");
+	return @"plaintext";
+}
+

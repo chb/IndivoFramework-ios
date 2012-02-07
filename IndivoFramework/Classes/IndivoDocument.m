@@ -50,7 +50,7 @@
 {
 	if ((self = [super initFromNode:aNode forRecord:(aRecord ? aRecord : aMetaDocument.record)])) {
 		if (aMetaDocument) {
-			self.udid = aMetaDocument.udid;
+			self.uuid = aMetaDocument.uuid;
 			self.type = aMetaDocument.type;
 			status = documentStatusFor(aMetaDocument.status.string);
 		}
@@ -66,7 +66,7 @@
  */
 + (NSString *)fetchReportPathForRecord:(IndivoRecord *)aRecord
 {
-	return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.udid, [self reportType]];
+	return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.uuid, [self reportType]];
 }
 
 /**
@@ -74,7 +74,7 @@
  */
 - (NSString *)documentPath
 {
-	return [NSString stringWithFormat:@"/records/%@/documents/%@", self.record.udid, self.udid];
+	return [NSString stringWithFormat:@"/records/%@/documents/%@", self.record.uuid, self.uuid];
 }
 
 /**
@@ -83,7 +83,7 @@
  */
 - (NSString *)basePostPath
 {
-	return [NSString stringWithFormat:@"/records/%@/documents/", self.record.udid];
+	return [NSString stringWithFormat:@"/records/%@/documents/", self.record.uuid];
 }
 
 
@@ -117,12 +117,12 @@
 	 callback:^(BOOL success, NSDictionary *userInfo) {
 		 if (success) {
 			 INXMLNode *xmlNode = [userInfo objectForKey:INResponseXMLKey];
-			 if ([[xmlNode attr:@"id"] isEqualToString:this.udid]) {
+			 if ([[xmlNode attr:@"id"] isEqualToString:this.uuid]) {
 				 [this setFromNode:xmlNode];
 				 this.fetched = YES;
 			 }
 			 else {
-				 DLog(@"Not good, have udid %@ but fetched %@", this.udid, [xmlNode attr:@"id"]);
+				 DLog(@"Not good, have udid %@ but fetched %@", this.uuid, [xmlNode attr:@"id"]);
 			 }
 			 if (callback) {
 				 callback(NO, nil);
@@ -275,7 +275,7 @@
  */
 - (BOOL)cacheObject:(id)anObject asType:(NSString *)aType error:(__autoreleasing NSError **)error
 {
-	return [[self class] cacheObject:anObject asType:aType forId:self.udid error:error];
+	return [[self class] cacheObject:anObject asType:aType forId:self.uuid error:error];
 }
 
 /**
@@ -283,7 +283,7 @@
  */
 - (id)cachedObjectOfType:(NSString *)aType
 {
-	return [[self class] cachedObjectOfType:aType forId:self.udid];
+	return [[self class] cachedObjectOfType:aType forId:self.uuid];
 }
 
 
