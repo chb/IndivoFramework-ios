@@ -31,6 +31,7 @@
 @property (nonatomic, readwrite, assign) BOOL hasContactDoc;
 @property (nonatomic, readwrite, strong) IndivoContact *contactDoc;
 @property (nonatomic, readwrite, assign) BOOL hasDemographicsDoc;
+@property (nonatomic, readwrite, strong) IndivoDemographics *demographicsDoc;
 @property (nonatomic, readwrite, strong) NSDate *created;
 
 @property (nonatomic, strong) NSMutableArray *metaDocuments;					///< Storage for this records fetched document metadata
@@ -41,7 +42,7 @@
 
 @implementation IndivoRecord
 
-@synthesize label, hasContactDoc, contactDoc, hasDemographicsDoc, created;
+@synthesize label, hasContactDoc, contactDoc, hasDemographicsDoc, demographicsDoc, created;
 @synthesize accessToken, accessTokenSecret;
 @synthesize metaDocuments, documents;
 
@@ -138,12 +139,52 @@
 			}
 		}
 		
+		// error occurred
+		else {
+			NSString *errorMsg = nil;
+			NSError *error = [userInfo objectForKey:INErrorKey];
+			if (404 == [error code]) {
+				errorMsg = @"This record has no contact data";
+			}
+			else {
+				errorMsg = error ? [error localizedDescription] : nil;
+			}
+			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, (nil == error), errorMsg)
+		}
+	}];
+}
+
+/**
+ *	Fetches the record's demographics document.
+ */
+- (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback
+{
+	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/demographics", self.udid];
+	
+	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		
+		// success, store the document
+		if (success) {
+			INXMLNode *doc = [userInfo objectForKey:INResponseXMLKey];
+			if (!doc) {
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Demographics XML was not valid")
+			}
+			else {
+				self.demographicsDoc = [[IndivoDemographics alloc] initFromNode:doc forRecord:self withMeta:nil];
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, nil)
+			}
+		}
+		
 		// we're in trouble!
 		else {
-			/// @todo Treat 404 differently
+			NSString *errorMsg = nil;
 			NSError *error = [userInfo objectForKey:INErrorKey];
-			NSString *errorMsg = error ? [error localizedDescription] : nil;
-			
+			if (404 == [error code]) {
+				errorMsg = @"This record has no demographics";
+			}
+			else {
+				errorMsg = error ? [error localizedDescription] : nil;
+			}
 			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, (nil == error), errorMsg)
 		}
 	}];

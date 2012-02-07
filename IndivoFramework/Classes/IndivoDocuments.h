@@ -49,4 +49,5 @@
 #import "IndivoContactEmail.h"
 #import "IndivoContactPhoneNumber.h"
 #import "IndivoContactInstantMessengerName.h"
+#import "IndivoDemographics.h"
 

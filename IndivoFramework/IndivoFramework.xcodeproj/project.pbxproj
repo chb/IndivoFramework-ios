@@ -117,6 +117,13 @@
 		EE3C960C141178CC002BA967 /* IndivoWebApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95FB141178CC002BA967 /* IndivoWebApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C960D141178CC002BA967 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
 		EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */; };
+		EE423F6014E1785C0009771F /* IndivoDemographics.h in Headers */ = {isa = PBXBuildFile; fileRef = EE423F5E14E1785C0009771F /* IndivoDemographics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE423F6114E1785C0009771F /* IndivoDemographics.m in Sources */ = {isa = PBXBuildFile; fileRef = EE423F5F14E1785C0009771F /* IndivoDemographics.m */; };
+		EE423F6214E1785C0009771F /* IndivoDemographics.m in Sources */ = {isa = PBXBuildFile; fileRef = EE423F5F14E1785C0009771F /* IndivoDemographics.m */; };
+		EE423F6514E17B3F0009771F /* contact.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EE423F6414E17B3F0009771F /* contact.xsd */; };
+		EE423F6714E17B470009771F /* contact.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE423F6614E17B470009771F /* contact.xml */; };
+		EE423F6914E17B580009771F /* demographics.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EE423F6814E17B580009771F /* demographics.xsd */; };
+		EE423F6B14E17B600009771F /* demographics.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE423F6A14E17B600009771F /* demographics.xml */; };
 		EE53CA0E1423A3D700EEF006 /* INServerCall.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53CA0C1423A3D700EEF006 /* INServerCall.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE53CA0F1423A3D700EEF006 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
 		EE5DE92C1468447A004CC666 /* INURLFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = EE5DE92A1468447A004CC666 /* INURLFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -382,6 +389,12 @@
 		EE3C95FA141178CC002BA967 /* IndivoRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoRecord.m; sourceTree = "<group>"; };
 		EE3C95FB141178CC002BA967 /* IndivoWebApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoWebApp.h; sourceTree = "<group>"; };
 		EE3C95FC141178CC002BA967 /* IndivoWebApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoWebApp.m; sourceTree = "<group>"; };
+		EE423F5E14E1785C0009771F /* IndivoDemographics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoDemographics.h; sourceTree = "<group>"; };
+		EE423F5F14E1785C0009771F /* IndivoDemographics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoDemographics.m; sourceTree = "<group>"; };
+		EE423F6414E17B3F0009771F /* contact.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = contact.xsd; sourceTree = "<group>"; };
+		EE423F6614E17B470009771F /* contact.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = contact.xml; sourceTree = "<group>"; };
+		EE423F6814E17B580009771F /* demographics.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = demographics.xsd; sourceTree = "<group>"; };
+		EE423F6A14E17B600009771F /* demographics.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = demographics.xml; sourceTree = "<group>"; };
 		EE4434B21491422700CC6344 /* INDateRangeFormatterTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDateRangeFormatterTest.h; sourceTree = "<group>"; };
 		EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateRangeFormatterTest.m; sourceTree = "<group>"; };
 		EE53CA0C1423A3D700EEF006 /* INServerCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerCall.h; sourceTree = "<group>"; };
@@ -551,6 +564,8 @@
 				EEAA503E14DB5C2B00FBFE66 /* allergy.xml */,
 				EE09B63314D9C3BB00E99A67 /* lab.xml */,
 				EEAA504414DB696500FBFE66 /* equipment.xml */,
+				EE423F6614E17B470009771F /* contact.xml */,
+				EE423F6A14E17B600009771F /* demographics.xml */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -562,6 +577,8 @@
 				EEAA504014DB5C3600FBFE66 /* allergy.xsd */,
 				EE09B63514D9C3C800E99A67 /* lab.xsd */,
 				EEAA504214DB695F00FBFE66 /* equipment.xsd */,
+				EE423F6414E17B3F0009771F /* contact.xsd */,
+				EE423F6814E17B580009771F /* demographics.xsd */,
 				EE09B5FB14D8517600E99A67 /* codes.xsd */,
 				EE09B5FE14D851AA00E99A67 /* provider.xsd */,
 				EE09B60014D851EA00E99A67 /* values.xsd */,
@@ -866,6 +883,8 @@
 				EE235D1C14E04AE8005BD702 /* IndivoContactPhoneNumber.m */,
 				EE235D1514E04AE8005BD702 /* IndivoContactInstantMessengerName.h */,
 				EE235D1614E04AE8005BD702 /* IndivoContactInstantMessengerName.m */,
+				EE423F5E14E1785C0009771F /* IndivoDemographics.h */,
+				EE423F5F14E1785C0009771F /* IndivoDemographics.m */,
 			);
 			name = "Generated Documents";
 			path = GeneratedClasses;
@@ -1030,6 +1049,7 @@
 				EE235D2914E04AE8005BD702 /* IndivoContactLocation.h in Headers */,
 				EE235D2C14E04AE8005BD702 /* IndivoContactName.h in Headers */,
 				EE235D2F14E04AE8005BD702 /* IndivoContactPhoneNumber.h in Headers */,
+				EE423F6014E1785C0009771F /* IndivoDemographics.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,6 +1152,10 @@
 				EEAA504114DB5C3600FBFE66 /* allergy.xsd in Resources */,
 				EEAA504314DB695F00FBFE66 /* equipment.xsd in Resources */,
 				EEAA504514DB696500FBFE66 /* equipment.xml in Resources */,
+				EE423F6514E17B3F0009771F /* contact.xsd in Resources */,
+				EE423F6714E17B470009771F /* contact.xml in Resources */,
+				EE423F6914E17B580009771F /* demographics.xsd in Resources */,
+				EE423F6B14E17B600009771F /* demographics.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,6 +1273,7 @@
 				EE235D2A14E04AE8005BD702 /* IndivoContactLocation.m in Sources */,
 				EE235D2D14E04AE8005BD702 /* IndivoContactName.m in Sources */,
 				EE235D3014E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */,
+				EE423F6114E1785C0009771F /* IndivoDemographics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1336,6 +1361,7 @@
 				EE235D2B14E04AE8005BD702 /* IndivoContactLocation.m in Sources */,
 				EE235D2E14E04AE8005BD702 /* IndivoContactName.m in Sources */,
 				EE235D3114E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */,
+				EE423F6214E1785C0009771F /* IndivoDemographics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

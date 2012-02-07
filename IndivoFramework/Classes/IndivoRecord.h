@@ -24,24 +24,27 @@
 
 @class IndivoDocument;
 @class IndivoContact;
+@class IndivoDemographics;
 @class INXMLNode;
 
 
 @interface IndivoRecord : INServerObject
 
-@property (nonatomic, copy) NSString *label;							///< This record's name
-@property (nonatomic, readonly, assign) BOOL hasContactDoc;				///< YES if this record has a contact document that can be fetched
-@property (nonatomic, readonly, strong) IndivoContact *contactDoc;		///< The contact document for this record
-@property (nonatomic, readonly, assign) BOOL hasDemographicsDoc;		///< YES if this record has a demographics document that can be fetched
-@property (nonatomic, readonly, strong) NSDate *created;				///< When this record has been created on the server
+@property (nonatomic, copy) NSString *label;										///< This record's name
+@property (nonatomic, readonly, assign) BOOL hasContactDoc;							///< YES if this record has a contact document that can be fetched
+@property (nonatomic, readonly, strong) IndivoContact *contactDoc;					///< The contact document for this record
+@property (nonatomic, readonly, assign) BOOL hasDemographicsDoc;					///< YES if this record has a demographics document that can be fetched
+@property (nonatomic, readonly, strong) IndivoDemographics *demographicsDoc;		///< The contact document for this record
+@property (nonatomic, readonly, strong) NSDate *created;							///< When this record has been created on the server
 
-@property (nonatomic, copy) NSString *accessToken;						///< The last access token successfully used with this record
-@property (nonatomic, copy) NSString *accessTokenSecret;				///< The last access token secret successfully used with this record
+@property (nonatomic, copy) NSString *accessToken;									///< The last access token successfully used with this record
+@property (nonatomic, copy) NSString *accessTokenSecret;							///< The last access token secret successfully used with this record
 
 - (id)initWithId:(NSString *)anId name:(NSString *)aName onServer:(IndivoServer *)aServer;
 
 - (void)fetchRecordInfoWithCallback:(INCancelErrorBlock)aCallback;
 - (void)fetchContactDocumentWithCallback:(INCancelErrorBlock)aCallback;
+- (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback;
 
 - (void)fetchReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
 - (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback;

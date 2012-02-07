@@ -106,27 +106,12 @@
 	IndivoLab *lab = [[IndivoLab alloc] initFromNode:labNode];
 	
 	STAssertNotNil(lab, @"Lab");
-	STAssertEqualObjects(@"2009-07-16T12:00:00", [lab.dateMeasured isoString], @"measure date");
+	STAssertEqualObjects(@"2009-07-16T12:00:00Z", [lab.dateMeasured isoString], @"measure date");
 	STAssertEqualObjects(@"hematology", lab.labType.string, @"lab type");
 	
 	// test value changes
 	lab.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41", [lab.dateMeasured isoString], @"changed date");
-	
-	// timing
-	mach_timebase_info_data_t timebase;
-	mach_timebase_info(&timebase);
-	double ticksToNanoseconds = (double)timebase.numer / timebase.denom;
-	uint64_t startTime = mach_absolute_time();
-	
-	NSUInteger i = 0;
-	for (; i < 1000; i++) {
-		[lab documentXML];
-	}
-	
-	uint64_t elapsedTime = mach_absolute_time() - startTime;
-	double elapsedTimeInNanoseconds = elapsedTime * ticksToNanoseconds;
-	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 2/2/2012, iMac i7 2.8: ~0.6 sec
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [lab.dateMeasured isoString], @"changed date");
 	
 	// validate
 	NSString *labXSDPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"lab" ofType:@"xsd"];
@@ -166,6 +151,87 @@
 	doc.name.string = @"Pacemaker 2000";
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
+
+- (void)testContact
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"contact"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoContact *doc = [[IndivoContact alloc] initFromNode:node];
+	IndivoContactEmail *email = [doc.email objectAtIndex:0];
+	
+	STAssertNotNil(doc, @"Contact Document");
+	STAssertEqualObjects(@"Sebastian Rockwell Cotour", [doc.name.fullName string], @"full name");
+	STAssertEqualObjects(@"personal", email.type.string, @"email type");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"contact" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	
+	doc.email = nil;
+	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
+	
+	doc.email = [NSArray arrayWithObject:email];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
+- (void)testDemographics
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"demographics"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoDemographics *doc = [[IndivoDemographics alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Equipment Document");
+	STAssertEqualObjects(@"2095-10-11", [doc.dateOfDeath isoString], @"death date");
+	STAssertEqualObjects(@"Tailor", doc.occupation.string, @"occupation");
+	
+	// test value changes
+	doc.dateOfBirth.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31", [doc.dateOfBirth isoString], @"New birth date");
+	doc.organDonor = [INBool newYes];
+	STAssertTrue(doc.organDonor.flag, @"New organ donor");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"demographics" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
+/**
+ *	Speed testing XML generation on the lab fixture XML.
+ */
+- (void)testXMLGeneration
+{
+	NSError *error = nil;
+	NSString *fixture = [self readFixture:@"lab"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoLab *doc = [[IndivoLab alloc] initFromNode:node];
+	
+	// parsed ok?
+	STAssertNotNil(doc, @"Lab");
+	STAssertEqualObjects(@"2009-07-16T12:00:00Z", [doc.dateMeasured isoString], @"measure date");
+	STAssertEqualObjects(@"hematology", doc.labType.string, @"lab type");
+	
+	// timing
+	mach_timebase_info_data_t timebase;
+	mach_timebase_info(&timebase);
+	double ticksToNanoseconds = (double)timebase.numer / timebase.denom;
+	uint64_t startTime = mach_absolute_time();
+	
+	NSUInteger i = 0;
+	for (; i < 1000; i++) {
+		[doc documentXML];
+	}
+	
+	uint64_t elapsedTime = mach_absolute_time() - startTime;
+	double elapsedTimeInNanoseconds = elapsedTime * ticksToNanoseconds;
+	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 2/2/2012, iMac i7 2.8GHz 4Gig RAM: ~0.6 sec
+}
+
 
 
 #pragma mark - Utilities
