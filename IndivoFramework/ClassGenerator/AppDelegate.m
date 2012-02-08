@@ -46,6 +46,10 @@
 		[sender setEnabled:NO];
 	}
 	
+	// save dirs
+	[[NSUserDefaults standardUserDefaults] setObject:inDirField.stringValue forKey:@"lastInputDirectory"];
+	[[NSUserDefaults standardUserDefaults] setObject:outDirField.stringValue forKey:@"lastOutputDirectory"];
+	
 	// start
 	[output setString:@"Starting up...\n"];
 	INClassGenerator *generator = [INClassGenerator new];
@@ -79,9 +83,7 @@
 	// run
 	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
 		if (NSOKButton == result) {
-			NSString *path = [[panel URL] path];
-			[[NSUserDefaults standardUserDefaults] setObject:path forKey:@"lastInputDirectory"];
-			inDirField.stringValue = path;
+			inDirField.stringValue = [[panel URL] path];
 		}
 	}];
 }
@@ -96,9 +98,7 @@
 	// run
 	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
 		if (NSOKButton == result) {
-			NSString *path = [[panel URL] path];
-			[[NSUserDefaults standardUserDefaults] setObject:path forKey:@"lastOutputDirectory"];
-			outDirField.stringValue = path;
+			outDirField.stringValue = [[panel URL] path];
 		}
 	}];
 }

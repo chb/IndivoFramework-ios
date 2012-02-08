@@ -513,28 +513,36 @@ void runOnMainQueue(dispatch_block_t block)
 			[propertyMap addObject:[NSString stringWithFormat:@"@\"%@\", @\"%@\"", itemClass ? itemClass : className, name]];
 		}
 	}
-	NSString *synthString = ([synthNames count] > 0) ? [NSString stringWithFormat:@"@synthesize %@;", [synthNames componentsJoinedByString:@", "]] : @"";
-	NSString *nonNilString = ([nonNilNames count] > 0) ? [nonNilNames componentsJoinedByString:@", "] : @"nil";
-	NSString *attributeString = ([attributeNames count] > 0) ? [attributeNames componentsJoinedByString:@", "] : @"nil";
+	NSString *synthString = ([synthNames count] > 0) ? [synthNames componentsJoinedByString:@", "] : nil;
+	NSString *nonNilString = ([nonNilNames count] > 0) ? [nonNilNames componentsJoinedByString:@", "] : nil;
+	NSString *attributeString = ([attributeNames count] > 0) ? [attributeNames componentsJoinedByString:@", "] : nil;
 	
-	NSDictionary *substitutions = [NSDictionary dictionaryWithObjectsAndKeys:
-								   @"Indivo Class Generator", @"AUTHOR",
-								   [NSString stringWithFormat:@"%d/%d/%d", comp.month, comp.day, comp.year], @"DATE",
-								   [NSString stringWithFormat:@"%d", comp.year], @"YEAR",
-								   (currentInputPath ? [currentInputPath lastPathComponent] : @"<unknown>"), @"TEMPLATE_PATH",
-								   className, @"CLASS_NAME",
-								   (superclass ? superclass : INClassGeneratorBaseClass), @"CLASS_SUPERCLASS",
-								   bareName, @"CLASS_NODENAME",
-								   indivoType, @"CLASS_TYPENAME",
-								   propString, @"CLASS_PROPERTIES",
-								   synthString, @"CLASS_SYNTHESIZE",
-								   (indivoType ? indivoType : @"unknown"), @"INDIVO_TYPE",
-								   @"", @"CLASS_IMPORTS",
-								   [forwardClasses componentsJoinedByString:@"\n"], @"CLASS_FORWARDS",
-								   [propertyMap componentsJoinedByString:@",\n\t\t\t"], @"CLASS_PROPERTY_MAP",
-								   nonNilString, @"CLASS_NON_NIL_NAMES",
-								   attributeString, @"CLASS_ATTRIBUTE_NAMES",
-								   nil];
+	NSMutableDictionary *substitutions = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+										  @"Indivo Class Generator", @"AUTHOR",
+										  [NSString stringWithFormat:@"%d/%d/%d", comp.month, comp.day, comp.year], @"DATE",
+										  [NSString stringWithFormat:@"%d", comp.year], @"YEAR",
+										  (currentInputPath ? [currentInputPath lastPathComponent] : @"<unknown>"), @"TEMPLATE_PATH",
+										  className, @"CLASS_NAME",
+										  (superclass ? superclass : INClassGeneratorBaseClass), @"CLASS_SUPERCLASS",
+										  bareName, @"CLASS_NODENAME",
+										  indivoType, @"CLASS_TYPENAME",
+										  propString, @"CLASS_PROPERTIES",
+										  [forwardClasses componentsJoinedByString:@"\n"], @"CLASS_FORWARDS",
+										  (indivoType ? indivoType : @"unknown"), @"INDIVO_TYPE",
+										  @"", @"CLASS_IMPORTS",
+										  nil];
+	if (synthString) {
+		[substitutions setObject:synthString forKey:@"CLASS_SYNTHESIZE"];
+	}
+	if ([propertyMap count] > 0) {
+		[substitutions setObject:[propertyMap componentsJoinedByString:@",\n\t\t\t"] forKey:@"CLASS_PROPERTY_MAP"];
+	}
+	if (nonNilString) {
+		[substitutions setObject:nonNilString forKey:@"CLASS_NON_NIL_NAMES"];
+	}
+	if (attributeString) {
+		[substitutions setObject:attributeString forKey:@"CLASS_ATTRIBUTE_NAMES"];
+	}
 	
 	// create header
 	NSString *header = [[self class] applyToHeaderTemplate:substitutions];
@@ -581,6 +589,10 @@ static NSString *classGeneratorHeaderTemplate = nil;
 static NSString *classGeneratorBodyTemplate = nil;
 
 
+/**
+ *	This method applies substitutions found in a dictionary to a template. It currently is very cheaply implemented using RegExes and only recognizes
+ *	{% if VAR_NAME %} and {{ VAR_NAME }} and does *not* allow nesting.
+ */
 + (NSString *)applySubstitutions:(NSDictionary *)substitutions toTemplate:(NSString *)aTemplate
 {
 	if ([substitutions count] < 1) {
@@ -590,19 +602,42 @@ static NSString *classGeneratorBodyTemplate = nil;
 		return aTemplate;
 	}
 	
-	// match via RegEx
+	NSMutableString *applied = [aTemplate mutableCopy];
+	
+	// replace if-blocks via RegEx - that means NO NESTING
+	NSRegularExpression *ifRegEx = [NSRegularExpression regularExpressionWithPattern:@"((\\{%\\s*if\\s+([^\\}\\s]+)\\s*%\\})(.*?)(\\{%\\s*endif\\s*%\\}))"
+																			 options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators
+																			   error:nil];
+	NSArray *ifMatches = [ifRegEx matchesInString:applied options:0 range:NSMakeRange(0, [applied length])];
+	if ([ifMatches count] > 0) {
+		for (NSTextCheckingResult *match in [ifMatches reverseObjectEnumerator]) {
+			NSRange fullRange = [match rangeAtIndex:1];
+			NSRange openRange = [match rangeAtIndex:2];
+			NSRange keyRange = [match rangeAtIndex:3];
+			NSRange closeRange = [match rangeAtIndex:5];
+			
+			NSString *key = [applied substringWithRange:keyRange];
+			NSString *replacement = [substitutions objectForKey:key];
+			if (replacement) {
+				[applied replaceCharactersInRange:closeRange withString:@""];
+				[applied replaceCharactersInRange:openRange withString:@""];
+			}
+			else {
+				[applied replaceCharactersInRange:fullRange withString:@""];
+			}
+		}
+	}
+	
+	// replace placeholders via RegEx
 	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(\\{\\{\\s*([^\\}\\s]+)\\s*\\}\\})"
 																		   options:NSRegularExpressionCaseInsensitive
 																			 error:nil];
-	NSArray *matches = [regex matchesInString:aTemplate options:0 range:NSMakeRange(0, [aTemplate length])];
+	NSArray *matches = [regex matchesInString:applied options:0 range:NSMakeRange(0, [applied length])];
 	if ([matches count] > 0) {
-		NSMutableString *applied = [aTemplate mutableCopy];
-		
-		// apply matches
 		for (NSTextCheckingResult *match in [matches reverseObjectEnumerator]) {
 			NSRange fullRange = [match rangeAtIndex:1];
 			NSRange keyRange = [match rangeAtIndex:2];
-			NSString *key = [aTemplate substringWithRange:keyRange];
+			NSString *key = [applied substringWithRange:keyRange];
 			NSString *replacement = [substitutions objectForKey:key];
 			if (replacement) {
 				[applied replaceCharactersInRange:fullRange withString:replacement];
@@ -611,9 +646,8 @@ static NSString *classGeneratorBodyTemplate = nil;
 				DLog(@"No replacement for %@ found", key);
 			}
 		}
-		return applied;
 	}
-	return aTemplate;
+	return applied;
 }
 
 

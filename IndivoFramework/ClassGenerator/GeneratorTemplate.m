@@ -24,9 +24,9 @@
 
 
 @implementation {{ CLASS_NAME }}
-
-{{ CLASS_SYNTHESIZE }}
-
+{% if CLASS_SYNTHESIZE %}
+@synthesize {{ CLASS_SYNTHESIZE }};
+{% endif %}
 
 + (NSString *)nodeName
 {
@@ -37,14 +37,15 @@
 {
 	return @"{{ CLASS_TYPENAME }}";
 }
-
+{% if CLASS_PROPERTY_MAP %}
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			{{ CLASS_PROPERTY_MAP }},
 			nil];
 }
-
+{% endif %}
+{% if CLASS_NON_NIL_NAMES %}
 + (NSArray *)nonNilPropertyNames
 {
 	return [NSArray arrayWithObjects:{{ CLASS_NON_NIL_NAMES }}, nil];
@@ -56,7 +57,8 @@
 	
 	return nonNilPropertyNames;	*/
 }
-
+{% endif %}
+{% if CLASS_ATTRIBUTE_NAMES %}
 + (NSArray *)attributeNames
 {
 	NSArray *myAttributes = [NSArray arrayWithObjects:{{ CLASS_ATTRIBUTE_NAMES }}, nil];
@@ -66,6 +68,6 @@
 	}
 	return myAttributes;
 }
-
+{% endif %}
 
 @end

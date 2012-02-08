@@ -2,7 +2,7 @@
  IndivoResultInSetOption.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/2/2012.
+ Created by Indivo Class Generator on 2/7/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -46,6 +46,7 @@
 			nil];
 }
 
+
 + (NSArray *)nonNilPropertyNames
 {
 	return [NSArray arrayWithObjects:@"normal", nil];
@@ -57,6 +58,7 @@
 	
 	return nonNilPropertyNames;	*/
 }
+
 
 + (NSArray *)attributeNames
 {
