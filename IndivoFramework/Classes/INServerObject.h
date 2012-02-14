@@ -46,6 +46,7 @@
 
 // Utils
 - (BOOL)is:(NSString *)anId;
+- (void)markOnServer;
 
 
 @end

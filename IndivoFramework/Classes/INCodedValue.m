@@ -31,14 +31,10 @@
 {
 	[super setFromNode:node];
 	
+	self.type = [node attr:@"type"];
 	self.value = [node attr:@"value"];
-	if ([value length] < 1) {
-		self.value = node.text;
-	}
-	else {
-		self.text = node.text;
-	}
 	self.abbrev = [node attr:@"abbrev"];
+	self.text = node.text;
 }
 
 + (NSString *)nodeType
@@ -57,30 +53,19 @@
 		return [NSString stringWithFormat:@"<%@ />", [self tagString]];
 	}
 	if ([text length] > 0) {
-		return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\">%@</%@>",
+		return [NSString stringWithFormat:@"<%@%@%@%@>%@</%@>",
 				[self tagString],
-				self.type,
-				(self.abbrev ? [self.abbrev xmlSafe] : @""),
-				(self.value ? [self.value xmlSafe] : @""),
+				(self.type ? [NSString stringWithFormat:@" type=\"%@\"", [self.type xmlSafe]] : @""),
+				(self.abbrev ? [NSString stringWithFormat:@" abbrev=\"%@\"", [self.abbrev xmlSafe]] : @""),
+				(self.value ? [NSString stringWithFormat:@" value=\"%@\"", [self.value xmlSafe]] : @""),
 				[self.text xmlSafe],
 				self.nodeName];
 	}
-	return [NSString stringWithFormat:@"<%@ type=\"%@\" abbrev=\"%@\" value=\"%@\" />",
+	return [NSString stringWithFormat:@"<%@%@%@%@ />",
 			[self tagString],
-			self.type,
-			(self.abbrev ? [self.abbrev xmlSafe] : @""),
-			(self.value ? [self.value xmlSafe] : @"")];
-}
-
-
-
-#pragma mark - Convenience
-- (NSString *)type
-{
-	if (type) {
-		return type;
-	}
-	return self.nodeType;
+			(self.type ? [NSString stringWithFormat:@" type=\"%@\"", [self.type xmlSafe]] : @""),
+			(self.abbrev ? [NSString stringWithFormat:@" abbrev=\"%@\"", [self.abbrev xmlSafe]] : @""),
+			(self.value ? [NSString stringWithFormat:@" value=\"%@\"", [self.value xmlSafe]] : @"")];
 }
 
 

@@ -33,6 +33,18 @@
 	self.attributes = node.attributes;
 }
 
+
+/**
+ *	@returns The attribute with the given key
+ */
+- (id)attr:(NSString *)attributeName
+{
+	return [self.attributes objectForKey:attributeName];
+}
+
+
+
+#pragma mark -
 + (NSString *)nodeType
 {
 	return @"xs:complexType";

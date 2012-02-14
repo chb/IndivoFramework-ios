@@ -146,6 +146,14 @@
 
 #pragma mark - Utilities
 /**
+ *	Sets onServer to YES for the receiver
+ */
+- (void)markOnServer
+{
+	self.onServer = YES;
+}
+
+/**
  *	Shortcut method to test if the document has the given ID
  */
 - (BOOL)is:(NSString *)anId

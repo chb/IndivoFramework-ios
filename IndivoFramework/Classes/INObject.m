@@ -115,7 +115,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 		
 		NSString *newType = [aNode attr:@"type"];
 		if (newType) {
-			self.nodeType = newType;
+		//	self.nodeType = newType;
 		}
 		
 		// if we have defined attributes, loop our ivars to find the ones we must assign from node attributes

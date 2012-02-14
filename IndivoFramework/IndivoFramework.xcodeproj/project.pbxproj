@@ -210,6 +210,9 @@
 		EEA0893314CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA0893414CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA1B1E9142B82CB001E1A0F /* Indivo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEA88B7614EAA51C00B7599D /* NSCharacterSet+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */; };
+		EEA88B7714EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */; };
+		EEA88B7814EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */; };
 		EEAA502B14DB130B00FBFE66 /* IndivoResultInSetOption.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEAA502C14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
 		EEAA502D14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
@@ -438,6 +441,8 @@
 		EEA0893014CF5C9400CB97D6 /* INInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INInteger.h; sourceTree = "<group>"; };
 		EEA0893114CF5C9500CB97D6 /* INInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INInteger.m; sourceTree = "<group>"; };
 		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
+		EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+Extension.h"; sourceTree = "<group>"; };
+		EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+Extension.m"; sourceTree = "<group>"; };
 		EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoResultInSetOption.h; sourceTree = "<group>"; };
 		EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoResultInSetOption.m; sourceTree = "<group>"; };
 		EEAA502E14DB144400FBFE66 /* INAnyURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAnyURI.h; sourceTree = "<group>"; };
@@ -755,6 +760,8 @@
 				EEF2061E14C0BB4E00808F24 /* NSString+XML.m */,
 				EE09B62A14D9B9EA00E99A67 /* NSArray+NilProtection.h */,
 				EE09B62B14D9B9EA00E99A67 /* NSArray+NilProtection.m */,
+				EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */,
+				EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */,
 			);
 			name = "Helper Classes";
 			sourceTree = "<group>";
@@ -1050,6 +1057,7 @@
 				EE235D2C14E04AE8005BD702 /* IndivoContactName.h in Headers */,
 				EE235D2F14E04AE8005BD702 /* IndivoContactPhoneNumber.h in Headers */,
 				EE423F6014E1785C0009771F /* IndivoDemographics.h in Headers */,
+				EEA88B7614EAA51C00B7599D /* NSCharacterSet+Extension.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,6 +1282,7 @@
 				EE235D2D14E04AE8005BD702 /* IndivoContactName.m in Sources */,
 				EE235D3014E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */,
 				EE423F6114E1785C0009771F /* IndivoDemographics.m in Sources */,
+				EEA88B7714EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1362,6 +1371,7 @@
 				EE235D2E14E04AE8005BD702 /* IndivoContactName.m in Sources */,
 				EE235D3114E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */,
 				EE423F6214E1785C0009771F /* IndivoDemographics.m in Sources */,
+				EEA88B7814EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

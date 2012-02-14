@@ -50,7 +50,7 @@
 
 + (NSString *)nameSpace;
 + (NSString *)type;
-+ (Class)classforProperty:(NSString *)propertyName;
++ (Class)classForProperty:(NSString *)propertyName;
 + (NSDictionary *)propertyClassMapper;
 
 

@@ -112,23 +112,23 @@ NSString* messageTypeStringFor(INMessageType type);
 	}
 
 // Make callback or logging easy
-#ifndef CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO
-# define CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(cb, userInfo)\
+#ifndef CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO
+# define CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(cb, userInfo)\
 	NSError *error = [userInfo objectForKey:INErrorKey];\
 	if (cb) {\
 		cb((nil == error), [error localizedDescription]);\
 	}\
-	else {\
-		DLog(@"%@", [error localizedDescription]);\
+	else if (error) {\
+		DLog(@"No callback on this method, logging to debug. Error: %@", [error localizedDescription]);\
 	}
 #endif
 #ifndef CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING
-# define CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(cb, didCancel, errstr)\
+# define CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(cb, didCancel, errStr)\
 	if (cb) {\
-		cb(didCancel, errstr);\
+		cb(didCancel, errStr);\
 	}\
-	else {\
-		DLog(@"%@ (Cancelled: %d)", errstr, didCancel);\
+	else if (errStr || didCancel) {\
+		DLog(@"No callback on this method, logging to debug. Error: %@ (Cancelled: %d)", errStr, didCancel);\
 	}
 #endif
 #ifndef SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO
@@ -136,17 +136,20 @@ NSString* messageTypeStringFor(INMessageType type);
 	if (cb) {\
 		cb(nil == [userInfo objectForKey:INErrorKey], userInfo);\
 	}\
-	else {\
-		DLog(@"%@", [userInfo objectForKey:INErrorKey] ? [[userInfo objectForKey:INErrorKey] localizedDescription] : @"Success");\
+	else if ([userInfo objectForKey:INErrorKey]) {\
+		DLog(@"No callback on this method, logging to debug. Result: %@", [[userInfo objectForKey:INErrorKey] localizedDescription]);\
 	}
 #endif
 #ifndef SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING
-# define SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(cb, s, c)\
-	NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:(c ? c : 0) userInfo:[NSDictionary dictionaryWithObject:s forKey:NSLocalizedDescriptionKey]];\
+# define SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(cb, errStr, errCode)\
 	if (cb) {\
-		cb(NO, [NSDictionary dictionaryWithObject:error forKey:INErrorKey]);\
+		NSError *error = nil;\
+		if (errStr) {\
+			error = [NSError errorWithDomain:NSCocoaErrorDomain code:(errCode ? errCode : 0) userInfo:[NSDictionary dictionaryWithObject:errStr forKey:NSLocalizedDescriptionKey]];\
+		}\
+		cb((nil == error), error ? [NSDictionary dictionaryWithObject:error forKey:INErrorKey] : nil);\
 	}\
-	else {\
-		DLog(@"%@", s);\
+	else if (errStr) {\
+		DLog(@"No callback on this method, logging to debug. Error: %@", errStr);\
 	}
 #endif

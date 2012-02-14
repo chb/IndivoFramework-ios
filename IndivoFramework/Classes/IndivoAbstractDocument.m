@@ -114,7 +114,7 @@
 			
 			// we got an array instance, try to fill it
 			if ([ivarClass isSubclassOfClass:[NSArray class]]) {
-				Class itemClass = [currentClass classforProperty:ivarName];
+				Class itemClass = [currentClass classForProperty:ivarName];
 				
 				NSArray *children = [node childrenNamed:ivarName];
 				NSMutableArray *objects = [NSMutableArray arrayWithCapacity:[children count]];
@@ -259,11 +259,6 @@
 			if (!node->_nodeName) {
 				node.nodeName = nodeName;
 			}
-			
-			// warn if we may not validate but do not block XML creation
-			if ([node isNull] && ![[self class] canBeNull:node.nodeName]) {
-				DLog(@"WARNING: %@ is not set, may generate invalid XML. Will add \"%@\"", node.nodeName, [node xml]);
-			}
 		}
 		
 		// get object's XML
@@ -353,7 +348,7 @@
 /**
  *	Returns the class of a property from the property map dictionary
  */
-+ (Class)classforProperty:(NSString *)propertyName
++ (Class)classForProperty:(NSString *)propertyName
 {
 	NSDictionary *map = [self propertyClassMapper];
 	NSString *className = [map objectForKey:propertyName];

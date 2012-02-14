@@ -23,6 +23,7 @@
 #import "IndivoAbstractDocument.h"
 
 @class IndivoMetaDocument;
+@class IndivoPrincipal;
 
 
 /**
@@ -36,6 +37,11 @@
 @property (nonatomic, readonly, assign) INDocumentStatus status;					///< This document's status
 @property (nonatomic, readonly, assign) BOOL fetched;								///< YES if the document has been fetched from the server
 
+@property (nonatomic, readonly, strong) IndivoPrincipal *creator;					///< The creator of the document
+@property (nonatomic, readonly, copy) NSString *uuidLatest;							///< The udid of the latest document of the receiver
+@property (nonatomic, readonly, copy) NSString *uuidOriginal;						///< The udid of the original document, if the receiver replaced a document
+@property (nonatomic, readonly, copy) NSString *uuidReplaces;						///< The udid of the replaced document, if the receiver replaced a document
+
 - (id)initFromNode:(INXMLNode *)aNode forRecord:(IndivoRecord *)aRecord withMeta:(IndivoMetaDocument *)aMetaDocument;
 
 // Server paths
@@ -46,6 +52,7 @@
 // Document properties
 + (NSString *)reportType;
 - (BOOL)hasStatus:(INDocumentStatus)aStatus;
+- (BOOL)isLatest;
 
 // Document actions
 - (void)pull:(INCancelErrorBlock)callback;
@@ -63,3 +70,12 @@
 
 
 @end
+
+// Make notifications easy
+#ifndef POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION
+# define POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(r)\
+	NSDictionary *userDict = [NSDictionary dictionaryWithObject:r forKey:INRecordUserInfoKey];\
+	[[NSNotificationCenter defaultCenter] postNotificationName:INRecordDocumentsDidChangeNotification object:nil userInfo:userDict];
+#endif
+
+

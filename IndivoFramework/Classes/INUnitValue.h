@@ -22,6 +22,7 @@
 
 #import "INObject.h"
 
+@class INString;
 @class INCodedValue;
 
 
@@ -31,7 +32,8 @@
 
 @interface INUnitValue : INObject
 
-@property (nonatomic, copy) NSString *value;
+@property (nonatomic, copy) NSDecimalNumber *value;
+@property (nonatomic, strong) NSString *textValue;
 @property (nonatomic, strong) INCodedValue *unit;
 
 @end

@@ -260,7 +260,7 @@
 		 
 		 // fetched successfully...
 		 if (success) {
-			 //DLog(@"userInfo: %@", userInfo);
+			 //DLog(@"Incoming XML: %@", [userInfo objectForKey:INResponseStringKey]);
 			 INXMLNode *reportsNode = [userInfo objectForKey:INResponseXMLKey];
 			 NSArray *reports = [reportsNode childrenNamed:@"Report"];
 			 
@@ -313,6 +313,15 @@
 		NSString *errStr = [NSString stringWithFormat:@"Failed to instantiate %@", NSStringFromClass(documentClass)];
 		ERR(error, errStr, 11);
 		return nil;
+	}
+	
+	// pre-populate non-nil properties
+	for (NSString *propName in [[newDocument class] nonNilPropertyNames]) {
+		Class propClass = [[newDocument class] classForProperty:propName];
+		id propObj = [propClass new];
+		if (propObj) {
+			[newDocument setValue:propObj forKey:propName];
+		}
 	}
 	
 	// store and return

@@ -26,4 +26,7 @@
 
 @property (nonatomic, copy) NSDictionary *attributes;
 
+- (id)attr:(NSString *)attributeName;
+
+
 @end

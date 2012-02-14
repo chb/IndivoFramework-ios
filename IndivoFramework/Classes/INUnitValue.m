@@ -22,17 +22,22 @@
 
 #import "INUnitValue.h"
 #import "INCodedValue.h"
+#import "NSString+XML.h"
 
 @implementation INUnitValue
 
-@synthesize value, unit;
+@synthesize value, textValue, unit;
 
 
 - (void)setFromNode:(INXMLNode *)node
 {
 	[super setFromNode:node];
 	
-	self.value = [[node childNamed:@"value"] text];
+	NSString *valText = [[node childNamed:@"value"] text];
+	if ([valText length] > 0) {
+		self.value = [NSDecimalNumber decimalNumberWithString:valText];
+	}
+	self.textValue = [[node childNamed:@"textValue"] text];
 	self.unit = [INCodedValue objectFromNode:[node childNamed:@"unit"]];
 }
 
@@ -52,7 +57,7 @@
 
 - (BOOL)isNull
 {
-	return ([value length] < 1 && [unit isNull]);
+	return (!value && [textValue length] < 1 && [unit isNull]);
 }
 
 - (NSString *)xml
@@ -61,9 +66,19 @@
 		return [NSString stringWithFormat:@"<%@ />", [self tagString]];
 	}
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@>\n\t<value>%@</value>\n\t%@\n</%@>", [self tagString], self.value ? [self.value xmlSafe] : @"", [self.unit xml], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@%@\n\t%@\n</%@>",
+			[self tagString],
+			self.value ? [NSString stringWithFormat:@"\n\t<value>%@</value>", self.value] : @"",
+			self.textValue ? [NSString stringWithFormat:@"\n\t<textValue>%@</textValue>", [self.textValue xmlSafe]] : @"",
+			[self.unit xml],
+			self.nodeName];
 #else
-	return [NSString stringWithFormat:@"<%@><value>%@</value>%@</%@>", [self tagString], self.value ? [self.value xmlSafe] : @"", [self.unit xml], self.nodeName];
+	return [NSString stringWithFormat:@"<%@>%@%@%@</%@>",
+			[self tagString],
+			self.value ? [NSString stringWithFormat:@"<value>%@</value>", self.value] : @"",
+			self.textValue ? [NSString stringWithFormat:@"<textValue>%@</textValue>", [self.textValue xmlSafe]] : @"",
+			[self.unit xml],
+			self.nodeName];
 #endif
 }
 

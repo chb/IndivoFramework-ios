@@ -10,6 +10,7 @@
 #import "IndivoServer.h"
 #import "IndivoDocuments.h"
 #import "INXMLParser.h"
+#import "NSString+XML.h"
 #import <mach/mach_time.h>
 
 
@@ -29,6 +30,21 @@
 	//self.server = nil;
     [super tearDown];
 }
+
+
+- (void)testStringExtensions
+{
+	NSString *numString = @"14.81";
+	NSString *nonNumString1 = @"15a";
+	NSString *nonNumString2 = @"Hello World";
+	NSString *nonNumString3 = @"Is 6 foot high";
+	
+	STAssertEqualObjects(@"14.81", [numString numericString], @"numeric string 1");
+	STAssertEqualObjects(@"15", [nonNumString1 numericString], @"numeric string 2");
+	STAssertEqualObjects(@"", [nonNumString2 numericString], @"numeric string 3");
+	STAssertEqualObjects(@"6", [nonNumString3 numericString], @"numeric string 4");
+}
+
 
 - (void)testMedication
 {

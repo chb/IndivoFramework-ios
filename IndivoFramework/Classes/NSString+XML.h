@@ -11,6 +11,7 @@
 @interface NSString (XML)
 
 - (NSString *)xmlSafe;
+- (NSString *)numericString;
 
 @end
 

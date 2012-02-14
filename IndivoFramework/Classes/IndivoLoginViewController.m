@@ -70,6 +70,7 @@
 	self.title = @"IndivoHealth";
 	
 	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+	appFrame.origin = CGPointZero;
 	
 	// the view
 	UIView *v = [[UIView alloc] initWithFrame:appFrame];
@@ -131,7 +132,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) || (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
