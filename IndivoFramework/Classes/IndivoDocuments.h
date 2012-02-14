@@ -36,6 +36,8 @@
 #import "IndivoProvider.h"
 #import "IndivoAllergy.h"
 #import "IndivoAllergyAllergen.h"
+#import "IndivoImmunization.h"
+#import "IndivoImmunizationVaccine.h"
 #import "IndivoLab.h"
 #import "IndivoLabPanel.h"
 #import "IndivoLabProvider.h"

@@ -217,6 +217,34 @@
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
 
+- (void)testImmunization
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"immunization"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoImmunization *doc = [[IndivoImmunization alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Immunization Document");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.dateAdministered isoString], @"administration date");
+	STAssertEqualObjects(@"Children's Hospital Boston", doc.administeredBy.string, @"administered by");
+	STAssertEqualObjects(@"hep-B", doc.vaccine.type.value, @"vaccine type");
+	STAssertEqualObjects(@"2009-06-01", [doc.vaccine.expiration isoString], @"expiration date");
+	STAssertEqualObjects(@"Shoulder", doc.anatomicSurface.text, @"injection site");
+	
+	// test value changes
+	doc.dateAdministered.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.dateAdministered isoString], @"New administration date");
+	doc.vaccine.manufacturer = [INString newWithString:@"Novartis Pharma"];
+	STAssertEqualObjects(@"Novartis Pharma", doc.vaccine.manufacturer.string, @"New manufacturer");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"immunization" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
+
 /**
  *	Speed testing XML generation on the lab fixture XML.
  */

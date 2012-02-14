@@ -213,6 +213,14 @@
 		EEA88B7614EAA51C00B7599D /* NSCharacterSet+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */; };
 		EEA88B7714EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */; };
 		EEA88B7814EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */; };
+		EEA88B9614EB22A200B7599D /* IndivoImmunization.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88B9214EB22A200B7599D /* IndivoImmunization.h */; };
+		EEA88B9714EB22A200B7599D /* IndivoImmunization.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B9314EB22A200B7599D /* IndivoImmunization.m */; };
+		EEA88B9814EB22A200B7599D /* IndivoImmunization.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B9314EB22A200B7599D /* IndivoImmunization.m */; };
+		EEA88B9914EB22A200B7599D /* IndivoImmunizationVaccine.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88B9414EB22A200B7599D /* IndivoImmunizationVaccine.h */; };
+		EEA88B9A14EB22A200B7599D /* IndivoImmunizationVaccine.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B9514EB22A200B7599D /* IndivoImmunizationVaccine.m */; };
+		EEA88B9B14EB22A200B7599D /* IndivoImmunizationVaccine.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B9514EB22A200B7599D /* IndivoImmunizationVaccine.m */; };
+		EEA88B9D14EB22E100B7599D /* immunization.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEA88B9C14EB22E100B7599D /* immunization.xml */; };
+		EEA88B9F14EB22E900B7599D /* immunization.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EEA88B9E14EB22E900B7599D /* immunization.xsd */; };
 		EEAA502B14DB130B00FBFE66 /* IndivoResultInSetOption.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEAA502C14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
 		EEAA502D14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
@@ -443,6 +451,12 @@
 		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
 		EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+Extension.h"; sourceTree = "<group>"; };
 		EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+Extension.m"; sourceTree = "<group>"; };
+		EEA88B9214EB22A200B7599D /* IndivoImmunization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoImmunization.h; sourceTree = "<group>"; };
+		EEA88B9314EB22A200B7599D /* IndivoImmunization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoImmunization.m; sourceTree = "<group>"; };
+		EEA88B9414EB22A200B7599D /* IndivoImmunizationVaccine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoImmunizationVaccine.h; sourceTree = "<group>"; };
+		EEA88B9514EB22A200B7599D /* IndivoImmunizationVaccine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoImmunizationVaccine.m; sourceTree = "<group>"; };
+		EEA88B9C14EB22E100B7599D /* immunization.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = immunization.xml; sourceTree = "<group>"; };
+		EEA88B9E14EB22E900B7599D /* immunization.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = immunization.xsd; sourceTree = "<group>"; };
 		EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoResultInSetOption.h; sourceTree = "<group>"; };
 		EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoResultInSetOption.m; sourceTree = "<group>"; };
 		EEAA502E14DB144400FBFE66 /* INAnyURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAnyURI.h; sourceTree = "<group>"; };
@@ -567,6 +581,7 @@
 			children = (
 				EE09B5F414D83B7C00E99A67 /* medication.xml */,
 				EEAA503E14DB5C2B00FBFE66 /* allergy.xml */,
+				EEA88B9C14EB22E100B7599D /* immunization.xml */,
 				EE09B63314D9C3BB00E99A67 /* lab.xml */,
 				EEAA504414DB696500FBFE66 /* equipment.xml */,
 				EE423F6614E17B470009771F /* contact.xml */,
@@ -580,6 +595,7 @@
 			children = (
 				EE09B5F814D84F6200E99A67 /* medication.xsd */,
 				EEAA504014DB5C3600FBFE66 /* allergy.xsd */,
+				EEA88B9E14EB22E900B7599D /* immunization.xsd */,
 				EE09B63514D9C3C800E99A67 /* lab.xsd */,
 				EEAA504214DB695F00FBFE66 /* equipment.xsd */,
 				EE423F6414E17B3F0009771F /* contact.xsd */,
@@ -646,7 +662,6 @@
 		EE3C95AE14115C15002BA967 = {
 			isa = PBXGroup;
 			children = (
-				EE09B63114D9C2EA00E99A67 /* libxml2.dylib */,
 				EEC5C4051416B3E900E1A349 /* ErrorCodes.md */,
 				EE3C95BE14115C15002BA967 /* IndivoFramework */,
 				EEA044D214CA1B4300C28C61 /* IndivoFrameworkTests */,
@@ -675,6 +690,7 @@
 				EEDB8C7C145CB057001C6C2C /* Security.framework */,
 				EE3C95CA14115C15002BA967 /* SenTestingKit.framework */,
 				EEDB8C7A145CB052001C6C2C /* libxml2.dylib */,
+				EE09B63114D9C2EA00E99A67 /* libxml2.dylib */,
 				EEA0453D14CA3A1200C28C61 /* Cocoa.framework */,
 				EEA0453F14CA3A1200C28C61 /* Other Frameworks */,
 			);
@@ -892,6 +908,10 @@
 				EE235D1614E04AE8005BD702 /* IndivoContactInstantMessengerName.m */,
 				EE423F5E14E1785C0009771F /* IndivoDemographics.h */,
 				EE423F5F14E1785C0009771F /* IndivoDemographics.m */,
+				EEA88B9214EB22A200B7599D /* IndivoImmunization.h */,
+				EEA88B9314EB22A200B7599D /* IndivoImmunization.m */,
+				EEA88B9414EB22A200B7599D /* IndivoImmunizationVaccine.h */,
+				EEA88B9514EB22A200B7599D /* IndivoImmunizationVaccine.m */,
 			);
 			name = "Generated Documents";
 			path = GeneratedClasses;
@@ -1058,6 +1078,8 @@
 				EE235D2F14E04AE8005BD702 /* IndivoContactPhoneNumber.h in Headers */,
 				EE423F6014E1785C0009771F /* IndivoDemographics.h in Headers */,
 				EEA88B7614EAA51C00B7599D /* NSCharacterSet+Extension.h in Headers */,
+				EEA88B9614EB22A200B7599D /* IndivoImmunization.h in Headers */,
+				EEA88B9914EB22A200B7599D /* IndivoImmunizationVaccine.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,6 +1186,8 @@
 				EE423F6714E17B470009771F /* contact.xml in Resources */,
 				EE423F6914E17B580009771F /* demographics.xsd in Resources */,
 				EE423F6B14E17B600009771F /* demographics.xml in Resources */,
+				EEA88B9D14EB22E100B7599D /* immunization.xml in Resources */,
+				EEA88B9F14EB22E900B7599D /* immunization.xsd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1283,6 +1307,8 @@
 				EE235D3014E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */,
 				EE423F6114E1785C0009771F /* IndivoDemographics.m in Sources */,
 				EEA88B7714EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */,
+				EEA88B9714EB22A200B7599D /* IndivoImmunization.m in Sources */,
+				EEA88B9A14EB22A200B7599D /* IndivoImmunizationVaccine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1372,6 +1398,8 @@
 				EE235D3114E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */,
 				EE423F6214E1785C0009771F /* IndivoDemographics.m in Sources */,
 				EEA88B7814EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */,
+				EEA88B9814EB22A200B7599D /* IndivoImmunization.m in Sources */,
+				EEA88B9B14EB22A200B7599D /* IndivoImmunizationVaccine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

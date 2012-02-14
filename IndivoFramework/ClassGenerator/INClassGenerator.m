@@ -372,10 +372,10 @@ void runOnMainQueue(dispatch_block_t block)
 	// are we required?
 	if ([min integerValue] > 0) {
 		if (comment) {
-			comment = [comment stringByAppendingFormat:@". Must not be nil nor return YES on isNull (minOccurs = %@)", min];
+			comment = [comment stringByAppendingFormat:@". (minOccurs = %@)", min];
 		}
 		else {
-			comment = [NSString stringWithFormat:@"Must not be nil nor return YES on isNull (minOccurs = %@)", min];
+			comment = [NSString stringWithFormat:@"minOccurs = %@", min];
 		}
 	}
 	
