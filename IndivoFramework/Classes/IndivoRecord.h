@@ -48,7 +48,6 @@
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback;
 
 // record reports
-- (void)fetchReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
 - (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback;
 - (void)fetchAllReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
 
@@ -56,15 +55,15 @@
 - (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error;
 
 // messaging
-- (void)sendMessage:(NSString *)messageBody
+- (void)sendMessage:(NSString *)messageSubject
+		   withBody:(NSString *)messageBody
 			 ofType:(INMessageType)type
-		withSubject:(NSString *)messageSubject
 		   severity:(INMessageSeverity)severity
 		attachments:(NSArray *)attachments
 		   callback:(INCancelErrorBlock)callback;
-- (void)sendMessage:(NSString *)messageBody
+- (void)sendMessage:(NSString *)messageSubject
+		   withBody:(NSString *)messageBody
 			 ofType:(INMessageType)type
-		withSubject:(NSString *)messageSubject
 		   severity:(INMessageSeverity)severity
 		attachments:(NSArray *)attachments
 		  messageId:(NSString *)messageId										///< Allows to specify a custom message id, if needed

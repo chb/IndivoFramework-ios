@@ -49,7 +49,7 @@
 
 - (void)get:(NSString *)inMethod withParameters:(NSArray *)inParameters oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback;
 - (void)post:(NSString *)inMethod withParameters:(NSArray *)inParameters oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback;
-- (void)post:(NSString *)inMethod body:(NSString *)dataString oauth:(id)inOAuth callback:(INSuccessRetvalueBlock)inCallback;
+- (void)post:(NSString *)inMethod body:(NSString *)dataString oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback;
 - (void)fire:(NSString *)inMethod withParameters:(NSArray *)inParameters httpMethod:(NSString *)httpMethod oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback;
 - (void)fire;
 

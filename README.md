@@ -112,8 +112,9 @@ When the server knows about your App, you're ready to use the framework.
 6. Add `IndivoConfig.h` to the Indivo Framework target. (In the default project Xcode should already know the file but show it in red because it's not in the repository. As soon as you create it, Xcode should find it and you're all good).
 
 7. In your code, include the header files (where needed) as user header files:
-	
-	`#import "IndivoServer.h"`
+
+		import "IndivoServer.h"
+		import "IndivoDocuments.h"
 
 You are now ready to go!
 
@@ -124,7 +125,7 @@ You are now ready to go!
 
 Make your app delegate (or some other class) the server delegate and instantiate an `IndivoServer`:  
 
-	IndivoServer *indivo = [IndivoServer serverWithDelegate:<% your server delegate %>];
+	IndivoServer *indivo = [IndivoServer serverWithDelegate:<# your server delegate #>];
 	
 Make sure you implement the required delegate methods in your server delegate! This **indivo** instance is now your connection to the Indivo server.
 
@@ -133,7 +134,7 @@ Make sure you implement the required delegate methods in your server delegate! T
 	
 Add a button to your app which calls `IndivoServer`'s `selectRecord:` method when tapped. Like all server methods in the framework, this method receives a callback once the operation completed. If record selection was successful, the `activeRecord` property on your indivo server instance will be set (an object of class `IndivoRecord`) and you can use the activeRecord object to receive and create documents for this record.
 
-Here's an example that shows the record-selection page and upon completion alerts an error (if there is one) and does nothing else:
+Here's an example that shows the record-selection page and upon completion alerts an error (if there is one) and does nothing otherwise:
 
 	[self.indivo selectRecord:^(BOOL userDidCancel, NSString *errorMessage) {
 
@@ -159,21 +160,16 @@ The methods that send or load data to/from the server all sport a **callback blo
 
 	[self.indivo.activeRecord fetchReportsOfClass:[IndivoMedication class]
 	                                   withStatus:INDocumentStatusActive
-		                                 callback:^(BOOL userDidCancel, NSString *errorMessage) {
+		                                 callback:^(BOOL success, NSDictionary *userInfo) {
 		
 		// error fetching medications
 		if (!success) {
-			NSString *errorMessage = [[userInfo objectForKey:INErrorKey] localizedDescription];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Failed to get medications"
-	                                                        message:errorMessage
-	                                                       delegate:nil
-	                                              cancelButtonTitle:@"OK"
-	                                              otherButtonTitles:nil];
-			[alert show];
+			NSError *error = [userInfo objectForKey:INErrorKey];
+			// handle the error. If error is nil, the operation was cancelled
 		}
 		
 		// successfully fetched medications, reload table view
-		else if (!userDidCancel) {
+		else  {
 			self.medications = [userInfo objectForKey:INResponseArrayKey];
 			[self.tableView reloadData];
 		}
@@ -187,20 +183,21 @@ To create new documents, you create a new instance of a given document type and,
 	NSError *error = nil;
 	IndivoMedication *newMed = (IndivoMedication *)[self.indivo.activeRecord addDocumentOfClass:[IndivoMedication class] error:&error];
 	if (!newMed) {
-		DLog(@"Error: %@", [error localizedDescription]);
+		NSLog(@"Error: %@", [error localizedDescription]);
 	}
 	else {
-		// ... edit medication properties
+		// edit medication properties
+		newMed.name = [INCodedValue new];
+		newMed.name.text = @"L-Ascorbic Acid";
+		newMed.brandName = [INCodedValue new];
+		newMed.brandName.text = @"Vitamin C";
+		newMed.brandName.abbrev = @"vitamin-c";
+		// ...
 		
 		// push to the server
 		[newMed push:^(BOOL didCancel, NSString *errorString) {
 			if (errorString) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error pushing to server"
-				                                                message:errorString
-				                                               delegate:nil
-				                                      cancelButtonTitle:@"OK"
-				                                      otherButtonTitles:nil];
-				[alert show];
+				// handle the error
 			}
 			
 			// successfully pushed
@@ -212,5 +209,38 @@ To create new documents, you create a new instance of a given document type and,
 
 ### Changing status, archiving, updating (replacing) and more
 
+`IndivoDocument` has methods to allow you to archive, void and replace documents in the same fashion. Note that **replacing** is Indivo's process for updating a document since no data is ever destroyed.
+	
+	// update the name of our newly created medication
+	newMed.name.text = @"L-Ascorbic Acid Tablets";
+	[newMed replace:^(BOOL didCancel, NSString *errorString) {
+		if (errorString) {
+			// handle the error
+		}
+	}];
+
+
+### Sending Messages to records
+
+You can send messages to a record's inbox like follows:
+
+	[activeRecord sendMessage:@"New Medication"
+					 withBody:@"A new medication has just been added to your record"
+					   ofType:INMessageTypePlaintext
+					 severity:INMessageSeverityLow
+				  attachments:[NSArray arrayWithObject:newMed]
+					 callback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+						 if (errorMessage) {
+							 // handle error message
+						 }
+					 }];
+
+
 Of course there's more you can do, see the [technical API documentation][techdoc] for more.
+
+
+Acknowledgements
+----------------
+
+This work was supported by a grant from the **[Novartis Foundation, formerly Ciba-Geigy-Jubilee-Foundation](http://www.jubilaeumsstiftung.novartis.com/)**.
 

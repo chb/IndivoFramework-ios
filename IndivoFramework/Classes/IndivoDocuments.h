@@ -22,7 +22,8 @@
 
 
 /**
- *	Header file which includes all our IndivoDocument subclasses. Include this header where you use these classes.
+ *	@file IndivoDocuments.h
+ *	This header file includes all our IndivoDocument subclasses. Include this header where you use these classes.
  */
 
 #import "IndivoDocument.h"

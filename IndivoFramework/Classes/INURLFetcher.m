@@ -48,8 +48,10 @@
 
 /**
  *	Fetches all URLs sequentially and calls callback when finished.
- *	If one ...
+ *	The calls are put on a queue and, depending on their exit status, are put in the "successfulLoads" and "failedLoads" arrays, respectively. Be
+ *	sure to check these properties when the callback is called, as even if an error is reported, some URLs might have loaded successfully.
  *	@param anURLArray An NSArray full of NSURL instances
+ *	@param aCallback The callback block to be executed when the call has finished
  */
 - (void)getURLs:(NSArray *)anURLArray callback:(INCancelErrorBlock)aCallback
 {
@@ -82,13 +84,12 @@
 		self.mySuccessfulLoads = [NSMutableArray arrayWithCapacity:[anURLArray count]];
 		self.myFailedLoads = [NSMutableArray arrayWithCapacity:[anURLArray count]];
 		
-		__block INURLFetcher *this = self;
 		[currentLoader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 			if (userDidCancel) {
 				[self didCancel];
 			}
 			else {
-				[this loaderDidFinish:currentLoader withErrorMessage:errorMessage];
+				[self loaderDidFinish:currentLoader withErrorMessage:errorMessage];
 			}
 		}];
 	}

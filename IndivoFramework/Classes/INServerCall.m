@@ -118,7 +118,10 @@
 #pragma mark - Connection Fire Methods
 /**
  *	Sends off as a GET request
+ *	@param inMethod The method to use, i.e. the REST path
  *	@param inParameters An array full of @"key=value" NSString objects, can be nil
+ *	@param inOAuth The MPOAuthAPI instance to use for the call
+ *	@param inCallback The callback block to call when the method has finished
  */
 - (void)get:(NSString *)inMethod withParameters:(NSArray *)inParameters oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback
 {
@@ -133,7 +136,10 @@
 
 /**
  *	Sends off as a POST request
+ *	@param inMethod The method to use, i.e. the REST path
  *	@param inParameters An array full of @"key=value" NSString objects, can be nil
+ *	@param inOAuth The MPOAuthAPI instance to use for the call
+ *	@param inCallback The callback block to call when the method has finished
  */
 - (void)post:(NSString *)inMethod withParameters:(NSArray *)inParameters oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback
 {
@@ -148,8 +154,12 @@
 
 /**
  *	Sends off a POST request with the given body
+ *	@param inMethod The method to use, i.e. the REST path
+ *	@param bodyString The body string to POST
+ *	@param inOAuth The MPOAuthAPI instance to use for the call
+ *	@param inCallback The callback block to call when the method has finished
  */
-- (void)post:(NSString *)inMethod body:(NSString *)bodyString oauth:(id)inOAuth callback:(INSuccessRetvalueBlock)inCallback
+- (void)post:(NSString *)inMethod body:(NSString *)bodyString oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback
 {
 	self.method = inMethod;
 	self.body = bodyString;
@@ -161,7 +171,12 @@
 }
 
 /**
- *	Most versatile fire method
+ *	Most versatile fire method, used internally from the get: and post: methods.
+ *	@param inMethod The method to use, i.e. the REST path
+ *	@param inParameters An array full of @"key=value" NSString objects, can be nil
+ *	@param httpMethod The HTTP-method (GET, PUT, POST) to use
+ *	@param inOAuth The MPOAuthAPI instance to use for the call
+ *	@param inCallback The callback block to call when the method has finished
  */
 - (void)fire:(NSString *)inMethod withParameters:(NSArray *)inParameters httpMethod:(NSString *)httpMethod oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback
 {
@@ -248,7 +263,7 @@
 }
 
 /**
- *	Internal finishing method
+ *	Internal finishing method. Calls the callback, if there is one, and informs the server that the call has finished.
  */
 - (void)didFinishSuccessfully:(BOOL)success returnObject:(NSDictionary *)returnObject
 {

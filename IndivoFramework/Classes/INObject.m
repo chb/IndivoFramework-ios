@@ -106,7 +106,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
  *	The INObject implementation sets the node name and node type (if a "type" attribute is found in the XML node) from an INXMLNode parsed
  *	from an Indivo XML.
  *	This methed replaces all properties with values found in the node, leaves those not present untouched. This method is called from the
- *	designated initializer, subclasses should override it to set custom properties and call  [super setFromNode:<node>]
+ *	designated initializer, subclasses should override it to set custom properties and call  [super setFromNode:node]
  */
 - (void)setFromNode:(INXMLNode *)aNode
 {

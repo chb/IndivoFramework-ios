@@ -194,16 +194,6 @@
 
 #pragma mark - Managing Documents
 /**
- *	Fetches the active reports of given type from the server
- *	@deprecated, use fetchReportsOfClass:withStatus:callback:
- */
-- (void)fetchReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback
-{
-	DLog(@"Deprecated, change this call to \"fetchReportsOfClass:withStatus:callback:\"");
-	[self fetchReportsOfClass:documentClass withStatus:INDocumentStatusActive callback:callback];
-}
-
-/**
  *	Fetches reports of given type with any status from the server
  */
 - (void)fetchAllReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback
@@ -341,16 +331,16 @@
  *	Posts a message to the record's inbox. This method auto-generates a message id, which generally is what you want.
  *	This method generates an API call POST /records/{RECORD_ID}/inbox/{MESSAGE_ID} with the given arguments. If attachments are supplied, the callback will only be called
  *	once all attachments have been uploaded.
- *	@param messageBody The message body
+ *	@param messageSubject The message subject
+ *	@param messageBody The message's body
  *	@param type How to interpret the message body
- *	@param messageSubject The message's subject
  *	@param severity The severity or priority of the message
  *	@param attachments An array containing IndivoDocument instances.
  *	@param callback The block to be called when the operation finishes.
  */
-- (void)sendMessage:(NSString *)messageBody
+- (void)sendMessage:(NSString *)messageSubject
+		   withBody:(NSString *)messageBody
 			 ofType:(INMessageType)type
-		withSubject:(NSString *)messageSubject
 		   severity:(INMessageSeverity)severity
 		attachments:(NSArray *)attachments
 		   callback:(INCancelErrorBlock)callback
@@ -359,24 +349,24 @@
 	NSString *newUUID = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, generatedUUID);
 	CFRelease(generatedUUID);
 	
-	[self sendMessage:messageBody ofType:type withSubject:messageSubject severity:severity attachments:attachments messageId:[newUUID lowercaseString] callback:callback];
+	[self sendMessage:messageBody withBody:messageSubject ofType:type severity:severity attachments:attachments messageId:[newUUID lowercaseString] callback:callback];
 }
 
 /**
  *	Posts a message to the record's inbox.
  *	This method generates an API call POST /records/{RECORD_ID}/inbox/{MESSAGE_ID} with the given arguments. If attachments are supplied, the callback will only be called
  *	once all attachments have been uploaded.
- *	@param messageBody The message body
+ *	@param messageSubject The message subject
+ *	@param messageBody The message's body
  *	@param type How to interpret the message body
- *	@param messageSubject The message's subject
  *	@param severity The severity or priority of the message
  *	@param attachments An array containing IndivoDocument instances.
  *	@param messageId A message id
  *	@param callback The block to be called when the operation finishes.
  */
-- (void)sendMessage:(NSString *)messageBody
+- (void)sendMessage:(NSString *)messageSubject
+		   withBody:(NSString *)messageBody
 			 ofType:(INMessageType)type
-		withSubject:(NSString *)messageSubject
 		   severity:(INMessageSeverity)severity
 		attachments:(NSArray *)attachments
 		  messageId:(NSString *)messageId

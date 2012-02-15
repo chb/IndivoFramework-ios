@@ -135,7 +135,9 @@
 
 /**
  *	Shortcut for POSTing parameters
+ *	@param aMethod The method, aka REST-path, to perform
  *	@param paramArray An array full of "key=value" strings; will be URL-encoded automatically
+ *	@param callback The callback-block to call when the method has finished
  */
 - (void)post:(NSString *)aMethod parameters:(NSArray *)paramArray callback:(INSuccessRetvalueBlock)callback
 {

@@ -24,8 +24,19 @@
  *	@mainpage
  *	Welcome to the API documentation of IndivoFramework for iOS.
  *	
+ *	@section Instructions
  *	Instructions an how to setup the framework can be found in the README also provided with the framework, which
  *	can be viewed nicely formatted on our github page: https://github.com/chb/IndivoFramework-ios
+ *	
+ *	@section Creating an Xcode Docset
+ *	You can use Doxygen to create a documentation. The easiest way to do this is to open the Doxyfile with DoxyWizard and press "Run". This
+ *	will create an HTML documentation in `Docs/html` and a ready-to-build LaTeX documentation in `Docs/latex`.
+ *	
+ *	After building the documentation like mentioned above, you just need to install it:<br>
+ *		$ cd IndivoFramework-ios/Docs/html<br>
+ *		$ make install<br>
+ *	After you relaunch Xcode, the documentation should be available in the Organizer and can be accessed like the standard Cocoa documentation
+ *	by `ALT`-clicking code parts.
  */
 
 #import <Foundation/Foundation.h>
