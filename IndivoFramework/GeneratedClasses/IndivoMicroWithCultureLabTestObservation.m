@@ -1,5 +1,5 @@
 /*
- IndivoDocumentLatest.m
+ IndivoMicroWithCultureLabTestObservation.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/7/2012.
@@ -20,40 +20,49 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocumentLatest.h"
+#import "IndivoMicroWithCultureLabTestObservation.h"
 
 
-@implementation IndivoDocumentLatest
+@implementation IndivoMicroWithCultureLabTestObservation
 
-@synthesize createdAt, createdBy;
+@synthesize isolate, identity, time, microbialDensity, organism, extendedDescription, cultureCondition, gram, morphology, organization, comments;
 
 
 + (NSString *)nodeName
 {
-	return @"DocumentLatest";
+	return @"MicroWithCultureLabTestObservation";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:DocumentLatest";
+	return @"indivo:MicroWithCultureLabTestObservation";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"createdAt",
-			@"INString", @"createdBy",
+			@"INString", @"isolate",
+			@"INString", @"identity",
+			@"INDateTime", @"time",
+			@"IndivoConcentration", @"microbialDensity",
+			@"INCodedValue", @"organism",
+			@"INString", @"extendedDescription",
+			@"INString", @"cultureCondition",
+			@"INBool", @"gram",
+			@"INString", @"morphology",
+			@"INString", @"organization",
+			@"INString", @"comments",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"createdAt", @"createdBy", nil];
+	return [NSArray arrayWithObjects:@"isolate", @"time", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"createdAt", @"createdBy", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"isolate", @"time", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
@@ -62,7 +71,7 @@
 
 + (NSArray *)attributeNames
 {
-	NSArray *myAttributes = [NSArray arrayWithObjects:@"createdAt", @"createdBy", nil];
+	NSArray *myAttributes = [NSArray arrayWithObjects:@"isolate", @"identity", nil];
 	NSArray *superAttr = [super attributeNames];
 	if (superAttr) {
 		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];

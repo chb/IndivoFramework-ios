@@ -19,7 +19,7 @@
 
 @implementation AppDelegate
 
-@synthesize window, inDirField, outDirField, output;
+@synthesize window, inDirField, outDirField, output, doOverwrite;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -53,6 +53,8 @@
 	// start
 	[output setString:@"Starting up...\n"];
 	INClassGenerator *generator = [INClassGenerator new];
+	generator.mayOverwriteExisting = (doOverwrite.state == NSOnState);
+	
 	[generator runFrom:inDirField.stringValue into:outDirField.stringValue callback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 		if (errorMessage) {
 			[self addLog:errorMessage];
@@ -61,7 +63,11 @@
 			[self addLog:@"Cancelled"];
 		}
 		else {
-			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas parsed, %d classes generated", generator.numSchemasParsed, generator.numClassesGenerated];
+			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas parsed, %d classes generated, %d classes skipped, %d classes not overwritten",
+									generator.numSchemasParsed,
+									generator.numClassesGenerated,
+									generator.numClassesSkipped,
+									generator.numClassesNotOverwritten];
 			[self addLog:doneString];
 		}
 		if ([sender respondsToSelector:@selector(setEnabled:)]) {

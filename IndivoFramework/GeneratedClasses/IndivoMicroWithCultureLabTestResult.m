@@ -1,5 +1,5 @@
 /*
- IndivoDocumentCreated.m
+ IndivoMicroWithCultureLabTestResult.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/7/2012.
@@ -20,39 +20,44 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocumentCreated.h"
+#import "IndivoMicroWithCultureLabTestResult.h"
 
 
-@implementation IndivoDocumentCreated
+@implementation IndivoMicroWithCultureLabTestResult
 
-@synthesize at;
+@synthesize isolate, identity, organism, sensitivity, interpretation, comments;
 
 
 + (NSString *)nodeName
 {
-	return @"DocumentCreated";
+	return @"MicroWithCultureLabTestResult";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:DocumentCreated";
+	return @"indivo:MicroWithCultureLabTestResult";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"at",
+			@"INString", @"isolate",
+			@"INString", @"identity",
+			@"INCodedValue", @"organism",
+			@"IndivoMicroWithCultureLabTestResultSensitivity", @"sensitivity",
+			@"INString", @"interpretation",
+			@"INString", @"comments",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"at", nil];
+	return [NSArray arrayWithObjects:@"isolate", @"organism", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"at", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"isolate", @"organism", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
@@ -61,7 +66,7 @@
 
 + (NSArray *)attributeNames
 {
-	NSArray *myAttributes = [NSArray arrayWithObjects:@"at", nil];
+	NSArray *myAttributes = [NSArray arrayWithObjects:@"isolate", @"identity", nil];
 	NSArray *superAttr = [super attributeNames];
 	if (superAttr) {
 		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];

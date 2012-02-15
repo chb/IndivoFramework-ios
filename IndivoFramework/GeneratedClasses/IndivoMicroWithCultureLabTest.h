@@ -1,5 +1,5 @@
 /*
- IndivoDocumentSuppressed.h
+ IndivoMicroWithCultureLabTest.h
  IndivoFramework
  
  Created by Indivo Class Generator on 2/7/2012.
@@ -20,18 +20,20 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
+#import "IndivoLabTest.h"
 #import "INObjects.h"
 
 
 	
 
 /**
- *	A class representing "indivo:DocumentSuppressed" objects, generated from hospital-api-metadata.xsd.
+ *	A class representing "indivo:MicroWithCultureLabTest" objects, generated from lab.xsd.
  */
-@interface IndivoDocumentSuppressed : IndivoDocument
+@interface IndivoMicroWithCultureLabTest : IndivoLabTest
 
-@property (nonatomic, strong) INDateTime *at;					///< Must be present as an attribute
+@property (nonatomic, strong) INCodedValue *source;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) NSArray *observation;					///< An array containing IndivoMicroWithCultureLabTestObservation objects
+@property (nonatomic, strong) NSArray *result;					///< An array containing IndivoMicroWithCultureLabTestResult objects
 
 
 @end

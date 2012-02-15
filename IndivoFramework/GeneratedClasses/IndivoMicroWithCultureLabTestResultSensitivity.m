@@ -1,5 +1,5 @@
 /*
- IndivoDocumentSuppressed.m
+ IndivoMicroWithCultureLabTestResultSensitivity.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/7/2012.
@@ -20,54 +20,47 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocumentSuppressed.h"
+#import "IndivoMicroWithCultureLabTestResultSensitivity.h"
 
 
-@implementation IndivoDocumentSuppressed
+@implementation IndivoMicroWithCultureLabTestResultSensitivity
 
-@synthesize at;
+@synthesize antibiotic, MIC, interpretation, comments;
 
 
 + (NSString *)nodeName
 {
-	return @"DocumentSuppressed";
+	return @"MicroWithCultureLabTestResultSensitivity";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:DocumentSuppressed";
+	return @"indivo:MicroWithCultureLabTestResultSensitivity";
 }
 
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"at",
+			@"INCodedValue", @"antibiotic",
+			@"IndivoConcentration", @"MIC",
+			@"INCodedValue", @"interpretation",
+			@"INString", @"comments",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"at", nil];
+	return [NSArray arrayWithObjects:@"antibiotic", @"interpretation", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"at", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"antibiotic", @"interpretation", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
 }
 
-
-+ (NSArray *)attributeNames
-{
-	NSArray *myAttributes = [NSArray arrayWithObjects:@"at", nil];
-	NSArray *superAttr = [super attributeNames];
-	if (superAttr) {
-		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];
-	}
-	return myAttributes;
-}
 
 
 @end

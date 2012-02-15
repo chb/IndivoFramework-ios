@@ -14,6 +14,7 @@
 @property (nonatomic, assign) IBOutlet NSTextField *inDirField;
 @property (nonatomic, assign) IBOutlet NSTextField *outDirField;
 @property (nonatomic, assign) IBOutlet NSTextView *output;
+@property (nonatomic, assign) IBOutlet NSButton *doOverwrite;
 
 - (IBAction)run:(id)sender;
 - (void)addLog:(NSString *)aString;

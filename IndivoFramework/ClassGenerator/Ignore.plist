@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>indivo:DocumentIsRelatedFrom</key>
+	<true/>
+	<key>indivo:DocumentCreated</key>
+	<true/>
+	<key>indivo:DocumentOriginal</key>
+	<true/>
+	<key>indivo:DocumentRelatesTo</key>
+	<true/>
+	<key>indivo:DocumentReplacedBy</key>
+	<true/>
+	<key>indivo:DocumentReplaces</key>
+	<true/>
+	<key>indivo:DocumentLatest</key>
+	<true/>
+	<key>indivo:DocumentSuppressed</key>
+	<true/>
+	<key>indivo:ReportItem</key>
+	<true/>
+	<key>indivo:ReportMeta</key>
+	<true/>
+	<key>indivo:IndivoMessages</key>
+	<true/>
+</dict>
+</plist>

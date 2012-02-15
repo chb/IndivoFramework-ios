@@ -1,5 +1,5 @@
 /*
- IndivoDocumentLatest.h
+ IndivoMicroWithCultureLabTest.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/7/2012.
@@ -20,19 +20,46 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "IndivoMicroWithCultureLabTest.h"
 
 
+@implementation IndivoMicroWithCultureLabTest
+
+@synthesize source, observation, result;
+
+
++ (NSString *)nodeName
+{
+	return @"MicroWithCultureLabTest";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:MicroWithCultureLabTest";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INCodedValue", @"source",
+			@"IndivoMicroWithCultureLabTestObservation", @"observation",
+			@"IndivoMicroWithCultureLabTestResult", @"result",
+			nil];
+}
+
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"source", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"source", nil];
+	}
 	
+	return nonNilPropertyNames;	*/
+}
 
-/**
- *	A class representing "indivo:DocumentLatest" objects, generated from metadata.xsd.
- */
-@interface IndivoDocumentLatest : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *createdAt;					///< Must be present as an attribute
-@property (nonatomic, strong) INString *createdBy;					///< Must be present as an attribute
 
 
 @end

@@ -244,6 +244,30 @@
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
 
+- (void)testProblem
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"problem"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoProblem *doc = [[IndivoProblem alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Problem Document");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.dateOnset isoString], @"onset date");
+	STAssertEqualObjects(@"Myocardial Infarction", doc.name.text, @"name string");
+	STAssertEqualObjects(@"MI", doc.name.abbrev, @"name abbrev");
+	STAssertEqualObjects(@"Dr. Mandl", doc.diagnosedBy.string, @"diagnosed by");
+	
+	// test value changes
+	doc.dateOnset.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.dateOnset isoString], @"New onset date");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"problem" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
 
 /**
  *	Speed testing XML generation on the lab fixture XML.

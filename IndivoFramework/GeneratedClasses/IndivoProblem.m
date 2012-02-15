@@ -1,5 +1,5 @@
 /*
- IndivoDocumentCreated.h
+ IndivoProblem.m
  IndivoFramework
  
  Created by Indivo Class Generator on 2/7/2012.
@@ -20,18 +20,48 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "IndivoProblem.h"
 
 
+@implementation IndivoProblem
+
+@synthesize dateOnset, dateResolution, name, comments, diagnosedBy;
+
+
++ (NSString *)nodeName
+{
+	return @"Problem";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:Problem";
+}
+
++ (NSDictionary *)propertyClassMapper
+{
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+			@"INDateTime", @"dateOnset",
+			@"INDateTime", @"dateResolution",
+			@"INCodedValue", @"name",
+			@"INString", @"comments",
+			@"INString", @"diagnosedBy",
+			nil];
+}
+
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"name", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", nil];
+	}
 	
+	return nonNilPropertyNames;	*/
+}
 
-/**
- *	A class representing "indivo:DocumentCreated" objects, generated from hospital-api-metadata.xsd.
- */
-@interface IndivoDocumentCreated : IndivoDocument
-
-@property (nonatomic, strong) INDateTime *at;					///< Must be present as an attribute
 
 
 @end

@@ -27,9 +27,6 @@
 
 #import "IndivoDocument.h"
 #import "IndivoMetaDocument.h"
-#import "IndivoDocumentCreated.h"
-#import "IndivoDocumentSuppressed.h"
-#import "IndivoDocumentLatest.h"
 #import "IndivoPrincipal.h"
 #import "IndivoMedication+Ext.h"
 #import "IndivoPrescription.h"
@@ -52,4 +49,5 @@
 #import "IndivoContactPhoneNumber.h"
 #import "IndivoContactInstantMessengerName.h"
 #import "IndivoDemographics.h"
+#import "IndivoProblem.h"
 

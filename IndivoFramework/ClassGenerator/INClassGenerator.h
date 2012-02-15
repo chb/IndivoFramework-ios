@@ -26,11 +26,17 @@ void runOnMainQueue(dispatch_block_t block);
  */
 @interface INClassGenerator : NSObject
 
+@property (nonatomic, assign) BOOL mayOverwriteExisting;						///< NO by default, if YES will overwrite existing classes
+
 @property (nonatomic, assign) NSUInteger numSchemasParsed;
 @property (nonatomic, assign) NSUInteger numClassesGenerated;
+@property (nonatomic, assign) NSUInteger numClassesSkipped;
+@property (nonatomic, assign) NSUInteger numClassesNotOverwritten;
 
 - (void)runFrom:(NSString *)inputPath into:(NSString *)outDirectory callback:(INCancelErrorBlock)aCallback;
 - (BOOL)runFile:(NSString *)path withMapping:(NSMutableDictionary *)mapping error:(NSError **)error;
+
+- (BOOL)ignoresType:(NSString *)typeName;
 
 + (NSString *)applySubstitutions:(NSDictionary *)substitutions toTemplate:(NSString *)aTemplate;
 + (NSString *)applyToHeaderTemplate:(NSDictionary *)substitutions;

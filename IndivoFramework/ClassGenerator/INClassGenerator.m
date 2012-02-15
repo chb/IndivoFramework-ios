@@ -51,7 +51,8 @@ void runOnMainQueue(dispatch_block_t block)
 
 @implementation INClassGenerator
 
-@synthesize numSchemasParsed, numClassesGenerated;
+@synthesize mayOverwriteExisting;
+@synthesize numSchemasParsed, numClassesGenerated, numClassesSkipped, numClassesNotOverwritten;
 @synthesize writeToDir, currentInputPath, typeStack;
 
 
@@ -119,6 +120,8 @@ void runOnMainQueue(dispatch_block_t block)
 	dispatch_async(aQueue, ^{
 		NSUInteger i = 0;
 		self.numClassesGenerated = 0;
+		self.numClassesSkipped = 0;
+		self.numClassesNotOverwritten = 0;
 		
 		// loop all XSDs
 		for (NSString *fileName in xsd) {
@@ -237,8 +240,15 @@ void runOnMainQueue(dispatch_block_t block)
 	NSString *className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, ucFirstName];
 	NSString *indivoTypeName = [NSString stringWithFormat:@"indivo:%@", name];
 	if (![mapping objectForKey:indivoTypeName]) {
+		if ([self ignoresType:indivoTypeName]) {
+			numClassesSkipped++;
+			className = [NSString stringWithFormat:@"<# Class %@ is on the ignore list #>", className];
+		}
+		else {
+			write = YES;
+		}
+		
 		[mapping setObject:className forKey:indivoTypeName];
-		write = YES;
 	}
 	else if (![className isEqualToString:[mapping objectForKey:indivoTypeName]]) {
 		//[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
@@ -451,6 +461,23 @@ void runOnMainQueue(dispatch_block_t block)
 		 properties:(NSArray *)properties
 			  error:(NSError **)error
 {
+	// already there?
+	NSString *headerPath = [writeToDir stringByAppendingFormat:@"/%@.h", className];
+	NSString *bodyPath = [writeToDir stringByAppendingFormat:@"/%@.m", className];
+	if (!mayOverwriteExisting) {
+		NSFileManager *fm = [NSFileManager defaultManager];
+		if ([fm fileExistsAtPath:headerPath]) {
+			headerPath = nil;
+		}
+		if ([fm fileExistsAtPath:bodyPath]) {
+			bodyPath = nil;
+		}
+		if (!headerPath && !bodyPath) {
+			numClassesNotOverwritten++;
+			return YES;
+		}
+	}
+	
 	// prepare date properties
 	NSDateFormatter *df = [NSDateFormatter new];
 	df.dateStyle = NSDateFormatterShortStyle;
@@ -545,26 +572,28 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// create header
-	NSString *header = [[self class] applyToHeaderTemplate:substitutions];
-	if (header) {
-		NSString *headerPath = [writeToDir stringByAppendingFormat:@"/%@.h", className];
-		NSURL *headerURL = [NSURL fileURLWithPath:headerPath];
-		
-		if (![header writeToURL:headerURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
-			[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", headerPath, [*error localizedDescription]]];
-			return NO;
+	if (headerPath) {
+		NSString *header = [[self class] applyToHeaderTemplate:substitutions];
+		if (header) {
+			NSURL *headerURL = [NSURL fileURLWithPath:headerPath];
+			
+			if (![header writeToURL:headerURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
+				[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", headerPath, [*error localizedDescription]]];
+				return NO;
+			}
 		}
 	}
 	
 	// create body (i.e. implementation)
-	NSString *body = [[self class] applyToBodyTemplate:substitutions];
-	if (body) {
-		NSString *bodyPath = [writeToDir stringByAppendingFormat:@"/%@.m", className];
-		NSURL *bodyURL = [NSURL fileURLWithPath:bodyPath];
-		
-		if (![body writeToURL:bodyURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
-			[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", bodyPath, [*error localizedDescription]]];
-			return NO;
+	if (bodyPath) {
+		NSString *body = [[self class] applyToBodyTemplate:substitutions];
+		if (body) {
+			NSURL *bodyURL = [NSURL fileURLWithPath:bodyPath];
+			
+			if (![body writeToURL:bodyURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
+				[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", bodyPath, [*error localizedDescription]]];
+				return NO;
+			}
 		}
 	}
 	
@@ -574,7 +603,21 @@ void runOnMainQueue(dispatch_block_t block)
 
 
 
-#pragma mark - Utilities
+#pragma mark - Properties
+- (BOOL)ignoresType:(NSString *)typeName
+{
+	static NSDictionary *ignoreDict = nil;
+	if (!ignoreDict) {
+		NSString *dictPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"Ignore" ofType:@"plist"];
+		ignoreDict = [[NSDictionary alloc] initWithContentsOfFile:dictPath];
+	}
+	
+	return (nil != [ignoreDict objectForKey:typeName]);
+}
+
+
+
+#pragma mark - Logging
 - (void)sendLog:(NSString *)aString
 {
 	runOnMainQueue(^{
@@ -583,6 +626,10 @@ void runOnMainQueue(dispatch_block_t block)
 		[[NSNotificationCenter defaultCenter] postNotificationName:INClassGeneratorDidProduceLogNotification object:nil userInfo:userInfo];
 	});
 }
+
+
+
+#pragma mark - Template
 
 
 static NSString *classGeneratorHeaderTemplate = nil;
