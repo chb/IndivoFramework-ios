@@ -28,19 +28,43 @@
 #import "IndivoDocument.h"
 #import "IndivoMetaDocument.h"
 #import "IndivoPrincipal.h"
+#import "IndivoProvider.h"
+#import "IndivoSignature.h"
+#import "IndivoDemographics.h"
+#import "IndivoEquipment.h"
+
+// Medication
 #import "IndivoMedication+Ext.h"
 #import "IndivoPrescription.h"
-#import "IndivoProvider.h"
+
+// Allergy
 #import "IndivoAllergy.h"
 #import "IndivoAllergyAllergen.h"
+
+// Immunization
 #import "IndivoImmunization.h"
 #import "IndivoImmunizationVaccine.h"
+
+// Labs
 #import "IndivoLab.h"
 #import "IndivoLabPanel.h"
+#import "IndivoLabTest.h"
+#import "IndivoSingleResultLabTest.h"
+#import "IndivoMicroWithCultureLabTest.h"
+#import "IndivoMicroWithCultureLabTestObservation.h"
+#import "IndivoMicroWithCultureLabTestResult.h"
+#import "IndivoMicroWithCultureLabTestResultSensitivity.h"
 #import "IndivoLabProvider.h"
 #import "IndivoLabReport.h"
-#import "IndivoLabTest.h"
-#import "IndivoEquipment.h"
+
+// Results & Ranges
+#import "IndivoResult.h"
+#import "IndivoResultInRange.h"
+#import "IndivoResultInSet.h"
+#import "IndivoResultInSetOption.h"
+#import "IndivoRange.h"
+
+// Contact Data
 #import "IndivoContact.h"
 #import "IndivoContactName.h"
 #import "IndivoContactAddress.h"
@@ -48,7 +72,9 @@
 #import "IndivoContactEmail.h"
 #import "IndivoContactPhoneNumber.h"
 #import "IndivoContactInstantMessengerName.h"
-#import "IndivoDemographics.h"
+
 #import "IndivoProblem.h"
 #import "IndivoVitalSign.h"
+#import "IndivoSimpleClinicalNote.h"
+
 

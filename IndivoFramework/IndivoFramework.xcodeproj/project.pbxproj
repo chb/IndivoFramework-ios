@@ -241,6 +241,14 @@
 		EEA88BC914EB2FCF00B7599D /* IndivoVitalSign.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */; };
 		EEA88BCB14EB2FEB00B7599D /* vitals.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BCA14EB2FEB00B7599D /* vitals.xml */; };
 		EEA88BCD14EB2FF100B7599D /* vitals.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BCC14EB2FF100B7599D /* vitals.xsd */; };
+		EEA88BD014EB315600B7599D /* IndivoSimpleClinicalNote.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88BCE14EB315200B7599D /* IndivoSimpleClinicalNote.h */; };
+		EEA88BD114EB315600B7599D /* IndivoSimpleClinicalNote.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BCF14EB315400B7599D /* IndivoSimpleClinicalNote.m */; };
+		EEA88BD214EB315600B7599D /* IndivoSimpleClinicalNote.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BCF14EB315400B7599D /* IndivoSimpleClinicalNote.m */; };
+		EEA88BD414EB31C500B7599D /* simplenote.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BD314EB31C500B7599D /* simplenote.xml */; };
+		EEA88BD614EB31CB00B7599D /* simplenote.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BD514EB31CA00B7599D /* simplenote.xsd */; };
+		EEA88BD914EB332300B7599D /* IndivoSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88BD714EB332000B7599D /* IndivoSignature.h */; };
+		EEA88BDA14EB332300B7599D /* IndivoSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BD814EB332200B7599D /* IndivoSignature.m */; };
+		EEA88BDB14EB332300B7599D /* IndivoSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BD814EB332200B7599D /* IndivoSignature.m */; };
 		EEAA502B14DB130B00FBFE66 /* IndivoResultInSetOption.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEAA502C14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
 		EEAA502D14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
@@ -486,6 +494,12 @@
 		EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoVitalSign.m; sourceTree = "<group>"; };
 		EEA88BCA14EB2FEB00B7599D /* vitals.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = vitals.xml; sourceTree = "<group>"; };
 		EEA88BCC14EB2FF100B7599D /* vitals.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = vitals.xsd; sourceTree = "<group>"; };
+		EEA88BCE14EB315200B7599D /* IndivoSimpleClinicalNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoSimpleClinicalNote.h; sourceTree = "<group>"; };
+		EEA88BCF14EB315400B7599D /* IndivoSimpleClinicalNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoSimpleClinicalNote.m; sourceTree = "<group>"; };
+		EEA88BD314EB31C500B7599D /* simplenote.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = simplenote.xml; sourceTree = "<group>"; };
+		EEA88BD514EB31CA00B7599D /* simplenote.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = simplenote.xsd; sourceTree = "<group>"; };
+		EEA88BD714EB332000B7599D /* IndivoSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoSignature.h; sourceTree = "<group>"; };
+		EEA88BD814EB332200B7599D /* IndivoSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoSignature.m; sourceTree = "<group>"; };
 		EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoResultInSetOption.h; sourceTree = "<group>"; };
 		EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoResultInSetOption.m; sourceTree = "<group>"; };
 		EEAA502E14DB144400FBFE66 /* INAnyURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAnyURI.h; sourceTree = "<group>"; };
@@ -613,6 +627,7 @@
 				EE423F6A14E17B600009771F /* demographics.xml */,
 				EEA88BC114EB293100B7599D /* problem.xml */,
 				EEA88BCA14EB2FEB00B7599D /* vitals.xml */,
+				EEA88BD314EB31C500B7599D /* simplenote.xml */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -632,6 +647,7 @@
 				EE09B5FE14D851AA00E99A67 /* provider.xsd */,
 				EE09B60014D851EA00E99A67 /* values.xsd */,
 				EEA88BCC14EB2FF100B7599D /* vitals.xsd */,
+				EEA88BD514EB31CA00B7599D /* simplenote.xsd */,
 			);
 			name = XSD;
 			sourceTree = "<group>";
@@ -982,6 +998,8 @@
 				EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */,
 				EECC233C14D7137F00B4FC30 /* IndivoProvider.h */,
 				EECC233D14D7137F00B4FC30 /* IndivoProvider.m */,
+				EEA88BD714EB332000B7599D /* IndivoSignature.h */,
+				EEA88BD814EB332200B7599D /* IndivoSignature.m */,
 				EE423F5E14E1785C0009771F /* IndivoDemographics.h */,
 				EE423F5F14E1785C0009771F /* IndivoDemographics.m */,
 				EEAA504614DB697E00FBFE66 /* IndivoEquipment.h */,
@@ -996,6 +1014,8 @@
 				EEA88BBD14EB290C00B7599D /* IndivoProblem.m */,
 				EEA88BC514EB2FCC00B7599D /* IndivoVitalSign.h */,
 				EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */,
+				EEA88BCE14EB315200B7599D /* IndivoSimpleClinicalNote.h */,
+				EEA88BCF14EB315400B7599D /* IndivoSimpleClinicalNote.m */,
 			);
 			name = "Generated Documents";
 			path = GeneratedClasses;
@@ -1167,6 +1187,8 @@
 				EEA88BB114EB24FC00B7599D /* IndivoMicroWithCultureLabTestResultSensitivity.h in Headers */,
 				EEA88BBE14EB290E00B7599D /* IndivoProblem.h in Headers */,
 				EEA88BC714EB2FCF00B7599D /* IndivoVitalSign.h in Headers */,
+				EEA88BD014EB315600B7599D /* IndivoSimpleClinicalNote.h in Headers */,
+				EEA88BD914EB332300B7599D /* IndivoSignature.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1279,6 +1301,8 @@
 				EEA88BC414EB293700B7599D /* problem.xsd in Resources */,
 				EEA88BCB14EB2FEB00B7599D /* vitals.xml in Resources */,
 				EEA88BCD14EB2FF100B7599D /* vitals.xsd in Resources */,
+				EEA88BD414EB31C500B7599D /* simplenote.xml in Resources */,
+				EEA88BD614EB31CB00B7599D /* simplenote.xsd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1404,6 +1428,8 @@
 				EEA88BB214EB24FC00B7599D /* IndivoMicroWithCultureLabTestResultSensitivity.m in Sources */,
 				EEA88BBF14EB290E00B7599D /* IndivoProblem.m in Sources */,
 				EEA88BC814EB2FCF00B7599D /* IndivoVitalSign.m in Sources */,
+				EEA88BD114EB315600B7599D /* IndivoSimpleClinicalNote.m in Sources */,
+				EEA88BDA14EB332300B7599D /* IndivoSignature.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,6 +1524,8 @@
 				EEA88BB314EB24FC00B7599D /* IndivoMicroWithCultureLabTestResultSensitivity.m in Sources */,
 				EEA88BC014EB290E00B7599D /* IndivoProblem.m in Sources */,
 				EEA88BC914EB2FCF00B7599D /* IndivoVitalSign.m in Sources */,
+				EEA88BD214EB315600B7599D /* IndivoSimpleClinicalNote.m in Sources */,
+				EEA88BDB14EB332300B7599D /* IndivoSignature.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

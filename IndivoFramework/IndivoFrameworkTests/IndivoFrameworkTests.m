@@ -292,6 +292,35 @@
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
 
+- (void)testClinicalNote
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"simplenote"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoSimpleClinicalNote *doc = [[IndivoSimpleClinicalNote alloc] initFromNode:node];
+	IndivoSignature *signature1 = [doc.signature objectAtIndex:0];
+	IndivoSignature *signature2 = [doc.signature objectAtIndex:1];
+	
+	STAssertNotNil(doc, @"Clinical Note Document");
+	STAssertEqualObjects(@"2010-02-03T13:12:00Z", [doc.finalizedAt isoString], @"finalized date");
+	STAssertEqualObjects(@"Kenneth Mandl", [signature1.provider.name string], @"signature 1 name");
+	STAssertEqualObjects(@"2010-02-03T13:12:00Z", [signature1.at isoString], @"signature 1 date");
+	STAssertEqualObjects(@"Isaac Kohane", [signature2.provider.name string], @"signature 2 name");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"simplenote" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	
+	doc.dateOfVisit = nil;
+	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
+	
+	doc.dateOfVisit = [INDateTime now];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
+
 
 /**
  *	Speed testing XML generation on the lab fixture XML.

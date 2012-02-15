@@ -30,9 +30,9 @@
 
 @property (nonatomic, strong) NSDate *date;
 
-+ (INDate *)now;
-+ (INDate *)dateWithDate:(NSDate *)aDate;
-+ (INDate *)dateFromISOString:(NSString *)dateString;
++ (id)now;
++ (id)dateWithDate:(NSDate *)aDate;
++ (id)dateFromISOString:(NSString *)dateString;
 
 + (NSString *)isoStringFrom:(NSDate *)aDate;
 + (NSDate *)parseDateFromISOString:(NSString *)dateString;
