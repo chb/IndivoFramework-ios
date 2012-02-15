@@ -1,5 +1,5 @@
 /*
- IndivoMedication.m
+ IndivoMedication+Report.m
  IndivoFramework
  
  Created by Pascal Pfiffner on 9/26/11.
@@ -20,7 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoMedication+Ext.h"
+#import "IndivoMedication+Report.h"
 #import "IndivoRecord.h"
 #import "INXMLNode.h"
 #import "INObjects.h"
@@ -29,7 +29,7 @@
 #import "INXMLParser.h"
 #import "IndivoConfig.h"
 
-@implementation IndivoMedication (Utils)
+@implementation IndivoMedication (Report)
 
 
 #pragma mark - Convenience Methods

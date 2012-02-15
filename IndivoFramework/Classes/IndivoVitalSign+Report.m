@@ -1,9 +1,9 @@
 /*
- IndivoMedication.h
+ IndivoVitalSign+Report.m
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Pascal Pfiffner on 2/15/12.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,15 +20,24 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoMedication.h"
+#import "IndivoVitalSign+Report.h"
 
 
-@interface IndivoMedication (Utils)
+@implementation IndivoVitalSign (Report)
 
-- (NSString *)displayName;
 
-- (UIImage *)pillImage;
-- (void)loadPillImageBypassingCache:(BOOL)bypass callback:(INCancelErrorBlock)callback;
++ (NSString *)reportType
+{
+	return @"vitals";
+}
+
++ (NSString *)reportTypeOfCategory:(NSString *)aCategory
+{
+	if ([aCategory length] > 0) {
+		return [NSString stringWithFormat:@"%@/%@", [self reportType], aCategory];
+	}
+	return [self reportType];
+}
 
 
 @end

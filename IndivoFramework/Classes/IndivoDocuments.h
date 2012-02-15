@@ -31,29 +31,29 @@
 #import "IndivoProvider.h"
 #import "IndivoSignature.h"
 #import "IndivoDemographics.h"
-#import "IndivoEquipment.h"
+#import "IndivoEquipment+Report.h"
 #import "IndivoSchoolForm.h"
 
 // Medication
-#import "IndivoMedication+Ext.h"
+#import "IndivoMedication+Report.h"
 #import "IndivoPrescription.h"
 
 // Allergy
-#import "IndivoAllergy.h"
+#import "IndivoAllergy+Report.h"
 #import "IndivoAllergyAllergen.h"
 
 // Immunization
-#import "IndivoImmunization.h"
+#import "IndivoImmunization+Report.h"
 #import "IndivoImmunizationVaccine.h"
 
 // Clinical
-#import "IndivoProblem.h"
-#import "IndivoVitalSign.h"
-#import "IndivoSimpleClinicalNote.h"
-#import "IndivoProcedure.h"
+#import "IndivoProblem+Report.h"
+#import "IndivoVitalSign+Report.h"
+#import "IndivoSimpleClinicalNote+Report.h"
+#import "IndivoProcedure+Report.h"
 
 // Labs
-#import "IndivoLab.h"
+#import "IndivoLab+Report.h"
 #import "IndivoLabPanel.h"
 #import "IndivoLabTest.h"
 #import "IndivoSingleResultLabTest.h"
