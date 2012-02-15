@@ -18,11 +18,23 @@
 	<true/>
 	<key>indivo:DocumentSuppressed</key>
 	<true/>
+	<key>indivo:Relation</key>
+	<true/>
+	<key>indivo:Report</key>
+	<true/>
+	<key>indivo:Reports</key>
+	<true/>
 	<key>indivo:ReportItem</key>
 	<true/>
 	<key>indivo:ReportMeta</key>
 	<true/>
+	<key>indivo:AggregateReport</key>
+	<true/>
 	<key>indivo:IndivoMessages</key>
+	<true/>
+	<key>indivo:Annotation</key>
+	<true/>
+	<key>indivo:AsthmaActionPlan</key>
 	<true/>
 </dict>
 </plist>

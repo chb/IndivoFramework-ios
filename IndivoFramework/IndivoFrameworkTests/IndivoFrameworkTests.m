@@ -320,6 +320,31 @@
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
 
+- (void)testProcedure
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"procedure"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoProcedure *doc = [[IndivoProcedure alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Clinical Procedure Document");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.datePerformed isoString], @"performed date");
+	STAssertEqualObjects(@"Kenneth Mandl", [doc.provider.name string], @"provider name");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"procedure" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	
+	doc.name = nil;
+	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
+	
+	doc.name = [INCodedValue new];
+	doc.name.text = @"Appendectomy";
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
 
 
 /**

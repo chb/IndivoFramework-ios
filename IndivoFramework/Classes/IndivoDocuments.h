@@ -45,6 +45,12 @@
 #import "IndivoImmunization.h"
 #import "IndivoImmunizationVaccine.h"
 
+// Clinical
+#import "IndivoProblem.h"
+#import "IndivoVitalSign.h"
+#import "IndivoSimpleClinicalNote.h"
+#import "IndivoProcedure.h"
+
 // Labs
 #import "IndivoLab.h"
 #import "IndivoLabPanel.h"
@@ -72,9 +78,5 @@
 #import "IndivoContactEmail.h"
 #import "IndivoContactPhoneNumber.h"
 #import "IndivoContactInstantMessengerName.h"
-
-#import "IndivoProblem.h"
-#import "IndivoVitalSign.h"
-#import "IndivoSimpleClinicalNote.h"
 
 
