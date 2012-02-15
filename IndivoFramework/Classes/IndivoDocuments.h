@@ -32,6 +32,7 @@
 #import "IndivoSignature.h"
 #import "IndivoDemographics.h"
 #import "IndivoEquipment.h"
+#import "IndivoSchoolForm.h"
 
 // Medication
 #import "IndivoMedication+Ext.h"

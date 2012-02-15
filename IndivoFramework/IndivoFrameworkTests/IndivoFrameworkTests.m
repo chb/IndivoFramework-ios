@@ -345,6 +345,29 @@
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
 
+- (void)testSchoolForm
+{
+	NSError *error = nil;
+	
+    // test creation (no fixture for now)
+	IndivoSchoolForm *doc = [IndivoSchoolForm new];
+	doc.date = [INDateTime now];
+	doc.notes = [INString newWithString:@"A note"];
+	
+	STAssertNotNil(doc, @"School Form Document");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"schoolform" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	
+	doc.notes = nil;
+	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
+	
+	doc.notes = [INString newWithString:@"My school note"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
+
 
 
 /**

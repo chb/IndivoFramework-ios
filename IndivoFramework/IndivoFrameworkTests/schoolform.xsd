@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://indivo.org/vocab/xml/documents#"
+	xmlns:indivo="http://indivo.org/vocab/xml/documents#"
+	elementFormDefault="qualified">
+
+  <element name="SchoolForm">
+    <complexType>
+      <sequence>
+        <element name="date" type="dateTime" minOccurs="1" maxOccurs="1" />
+        <element name="notes" type="string" minOccurs="1" maxOccurs="1" />
+	<!-- the actual school form is in an attached document -->
+      </sequence>
+    </complexType>
+  </element>
+</schema>
