@@ -268,6 +268,30 @@
 	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
 }
 
+- (void)testVitalSign
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [self readFixture:@"vitals"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoVitalSign *doc = [[IndivoVitalSign alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"VitalSign Document");
+	STAssertEqualObjects(@"2009-05-16T15:23:21Z", [doc.dateMeasured isoString], @"measured date");
+	STAssertEqualObjects(@"Blood Pressure Systolic", doc.name.text, @"name string");
+	STAssertEqualObjects(@"BPsys", doc.name.abbrev, @"name abbrev");
+	STAssertEqualObjects(@"sitting down", doc.position.string, @"position");
+	
+	// test value changes
+	doc.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.dateMeasured isoString], @"New measured date");
+	
+	// validate
+	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"vitals" ofType:@"xsd"];
+	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+}
+
 
 /**
  *	Speed testing XML generation on the lab fixture XML.

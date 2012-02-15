@@ -50,4 +50,5 @@
 #import "IndivoContactInstantMessengerName.h"
 #import "IndivoDemographics.h"
 #import "IndivoProblem.h"
+#import "IndivoVitalSign.h"
 

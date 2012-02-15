@@ -236,6 +236,11 @@
 		EEA88BC014EB290E00B7599D /* IndivoProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BBD14EB290C00B7599D /* IndivoProblem.m */; };
 		EEA88BC214EB293100B7599D /* problem.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BC114EB293100B7599D /* problem.xml */; };
 		EEA88BC414EB293700B7599D /* problem.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BC314EB293700B7599D /* problem.xsd */; };
+		EEA88BC714EB2FCF00B7599D /* IndivoVitalSign.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88BC514EB2FCC00B7599D /* IndivoVitalSign.h */; };
+		EEA88BC814EB2FCF00B7599D /* IndivoVitalSign.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */; };
+		EEA88BC914EB2FCF00B7599D /* IndivoVitalSign.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */; };
+		EEA88BCB14EB2FEB00B7599D /* vitals.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BCA14EB2FEB00B7599D /* vitals.xml */; };
+		EEA88BCD14EB2FF100B7599D /* vitals.xsd in Resources */ = {isa = PBXBuildFile; fileRef = EEA88BCC14EB2FF100B7599D /* vitals.xsd */; };
 		EEAA502B14DB130B00FBFE66 /* IndivoResultInSetOption.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEAA502C14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
 		EEAA502D14DB130B00FBFE66 /* IndivoResultInSetOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */; };
@@ -477,6 +482,10 @@
 		EEA88BBD14EB290C00B7599D /* IndivoProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoProblem.m; sourceTree = "<group>"; };
 		EEA88BC114EB293100B7599D /* problem.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = problem.xml; sourceTree = "<group>"; };
 		EEA88BC314EB293700B7599D /* problem.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = problem.xsd; sourceTree = "<group>"; };
+		EEA88BC514EB2FCC00B7599D /* IndivoVitalSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoVitalSign.h; sourceTree = "<group>"; };
+		EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoVitalSign.m; sourceTree = "<group>"; };
+		EEA88BCA14EB2FEB00B7599D /* vitals.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = vitals.xml; sourceTree = "<group>"; };
+		EEA88BCC14EB2FF100B7599D /* vitals.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = vitals.xsd; sourceTree = "<group>"; };
 		EEAA502914DB130B00FBFE66 /* IndivoResultInSetOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoResultInSetOption.h; sourceTree = "<group>"; };
 		EEAA502A14DB130B00FBFE66 /* IndivoResultInSetOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoResultInSetOption.m; sourceTree = "<group>"; };
 		EEAA502E14DB144400FBFE66 /* INAnyURI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAnyURI.h; sourceTree = "<group>"; };
@@ -603,6 +612,7 @@
 				EE423F6614E17B470009771F /* contact.xml */,
 				EE423F6A14E17B600009771F /* demographics.xml */,
 				EEA88BC114EB293100B7599D /* problem.xml */,
+				EEA88BCA14EB2FEB00B7599D /* vitals.xml */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -621,6 +631,7 @@
 				EE09B5FB14D8517600E99A67 /* codes.xsd */,
 				EE09B5FE14D851AA00E99A67 /* provider.xsd */,
 				EE09B60014D851EA00E99A67 /* values.xsd */,
+				EEA88BCC14EB2FF100B7599D /* vitals.xsd */,
 			);
 			name = XSD;
 			sourceTree = "<group>";
@@ -983,6 +994,8 @@
 				EEA88BB714EB261A00B7599D /* Contact Data */,
 				EEA88BBC14EB290B00B7599D /* IndivoProblem.h */,
 				EEA88BBD14EB290C00B7599D /* IndivoProblem.m */,
+				EEA88BC514EB2FCC00B7599D /* IndivoVitalSign.h */,
+				EEA88BC614EB2FCE00B7599D /* IndivoVitalSign.m */,
 			);
 			name = "Generated Documents";
 			path = GeneratedClasses;
@@ -1153,6 +1166,7 @@
 				EEA88BAE14EB24FC00B7599D /* IndivoMicroWithCultureLabTestResult.h in Headers */,
 				EEA88BB114EB24FC00B7599D /* IndivoMicroWithCultureLabTestResultSensitivity.h in Headers */,
 				EEA88BBE14EB290E00B7599D /* IndivoProblem.h in Headers */,
+				EEA88BC714EB2FCF00B7599D /* IndivoVitalSign.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1277,8 @@
 				EEA88B9F14EB22E900B7599D /* immunization.xsd in Resources */,
 				EEA88BC214EB293100B7599D /* problem.xml in Resources */,
 				EEA88BC414EB293700B7599D /* problem.xsd in Resources */,
+				EEA88BCB14EB2FEB00B7599D /* vitals.xml in Resources */,
+				EEA88BCD14EB2FF100B7599D /* vitals.xsd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1387,6 +1403,7 @@
 				EEA88BAF14EB24FC00B7599D /* IndivoMicroWithCultureLabTestResult.m in Sources */,
 				EEA88BB214EB24FC00B7599D /* IndivoMicroWithCultureLabTestResultSensitivity.m in Sources */,
 				EEA88BBF14EB290E00B7599D /* IndivoProblem.m in Sources */,
+				EEA88BC814EB2FCF00B7599D /* IndivoVitalSign.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1480,6 +1497,7 @@
 				EEA88BB014EB24FC00B7599D /* IndivoMicroWithCultureLabTestResult.m in Sources */,
 				EEA88BB314EB24FC00B7599D /* IndivoMicroWithCultureLabTestResultSensitivity.m in Sources */,
 				EEA88BC014EB290E00B7599D /* IndivoProblem.m in Sources */,
+				EEA88BC914EB2FCF00B7599D /* IndivoVitalSign.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
