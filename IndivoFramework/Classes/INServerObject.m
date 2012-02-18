@@ -26,7 +26,7 @@
 
 @interface INServerObject ()
 
-@property (nonatomic, readwrite, assign) BOOL *onServer;
+@property (nonatomic, readwrite, assign) BOOL onServer;
 
 @end
 

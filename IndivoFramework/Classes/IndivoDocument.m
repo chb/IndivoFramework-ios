@@ -138,13 +138,9 @@
 			 else {
 				 DLog(@"Not good, have udid %@ but fetched %@", this.uuid, [xmlNode attr:@"id"]);
 			 }
-			 if (callback) {
-				 callback(NO, nil);
-			 }
 		 }
-		 else {
-			 CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
-		 }
+		 
+		 CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, success, userInfo)
 	 }];
 }
 
@@ -173,14 +169,12 @@
 					  [self updateWithMeta:metaDoc];
 				  }
 				  
-				  if (callback) {
-					  callback(NO, nil);
-				  }
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
 				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 			  }
 			  else {
 				  DLog(@"FAILED: %@", xml);
-				  CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			  }
 		  }];
 	}
@@ -205,7 +199,6 @@
 		[self post:updatePath
 			  body:xml
 		  callback:^(BOOL success, NSDictionary *userInfo) {
-			  DLog(@"%@", [userInfo objectForKey:INResponseStringKey]);
 			  if (success) {
 				  
 				  // success, update values from meta
@@ -215,14 +208,12 @@
 					  [self updateWithMeta:metaDoc];
 				  }
 				  
-				  if (callback) {
-					  callback(NO, nil);
-				  }
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
 				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(this.record)
 			  }
 			  else {
 				  DLog(@"FAILED: %@", xml);
-				  CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			  }
 		  }];
 	}
@@ -237,13 +228,11 @@
 	[self put:labelPath body:aLabel callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.label = aLabel;
-			if (callback) {
-				callback(NO, nil);
-			}
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
-			CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 		}
 	}];
 }
@@ -262,13 +251,11 @@
 	[self post:statusPath parameters:params callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.status = flag ? INDocumentStatusVoid : INDocumentStatusActive;
-			if (callback) {
-				callback(NO, nil);
-			}
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
-			CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 		}
 	}];
 }
@@ -291,13 +278,11 @@
 	[self post:statusPath parameters:params callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.status = flag ? INDocumentStatusArchived : INDocumentStatusActive;
-			if (callback) {
-				callback(NO, nil);
-			}
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
-			CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 		}
 	}];
 }

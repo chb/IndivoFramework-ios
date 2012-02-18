@@ -269,11 +269,9 @@
 {
 	self.oauth = nil;
 	
-	// send callback
-	if (myCallback) {
-		myCallback(success, returnObject);
-		self.myCallback = nil;
-	}
+	// send callback and inform the server
+	SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(myCallback, success, returnObject);
+	self.myCallback = nil;
 	
 	// inform the server
 	[server callDidFinish:self];

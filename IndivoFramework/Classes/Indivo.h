@@ -127,13 +127,13 @@ NSString* messageTypeStringFor(INMessageType type);
 	}
 
 /// Make callback or logging easy
-#ifndef CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO
-# define CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(cb, userInfo)\
+#ifndef CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO
+# define CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(cb, success, userInfo)\
 	NSError *error = [userInfo objectForKey:INErrorKey];\
 	if (cb) {\
-		cb((nil == error), [error localizedDescription]);\
+		cb(success, [error localizedDescription]);\
 	}\
-	else if (error) {\
+	else if (!success) {\
 		DLog(@"No callback on this method, logging to debug. Error: %@", [error localizedDescription]);\
 	}
 #endif
@@ -147,11 +147,11 @@ NSString* messageTypeStringFor(INMessageType type);
 	}
 #endif
 #ifndef SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO
-# define SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(cb, userInfo)\
+# define SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(cb, success, userInfo)\
 	if (cb) {\
-		cb(nil == [userInfo objectForKey:INErrorKey], userInfo);\
+		cb(success, userInfo);\
 	}\
-	else if ([userInfo objectForKey:INErrorKey]) {\
+	else if (!success) {\
 		DLog(@"No callback on this method, logging to debug. Result: %@", [[userInfo objectForKey:INErrorKey] localizedDescription]);\
 	}
 #endif

@@ -203,7 +203,7 @@
 	// fetch active
 	[self fetchReportsOfClass:documentClass withStatus:INDocumentStatusActive callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (!success) {
-			SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, userInfo);
+			SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo);
 			return;
 		}
 		[reports addObjectsFromArray:[userInfo objectForKey:INResponseArrayKey]];
@@ -211,7 +211,7 @@
 		// fetch archived
 		[self fetchReportsOfClass:documentClass withStatus:INDocumentStatusArchived callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 			if (!success) {
-				SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, userInfo);
+				SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo);
 				return;
 			}
 			[reports addObjectsFromArray:[userInfo objectForKey:INResponseArrayKey]];
@@ -222,7 +222,7 @@
 				NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionaryWithDictionary:userInfo];
 				[newUserInfo setObject:reports forKey:INResponseArrayKey];
 				
-				SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, newUserInfo);
+				SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, newUserInfo);
 			}];
 		}];
 	}];
@@ -247,6 +247,7 @@
 	[self get:path
    parameters:params
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 NSDictionary *usrIfo = nil;
 		 
 		 // fetched successfully...
 		 if (success) {
@@ -264,14 +265,10 @@
 				 }
 			 }
 			 
-			 NSDictionary *usrIfo = [NSDictionary dictionaryWithObject:reportArr forKey:INResponseArrayKey];
-			 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, usrIfo)
+			 usrIfo = [NSDictionary dictionaryWithObject:reportArr forKey:INResponseArrayKey];
 		 }
 		 
-		 // failed to fetch (or cancelled)
-		 else {
-			 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, userInfo)
-		 }
+		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
 	 }];
 }
 

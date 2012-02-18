@@ -280,7 +280,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 				this.loginVC = nil;
 			}
 			
-			CANCEL_ERROR_CALLBACK_OR_LOG_FROM_USER_INFO(callback, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 		}
 	};
 	

@@ -23,6 +23,8 @@
 #import <Foundation/Foundation.h>
 #import "Indivo.h"
 
+#define kINURLLoaderDefaultTimeoutInterval 60.0								///< timeout interval in seconds
+
 
 /**
  *	This class simplifies loading data from a URL

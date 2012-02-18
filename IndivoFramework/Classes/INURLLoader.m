@@ -32,9 +32,12 @@
 
 @property (nonatomic, strong) NSURLConnection *currentConnection;
 @property (nonatomic, strong) NSURLResponse *currentResponse;
+@property (nonatomic, assign) NSTimeInterval timeoutInterval;
+@property (nonatomic, strong) NSTimer *timeout;
 
 - (void)prepareWithCallback:(INCancelErrorBlock)aCallback;
-- (void)didFinishWithError:(NSError *)anError;
+- (void)didFinishWithError:(NSError *)anError wasCancelled:(BOOL)didCancel;
+- (void)didTimeout:(NSTimer *)timer;
 
 @end
 
@@ -43,7 +46,7 @@
 
 @synthesize url, callback, loadingCache;
 @synthesize responseData, responseString, responseStatus;
-@synthesize currentConnection, currentResponse;
+@synthesize currentConnection, currentResponse, timeoutInterval, timeout;
 @synthesize expectBinaryData;
 
 
@@ -74,6 +77,8 @@
 	self.currentConnection = nil;
 	self.currentResponse = nil;
 	self.callback = aCallback;
+	[timeout invalidate];
+	self.timeout = nil;
 	self.loadingCache = [NSMutableData data];
 }
 
@@ -87,7 +92,9 @@
 		return;
 	}
 	
-	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+	[request setTimeoutInterval:kINURLLoaderDefaultTimeoutInterval];
+	
 	[self performRequest:request withCallback:aCallback];
 }
 
@@ -104,12 +111,13 @@
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 	request.HTTPMethod = @"POST";
 	request.HTTPBody = [postBody dataUsingEncoding:NSUTF8StringEncoding];			/// @todo Should we URL encode this?
+	[request setTimeoutInterval:kINURLLoaderDefaultTimeoutInterval];
 	
 	[self performRequest:request withCallback:aCallback];
 }
 
 /**
- *	Perform an NSURLRequest asynchronically. This method is also internally used as the endpoint of all convenience methods
+ *	Perform an NSURLRequest asynchronically. This method is internally used as the endpoint of all convenience methods, all load operations start here.
  */
 - (void)performRequest:(NSURLRequest *)aRequest withCallback:(INCancelErrorBlock)aCallback
 {
@@ -121,7 +129,11 @@
 		}
 	}
 	
+	// prepare and set a timeout timer manually
 	[self prepareWithCallback:aCallback];
+	self.timeoutInterval = fmin(kINURLLoaderDefaultTimeoutInterval, aRequest.timeoutInterval);
+	self.timeout = [NSTimer scheduledTimerWithTimeInterval:timeoutInterval target:self selector:@selector(didTimeout:) userInfo:nil repeats:NO];
+	
 	self.currentConnection = [NSURLConnection connectionWithRequest:aRequest delegate:self];
 }
 
@@ -129,8 +141,12 @@
 /**
  *	This finishing method creates an NSString from any loaded data and calls the callback, if one was given
  */
-- (void)didFinishWithError:(NSError *)anError
+- (void)didFinishWithError:(NSError *)anError wasCancelled:(BOOL)didCancel
 {
+	[timeout invalidate];
+	self.timeout = nil;
+	
+	// extract response
 	if ([loadingCache length] > 0) {
 		if ([currentResponse isKindOfClass:[NSHTTPURLResponse class]]) {
 			self.responseStatus = [(NSHTTPURLResponse *)currentResponse statusCode];
@@ -144,11 +160,22 @@
 		}
 	}
 	
-	if (callback) {
-		callback(NO, [anError localizedDescription]);
-		self.callback = nil;
-	}
+	// finish up
+	CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, didCancel, [anError localizedDescription]);
+	self.callback = nil;
 	self.currentConnection = nil;
+}
+
+
+/**
+ *	Our timer calls this method when the time is up
+ */
+- (void)didTimeout:(NSTimer *)timer
+{
+	[self.currentConnection cancel];
+	self.loadingCache = nil;
+	
+	[self didFinishWithError:nil wasCancelled:YES];
 }
 
 
@@ -157,13 +184,7 @@
  */
 - (void)cancel
 {
-	[self.currentConnection cancel];
-	
-	if (callback) {
-		callback(YES, nil);
-		self.callback = nil;
-	}
-	self.currentConnection = nil;
+	[self didTimeout:nil];
 }
 
 
@@ -181,7 +202,7 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	[self didFinishWithError:nil];
+	[self didFinishWithError:nil wasCancelled:NO];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -190,7 +211,7 @@
 		error = nil;
 		ERR(&error, @"Unknown Error", 0);
 	}
-	[self didFinishWithError:error];
+	[self didFinishWithError:error wasCancelled:NO];
 }
 
 
