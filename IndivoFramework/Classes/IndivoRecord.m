@@ -199,7 +199,6 @@
 - (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback
 {
 	[self get:[NSString stringWithFormat:@"/records/%@/documents/", self.uuid]
-   parameters:nil
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		 NSDictionary *usrIfo = nil;
 		 

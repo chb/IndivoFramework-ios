@@ -146,7 +146,7 @@
 
 
 
-#pragma mark - Updating documents
+#pragma mark - Document Actions
 /**
  *	This method puts a new document on the server.
  *	@attention If you have assigned a udid yourself already, this udid will change.
@@ -285,6 +285,40 @@
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 		}
 	}];
+}
+
+
+/**
+ *	Fetch the document's version history.
+ *	Upon success, the userInfo dictionary will contain an array of IndivoMetaDocument objects for the INResponesArrayKey key.
+ *	@param callback An INCancelErrorBlock callback
+ */
+- (void)fetchVersionsWithCallback:(INSuccessRetvalueBlock)callback
+{
+	NSString *path = [[self documentPath] stringByAppendingString:@"/versions/"];		// cannot use path component method as this strips the trailing shlash
+	[self get:path
+	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 NSDictionary *usrIfo = nil;
+		 
+		 // fetched successfully...
+		 if (success) {
+			 INXMLNode *documentsNode = [userInfo objectForKey:INResponseXMLKey];
+			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
+			 
+			 // create documents
+			 NSMutableArray *metaArr = [NSMutableArray arrayWithCapacity:[docs count]];
+			 for (INXMLNode *document in docs) {
+				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:document forRecord:self.record];
+				 if (meta) {
+					 [metaArr addObject:meta];
+				 }
+			 }
+			 
+			 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
+		 }
+		 
+		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
+	 }];
 }
 
 
