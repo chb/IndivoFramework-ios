@@ -48,7 +48,7 @@
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback;
 
 // record documens
-- (void)fetchDocuments:(INSuccessRetvalueBlock)callback;
+- (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback;
 - (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error;
 
 // record reports

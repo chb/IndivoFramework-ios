@@ -196,7 +196,7 @@
  *	Fetch all documents of the receiver
  *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain meta-documents for this record's documents.
  */
-- (void)fetchDocuments:(INSuccessRetvalueBlock)callback
+- (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback
 {
 	[self get:[NSString stringWithFormat:@"/records/%@/documents/", self.uuid]
    parameters:nil
@@ -222,6 +222,47 @@
 		 
 		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
 	 }];
+}
+
+/**
+ *	Instantiates a document of given class and adds it to our documents cache.
+ *	@param documentClass Must be a subclass of IndivoDocument
+ *	@param error An error pointer
+ *	@return A newly instantiated object of the desired class
+ */
+- (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error
+{
+	if (!documentClass || ![documentClass isSubclassOfClass:[IndivoDocument class]]) {
+		NSString *errStr = [NSString stringWithFormat:@"Invalid Class to add, must be a subclass of IndivoDocument. Class given: %@", NSStringFromClass(documentClass)];
+		ERR(error, errStr, 10);
+		return nil;
+	}
+	
+	// instantiate
+	IndivoDocument *newDocument = [documentClass newWithRecord:self];
+	if (!newDocument) {
+		NSString *errStr = [NSString stringWithFormat:@"Failed to instantiate %@", NSStringFromClass(documentClass)];
+		ERR(error, errStr, 11);
+		return nil;
+	}
+	
+	// pre-populate non-nil properties
+	for (NSString *propName in [[newDocument class] nonNilPropertyNames]) {
+		Class propClass = [[newDocument class] classForProperty:propName];
+		id propObj = [propClass new];
+		if (propObj) {
+			[newDocument setValue:propObj forKey:propName];
+		}
+	}
+	
+	// store and return
+	if (!documents) {
+		self.documents = [NSMutableArray arrayWithObject:newDocument];
+	}
+	else {
+		[documents addObject:newDocument];
+	}
+	return newDocument;
 }
 
 
@@ -314,47 +355,6 @@
 // GET /records/{record_id}/documents/types/{type}/
 // GET /records/{record_id}/documents/?type={type_url}
 
-
-/**
- *	Instantiates a document of given class and adds it to our documents cache.
- *	@param documentClass Must be a subclass of IndivoDocument
- *	@param error An error pointer
- *	@return A newly instantiated object of the desired class
- */
-- (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error
-{
-	if (!documentClass || ![documentClass isSubclassOfClass:[IndivoDocument class]]) {
-		NSString *errStr = [NSString stringWithFormat:@"Invalid Class to add, must be a subclass of IndivoDocument. Class given: %@", NSStringFromClass(documentClass)];
-		ERR(error, errStr, 10);
-		return nil;
-	}
-	
-	// instantiate
-	IndivoDocument *newDocument = [documentClass newWithRecord:self];
-	if (!newDocument) {
-		NSString *errStr = [NSString stringWithFormat:@"Failed to instantiate %@", NSStringFromClass(documentClass)];
-		ERR(error, errStr, 11);
-		return nil;
-	}
-	
-	// pre-populate non-nil properties
-	for (NSString *propName in [[newDocument class] nonNilPropertyNames]) {
-		Class propClass = [[newDocument class] classForProperty:propName];
-		id propObj = [propClass new];
-		if (propObj) {
-			[newDocument setValue:propObj forKey:propName];
-		}
-	}
-	
-	// store and return
-	if (!documents) {
-		self.documents = [NSMutableArray arrayWithObject:newDocument];
-	}
-	else {
-		[documents addObject:newDocument];
-	}
-	return newDocument;
-}
 
 
 
