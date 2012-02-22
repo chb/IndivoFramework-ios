@@ -2,7 +2,7 @@
  IndivoContact.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -31,9 +31,9 @@
  */
 @interface IndivoContact : IndivoDocument
 
-@property (nonatomic, strong) IndivoContactName *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) NSArray *email;					///< An array containing IndivoContactEmail objects. Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) NSArray *address;					///< An array containing IndivoContactAddress objects. Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) IndivoContactName *name;					///< minOccurs = 1
+@property (nonatomic, strong) NSArray *email;					///< An array containing IndivoContactEmail objects. (minOccurs = 1)
+@property (nonatomic, strong) NSArray *address;					///< An array containing IndivoContactAddress objects. (minOccurs = 1)
 @property (nonatomic, strong) NSArray *location;					///< An array containing IndivoContactLocation objects
 @property (nonatomic, strong) NSArray *phoneNumber;					///< An array containing IndivoContactPhoneNumber objects
 @property (nonatomic, strong) NSArray *instantMessengerName;					///< An array containing IndivoContactInstantMessengerName objects

@@ -31,7 +31,7 @@
  */
 @protocol IndivoLoginViewControllerDelegate <NSObject>
 
-- (void)loginView:(IndivoLoginViewController *)aLoginController didSelectRecordId:(NSString *)recordId label:(NSString *)recordLabel;		///< Called when a record was selected
+- (void)loginView:(IndivoLoginViewController *)aLoginController didSelectRecordId:(NSString *)recordId;			///< Called when a record was selected
 - (void)loginView:(IndivoLoginViewController *)aLoginController didReceiveVerifier:(NSString *)aVerifier;		///< Called when the login screen gets called with our verifier callback URL
 - (void)loginViewDidCancel:(IndivoLoginViewController *)aLoginController;										///< The user dismissed the login screen without loggin in successfully
 - (void)loginViewDidLogout:(IndivoLoginViewController *)aLoginController;										///< If the user logged out, we want to discard cached data

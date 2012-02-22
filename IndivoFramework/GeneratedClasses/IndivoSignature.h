@@ -2,7 +2,7 @@
  IndivoSignature.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@
 @interface IndivoSignature : IndivoDocument
 
 @property (nonatomic, strong) INDateTime *at;
-@property (nonatomic, strong) IndivoProvider *provider;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) IndivoProvider *provider;					///< minOccurs = 1
 
 
 @end

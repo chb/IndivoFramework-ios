@@ -44,8 +44,6 @@
 @property (nonatomic, strong) IndivoLoginViewController *loginVC;				///< A handle to the currently shown login view controller
 @property (nonatomic, readwrite, copy) NSString *lastOAuthVerifier;
 
-@property (nonatomic, readwrite, strong) IndivoWebApp *webApp;
-
 - (void)_presentLoginScreenAtURL:(NSURL *)loginURL;
 
 - (MPOAuthAPI *)getOAuthOutError:(NSError * __autoreleasing *)error;
@@ -72,7 +70,6 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 @synthesize oauth, callQueue, currentCall, recSelectCall;
 @synthesize loginVC, lastOAuthVerifier;
 @synthesize consumerKey, consumerSecret, storeCredentials;
-@synthesize webApp;
 
 
 
@@ -257,7 +254,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 				this.activeRecord.accessTokenSecret = [userInfo objectForKey:@"oauth_token_secret"];
 			}
 			
-			// fetch the contact document
+			// fetch the contact document to get the record label
 			[this.activeRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 				if (this.loginVC) {
 					[this.loginVC dismissAnimated:YES];
@@ -328,7 +325,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 /**
  *	Called when the user selected a record
  */
-- (void)loginView:(IndivoLoginViewController *)aLoginController didSelectRecordId:(NSString *)recordId label:(NSString *)recordLabel
+- (void)loginView:(IndivoLoginViewController *)aLoginController didSelectRecordId:(NSString *)recordId
 {
 	NSError *error = nil;
 	
@@ -347,7 +344,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		
 		// instantiate new record
 		else {
-			selectedRecord = [[IndivoRecord alloc] initWithId:recordId name:recordLabel onServer:self];
+			selectedRecord = [[IndivoRecord alloc] initWithId:recordId onServer:self];
 			if (!knownRecords) {
 				self.knownRecords = [NSMutableArray array];
 			}

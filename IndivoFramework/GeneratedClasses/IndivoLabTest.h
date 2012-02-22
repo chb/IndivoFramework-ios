@@ -2,7 +2,7 @@
  IndivoLabTest.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -31,9 +31,9 @@
  */
 @interface IndivoLabTest : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *dateMeasured;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INCodedValue *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INBool *final;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INDateTime *dateMeasured;					///< minOccurs = 1
+@property (nonatomic, strong) INCodedValue *name;					///< minOccurs = 1
+@property (nonatomic, strong) INBool *final;					///< minOccurs = 1
 
 
 @end

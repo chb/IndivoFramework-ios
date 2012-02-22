@@ -2,7 +2,7 @@
  IndivoLab.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -31,8 +31,8 @@
  */
 @interface IndivoLab : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *dateMeasured;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *labType;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INDateTime *dateMeasured;					///< minOccurs = 1
+@property (nonatomic, strong) INString *labType;					///< minOccurs = 1
 @property (nonatomic, strong) IndivoLabProvider *laboratory;
 @property (nonatomic, strong) NSArray *labPanel;					///< An array containing IndivoLabPanel objects
 @property (nonatomic, strong) NSArray *labTest;					///< An array containing IndivoLabTest objects

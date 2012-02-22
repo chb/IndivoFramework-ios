@@ -21,6 +21,7 @@
  */
 
 #import "{{ CLASS_NAME }}.h"
+#import "IndivoDocument.h"
 
 
 @implementation {{ CLASS_NAME }}
@@ -37,6 +38,12 @@
 {
 	return @"{{ CLASS_TYPENAME }}";
 }
+
++ (void)load
+{
+	[IndivoDocument registerDocumentClass:self];
+}
+
 {% if CLASS_PROPERTY_MAP %}
 + (NSDictionary *)propertyClassMapper
 {

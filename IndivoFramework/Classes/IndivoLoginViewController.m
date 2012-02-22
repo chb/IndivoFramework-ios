@@ -196,7 +196,8 @@
 		if ([@"did_select_record" isEqualToString:[urlComponents lastObject]]) {
 			NSDictionary *args = [INURLLoader queryFromRequest:request];
 			//DLog(@"DID RECEIVE: %@", args);
-			[delegate loginView:self didSelectRecordId:[args objectForKey:@"record_id"] label:[args objectForKey:@"record_label"]];
+			[delegate loginView:self didSelectRecordId:[args objectForKey:@"record_id"]];
+			// extract carenet_id here once supported
 			return NO;
 		}
 		

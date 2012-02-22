@@ -2,7 +2,7 @@
  IndivoImmunization.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) INDateTime *dateAdministered;
 @property (nonatomic, strong) INString *administeredBy;
 @property (nonatomic, strong) IndivoImmunizationVaccine *vaccine;
-@property (nonatomic, strong) INInteger *sequence;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INInteger *sequence;					///< minOccurs = 1
 @property (nonatomic, strong) INCodedValue *anatomicSurface;
 @property (nonatomic, strong) INString *adverseEvent;
 

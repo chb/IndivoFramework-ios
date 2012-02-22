@@ -2,7 +2,7 @@
  IndivoProvider.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -31,8 +31,8 @@
  */
 @interface IndivoProvider : IndivoDocument
 
-@property (nonatomic, strong) INString *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *institution;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INString *name;					///< minOccurs = 1
+@property (nonatomic, strong) INString *institution;					///< minOccurs = 1
 
 
 @end

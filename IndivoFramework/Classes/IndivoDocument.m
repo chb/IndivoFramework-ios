@@ -169,7 +169,7 @@
 					  [self updateWithMeta:metaDoc];
 				  }
 				  
-				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 			  }
 			  else {
@@ -299,9 +299,6 @@
 	if (aMetaDoc.uuid) {
 		self.uuid = aMetaDoc.uuid;		// the meta doc is always right!
 	}
-	if (aMetaDoc.type) {
-		self.type = aMetaDoc.type;
-	}
 	if (aMetaDoc.status) {
 		status = documentStatusFor(aMetaDoc.status.string);
 	}
@@ -318,6 +315,59 @@
 	}
 	if (aMetaDoc.latest) {
 		self.uuidLatest = [aMetaDoc.latest attr:@"id"];
+	}
+}
+
+
+
+#pragma mark - Class Registration
+static NSMutableArray *registeredClasses = nil;
+static NSDictionary *registeredClassHash = nil;
+
+/**
+ *	Returns the class for a previously registered type, or "IndivoDocument" if the type has not been registered
+ */
++ (Class)documentClassForType:(NSString *)aType
+{
+	// convert the array to a hash the first time we're called
+	if (!registeredClassHash) {
+		if (!registeredClasses) {
+			DLog(@"WARNING: No classes have registered");
+			return self;
+		}
+		NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:[registeredClasses count]];
+		for (Class aClass in registeredClasses) {
+			NSString *type = [[aClass nodeType] stringByReplacingOccurrencesOfString:@"indivo:" withString:@""];
+			if (type) {
+				[tempDict setObject:aClass forKey:type];
+			}
+		}
+		registeredClassHash = tempDict;
+		registeredClasses = nil;
+	}
+	
+	// search
+	Class foundClass = [registeredClassHash objectForKey:aType];
+	if (foundClass) {
+		return foundClass;
+	}
+	
+	return self;
+}
+
+/**
+ *	Our IndivoDocument subclasses call this in their +load method.
+ *	Since we are auto-generating the classes from a template, this method is potentially also called by non-IndivoDocument-subclasses, which is
+ *	why we check for subclass status here instead.
+ */
++ (void)registerDocumentClass:(Class)aClass
+{
+	if ([aClass isSubclassOfClass:self]) {
+		if (!registeredClasses) {
+			registeredClasses = [[NSMutableArray alloc] init];
+		}
+		
+		[registeredClasses addObject:aClass];
 	}
 }
 

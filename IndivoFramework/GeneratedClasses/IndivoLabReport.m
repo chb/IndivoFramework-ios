@@ -2,7 +2,7 @@
  IndivoLabReport.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
  */
 
 #import "IndivoLabReport.h"
+#import "IndivoDocument.h"
 
 
 @implementation IndivoLabReport
@@ -37,6 +38,12 @@
 {
 	return @"indivo:LabReport";
 }
+
++ (void)load
+{
+	[IndivoDocument registerDocumentClass:self];
+}
+
 
 + (NSDictionary *)propertyClassMapper
 {

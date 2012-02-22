@@ -2,7 +2,7 @@
  IndivoPrescription.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) IndivoProvider *by;
 @property (nonatomic, strong) INDate *on;
 @property (nonatomic, strong) INDate *stopOn;
-@property (nonatomic, strong) INBool *dispenseAsWritten;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INBool *dispenseAsWritten;					///< minOccurs = 1
 @property (nonatomic, strong) INDuration *duration;
 @property (nonatomic, strong) INString *refillInfo;
 @property (nonatomic, strong) INString *instructions;

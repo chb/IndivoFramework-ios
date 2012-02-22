@@ -2,7 +2,7 @@
  IndivoMicroWithCultureLabTestResult.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong) INString *isolate;					///< Must be present as an attribute
 @property (nonatomic, strong) INString *identity;
-@property (nonatomic, strong) INCodedValue *organism;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INCodedValue *organism;					///< minOccurs = 1
 @property (nonatomic, strong) NSArray *sensitivity;					///< An array containing IndivoMicroWithCultureLabTestResultSensitivity objects
 @property (nonatomic, strong) INString *interpretation;
 @property (nonatomic, strong) INString *comments;

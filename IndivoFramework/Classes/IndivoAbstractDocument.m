@@ -36,7 +36,7 @@
 
 @implementation IndivoAbstractDocument
 
-@synthesize record, type, nameSpace;
+@synthesize record, nameSpace;
 @synthesize created, suppressed;
 
 
@@ -322,26 +322,6 @@
 + (NSString *)nameSpace
 {
 	return @"http://indivo.org/vocab/xml/documents#";
-}
-
-
-/**
- *	If the instance does not have a type, the class type is forwarded
- */
-- (NSString *)type
-{
-	if (!type) {
-		return [[self class] type];
-	}
-	return type;
-}
-
-/**
- *	The type of documents of this class
- */
-+ (NSString *)type
-{
-	return @"";
 }
 
 

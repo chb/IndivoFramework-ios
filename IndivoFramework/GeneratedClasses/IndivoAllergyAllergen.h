@@ -2,7 +2,7 @@
  IndivoAllergyAllergen.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@
 @interface IndivoAllergyAllergen : IndivoDocument
 
 @property (nonatomic, strong) INCodedValue *type;
-@property (nonatomic, strong) INCodedValue *name;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INCodedValue *name;					///< minOccurs = 1
 
 
 @end

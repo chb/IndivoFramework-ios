@@ -47,7 +47,6 @@
 
 @class IndivoServer;
 @class IndivoRecord;
-@class IndivoWebApp;
 @class IndivoLoginViewController;
 
 
@@ -94,12 +93,10 @@
 
 @property (nonatomic, strong) IndivoRecord *activeRecord;						///< The currently active record
 @property (nonatomic, readonly, copy) NSString *activeRecordId;					///< Shortcut method to get the id of the currently active record
-@property (nonatomic, readonly, strong) NSMutableArray *knownRecords;			///< A cache of the known records on this server
+@property (nonatomic, readonly, strong) NSMutableArray *knownRecords;			///< A cache of the known records on this server. Not currently used by the framework.
 
 @property (nonatomic, assign) BOOL storeCredentials;							///< NO by default. If you set this to YES, a successful login will save credentials to the system keychain
 @property (nonatomic, readonly, copy) NSString *lastOAuthVerifier;				///< Storing our OAuth verifier here until MPOAuth asks for it
-
-@property (nonatomic, readonly, strong) IndivoWebApp *webApp;					///< If you're running your web app through this framework, this is the property you're looking for (NOT IMPLEMENTED)
 
 
 + (IndivoServer *)serverWithDelegate:(id<IndivoServerDelegate>)aDelegate;

@@ -2,7 +2,7 @@
  IndivoContactAddress.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -32,11 +32,11 @@
 @interface IndivoContactAddress : IndivoDocument
 
 @property (nonatomic, strong) INString *type;
-@property (nonatomic, strong) INString *streetAddress;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *postalCode;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *locality;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *region;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *country;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INString *streetAddress;					///< minOccurs = 1
+@property (nonatomic, strong) INString *postalCode;					///< minOccurs = 1
+@property (nonatomic, strong) INString *locality;					///< minOccurs = 1
+@property (nonatomic, strong) INString *region;					///< minOccurs = 1
+@property (nonatomic, strong) INString *country;					///< minOccurs = 1
 @property (nonatomic, strong) INString *timeZone;
 
 

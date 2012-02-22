@@ -34,6 +34,7 @@
 
 @property (nonatomic, readonly, strong) IndivoDocument *document;				///< The represented document
 @property (nonatomic, assign) Class documentClass;								///< The class of document we represent. "IndivoDocument" by default
+@property (nonatomic, copy) NSString *type;										///< This document's type
 
 @property (nonatomic, readonly, copy) NSString *digest;							///< Metadata: Digest
 
@@ -49,8 +50,6 @@
 @property (nonatomic, strong) INBool *nevershare;
 //@property (nonatomic, strong) INRelation *relatesTo;
 //@property (nonatomic, strong) INRelation *isRelatedFrom;
-
-- (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord representingClass:(Class)aClass;
 
 
 @end

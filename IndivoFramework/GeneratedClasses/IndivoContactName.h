@@ -2,7 +2,7 @@
  IndivoContactName.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -31,9 +31,9 @@
  */
 @interface IndivoContactName : IndivoDocument
 
-@property (nonatomic, strong) INString *fullName;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) NSArray *givenName;					///< An array containing INString objects. Must not be nil nor return YES on isNull (minOccurs = 1)
-@property (nonatomic, strong) INString *familyName;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INString *fullName;					///< minOccurs = 1
+@property (nonatomic, strong) NSArray *givenName;					///< An array containing INString objects. (minOccurs = 1)
+@property (nonatomic, strong) INString *familyName;					///< minOccurs = 1
 
 
 @end

@@ -38,7 +38,6 @@
 
 @property (nonatomic, assign) IndivoRecord *record;							///< The owning record. If you change this on documents fetched from the server, you will get errors.
 @property (nonatomic, copy) NSString *nameSpace;							///< The namespace
-@property (nonatomic, copy) NSString *type;									///< This document's type
 
 @property (nonatomic, strong) IndivoCreated *created;
 @property (nonatomic, strong) IndivoSuppressed *suppressed;
@@ -49,7 +48,6 @@
 - (NSString *)documentXML;
 
 + (NSString *)nameSpace;
-+ (NSString *)type;
 + (Class)classForProperty:(NSString *)propertyName;
 + (NSDictionary *)propertyClassMapper;
 

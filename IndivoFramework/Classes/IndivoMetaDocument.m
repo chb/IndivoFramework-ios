@@ -34,32 +34,9 @@
 
 @implementation IndivoMetaDocument
 
-@synthesize document, documentClass;
+@synthesize document, documentClass, type;
 @synthesize digest;
 @synthesize createdAt, creator, suppressedAt, suppressor, replacedBy, replaces, original, latest, status, nevershare;
-
-
-/**
- *	The designated initializer
- */
-- (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord representingClass:(Class)aClass
-{
-	if ((self = [super initFromNode:node forRecord:aRecord])) {
-		if (![aClass isSubclassOfClass:[IndivoAbstractDocument class]]) {
-			DLog(@"WARNING: Given class is no IndivoAbstractDocument subclass!");
-		}
-		self.documentClass = aClass;
-	}
-	return self;
-}
-
-- (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord
-{
-	if ((self = [super initFromNode:node forRecord:aRecord])) {
-		self.documentClass = [IndivoDocument class];
-	}
-	return self;
-}
 
 
 
@@ -67,6 +44,9 @@
 - (IndivoDocument *)document
 {
 	if (!document) {
+		if (!self.documentClass) {
+			DLog(@"WARNING: No class found for meta document of type \"%@\", will return a nil document", type);
+		}
 		self.document = [[documentClass alloc] initFromNode:nil forRecord:self.record withMeta:self];
 	}
 	
@@ -117,6 +97,17 @@
 #else
 	return [NSString stringWithFormat:@"<%@ id=\"%@\" type=\"%@\" size=\"\" digest=\"%@\" record_id=\"%@\">%@</%@>", self.nodeName, self.udid, self.namespace, self.digest, self.record.udid, [self innerXML], self.nodeName];
 #endif
+}
+
+
+
+#pragma mark - KVC
+- (Class)documentClass
+{
+	if (!documentClass) {
+		self.documentClass = [IndivoDocument documentClassForType:self.type];
+	}
+	return documentClass;
 }
 
 

@@ -2,7 +2,7 @@
  IndivoMicroWithCultureLabTestResult.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
  */
 
 #import "IndivoMicroWithCultureLabTestResult.h"
+#import "IndivoDocument.h"
 
 
 @implementation IndivoMicroWithCultureLabTestResult
@@ -37,6 +38,12 @@
 {
 	return @"indivo:MicroWithCultureLabTestResult";
 }
+
++ (void)load
+{
+	[IndivoDocument registerDocumentClass:self];
+}
+
 
 + (NSDictionary *)propertyClassMapper
 {

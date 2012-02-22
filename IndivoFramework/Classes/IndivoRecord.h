@@ -40,19 +40,20 @@
 @property (nonatomic, copy) NSString *accessToken;									///< The last access token successfully used with this record
 @property (nonatomic, copy) NSString *accessTokenSecret;							///< The last access token secret successfully used with this record
 
-- (id)initWithId:(NSString *)anId name:(NSString *)aName onServer:(IndivoServer *)aServer;
+- (id)initWithId:(NSString *)anId onServer:(IndivoServer *)aServer;
 
 // record info
 - (void)fetchRecordInfoWithCallback:(INCancelErrorBlock)aCallback;
 - (void)fetchContactDocumentWithCallback:(INCancelErrorBlock)aCallback;
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback;
 
+// record documens
+- (void)fetchDocuments:(INSuccessRetvalueBlock)callback;
+- (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error;
+
 // record reports
 - (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback;
 - (void)fetchAllReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
-
-// record documens
-- (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error;
 
 // messaging
 - (void)sendMessage:(NSString *)messageSubject
@@ -68,5 +69,6 @@
 		attachments:(NSArray *)attachments
 		  messageId:(NSString *)messageId										///< Allows to specify a custom message id, if needed
 		   callback:(INCancelErrorBlock)callback;
+
 
 @end

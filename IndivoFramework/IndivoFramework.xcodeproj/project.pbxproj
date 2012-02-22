@@ -111,8 +111,6 @@
 		EE3C9604141178CC002BA967 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
 		EE3C9609141178CC002BA967 /* IndivoRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95F9141178CC002BA967 /* IndivoRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C960A141178CC002BA967 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
-		EE3C960C141178CC002BA967 /* IndivoWebApp.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95FB141178CC002BA967 /* IndivoWebApp.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE3C960D141178CC002BA967 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
 		EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */; };
 		EE423F6014E1785C0009771F /* IndivoDemographics.h in Headers */ = {isa = PBXBuildFile; fileRef = EE423F5E14E1785C0009771F /* IndivoDemographics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE423F6114E1785C0009771F /* IndivoDemographics.m in Sources */ = {isa = PBXBuildFile; fileRef = EE423F5F14E1785C0009771F /* IndivoDemographics.m */; };
@@ -182,7 +180,6 @@
 		EEA044EC14CA1BCF00C28C61 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
 		EEA044F114CA1BD800C28C61 /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
 		EEA044F214CA1BD800C28C61 /* IndivoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FA141178CC002BA967 /* IndivoRecord.m */; };
-		EEA044F314CA1BD800C28C61 /* IndivoWebApp.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95FC141178CC002BA967 /* IndivoWebApp.m */; };
 		EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
 		EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
 		EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */; };
@@ -439,7 +436,7 @@
 		EE37573C14314D46002ABE18 /* INString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INString.m; sourceTree = "<group>"; };
 		EE37574014314D51002ABE18 /* INDuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDuration.h; sourceTree = "<group>"; };
 		EE37574114314D51002ABE18 /* INDuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDuration.m; sourceTree = "<group>"; };
-		EE3C95B914115C15002BA967 /* libIndivoServer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIndivoServer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE3C95B914115C15002BA967 /* libIndivo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIndivo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3C95BC14115C15002BA967 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoFramework-Prefix.pch"; sourceTree = "<group>"; };
 		EE3C95CA14115C15002BA967 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -449,8 +446,6 @@
 		EE3C95F6141178CC002BA967 /* IndivoDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoDocument.m; sourceTree = "<group>"; };
 		EE3C95F9141178CC002BA967 /* IndivoRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoRecord.h; sourceTree = "<group>"; };
 		EE3C95FA141178CC002BA967 /* IndivoRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoRecord.m; sourceTree = "<group>"; };
-		EE3C95FB141178CC002BA967 /* IndivoWebApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoWebApp.h; sourceTree = "<group>"; };
-		EE3C95FC141178CC002BA967 /* IndivoWebApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoWebApp.m; sourceTree = "<group>"; };
 		EE423F5E14E1785C0009771F /* IndivoDemographics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoDemographics.h; sourceTree = "<group>"; };
 		EE423F5F14E1785C0009771F /* IndivoDemographics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoDemographics.m; sourceTree = "<group>"; };
 		EE423F6414E17B3F0009771F /* contact.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = contact.xsd; sourceTree = "<group>"; };
@@ -796,7 +791,7 @@
 		EE3C95BA14115C15002BA967 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EE3C95B914115C15002BA967 /* libIndivoServer.a */,
+				EE3C95B914115C15002BA967 /* libIndivo.a */,
 				EEA044CE14CA1B4300C28C61 /* IndivoFrameworkTests.octest */,
 				EEA0453B14CA3A1200C28C61 /* ClassGenerator.app */,
 			);
@@ -857,8 +852,6 @@
 				EE34D98314244818001A95AD /* INServerObject.m */,
 				EE3C95F9141178CC002BA967 /* IndivoRecord.h */,
 				EE3C95FA141178CC002BA967 /* IndivoRecord.m */,
-				EE3C95FB141178CC002BA967 /* IndivoWebApp.h */,
-				EE3C95FC141178CC002BA967 /* IndivoWebApp.m */,
 			);
 			name = "Indivo Server Objects";
 			sourceTree = "<group>";
@@ -1188,7 +1181,6 @@
 				EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */,
 				EE3C9603141178CC002BA967 /* IndivoDocument.h in Headers */,
 				EE3C9609141178CC002BA967 /* IndivoRecord.h in Headers */,
-				EE3C960C141178CC002BA967 /* IndivoWebApp.h in Headers */,
 				EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */,
 				EE13448C141AB99D00D167B2 /* IndivoWebView.h in Headers */,
 				EE930074141E4EF6005B0046 /* IndivoLoginViewController.h in Headers */,
@@ -1300,9 +1292,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		EE3C95B814115C15002BA967 /* IndivoServer */ = {
+		EE3C95B814115C15002BA967 /* Indivo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EE3C95DD14115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServer" */;
+			buildConfigurationList = EE3C95DD14115C15002BA967 /* Build configuration list for PBXNativeTarget "Indivo" */;
 			buildPhases = (
 				EE3C95B514115C15002BA967 /* Sources */,
 				EE3C95B614115C15002BA967 /* Frameworks */,
@@ -1312,9 +1304,9 @@
 			);
 			dependencies = (
 			);
-			name = IndivoServer;
+			name = Indivo;
 			productName = IndivoFramework;
-			productReference = EE3C95B914115C15002BA967 /* libIndivoServer.a */;
+			productReference = EE3C95B914115C15002BA967 /* libIndivo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		EEA044CD14CA1B4300C28C61 /* IndivoFrameworkTests */ = {
@@ -1358,7 +1350,7 @@
 		EE3C95B014115C15002BA967 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Harvard Medical School";
 			};
 			buildConfigurationList = EE3C95B314115C15002BA967 /* Build configuration list for PBXProject "IndivoFramework" */;
@@ -1373,7 +1365,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EE3C95B814115C15002BA967 /* IndivoServer */,
+				EE3C95B814115C15002BA967 /* Indivo */,
 				EEA044CD14CA1B4300C28C61 /* IndivoFrameworkTests */,
 				EEA0453A14CA3A1200C28C61 /* ClassGenerator */,
 			);
@@ -1453,7 +1445,6 @@
 				EE3C95EF14117818002BA967 /* IndivoServer.m in Sources */,
 				EE3C9604141178CC002BA967 /* IndivoDocument.m in Sources */,
 				EE3C960A141178CC002BA967 /* IndivoRecord.m in Sources */,
-				EE3C960D141178CC002BA967 /* IndivoWebApp.m in Sources */,
 				EE13448D141AB99D00D167B2 /* IndivoWebView.m in Sources */,
 				EE930075141E4EF6005B0046 /* IndivoLoginViewController.m in Sources */,
 				EE53CA0F1423A3D700EEF006 /* INServerCall.m in Sources */,
@@ -1572,7 +1563,6 @@
 				EEA044EC14CA1BCF00C28C61 /* INDuration.m in Sources */,
 				EEA044F114CA1BD800C28C61 /* INServerObject.m in Sources */,
 				EEA044F214CA1BD800C28C61 /* IndivoRecord.m in Sources */,
-				EEA044F314CA1BD800C28C61 /* IndivoWebApp.m in Sources */,
 				EEA044F414CA1BDE00C28C61 /* IndivoAbstractDocument.m in Sources */,
 				EEA044F514CA1BDE00C28C61 /* IndivoDocument.m in Sources */,
 				EEA044F614CA1BDE00C28C61 /* IndivoMetaDocument.m in Sources */,
@@ -1929,7 +1919,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EE3C95DD14115C15002BA967 /* Build configuration list for PBXNativeTarget "IndivoServer" */ = {
+		EE3C95DD14115C15002BA967 /* Build configuration list for PBXNativeTarget "Indivo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EE3C95DE14115C15002BA967 /* Debug */,

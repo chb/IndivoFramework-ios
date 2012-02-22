@@ -61,11 +61,10 @@
 /**
  *	Initializes a record from given parameters
  */
-- (id)initWithId:(NSString *)anId name:(NSString *)aName onServer:(IndivoServer *)aServer
+- (id)initWithId:(NSString *)anId onServer:(IndivoServer *)aServer
 {
 	if ((self = [super initFromNode:nil withServer:aServer])) {
 		self.uuid = anId;
-		self.label = aName;
 	}
 	return self;
 }
@@ -192,7 +191,42 @@
 
 
 
-#pragma mark - Managing Documents
+#pragma mark - Record Documents
+/**
+ *	Fetch all documents of the receiver
+ *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain meta-documents for this record's documents.
+ */
+- (void)fetchDocuments:(INSuccessRetvalueBlock)callback
+{
+	[self get:[NSString stringWithFormat:@"/records/%@/documents/", self.uuid]
+   parameters:nil
+	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 NSDictionary *usrIfo = nil;
+		 
+		 // fetched successfully...
+		 if (success) {
+			 INXMLNode *documentsNode = [userInfo objectForKey:INResponseXMLKey];
+			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
+			 
+			 // create documents
+			 NSMutableArray *metaArr = [NSMutableArray arrayWithCapacity:[docs count]];
+			 for (INXMLReport *document in docs) {
+				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:document forRecord:self];
+				 if (meta) {
+					 [metaArr addObject:meta];
+				 }
+			 }
+			 
+			 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
+		 }
+		 
+		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
+	 }];
+}
+
+
+
+#pragma mark - Reporting Calls
 /**
  *	Fetches reports of given type with any status from the server
  */
@@ -258,7 +292,8 @@
 			 // create documents
 			 NSMutableArray *reportArr = [NSMutableArray arrayWithCapacity:[reports count]];
 			 for (INXMLReport *report in reports) {
-				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:[report metaDocumentNode] forRecord:self representingClass:documentClass];
+				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:[report metaDocumentNode] forRecord:self];
+				 meta.documentClass = documentClass;
 				 IndivoDocument *doc = [[documentClass alloc] initFromNode:[report documentNode] forRecord:self withMeta:meta];
 				 if (doc) {
 					 [reportArr addObject:doc];

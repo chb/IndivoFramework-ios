@@ -2,7 +2,7 @@
  IndivoMicroWithCultureLabTest.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/7/2012.
+ Created by Indivo Class Generator on 2/22/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@
  */
 @interface IndivoMicroWithCultureLabTest : IndivoLabTest
 
-@property (nonatomic, strong) INCodedValue *source;					///< Must not be nil nor return YES on isNull (minOccurs = 1)
+@property (nonatomic, strong) INCodedValue *source;					///< minOccurs = 1
 @property (nonatomic, strong) NSArray *observation;					///< An array containing IndivoMicroWithCultureLabTestObservation objects
 @property (nonatomic, strong) NSArray *result;					///< An array containing IndivoMicroWithCultureLabTestResult objects
 

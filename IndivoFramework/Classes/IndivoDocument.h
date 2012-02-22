@@ -62,6 +62,10 @@
 - (void)void:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback;
 - (void)archive:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback;
 
+// Registering type representations
++ (Class)documentClassForType:(NSString *)aType;
++ (void)registerDocumentClass:(Class)aClass;
+
 // Caching
 - (BOOL)cacheObject:(id)anObject asType:(NSString *)aType error:(__autoreleasing NSError **)error;
 - (id)cachedObjectOfType:(NSString *)aType;
