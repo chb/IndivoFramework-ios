@@ -296,6 +296,9 @@
 		EEAA504814DB698000FBFE66 /* IndivoEquipment.h in Headers */ = {isa = PBXBuildFile; fileRef = EEAA504614DB697E00FBFE66 /* IndivoEquipment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEAA504914DB698000FBFE66 /* IndivoEquipment.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA504714DB697F00FBFE66 /* IndivoEquipment.m */; };
 		EEAA504A14DB698000FBFE66 /* IndivoEquipment.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAA504714DB697F00FBFE66 /* IndivoEquipment.m */; };
+		EEB68EED14F582C300F9FE61 /* INDocumentStatusNode.h in Headers */ = {isa = PBXBuildFile; fileRef = EEB68EEB14F582C300F9FE61 /* INDocumentStatusNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEB68EEE14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB68EEC14F582C300F9FE61 /* INDocumentStatusNode.m */; };
+		EEB68EEF14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB68EEC14F582C300F9FE61 /* INDocumentStatusNode.m */; };
 		EECC232F14D70E9400B4FC30 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC232D14D70E9400B4FC30 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EECC233014D70E9400B4FC30 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC232E14D70E9400B4FC30 /* IndivoMedication.m */; };
 		EECC234614D74BC000B4FC30 /* IndivoMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC232E14D70E9400B4FC30 /* IndivoMedication.m */; };
@@ -567,6 +570,8 @@
 		EEAA504414DB696500FBFE66 /* equipment.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = equipment.xml; sourceTree = "<group>"; };
 		EEAA504614DB697E00FBFE66 /* IndivoEquipment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoEquipment.h; sourceTree = "<group>"; };
 		EEAA504714DB697F00FBFE66 /* IndivoEquipment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoEquipment.m; sourceTree = "<group>"; };
+		EEB68EEB14F582C300F9FE61 /* INDocumentStatusNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDocumentStatusNode.h; sourceTree = "<group>"; };
+		EEB68EEC14F582C300F9FE61 /* INDocumentStatusNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDocumentStatusNode.m; sourceTree = "<group>"; };
 		EEC5C4051416B3E900E1A349 /* ErrorCodes.md */ = {isa = PBXFileReference; explicitFileType = text; path = ErrorCodes.md; sourceTree = SOURCE_ROOT; };
 		EECC232D14D70E9400B4FC30 /* IndivoMedication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndivoMedication.h; path = GeneratedClasses/IndivoMedication.h; sourceTree = SOURCE_ROOT; };
 		EECC232E14D70E9400B4FC30 /* IndivoMedication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndivoMedication.m; path = GeneratedClasses/IndivoMedication.m; sourceTree = SOURCE_ROOT; };
@@ -772,6 +777,8 @@
 				EE37573714314D22002ABE18 /* INUnitValue.m */,
 				EE37574014314D51002ABE18 /* INDuration.h */,
 				EE37574114314D51002ABE18 /* INDuration.m */,
+				EEB68EEB14F582C300F9FE61 /* INDocumentStatusNode.h */,
+				EEB68EEC14F582C300F9FE61 /* INDocumentStatusNode.m */,
 			);
 			name = "Indivo Objects";
 			sourceTree = "<group>";
@@ -1286,6 +1293,7 @@
 				EE7844AD14EC458800BFCB81 /* IndivoProcedure+Report.h in Headers */,
 				EE7844B114EC45ED00BFCB81 /* IndivoSimpleClinicalNote+Report.h in Headers */,
 				EE7844B514EC463900BFCB81 /* IndivoVitalSign+Report.h in Headers */,
+				EEB68EED14F582C300F9FE61 /* INDocumentStatusNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1541,6 +1549,7 @@
 				EE7844AE14EC458800BFCB81 /* IndivoProcedure+Report.m in Sources */,
 				EE7844B214EC45ED00BFCB81 /* IndivoSimpleClinicalNote+Report.m in Sources */,
 				EE7844B614EC463900BFCB81 /* IndivoVitalSign+Report.m in Sources */,
+				EEB68EEE14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1640,6 +1649,7 @@
 				EE5DFA5014EB39FE000629C3 /* IndivoValueOrRange.m in Sources */,
 				EE5DFA5514EB3A8E000629C3 /* IndivoProcedure.m in Sources */,
 				EE5DFA5F14EB3BC6000629C3 /* IndivoSchoolForm.m in Sources */,
+				EEB68EEF14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

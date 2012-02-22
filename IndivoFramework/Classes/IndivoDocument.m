@@ -122,21 +122,98 @@
 }
 
 
+/**
+ *	Fetch the document's version history.
+ *	Upon success, the userInfo dictionary will contain an array of IndivoMetaDocument objects for the INResponesArrayKey key.
+ *	@param callback An INCancelErrorBlock callback
+ */
+- (void)fetchVersionsWithCallback:(INSuccessRetvalueBlock)callback
+{
+	NSString *path = [[self documentPath] stringByAppendingString:@"/versions/"];		// cannot use path component method as this strips the trailing shlash
+	[self get:path
+	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 NSDictionary *usrIfo = nil;
+		 
+		 // fetched successfully...
+		 if (success) {
+			 INXMLNode *documentsNode = [userInfo objectForKey:INResponseXMLKey];
+			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
+			 
+			 // create documents
+			 NSMutableArray *metaArr = [NSMutableArray arrayWithCapacity:[docs count]];
+			 for (INXMLNode *document in docs) {
+				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:document forRecord:self.record];
+				 if (meta) {
+					 [metaArr addObject:meta];
+				 }
+			 }
+			 
+			 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
+		 }
+		 else {
+			 usrIfo = userInfo;
+		 }
+		 
+		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
+	 }];
+}
+
+
+/**
+ *	Fetch the document's version history.
+ *	Upon success, the userInfo dictionary will contain an array of INDocumentStatusNode objects for the INResponesArrayKey key.
+ *	@param callback An INCancelErrorBlock callback
+ */
+- (void)fetchStatusHistoryWithCallback:(INSuccessRetvalueBlock)callback
+{
+	NSString *path = [[self documentPath] stringByAppendingPathComponent:@"status-history"];
+	[self get:path
+	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 NSDictionary *usrIfo = nil;
+		 
+		 // fetched successfully...
+		 if (success) {
+			 INXMLNode *parentNode = [userInfo objectForKey:INResponseXMLKey];
+			 if (![[parentNode attr:@"document_id"] isEqualToString:self.uuid]) {
+				 SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Document id from history does not match our own id", 22)
+				 return;
+			 }
+			 NSArray *statusNodes = [parentNode childrenNamed:@"DocumentStatus"];
+			 
+			 // create documents
+			 NSMutableArray *nodeArr = [NSMutableArray arrayWithCapacity:[statusNodes count]];
+			 for (INXMLNode *node in statusNodes) {
+				 INDocumentStatusNode *stat = [[INDocumentStatusNode alloc] initFromNode:node];
+				 if (stat) {
+					 [nodeArr addObject:stat];
+				 }
+			 }
+			 
+			 usrIfo = [NSDictionary dictionaryWithObject:nodeArr forKey:INResponseArrayKey];
+		 }
+		 else {
+			 usrIfo = userInfo;
+		 }
+		 
+		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
+	 }];
+}
+
+
 
 #pragma mark - Getting documents
 - (void)pull:(INCancelErrorBlock)callback
 {
-	__unsafe_unretained IndivoDocument *this = self;
 	[self get:[self documentPath]
 	 callback:^(BOOL success, NSDictionary *userInfo) {
 		 if (success) {
 			 INXMLNode *xmlNode = [userInfo objectForKey:INResponseXMLKey];
-			 if ([[xmlNode attr:@"id"] isEqualToString:this.uuid]) {
-				 [this setFromNode:xmlNode];
-				 this.fetched = YES;
+			 if ([[xmlNode attr:@"id"] isEqualToString:self.uuid]) {
+				 [self setFromNode:xmlNode];
+				 self.fetched = YES;
 			 }
 			 else {
-				 DLog(@"Not good, have udid %@ but fetched %@", this.uuid, [xmlNode attr:@"id"]);
+				 DLog(@"Not good, have udid %@ but fetched %@", self.uuid, [xmlNode attr:@"id"]);
 			 }
 		 }
 		 
@@ -195,7 +272,7 @@
 	else {
 		NSString *xml = [self documentXML];
 		NSString *updatePath = [self.documentPath stringByAppendingPathComponent:@"replace"];
-		__block IndivoDocument *this = self;
+		
 		[self post:updatePath
 			  body:xml
 		  callback:^(BOOL success, NSDictionary *userInfo) {
@@ -209,7 +286,7 @@
 				  }
 				  
 				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
-				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(this.record)
+				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 			  }
 			  else {
 				  DLog(@"FAILED: %@", xml);
@@ -238,7 +315,10 @@
 }
 
 /**
- *	Void (or unvoid) a document for a given reason
+ *	Void (or unvoid) a document for a given reason.
+ *	@param flag YES to void, NO to re-activate
+ *	@param aReason The reason for the status change, should not be nil if you want the call to succeed
+ *	@param callback An INCancelErrorBlock callback
  */
 - (void)void:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback
 {
@@ -285,40 +365,6 @@
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 		}
 	}];
-}
-
-
-/**
- *	Fetch the document's version history.
- *	Upon success, the userInfo dictionary will contain an array of IndivoMetaDocument objects for the INResponesArrayKey key.
- *	@param callback An INCancelErrorBlock callback
- */
-- (void)fetchVersionsWithCallback:(INSuccessRetvalueBlock)callback
-{
-	NSString *path = [[self documentPath] stringByAppendingString:@"/versions/"];		// cannot use path component method as this strips the trailing shlash
-	[self get:path
-	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
-		 NSDictionary *usrIfo = nil;
-		 
-		 // fetched successfully...
-		 if (success) {
-			 INXMLNode *documentsNode = [userInfo objectForKey:INResponseXMLKey];
-			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
-			 
-			 // create documents
-			 NSMutableArray *metaArr = [NSMutableArray arrayWithCapacity:[docs count]];
-			 for (INXMLNode *document in docs) {
-				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:document forRecord:self.record];
-				 if (meta) {
-					 [metaArr addObject:meta];
-				 }
-			 }
-			 
-			 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
-		 }
-		 
-		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
-	 }];
 }
 
 

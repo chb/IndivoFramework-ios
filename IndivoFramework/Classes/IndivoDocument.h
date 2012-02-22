@@ -54,6 +54,7 @@
 - (BOOL)hasStatus:(INDocumentStatus)aStatus;
 - (BOOL)isLatest;
 - (void)fetchVersionsWithCallback:(INSuccessRetvalueBlock)callback;
+- (void)fetchStatusHistoryWithCallback:(INSuccessRetvalueBlock)callback;
 
 // Document actions
 - (void)pull:(INCancelErrorBlock)callback;

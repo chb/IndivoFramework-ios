@@ -9,6 +9,7 @@ Error Code Reference Sheet
 - 11 -- Failed to instantiate Class
 - 20 -- Invalid Object
 - 21 -- No object given
+- 22 -- uuid does not match
 
 ### Connection
 - 1001 -- No server URL given

@@ -233,7 +233,6 @@
 
 		}
 		free(ivars);
-		currentClass = class_getSuperclass(currentClass);
 	}
 	
 #ifdef INDIVO_XML_PRETTY_FORMAT
