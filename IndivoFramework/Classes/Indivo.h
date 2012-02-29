@@ -32,6 +32,7 @@ extern NSString *const INRecordIDKey;					///< Dictionaries return an NSString f
 extern NSString *const INResponseStringKey;				///< Dictionaries return the server's response as an NSString for this key
 extern NSString *const INResponseXMLKey;				///< Dictionaries return parsed XML as an INXMLNode from the server's response for this key
 extern NSString *const INResponseArrayKey;				///< Dictionaries return an NSArray for this key
+extern NSString *const INResponseDocumentKey;			///< Dictionaries return an IndivoDocument for this key
 
 // Other globals
 extern NSString *const INInternalScheme;				///< The URL scheme we use to identify when the framework should intercept a request

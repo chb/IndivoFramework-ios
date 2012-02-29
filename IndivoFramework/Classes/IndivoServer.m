@@ -59,6 +59,7 @@ NSString *const INRecordIDKey = @"xoauth_indivo_record_id";
 NSString *const INResponseStringKey = @"INServerCallResponseText";
 NSString *const INResponseXMLKey = @"INServerCallResponseXMLNode";
 NSString *const INResponseArrayKey = @"INResponseArray";
+NSString *const INResponseDocumentKey = @"INResponseDocument";
 
 NSString *const INInternalScheme = @"indivo-framework";
 

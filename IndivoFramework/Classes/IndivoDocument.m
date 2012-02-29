@@ -201,6 +201,39 @@
 	 }];
 }
 
+/**
+ *	Fetches the meta document for this document
+ */
+- (void)fetchMetaDocumentWithCallback:(INSuccessRetvalueBlock)callback
+{
+	if (!self.onServer) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"This document is not yet on the server and does not have a meta document", 0)
+		return;
+	}
+	
+	// get
+	NSString *path = [NSString stringWithFormat:@"%@/meta", [self documentPath]];
+	[self get:path
+	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 if (success) {
+			 INXMLNode *xmlNode = [userInfo objectForKey:INResponseXMLKey];
+			 IndivoMetaDocument *meta = nil;
+			 if (self.record) {
+				 meta = [[IndivoMetaDocument alloc] initFromNode:xmlNode forRecord:self.record];
+			 }
+			 else {
+				 meta = [[IndivoMetaDocument alloc] initFromNode:xmlNode withServer:self.server];
+			 }
+			
+			if (meta) {
+				userInfo = [NSDictionary dictionaryWithObject:meta forKey:INResponseDocumentKey];
+			}
+		}
+		
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, userInfo)
+		}];
+}
+
 
 
 #pragma mark - Getting documents
