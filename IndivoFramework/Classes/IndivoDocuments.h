@@ -28,6 +28,7 @@
 
 #import "IndivoDocument.h"
 #import "IndivoMetaDocument.h"
+#import "IndivoAppDocument.h"
 #import "IndivoPrincipal.h"
 #import "IndivoProvider.h"
 #import "IndivoSignature.h"

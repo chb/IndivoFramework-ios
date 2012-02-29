@@ -51,5 +51,9 @@
 
 - (void)setAttr:(NSString *)attrValue forKey:(NSString *)attrKey;
 
+// getting XML back
+- (NSString *)xml;
+- (NSString *)childXML;
+
 
 @end

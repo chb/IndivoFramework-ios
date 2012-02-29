@@ -45,19 +45,11 @@
 
 
 /**
- *	Convenience constructor
- */
-+ (INServerCall *)call
-{
-	return [self new];
-}
-
-/**
  *	Convenience constructor, sets the server
  *	@param aServer An indivo server instance
  *	@return an autoreleased INServerCall instance
  */
-+ (INServerCall *)callOnServer:(id)aServer
++ (INServerCall *)newForServer:(id)aServer
 {
 	return [[self alloc] initWithServer:aServer];
 }
@@ -303,7 +295,10 @@
  */
 - (NSDictionary *)additionalRequestTokenParameters
 {
-	return [NSDictionary dictionaryWithObject:server.activeRecordId forKey:@"indivo_record_id"];
+	if (server.activeRecordId) {
+		return [NSDictionary dictionaryWithObject:server.activeRecordId forKey:@"indivo_record_id"];
+	}
+	return nil;
 }
 
 /**

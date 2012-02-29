@@ -193,7 +193,7 @@
 
 #pragma mark - Record Documents
 /**
- *	Fetch all documents of the receiver
+ *	Fetch all documents of the receiver, calling GET on /records/<record id>/documents/.
  *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain meta-documents for this record's documents.
  */
 - (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback
@@ -218,10 +218,15 @@
 			 
 			 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
 		 }
+		 else {
+			 usrIfo = userInfo;
+		 }
 		 
 		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
 	 }];
 }
+
+
 
 /**
  *	Instantiates a document of given class and adds it to our documents cache.
@@ -262,6 +267,41 @@
 		[documents addObject:newDocument];
 	}
 	return newDocument;
+}
+
+/**
+ *	Fetch app specific documents of the receiver, calling GET on /records/<record id>/apps/<app id>/documents/.
+ *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain IndivoAppDocument instances.
+ */
+- (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback
+{
+	[self get:[NSString stringWithFormat:@"/records/%@/apps/%@/documents/", self.uuid, self.server.appId]
+	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		 NSDictionary *usrIfo = nil;
+		 
+		 // fetched successfully
+		 if (success) {
+			 DLog(@"Got XML:  %@", [userInfo objectForKey:INResponseStringKey]);
+			 INXMLNode *documentsNode = [userInfo objectForKey:INResponseXMLKey];
+			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
+			 
+			 // create documents
+			 NSMutableArray *appdocArr = [NSMutableArray arrayWithCapacity:[docs count]];
+			 for (INXMLReport *document in docs) {
+				 IndivoAppDocument *doc = [[IndivoAppDocument alloc] initFromNode:document forRecord:self];
+				 if (doc) {
+					 [appdocArr addObject:doc];
+				 }
+			 }
+			 
+			 usrIfo = [NSDictionary dictionaryWithObject:appdocArr forKey:INResponseArrayKey];
+		 }
+		 else {
+			 usrIfo = userInfo;
+		 }
+		 
+		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
+	 }];
 }
 
 
@@ -315,6 +355,12 @@
 	
 	// create URL
 	NSString *path = [documentClass fetchReportPathForRecord:self];
+	if (!path) {
+		NSString *errStr = [NSString stringWithFormat:@"This class does not offer reporting: %@", NSStringFromClass(documentClass)];
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, errStr, 2200)
+		return;
+	}
+	
 	NSArray *params = [NSArray arrayWithObject:[NSString stringWithFormat:@"status=%@", stringStatusFor(aStatus)]];
 	
 	// fetch

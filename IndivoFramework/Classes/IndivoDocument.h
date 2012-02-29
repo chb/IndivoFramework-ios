@@ -44,6 +44,8 @@
 
 - (id)initFromNode:(INXMLNode *)aNode forRecord:(IndivoRecord *)aRecord withMeta:(IndivoMetaDocument *)aMetaDocument;
 
+- (void)updateWithMeta:(IndivoMetaDocument *)aMetaDoc;
+
 // Server paths
 + (NSString *)fetchReportPathForRecord:(IndivoRecord *)aRecord;
 - (NSString *)documentPath;
@@ -80,8 +82,10 @@
 // Make notifications easy
 #ifndef POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION
 # define POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(r)\
-	NSDictionary *userDict = [NSDictionary dictionaryWithObject:r forKey:INRecordUserInfoKey];\
-	[[NSNotificationCenter defaultCenter] postNotificationName:INRecordDocumentsDidChangeNotification object:nil userInfo:userDict];
+	if (r) {\
+		NSDictionary *userDict = [NSDictionary dictionaryWithObject:r forKey:INRecordUserInfoKey];\
+		[[NSNotificationCenter defaultCenter] postNotificationName:INRecordDocumentsDidChangeNotification object:nil userInfo:userDict];\
+	}
 #endif
 
 

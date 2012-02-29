@@ -47,7 +47,15 @@
 		if (!self.documentClass) {
 			DLog(@"WARNING: No class found for meta document of type \"%@\", will return a nil document", type);
 		}
-		self.document = [[documentClass alloc] initFromNode:nil forRecord:self.record withMeta:self];
+		
+		// app-specific documents may not have a record
+		if (!self.record) {
+			self.document = [[documentClass alloc] initFromNode:nil withServer:self.server];
+			[document updateWithMeta:self];
+		}
+		else {
+			self.document = [[documentClass alloc] initFromNode:nil forRecord:self.record withMeta:self];
+		}
 	}
 	
 	return document;
@@ -76,17 +84,6 @@
 		self.digest = [node attr:@"digest"];
 		/// @todo digest checking?
 	}
-	
-	/*<Document id="340cba19-1a2e-491e-9496-9e93b4b56618" type="http://indivo.org/vocab/xml/documents#Medication" size="590" digest="1a515ac9b630832becd1fec68f47efd1edd1ff7447612ba48767b21fb4599148" record_id="3e77657b-5417-4273-be3b-d9ea63287e01">
-		 <createdAt>2011-10-18T14:37:36Z</createdAt>
-		 <creator id="pascal.pfiffner@childrens.harvard.edu" type="Account">
-			<fullname>Pascal Pfiffner</fullname>
-		 </creator>
-		 <original id="340cba19-1a2e-491e-9496-9e93b4b56618"/>
-		 <latest id="340cba19-1a2e-491e-9496-9e93b4b56618" createdAt="2011-10-18T14:37:36Z" createdBy="pascal.pfiffner@childrens.harvard.edu" />
-		 <status>active</status>
-		 <nevershare>false</nevershare>
-	 </Document> */
 }
 
 

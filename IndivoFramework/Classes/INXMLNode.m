@@ -22,6 +22,7 @@
 
 
 #import "INXMLNode.h"
+#import "NSString+XML.h"
 
 @implementation INXMLNode
 
@@ -48,6 +49,9 @@
 	return n;
 }
 
+
+
+#pragma mark - Child Node Handling
 /**
  *	Add a child node
  */
@@ -107,6 +111,9 @@
 	return found;
 }
 
+
+
+#pragma mark - Attribute Handling
 /**
  *	A shortcut to get the object representing the attribute with the given name.
  */
@@ -167,10 +174,50 @@
 
 
 
+#pragma mark - XML
+- (NSString *)xml
+{
+	NSString *nodeName = ([name length] > 0 ? name : @"node");
+	NSMutableString *xmlString = [NSMutableString stringWithFormat:@"<%@", nodeName];
+	
+	// add attributes
+	if ([attributes count] > 0) {
+		for (NSString *key in [attributes allKeys]) {
+			NSString *val = [attributes objectForKey:key];
+			[xmlString appendFormat:@" %@=\"%@\"", key, [val xmlSafe]];
+		}
+	}
+	
+	// add chilren
+	if ([children count] > 0) {
+		[xmlString appendFormat:@">%@</%@>", [self childXML], nodeName];
+	}
+	else {
+		[xmlString appendString:@" />"];
+	}
+	
+	return xmlString;
+}
+
+- (NSString *)childXML
+{
+	if ([children count] > 0) {
+		NSMutableArray *xmlArr = [NSMutableArray arrayWithCapacity:[children count]];
+		for (INXMLNode *child in children) {
+			[xmlArr addObject:[child xml]];
+		}
+		
+		return [xmlArr componentsJoinedByString:@""];
+	}
+	return @"";
+}
+
+
+
 #pragma mark - Utilities
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ \"%@\" <0x%x>", NSStringFromClass([self class]), name, self];
+	return [NSString stringWithFormat:@"%@ <0x%x> %@", NSStringFromClass([self class]), self, [self xml]];
 }
 
 

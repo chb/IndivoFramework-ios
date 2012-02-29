@@ -38,8 +38,6 @@
 @property (nonatomic, readwrite, copy) NSString *uuidOriginal;
 @property (nonatomic, readwrite, copy) NSString *uuidReplaces;
 
-- (void)updateWithMeta:(IndivoMetaDocument *)aMetaDoc;
-
 + (NSMutableDictionary *)cacheDictionary;
 + (dispatch_queue_t)cacheQueue;
 
@@ -67,15 +65,19 @@
 
 #pragma mark - Data Server Paths
 /**
- *	The base path to get documents of this class
+ *	The base path to get reports for documents of this class
  */
 + (NSString *)fetchReportPathForRecord:(IndivoRecord *)aRecord
 {
-	return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.uuid, [self reportType]];
+	NSString *reportType = [self reportType];
+	if (reportType) {
+		return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.uuid, reportType];
+	}
+	return nil;
 }
 
 /**
- *	The path to this document, i.e. the path I can GET and receive this document instance
+ *	The path to this document, i.e. the path I can GET to receive this document instance
  */
 - (NSString *)documentPath
 {
@@ -100,7 +102,7 @@
  */
 + (NSString *)reportType
 {
-	return @"";
+	return nil;
 }
 
 
@@ -208,12 +210,13 @@
 	 callback:^(BOOL success, NSDictionary *userInfo) {
 		 if (success) {
 			 INXMLNode *xmlNode = [userInfo objectForKey:INResponseXMLKey];
-			 if ([[xmlNode attr:@"id"] isEqualToString:self.uuid]) {
+			 if (![xmlNode attr:@"id"] || [[xmlNode attr:@"id"] isEqualToString:self.uuid]) {
 				 [self setFromNode:xmlNode];
+				 [self markOnServer];
 				 self.fetched = YES;
 			 }
 			 else {
-				 DLog(@"Not good, have udid %@ but fetched %@", self.uuid, [xmlNode attr:@"id"]);
+				 DLog(@"Not good, have udid %@ but fetched %@ from node %@", self.uuid, [xmlNode attr:@"id"], xmlNode);
 			 }
 		 }
 		 
@@ -233,6 +236,8 @@
 {
 	if (!self.onServer) {
 		NSString *xml = [self documentXML];
+		//DLog(@"Pushing XML:  %@", xml);
+		
 		[self post:[self basePostPath]
 			  body:xml
 		  callback:^(BOOL success, NSDictionary *userInfo) {

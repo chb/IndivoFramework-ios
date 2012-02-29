@@ -43,8 +43,7 @@
 @property (nonatomic, copy) INSuccessRetvalueBlock myCallback;				///< The callback after finishing our call
 @property (nonatomic, readonly, assign) BOOL hasBeenFired;					///< As the name suggests, tells us whether it has been sent on the journey
 
-+ (INServerCall *)call;
-+ (INServerCall *)callOnServer:(IndivoServer *)aServer;
++ (INServerCall *)newForServer:(IndivoServer *)aServer;
 - (id)initWithServer:(IndivoServer *)aServer;
 
 - (void)get:(NSString *)inMethod withParameters:(NSArray *)inParameters oauth:(MPOAuthAPI *)inOAuth callback:(INSuccessRetvalueBlock)inCallback;

@@ -23,4 +23,5 @@ Error Code Reference Sheet
 ### Server Objects
 - 2000 -- No server set
 - 2001 -- Failed to create OAuth API
+- 2200 -- Class does not support reporting calls
 

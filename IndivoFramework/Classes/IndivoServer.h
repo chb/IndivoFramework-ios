@@ -104,12 +104,19 @@
 - (void)selectRecord:(INCancelErrorBlock)callback;
 - (IndivoRecord *)recordWithId:(NSString *)recordId;
 
+// authentication
 - (BOOL)readyToConnect:(NSError **)error;
 - (BOOL)shouldAutomaticallyAuthenticateFrom:(NSURL *)authURL;
 - (NSURL *)authorizeCallbackURL;
 
+// app-specific storage
+- (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback;
+
 - (void)performCall:(INServerCall *)aCall;
 - (void)callDidFinish:(INServerCall *)aCall;
+
+// OAuth
+- (MPOAuthAPI *)createOAuthWithAuthMethodClass:(NSString *)authClass error:(NSError *__autoreleasing *)error;
 
 
 @end

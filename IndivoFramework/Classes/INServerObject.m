@@ -76,20 +76,13 @@
 - (void)performMethod:(NSString *)aMethod withBody:(NSString *)body orParameters:(NSArray *)parameters httpMethod:(NSString *)httpMethod callback:(INSuccessRetvalueBlock)callback
 {
 	if (!self.server) {
-		NSString *msg = [NSString stringWithFormat:@"Fatal Error: I have no server! %@", self];
-		if (nil != callback) {
-			NSError *error = nil;
-			ERR(&error, msg, 2000);
-			callback(NO, [NSDictionary dictionaryWithObject:error forKey:INErrorKey]);
-		}
-		else {
-			ALog(@"%@", msg);
-		}
+		NSString *errStr = [NSString stringWithFormat:@"Fatal Error: I have no server! %@", self];
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, errStr, 2000)
 		return;
 	}
 	
 	// create the desired INServerCall instance
-	INServerCall *call = [INServerCall call];
+	INServerCall *call = [INServerCall new];
 	call.method = aMethod;
 	call.body = body;
 	call.parameters = parameters;
@@ -153,6 +146,15 @@
 - (void)markOnServer
 {
 	self.onServer = YES;
+}
+
+/**
+ *	This is provided for subclasses, the fact that onServer is readonly but settable by this and markOnServer underlines the fact that
+ *	you should only change this property when you know what you're doing.
+ */
+- (void)forceNotOnServer
+{
+	self.onServer = NO;
 }
 
 /**

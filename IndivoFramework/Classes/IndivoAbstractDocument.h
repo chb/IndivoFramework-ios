@@ -21,10 +21,10 @@
  */
 
 #import "INServerObject.h"
+#import "IndivoRecord.h"
 #import "INObjects.h"
 
 @class INXMLNode;
-@class IndivoRecord;
 @class IndivoCreated;
 @class IndivoSuppressed;
 

@@ -19,11 +19,12 @@
  License along with this library; if not, write to the Free Software
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
+#import "INURLLoader.h"
 #import "IndivoServer.h"
 #import "IndivoConfig.h"
 #import "Indivo.h"
 #import "IndivoRecord.h"
+#import "IndivoDocuments.h"
 #import "INServerCall.h"
 #import "MPOAuthAPI.h"
 #import "MPOAuthAuthenticationMethodOAuth.h"			// to get ahold of dictionary key constants
@@ -205,6 +206,14 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		ERR(error, L_(@"No App id provided"), 1003)
 		return NO;
 	}
+	if ([consumerKey length] < 1) {
+		ERR(error, L_(@"No consumer key provided"), 1004)
+		return NO;
+	}
+	if ([consumerSecret length] < 1) {
+		ERR(error, L_(@"No consumer secret provided"), 1005)
+		return NO;
+	}
 	
 	return YES;
 }
@@ -239,7 +248,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 	
 	// construct the call
 	__unsafe_unretained IndivoServer *this = self;
-	self.recSelectCall = [INServerCall callOnServer:self];
+	self.recSelectCall = [INServerCall newForServer:self];
 	recSelectCall.HTTPMethod = @"POST";
 	recSelectCall.finishIfAuthenticated = YES;
 	
@@ -328,6 +337,16 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 - (void)loginView:(IndivoLoginViewController *)aLoginController didSelectRecordId:(NSString *)recordId
 {
 	NSError *error = nil;
+	
+	
+	/*--
+	NSURL *testURL = [self.url URLByAppendingPathComponent:@"version"];
+	DLog(@"TESTING: %@", testURL);
+	INURLLoader *loader = [INURLLoader loaderWithURL:testURL];
+	[loader getWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		DLog(@"GOT:  %@", loader.responseString);
+	}];
+	//--	*/
 	
 	// got a record
 	if ([recordId length] > 0) {
@@ -424,6 +443,67 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 }
 
 
+
+#pragma mark - App Specific Documents
+/**
+ *	Fetches global, app-specific documents.
+ *	GETs documents from /apps/<app id>/documents/ with a two-legged OAuth call.
+ */
+- (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback
+{
+	// create the desired INServerCall instance
+	INServerCall *call = [INServerCall new];
+	call.method = [NSString stringWithFormat:@"/apps/%@/documents/", self.appId];
+	call.HTTPMethod = @"GET";
+	
+	// get two-legged oauth method
+	NSError *error = nil;
+	call.oauth = [self createOAuthWithAuthMethodClass:@"MPOAuthAuthenticationMethodTwoLegged" error:&error];
+	if (!call.oauth) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, [error localizedDescription], [error code])
+		return;
+	}
+	
+	// create callback
+	call.myCallback = ^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		NSDictionary *usrIfo = nil;
+		
+		// fetched successfully...
+		if (success) {
+			//DLog(@"Incoming XML: %@", [userInfo objectForKey:INResponseStringKey]);
+			INXMLNode *docNode = [userInfo objectForKey:INResponseXMLKey];
+			NSArray *metaDocuments = [docNode childrenNamed:@"Document"];
+			
+			// instantiate meta documents...
+			NSMutableArray *appDocArr = [NSMutableArray arrayWithCapacity:[metaDocuments count]];
+			for (INXMLNode *metaNode in metaDocuments) {
+				IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:metaNode withServer:self];
+				if (meta) {
+					meta.documentClass = [IndivoAppDocument class];
+					
+					// ...but return the actual app documents
+					IndivoAppDocument *appDoc = (IndivoAppDocument *)[meta document];
+					if (appDoc) {
+						[appDocArr addObject:appDoc];
+					}
+				}
+			}
+			
+			usrIfo = [NSDictionary dictionaryWithObject:appDocArr forKey:INResponseArrayKey];
+		}
+		else {
+			usrIfo = userInfo;
+		}
+		
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo)
+	};
+	
+	// shoot!
+	[self performCall:call];
+}
+
+
+
 #pragma mark - Call Handling
 /**
  *	Perform a method on our server
@@ -445,7 +525,9 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 	
 	// assure our OAuthAPI is correctly setup
 	NSError *error = nil;
-	aCall.oauth = [self getOAuthOutError:&error];
+	if (!aCall.oauth) {
+		aCall.oauth = [self getOAuthOutError:&error];
+	}
 	if (!aCall.oauth) {
 		[aCall abortWithError:error];
 		return;
@@ -495,18 +577,26 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 
 #pragma mark - MPOAuth Creation
 /**
- *	Creates an MPOAuthAPI instance with credentials appropriate for either our App
- *	@param error A pointer to an error pointer, guaranteed to not be nil if returning NO
- *	@return Whether or not the MPOAuthAPI instance was created successfully
- *	@todo Improve caching
+ *	Returns our standard oauth instance or fills the error, if it couldn't be created
+ *	@param error An error pointer to be filled if OAuth creation fails
+ *	@return self.oauth
  */
 - (MPOAuthAPI *)getOAuthOutError:(NSError *__autoreleasing *)error
 {
-	// if we already have the correct instance, return it
-	if (self.oauth) {
-		return self.oauth;
+	if (!oauth) {
+		self.oauth = [self createOAuthWithAuthMethodClass:nil error:error];
 	}
-	
+	return oauth;
+}
+
+
+/**
+ *	Creates a new MPOAuthAPI instance with our current settings.
+ *	@param authClass An MPOAuthAuthenticationMethod class name. If nil picks three-legged oauth.
+ */
+- (MPOAuthAPI *)createOAuthWithAuthMethodClass:(NSString *)authClass error:(NSError *__autoreleasing *)error;
+{
+	MPOAuthAPI *api = nil;
 	NSString *errStr = nil;
 	NSUInteger errCode = 0;
 	NSDictionary *credentials = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -540,15 +630,18 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 									   url, MPOAuthBaseURLKey,
 									   nil];
 		
-		MPOAuthAPI *myOAuth = [[MPOAuthAPI alloc] initWithCredentials:credentials withConfiguration:config autoStart:NO];
-		[myOAuth discardCredentials];
+		// specify authentication method
+		if ([authClass length] > 0) {
+			[config setObject:authClass forKey:MPOAuthAuthenticationMethodKey];
+		}
 		
-		if (!myOAuth) {
+		// create
+		api = [[MPOAuthAPI alloc] initWithCredentials:credentials withConfiguration:config autoStart:NO];
+		[api discardCredentials];
+		
+		if (!api) {
 			errStr = @"Failed to create OAuth API";
 			errCode = 2001;
-		}
-		else {
-			self.oauth = myOAuth;
 		}
 	}
 	
@@ -560,9 +653,8 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		else {
 			DLog(@"Error %d: %@", errCode, errStr);
 		}
-		return nil;
 	}
-	return oauth;
+	return api;
 }
 
 
