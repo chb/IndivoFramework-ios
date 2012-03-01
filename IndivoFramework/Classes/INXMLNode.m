@@ -134,7 +134,7 @@
 	if ([attr length] < 1) {
 		return [NSNumber numberWithInt:0];
 	}
-	return [NSNumber numberWithInteger:[attr integerValue]];
+	return [NSDecimalNumber decimalNumberWithString:attr];
 }
 
 /**

@@ -281,7 +281,7 @@
 		 
 		 // fetched successfully
 		 if (success) {
-			 DLog(@"Got XML:  %@", [userInfo objectForKey:INResponseStringKey]);
+			 //DLog(@"Got XML:  %@", [userInfo objectForKey:INResponseStringKey]);
 			 INXMLNode *documentsNode = [userInfo objectForKey:INResponseXMLKey];
 			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
 			 
