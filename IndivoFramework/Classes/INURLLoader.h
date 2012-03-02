@@ -38,6 +38,7 @@
 @property (nonatomic, assign) BOOL expectBinaryData;						///< NO by default. Set to YES if you expect binary data; "responseString" will be left nil!
 
 + (NSDictionary *)queryFromRequest:(NSURLRequest *)aRequest;
++ (NSDictionary *)queryFromRequestString:(NSString *)aString;
 
 + (id)loaderWithURL:(NSURL *)anURL;
 - (id)initWithURL:(NSURL *)anURL;

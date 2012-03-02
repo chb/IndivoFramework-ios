@@ -347,6 +347,21 @@
  */
 - (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback
 {
+	INQueryParameter *aQuery = [INQueryParameter new];
+	aQuery.status = aStatus;
+	
+	[self fetchReportsOfClass:documentClass withQuery:aQuery callback:callback];
+}
+
+
+/**
+ *	Fetches reports limited by the query parameters given
+ *	@param documentClass The class representing the desired document type (e.g. IndivoMedication for medication reports)
+ *	@param aQuery The query parameters restricting the query
+ *	@param callback The block to execute upon success or failure
+ */
+- (void)fetchReportsOfClass:(Class)documentClass withQuery:(INQueryParameter *)aQuery callback:(INSuccessRetvalueBlock)callback
+{
 	if (!documentClass || ![documentClass isSubclassOfClass:[IndivoDocument class]]) {
 		NSString *errStr = [NSString stringWithFormat:@"Invalid Class, must be a subclass of IndivoDocument. Class given: %@", NSStringFromClass(documentClass)];
 		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, errStr, 10)
@@ -361,11 +376,9 @@
 		return;
 	}
 	
-	NSArray *params = [NSArray arrayWithObject:[NSString stringWithFormat:@"status=%@", stringStatusFor(aStatus)]];
-	
 	// fetch
 	[self get:path
-   parameters:params
+   parameters:[aQuery queryParameters]
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		 NSDictionary *usrIfo = nil;
 		 

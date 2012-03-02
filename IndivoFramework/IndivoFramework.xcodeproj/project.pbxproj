@@ -104,6 +104,9 @@
 		EE37573E14314D46002ABE18 /* INString.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37573C14314D46002ABE18 /* INString.m */; };
 		EE37574214314D51002ABE18 /* INDuration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37574014314D51002ABE18 /* INDuration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE37574314314D51002ABE18 /* INDuration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE37574114314D51002ABE18 /* INDuration.m */; };
+		EE39E5B415012AC000897BF8 /* INQueryParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = EE39E5B215012AC000897BF8 /* INQueryParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE39E5B515012AC000897BF8 /* INQueryParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE39E5B315012AC000897BF8 /* INQueryParameter.m */; };
+		EE39E5B615012AC000897BF8 /* INQueryParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE39E5B315012AC000897BF8 /* INQueryParameter.m */; };
 		EE3C95BD14115C15002BA967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
 		EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95EC14117818002BA967 /* IndivoServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C95EF14117818002BA967 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
@@ -442,6 +445,8 @@
 		EE37573C14314D46002ABE18 /* INString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INString.m; sourceTree = "<group>"; };
 		EE37574014314D51002ABE18 /* INDuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INDuration.h; sourceTree = "<group>"; };
 		EE37574114314D51002ABE18 /* INDuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDuration.m; sourceTree = "<group>"; };
+		EE39E5B215012AC000897BF8 /* INQueryParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INQueryParameter.h; sourceTree = "<group>"; };
+		EE39E5B315012AC000897BF8 /* INQueryParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INQueryParameter.m; sourceTree = "<group>"; };
 		EE3C95B914115C15002BA967 /* libIndivo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIndivo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3C95BC14115C15002BA967 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EE3C95C014115C15002BA967 /* IndivoFramework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoFramework-Prefix.pch"; sourceTree = "<group>"; };
@@ -914,6 +919,8 @@
 		EE81EAEA14911F270097CA36 /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EE39E5B215012AC000897BF8 /* INQueryParameter.h */,
+				EE39E5B315012AC000897BF8 /* INQueryParameter.m */,
 				EE81EAE514911F210097CA36 /* INDateRangeFormatter.h */,
 				EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */,
 				EEF2061D14C0BB4E00808F24 /* NSString+XML.h */,
@@ -1302,6 +1309,7 @@
 				EE7844B514EC463900BFCB81 /* IndivoVitalSign+Report.h in Headers */,
 				EEB68EED14F582C300F9FE61 /* INDocumentStatusNode.h in Headers */,
 				EE40758E14FE747F00F88E03 /* IndivoAppDocument.h in Headers */,
+				EE39E5B415012AC000897BF8 /* INQueryParameter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1559,6 +1567,7 @@
 				EE7844B614EC463900BFCB81 /* IndivoVitalSign+Report.m in Sources */,
 				EEB68EEE14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */,
 				EE40758F14FE747F00F88E03 /* IndivoAppDocument.m in Sources */,
+				EE39E5B515012AC000897BF8 /* INQueryParameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1660,6 +1669,7 @@
 				EE5DFA5F14EB3BC6000629C3 /* IndivoSchoolForm.m in Sources */,
 				EEB68EEF14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */,
 				EE40759014FE747F00F88E03 /* IndivoAppDocument.m in Sources */,
+				EE39E5B615012AC000897BF8 /* INQueryParameter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

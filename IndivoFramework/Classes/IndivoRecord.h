@@ -25,6 +25,7 @@
 @class IndivoDocument;
 @class IndivoContact;
 @class IndivoDemographics;
+@class INQueryParameter;
 @class INXMLNode;
 
 
@@ -55,6 +56,7 @@
 // record reports
 - (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback;
 - (void)fetchAllReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
+- (void)fetchReportsOfClass:(Class)documentClass withQuery:(INQueryParameter *)aQuery callback:(INSuccessRetvalueBlock)callback;
 
 // messaging
 - (void)sendMessage:(NSString *)messageSubject

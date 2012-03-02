@@ -223,11 +223,24 @@
  */
 + (NSDictionary *)queryFromRequest:(NSURLRequest *)aRequest
 {
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
 	NSString *queryString = [aRequest.URL query];
 	
+	/// @todo look in header and body for more arguments
+	
+	return [self queryFromRequestString:queryString];
+}
+
+
+/**
+ *	Parses arguments from a request URL string
+ *	@return An NSDictionary containing all arguments found in the request string
+ */
++ (NSDictionary *)queryFromRequestString:(NSString *)aString
+{
+	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	
 	// parse args
-	NSArray *params = [queryString componentsSeparatedByString:@"&"];
+	NSArray *params = [aString componentsSeparatedByString:@"&"];
 	if ([params count] > 0) {
 		for (NSString *param in params) {
 			NSArray *hat = [param componentsSeparatedByString:@"="];
@@ -235,14 +248,12 @@
 				NSString *key = [hat objectAtIndex:0];
 				hat = [hat mutableCopy];
 				[(NSMutableArray *)hat removeObjectAtIndex:0];
-				NSString *val = [hat componentsJoinedByString:@"="];
+				NSString *val = [hat componentsJoinedByString:@"="];	// we split by '=', which SHOULD only occur once, but may occur more than that
 				
 				[dict setObject:[val stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:key];
 			}
 		}
 	}
-	
-	/// @todo look in header and body for more arguments
 	
 	return dict;
 }

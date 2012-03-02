@@ -437,7 +437,7 @@
 {
 	NSString *action = method ? [@"\n" stringByAppendingString:method] : @"Record Selection";
 	NSString *bodyString = body ? [@"\n" stringByAppendingString:body] : @"";
-	NSString *paramString = parameters ? [NSString stringWithFormat:@"with %@", parameters] : @"";
+	NSString *paramString = parameters ? [NSString stringWithFormat:@" with %@", parameters] : @"";
 	return [NSString stringWithFormat:@"%@ <0x%X> %@: \"%@\"%@%@", NSStringFromClass([self class]), self, HTTPMethod, action, paramString, bodyString];
 }
 
