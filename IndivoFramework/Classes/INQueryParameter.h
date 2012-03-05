@@ -59,6 +59,8 @@ NSString *aggregationOperatorStringFor(INAggregationOperator aggOperator);
 @property (nonatomic, copy) NSString *orderBy;					///< The field by which to order
 @property (nonatomic, assign) BOOL descending;					///< NO by default, if YES the ordering is reversed
 
+@property (nonatomic, copy) NSDictionary *filters;				///< The filters to be applied, not URL-escaped (this will be done for you)
+
 @property (nonatomic, copy) NSString *groupBy;					///< Group by values of this field. If "orderBy" is not nil it will be reset to this value.
 @property (nonatomic, copy) NSString *aggregateBy;				///< The field by which to aggregate
 @property (nonatomic, assign) INAggregationOperator aggregateOperator;		///< The operator to apply to the "aggregateBy" field
@@ -75,6 +77,9 @@ NSString *aggregationOperatorStringFor(INAggregationOperator aggOperator);
 - (void)setFromQueryString:(NSString *)aQuery;
 - (BOOL)updateFromParameter:(NSString *)paramString withValue:(NSString *)paramValue;
 - (NSArray *)queryParameters;
+
+- (void)addFilter:(NSString *)filterKey withValue:(NSString *)filterValue;
+- (void)removeFilterForKey:(NSString *)filterKey;
 
 - (void)addParameter:(NSString *)aParameter withValue:(NSString *)paramValue;
 - (void)removeParameterForKey:(NSString *)aKey;

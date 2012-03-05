@@ -24,18 +24,11 @@
 @synthesize status;
 @synthesize offset, limit;
 @synthesize orderBy, descending;
+@synthesize filters;
 @synthesize groupBy, aggregateBy, aggregateOperator;
 @synthesize dateRangeField, dateRangeStart, dateRangeEnd;
 @synthesize dateGroupField, dateGroupIncrement;
 @synthesize customParameter;
-
-
-- (id)init
-{
-	if ((self = [super init])) {
-	}
-	return self;
-}
 
 
 /**
@@ -90,6 +83,7 @@
 /**
  *	Sets the receivers properties from the supplied query string.
  *	@attention Existing values will only be altered if they are present in the query string, unaffected values will not be reset to default.
+ *	@attention Filters cannot be automatically parsed.
  *	@param aQuery A query string, e.g. "offset=20&limit=20", from which to parse the properties
  */
 - (void)setFromQueryString:(NSString *)aQuery
@@ -194,6 +188,10 @@
 }
 
 
+/**
+ *	The query parameters currently defined in the receiver.
+ *	@returns An array full of NSString in the form @"key=value", not yet URL-escaped.
+ */
 - (NSArray *)queryParameters
 {
 	NSMutableArray *params = [NSMutableArray array];
@@ -212,6 +210,16 @@
 	}
 	if ([orderBy length] > 0) {
 		[params addObject:[NSString stringWithFormat:@"order_by=%@%@", (descending ? @"-" : @""), orderBy]];
+	}
+	
+	// filtering
+	if ([filters count] > 0) {
+		for (NSString *filter in [filters allKeys]) {
+			NSString *value = [filters objectForKey:filter];
+			if ([value length] > 0) {
+				[params addObject:[NSString stringWithFormat:@"%@=%@", filter, value]];
+			}
+		}
 	}
 	
 	// aggregate by
@@ -250,12 +258,38 @@
 	// custom parameters
 	if ([customParameter count] > 0) {
 		for (NSString *key in customParameter) {
-			NSString *value = [[customParameter objectForKey:key] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			[params addObject:[NSString stringWithFormat:@"%@=%@", key, value]];
+			[params addObject:[NSString stringWithFormat:@"%@=%@", key, [customParameter objectForKey:key]]];
 		}
 	}
 	
 	return params;
+}
+
+
+
+#pragma mark - Filters
+/**
+ *	Adds a filter
+ */
+- (void)addFilter:(NSString *)filterKey withValue:(NSString *)filterValue
+{
+	if ([filterKey length] > 0 && [filterValue length] > 0) {
+		NSMutableDictionary *filtersCopy = filters ? [filters mutableCopy] : [NSMutableDictionary dictionary];
+		[filtersCopy setObject:filterValue forKey:filterKey];
+		self.filters = filtersCopy;
+	}
+}
+
+/**
+ *	Removes a filter, if it exists
+ */
+- (void)removeFilterForKey:(NSString *)filterKey
+{
+	if ([filterKey length] > 0 && [filters objectForKey:filterKey]) {
+		NSMutableDictionary *filtersCopy = [filters mutableCopy];
+		[filtersCopy removeObjectForKey:filterKey];
+		self.filters = filtersCopy;
+	}
 }
 
 
