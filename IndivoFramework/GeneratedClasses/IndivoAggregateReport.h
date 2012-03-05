@@ -1,9 +1,9 @@
 /*
- INXMLReport.h
+ IndivoAggregateReport.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 10/18/11.
- Copyright (c) 2011 Children's Hospital Boston
+ Created by Indivo Class Generator on 2/14/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,17 +20,19 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#import "IndivoDocument.h"
+#import "INObjects.h"
 
-#import "INXMLNode.h"
 
+	
 
 /**
- *	A class to represent a "Report" node in an XML document
+ *	A class representing "indivo:AggregateReport" objects, generated from aggregatereport.xsd.
  */
-@interface INXMLReport : INXMLNode
+@interface IndivoAggregateReport : IndivoDocument
 
-- (INXMLNode *)documentNode;
-- (INXMLNode *)aggregateReportNode;
-- (INXMLNode *)metaDocumentNode;
+@property (nonatomic, strong) INString *value;					///< Must be present as an attribute
+@property (nonatomic, strong) INString *group;
+
 
 @end

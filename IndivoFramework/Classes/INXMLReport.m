@@ -32,7 +32,24 @@
 - (INXMLNode *)documentNode
 {
 	INXMLNode *item = [self childNamed:@"Item"];
-	return [item firstChild];
+	INXMLNode *first = [item firstChild];
+	if (![@"AggregateReport" isEqualToString:first.name]) {
+		return first;
+	}
+	return nil;
+}
+
+/**
+ *	Returns the aggregate report node
+ */
+- (INXMLNode *)aggregateReportNode
+{
+	INXMLNode *item = [self childNamed:@"Item"];
+	INXMLNode *first = [item firstChild];
+	if ([@"AggregateReport" isEqualToString:first.name]) {
+		return first;
+	}
+	return nil;
 }
 
 /**

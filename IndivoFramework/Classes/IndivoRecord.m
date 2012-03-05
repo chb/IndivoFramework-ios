@@ -355,7 +355,8 @@
 
 
 /**
- *	Fetches reports limited by the query parameters given
+ *	Fetches reports limited by the query parameters given.
+ *	@attention The "INResponseArrayKey" will contain either IndivoAggregateReport objects or IndivoDocument-subclass objects (of the class supplied to the method)
  *	@param documentClass The class representing the desired document type (e.g. IndivoMedication for medication reports)
  *	@param aQuery The query parameters restricting the query
  *	@param callback The block to execute upon success or failure
@@ -393,12 +394,29 @@
 			 for (INXMLReport *report in reports) {
 				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:[report metaDocumentNode] forRecord:self];
 				 meta.documentClass = documentClass;
-				 IndivoDocument *doc = [[documentClass alloc] initFromNode:[report documentNode] forRecord:self withMeta:meta];
-				 if (doc) {
-					 [reportArr addObject:doc];
+				 
+				 // document?
+				 INXMLNode *docNode = [report documentNode];
+				 if (docNode) {
+					 IndivoDocument *doc = [[documentClass alloc] initFromNode:docNode forRecord:self withMeta:meta];
+					 if (doc) {
+						 [reportArr addObject:doc];
+					 }
+				 }
+				 
+				 // aggregate report?
+				 else {
+					 INXMLNode *aggNode = [report aggregateReportNode];
+					 if (aggNode) {
+						 IndivoAggregateReport *aggregate = [[IndivoAggregateReport alloc] initFromNode:aggNode forRecord:self withMeta:meta];
+						 if (aggregate) {
+							 [reportArr addObject:aggregate];
+						 } 
+					 }
 				 }
 			 }
 			 
+			 // return in user info
 			 usrIfo = [NSDictionary dictionaryWithObject:reportArr forKey:INResponseArrayKey];
 		 }
 		 

@@ -366,6 +366,9 @@
 		EEDC6111144CF23700503C61 /* INBool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC610F144CF23700503C61 /* INBool.m */; };
 		EEF2061F14C0BB4E00808F24 /* NSString+XML.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF2061D14C0BB4E00808F24 /* NSString+XML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEF2062014C0BB4E00808F24 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
+		EEFB13C415054AC000CB56F8 /* IndivoAggregateReport.h in Headers */ = {isa = PBXBuildFile; fileRef = EEFB13C215054AC000CB56F8 /* IndivoAggregateReport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEFB13C515054AC000CB56F8 /* IndivoAggregateReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EEFB13C315054AC000CB56F8 /* IndivoAggregateReport.m */; };
+		EEFB13C615054AC000CB56F8 /* IndivoAggregateReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EEFB13C315054AC000CB56F8 /* IndivoAggregateReport.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -645,6 +648,8 @@
 		EEF205F914C092AC00808F24 /* IndivoConfig-default.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoConfig-default.h"; sourceTree = SOURCE_ROOT; };
 		EEF2061D14C0BB4E00808F24 /* NSString+XML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XML.h"; sourceTree = "<group>"; };
 		EEF2061E14C0BB4E00808F24 /* NSString+XML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XML.m"; sourceTree = "<group>"; };
+		EEFB13C215054AC000CB56F8 /* IndivoAggregateReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoAggregateReport.h; sourceTree = "<group>"; };
+		EEFB13C315054AC000CB56F8 /* IndivoAggregateReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoAggregateReport.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1106,6 +1111,13 @@
 			children = (
 				EECC234114D7138C00B4FC30 /* IndivoPrincipal.h */,
 				EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */,
+				EEA88BB914EB269700B7599D /* Medication */,
+				EEA88BB614EB25FE00B7599D /* Allergy */,
+				EEA88BB814EB267300B7599D /* Immunization */,
+				EE5DFA5A14EB3AF7000629C3 /* Clinical */,
+				EEA88BB514EB25CF00B7599D /* Labs */,
+				EEA88BB414EB25A900B7599D /* Results & Ranges */,
+				EEA88BB714EB261A00B7599D /* Contact Data */,
 				EECC233C14D7137F00B4FC30 /* IndivoProvider.h */,
 				EECC233D14D7137F00B4FC30 /* IndivoProvider.m */,
 				EEA88BD714EB332000B7599D /* IndivoSignature.h */,
@@ -1114,15 +1126,10 @@
 				EE423F5F14E1785C0009771F /* IndivoDemographics.m */,
 				EEAA504614DB697E00FBFE66 /* IndivoEquipment.h */,
 				EEAA504714DB697F00FBFE66 /* IndivoEquipment.m */,
+				EEFB13C215054AC000CB56F8 /* IndivoAggregateReport.h */,
+				EEFB13C315054AC000CB56F8 /* IndivoAggregateReport.m */,
 				EE5DFA5B14EB3BC6000629C3 /* IndivoSchoolForm.h */,
 				EE5DFA5C14EB3BC6000629C3 /* IndivoSchoolForm.m */,
-				EEA88BB914EB269700B7599D /* Medication */,
-				EEA88BB614EB25FE00B7599D /* Allergy */,
-				EEA88BB814EB267300B7599D /* Immunization */,
-				EE5DFA5A14EB3AF7000629C3 /* Clinical */,
-				EEA88BB514EB25CF00B7599D /* Labs */,
-				EEA88BB414EB25A900B7599D /* Results & Ranges */,
-				EEA88BB714EB261A00B7599D /* Contact Data */,
 			);
 			name = "Generated Documents";
 			path = GeneratedClasses;
@@ -1310,6 +1317,7 @@
 				EEB68EED14F582C300F9FE61 /* INDocumentStatusNode.h in Headers */,
 				EE40758E14FE747F00F88E03 /* IndivoAppDocument.h in Headers */,
 				EE39E5B415012AC000897BF8 /* INQueryParameter.h in Headers */,
+				EEFB13C415054AC000CB56F8 /* IndivoAggregateReport.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1568,6 +1576,7 @@
 				EEB68EEE14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */,
 				EE40758F14FE747F00F88E03 /* IndivoAppDocument.m in Sources */,
 				EE39E5B515012AC000897BF8 /* INQueryParameter.m in Sources */,
+				EEFB13C515054AC000CB56F8 /* IndivoAggregateReport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1670,6 +1679,7 @@
 				EEB68EEF14F582C300F9FE61 /* INDocumentStatusNode.m in Sources */,
 				EE40759014FE747F00F88E03 /* IndivoAppDocument.m in Sources */,
 				EE39E5B615012AC000897BF8 /* INQueryParameter.m in Sources */,
+				EEFB13C615054AC000CB56F8 /* IndivoAggregateReport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

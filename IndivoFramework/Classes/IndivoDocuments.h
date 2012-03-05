@@ -30,14 +30,6 @@
 #import "IndivoMetaDocument.h"
 #import "IndivoAppDocument.h"
 
-#import "INQueryParameter.h"
-#import "IndivoPrincipal.h"
-#import "IndivoProvider.h"
-#import "IndivoSignature.h"
-#import "IndivoDemographics.h"
-#import "IndivoEquipment+Report.h"
-#import "IndivoSchoolForm.h"
-
 // Medication
 #import "IndivoMedication+Report.h"
 #import "IndivoPrescription.h"
@@ -83,5 +75,15 @@
 #import "IndivoContactEmail.h"
 #import "IndivoContactPhoneNumber.h"
 #import "IndivoContactInstantMessengerName.h"
+
+// Other
+#import "IndivoAggregateReport.h"
+#import "INQueryParameter.h"
+#import "IndivoPrincipal.h"
+#import "IndivoProvider.h"
+#import "IndivoSignature.h"
+#import "IndivoDemographics.h"
+#import "IndivoEquipment+Report.h"
+#import "IndivoSchoolForm.h"
 
 
