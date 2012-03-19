@@ -129,12 +129,12 @@ NSString* messageTypeStringFor(INMessageType type);
 
 /// Make callback or logging easy
 #ifndef CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO
-# define CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(cb, success, userInfo)\
+# define CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(cb, didCancel, userInfo)\
 	NSError *error = [userInfo objectForKey:INErrorKey];\
 	if (cb) {\
-		cb(success, [error localizedDescription]);\
+		cb(didCancel, [error localizedDescription]);\
 	}\
-	else if (!success) {\
+	else if (!didCancel) {\
 		DLog(@"No callback on this method, logging to debug. Error: %@", [error localizedDescription]);\
 	}
 #endif
@@ -166,6 +166,6 @@ NSString* messageTypeStringFor(INMessageType type);
 		cb((nil == error), error ? [NSDictionary dictionaryWithObject:error forKey:INErrorKey] : nil);\
 	}\
 	else if (errStr) {\
-		DLog(@"No callback on this method, logging to debug. Error: %@", errStr);\
+		DLog(@"No callback on this method, logging to debug. Error %d: %@", errCode, errStr);\
 	}
 #endif

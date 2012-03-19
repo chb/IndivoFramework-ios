@@ -253,7 +253,7 @@
 			 }
 		 }
 		 
-		 CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, success, userInfo)
+		 CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 	 }];
 }
 
@@ -323,7 +323,7 @@
 					  [self updateWithMeta:metaDoc];
 				  }
 				  
-				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 			  }
 			  else {
@@ -343,7 +343,7 @@
 	[self put:labelPath body:aLabel callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.label = aLabel;
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
@@ -369,7 +369,7 @@
 	[self post:statusPath parameters:params callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.status = flag ? INDocumentStatusVoid : INDocumentStatusActive;
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
@@ -396,7 +396,7 @@
 	[self post:statusPath parameters:params callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.status = flag ? INDocumentStatusArchived : INDocumentStatusActive;
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, userInfo)
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {

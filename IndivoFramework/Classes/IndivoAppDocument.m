@@ -137,7 +137,7 @@
 						   }
 						   else {
 							   NSError *error = [userInfo objectForKey:INErrorKey];
-							   CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, nil != error, [error localizedDescription])
+							   CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, nil == error, [error localizedDescription])
 						   }
 					   }];
 		}
@@ -160,7 +160,7 @@
 				   }
 				   else {
 					   NSError *error = [userInfo objectForKey:INErrorKey];
-					   CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, nil != error, [error localizedDescription])
+					   CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, nil == error, [error localizedDescription])
 				   }
 			   }];
 }
