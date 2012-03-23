@@ -39,8 +39,8 @@
 
 @property (nonatomic, strong) MPOAuthAPI *oauth;								///< Handle to our MPOAuth instance with App credentials
 @property (nonatomic, strong) NSMutableArray *callQueue;						///< Calls are queued instead of performed in parallel to avoid getting inconsistent results
+@property (nonatomic, strong) NSMutableArray *suspendedCalls;					///< Calls that were dequeued, we need to hold on to them to not deallocate them
 @property (nonatomic, strong) INServerCall *currentCall;						///< Only one call at a time, this is the current one
-@property (nonatomic, strong) INServerCall *recSelectCall;						///< The call currently performing authentication
 
 @property (nonatomic, strong) IndivoLoginViewController *loginVC;				///< A handle to the currently shown login view controller
 @property (nonatomic, readwrite, copy) NSString *lastOAuthVerifier;
@@ -69,7 +69,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 @synthesize delegate, activeRecord, knownRecords;
 @synthesize appId, callbackScheme, url, ui_url, startURL, authorizeURL;
 @dynamic activeRecordId;
-@synthesize oauth, callQueue, currentCall, recSelectCall;
+@synthesize oauth, callQueue, suspendedCalls, currentCall;
 @synthesize loginVC, lastOAuthVerifier;
 @synthesize consumerKey, consumerSecret, storeCredentials;
 
@@ -111,6 +111,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		}
 		
 		self.callQueue = [NSMutableArray arrayWithCapacity:2];
+		self.suspendedCalls = [NSMutableArray arrayWithCapacity:2];
 	}
 	return self;
 }
@@ -223,22 +224,14 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 
 #pragma mark - Record Selection
 /**
- *	This is the main authentication entry point, this method will ask the delegate where to present a login view controller, if authentication is
- *	necessary, and handle all user interactions until login was successful or the user cancels the login operation.
- *	@param callback A block with a first BOOL argument, which will be YES if the user cancelled the action, and an error string argument, which
- *	will be nil if authentication was successful. By the time this callback is called, the "activeRecord" property will be set, if the call was
- *	successful
+ *	This is the main authentication entry point, this method will ask the delegate where to present a login view controller, if authentication is necessary, and
+ *	handle all user interactions until login was successful or the user cancels the login operation.
+ *	@param callback A block with a first BOOL argument, which will be YES if the user cancelled the action, and an error string argument, which will be nil if
+ *	authentication was successful. By the time this callback is called, the "activeRecord" property will be set (if the call was successful).
  */
 - (void)selectRecord:(INCancelErrorBlock)callback
 {
 	NSError *error = nil;
-	
-	// a record select call is already active, abort
-	if (recSelectCall) {
-		DLog(@"A record selection call was already active, aborting that call");
-		recSelectCall.myCallback = nil;
-		[recSelectCall abortWithError:nil];
-	}
 	
 	// check whether we are ready
 	if (![self readyToConnect:&error]) {
@@ -247,14 +240,20 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		return;
 	}
 	
+	// dequeue current call
+	if (currentCall) {
+		[self suspendCall:currentCall];
+	}
+	
 	// construct the call
 	__unsafe_unretained IndivoServer *this = self;
-	self.recSelectCall = [INServerCall newForServer:self];
-	recSelectCall.HTTPMethod = @"POST";
-	recSelectCall.finishIfAuthenticated = YES;
+	self.currentCall = [INServerCall newForServer:self];
+	currentCall.HTTPMethod = @"POST";
+	currentCall.finishIfAuthenticated = YES;
 	
 	// here's the callback once record selection has finished
-	recSelectCall.myCallback = ^(BOOL success, NSDictionary *userInfo) {
+	currentCall.myCallback = ^(BOOL success, NSDictionary *userInfo) {
+		BOOL didCancel = NO;
 		
 		// successfully selected a record
 		if (success) {
@@ -264,12 +263,8 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 				this.activeRecord.accessTokenSecret = [userInfo objectForKey:@"oauth_token_secret"];
 			}
 			
-			// fetch the contact document to get the record label
+			// fetch the contact document to get the record label (this non-authentication call will make the login view controller disappear, don't forget that if you remove it)
 			[this.activeRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
-				if (this.loginVC) {
-					[this.loginVC dismissAnimated:YES];
-					this.loginVC = nil;
-				}
 				
 				// we ignore errors fetching the contact document. Errors will only be logged, not passed on to the callback as the record was still selected successfully
 				if (errorMessage) {
@@ -282,17 +277,72 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		
 		// failed: Cancelled or other failure
 		else {
-			if (this.loginVC) {
-				[this.loginVC dismissAnimated:YES];
-				this.loginVC = nil;
-			}
-			
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+			didCancel = (nil == [userInfo objectForKey:INErrorKey]);
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 		}
 	};
 	
 	// present selection screen
 	[self _presentLoginScreenAtURL:self.startURL];
+}
+
+
+/**
+ *	Strips current credentials and then does the OAuth dance again. The authorize screen is automatically shown if necessary.
+ *	@attention This call is only useful if a call is in progress (but has hit an invalid access token), so it will not do anything without a current call.
+ *	@param callback An INCancelErrorBlock callback
+ */
+- (void)authenticate:(INCancelErrorBlock)callback
+{
+	NSError *error = nil;
+	
+	// check whether we are ready
+	if (![self readyToConnect:&error]) {
+		NSString *errorStr = error ? [error localizedDescription] : @"Error Connecting";
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, errorStr)
+		return;
+	}
+	
+	// dequeue current call
+	if (!currentCall) {
+		NSString *errorStr = error ? [error localizedDescription] : @"No current call";
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, errorStr)
+		return;
+	}
+	[self suspendCall:currentCall];
+	
+	// construct the call
+	__unsafe_unretained IndivoServer *this = self;
+	self.currentCall = [INServerCall newForServer:self];
+	currentCall.HTTPMethod = @"POST";
+	currentCall.finishIfAuthenticated = YES;
+	
+	// here's the callback once authentication has finished
+	currentCall.myCallback = ^(BOOL success, NSDictionary *userInfo) {
+		BOOL didCancel = NO;
+		
+		// successfully authenticated
+		if (success) {
+			NSString *forRecordId = [userInfo objectForKey:INRecordIDKey];
+			if (forRecordId && [this.activeRecord is:forRecordId]) {
+				this.activeRecord.accessToken = [userInfo objectForKey:@"oauth_token"];
+				this.activeRecord.accessTokenSecret = [userInfo objectForKey:@"oauth_token_secret"];
+			}
+			
+			userInfo = nil;
+		}
+		else if (![userInfo objectForKey:INErrorKey]) {
+			didCancel = YES;
+		}
+		
+		CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
+	};
+	
+	// force authentication by wiping current credentials
+	currentCall.oauth = [self getOAuthOutError:nil];
+	[currentCall.oauth discardCredentials];
+	
+	[self performCall:currentCall];
 }
 
 
@@ -339,7 +389,6 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 {
 	NSError *error = nil;
 	
-	
 	/*--
 	NSURL *testURL = [self.url URLByAppendingPathComponent:@"version"];
 	DLog(@"TESTING: %@", testURL);
@@ -373,13 +422,13 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		self.activeRecord = selectedRecord;
 		
 		// finish the record selection process
-		[self performCall:recSelectCall];
+		[self performCall:currentCall];
 	}
 	
 	// failed to select a record
 	else {
 		ERR(&error, @"Did not receive a record", 0)
-		[recSelectCall abortWithError:error];
+		[currentCall abortWithError:error];
 	}
 }
 
@@ -390,9 +439,9 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 {
 	self.lastOAuthVerifier = aVerifier;
 	
-	// we should have an active recSelectCall and an active record here, warn if not
-	if (!recSelectCall) {
-		DLog(@"WARNING -- did receive verifier, but no recSelectCall is in place! Verifier: %@", aVerifier);
+	// we should have an active call and an active record here, warn if not
+	if (!currentCall) {
+		DLog(@"WARNING -- did receive verifier, but no call is in place! Verifier: %@", aVerifier);
 	}
 	if (!self.activeRecord) {
 		DLog(@"WARNING -- no active record");
@@ -402,7 +451,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 	if (loginVC) {
 		[loginVC showLoadingIndicator:nil];
 	}
-	[self performCall:recSelectCall];
+	[self performCall:currentCall];
 }
 
 /**
@@ -410,19 +459,16 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
  */
 - (void)loginViewDidCancel:(IndivoLoginViewController *)loginController
 {
-	if (recSelectCall) {
-		[recSelectCall abortWithError:nil];
+	if (currentCall) {
+		[currentCall cancel];
 	}
-	else {
-		if (loginController != loginVC) {
-			DLog(@"Very strange, an unknown login controller did just cancel...");
-			[loginController dismissAnimated:YES];
-		}
-		else {
-			[loginVC dismissAnimated:YES];
-		}
-		self.loginVC = nil;
+	
+	// dismiss login view controller
+	if (loginController != loginVC) {
+		DLog(@"Very strange, an unknown login controller did just cancel...");
 	}
+	[loginController dismissAnimated:YES];
+	self.loginVC = nil;
 }
 
 /**
@@ -431,8 +477,13 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 - (void)loginViewDidLogout:(IndivoLoginViewController *)aLoginController
 {
 	self.activeRecord = nil;
-	[recSelectCall abortWithError:nil];
+	[currentCall cancel];
 	[delegate userDidLogout:self];
+	
+	if (loginVC) {
+		[loginVC dismissAnimated:YES];
+		self.loginVC = nil;
+	}
 }
 
 /**
@@ -518,8 +569,17 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		return;
 	}
 	
-	// there already is a call in progress (skip for recSelectCall)
-	if (recSelectCall != aCall && [currentCall hasBeenFired]) {
+	// performing an arbitrary call, we can dismiss any login view controller
+	if (loginVC && ![aCall isAuthenticationCall]) {
+		[loginVC dismissAnimated:YES];
+		self.loginVC = nil;
+	}
+	
+	// maybe this call was suspended, remove it from the store
+	[suspendedCalls removeObject:aCall];
+	
+	// there already is a call in progress
+	if (aCall != currentCall && [currentCall hasBeenFired]) {
 		[callQueue addObject:aCall];
 		return;
 	}
@@ -534,11 +594,9 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		return;
 	}
 	
-	// setup call
+	// setup and fire
 	aCall.server = self;
-	if (recSelectCall != aCall) {
-		self.currentCall = aCall;
-	}
+	self.currentCall = aCall;
 	
 	[aCall fire];
 }
@@ -549,18 +607,38 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
  */
 - (void)callDidFinish:(INServerCall *)aCall
 {
+	[callQueue removeObject:aCall];
 	if (aCall == currentCall) {
-		[callQueue removeObject:aCall];
 		self.currentCall = nil;
-		
-		// move on
-		if ([callQueue count] > 0) {
-			INServerCall *nextCall = [callQueue objectAtIndex:0];
-			[self performCall:nextCall];
-		}
 	}
-	if (aCall == recSelectCall) {
-		self.recSelectCall = nil;
+	
+	// move on
+	INServerCall *nextCall = nil;
+	if ([callQueue count] > 0) {
+		nextCall = [callQueue objectAtIndex:0];
+	}
+	else if ([suspendedCalls count] > 0) {
+		nextCall = [suspendedCalls objectAtIndex:0];
+	}
+	
+	if (nextCall) {
+		[self performCall:nextCall];
+	}
+}
+
+/**
+ *	Dequeues a call without finishing it. This is useful for calls that need to be re-performed after another call has been made, e.g. if the token was
+ *	rejected and we'll be retrying the call after obtaining a new token. In this case, we don't want the call to finish, but we can't leave it in the queue
+ *	because it would block subsequent calls.
+ *	@attention Do NOT use this to cancel a call because the callback will not be called!
+ */
+- (void)suspendCall:(INServerCall *)aCall
+{
+	[suspendedCalls addObject:aCall];
+	[callQueue removeObject:aCall];
+	
+	if (aCall == currentCall) {
+		self.currentCall = nil;
 	}
 }
 

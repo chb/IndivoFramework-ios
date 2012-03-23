@@ -102,6 +102,7 @@
 + (IndivoServer *)serverWithDelegate:(id<IndivoServerDelegate>)aDelegate;
 
 - (void)selectRecord:(INCancelErrorBlock)callback;
+- (void)authenticate:(INCancelErrorBlock)callback;
 - (IndivoRecord *)recordWithId:(NSString *)recordId;
 
 // authentication
@@ -112,8 +113,10 @@
 // app-specific storage
 - (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback;
 
+// performing calls
 - (void)performCall:(INServerCall *)aCall;
 - (void)callDidFinish:(INServerCall *)aCall;
+- (void)suspendCall:(INServerCall *)aCall;
 
 // OAuth
 - (MPOAuthAPI *)createOAuthWithAuthMethodClass:(NSString *)authClass error:(NSError *__autoreleasing *)error;

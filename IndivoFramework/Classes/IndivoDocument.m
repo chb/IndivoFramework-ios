@@ -241,6 +241,7 @@
 {
 	[self get:[self documentPath]
 	 callback:^(BOOL success, NSDictionary *userInfo) {
+		 BOOL didCancel = NO;
 		 if (success) {
 			 INXMLNode *xmlNode = [userInfo objectForKey:INResponseXMLKey];
 			 if (![xmlNode attr:@"id"] || [[xmlNode attr:@"id"] isEqualToString:self.uuid]) {
@@ -252,8 +253,13 @@
 				 DLog(@"Not good, have udid %@ but fetched %@ from node %@", self.uuid, [xmlNode attr:@"id"], xmlNode);
 			 }
 		 }
+		 else {
+			 if (![userInfo objectForKey:INErrorKey]) {
+				 didCancel = YES;
+			 }
+		 }
 		 
-		 CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+		 CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 	 }];
 }
 
@@ -288,8 +294,14 @@
 				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 			  }
 			  else {
-				  DLog(@"FAILED: %@", xml);
-				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+				  BOOL didCancel = NO;
+				  if (![userInfo objectForKey:INErrorKey]) {
+					  didCancel = YES;
+				  }
+				  else {
+					  DLog(@"FAILED: %@", xml);
+				  }
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 			  }
 		  }];
 	}
@@ -327,8 +339,14 @@
 				  POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 			  }
 			  else {
-				  DLog(@"FAILED: %@", xml);
-				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+				  BOOL didCancel = NO;
+				  if (![userInfo objectForKey:INErrorKey]) {
+					  didCancel = YES;
+				  }
+				  else {
+					  DLog(@"FAILED: %@", xml);
+				  }
+				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 			  }
 		  }];
 	}
@@ -347,7 +365,8 @@
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+			BOOL didCancel = (![userInfo objectForKey:INErrorKey]);
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 		}
 	}];
 }
@@ -373,7 +392,8 @@
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+			BOOL didCancel = (![userInfo objectForKey:INErrorKey]);
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 		}
 	}];
 }
@@ -400,7 +420,8 @@
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
 		else {
-			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
+			BOOL didCancel = (![userInfo objectForKey:INErrorKey]);
+			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 		}
 	}];
 }

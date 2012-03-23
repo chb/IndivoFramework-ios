@@ -39,7 +39,7 @@
 @property (nonatomic, copy) NSString *body;									///< Body data, takes precedence over "parameters" if length is > 0
 @property (nonatomic, strong) NSArray *parameters;							///< An array with @"key=value" strings to be passed to the server, overridden by "body"
 @property (nonatomic, strong) MPOAuthAPI *oauth;							///< The call will retain a copy of the oauth instance
-@property (nonatomic, assign) BOOL finishIfAuthenticated;					///< If yes the call is merely a proxy to the OAuth authentication call
+@property (nonatomic, assign) BOOL finishIfAuthenticated;					///< If YES the call is merely a proxy to the OAuth authentication call
 @property (nonatomic, copy) INSuccessRetvalueBlock myCallback;				///< The callback after finishing our call
 @property (nonatomic, readonly, assign) BOOL hasBeenFired;					///< As the name suggests, tells us whether it has been sent on the journey
 
@@ -53,7 +53,10 @@
 - (void)fire;
 
 - (void)finishWith:(NSDictionary *)returnObject;
+- (void)cancel;
 - (void)abortWithError:(NSError *)error;
+
+- (BOOL)isAuthenticationCall;
 
 
 @end

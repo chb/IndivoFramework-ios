@@ -30,6 +30,8 @@
 @interface INServerCall ()
 
 @property (nonatomic, readwrite, assign) BOOL hasBeenFired;
+@property (nonatomic, assign) BOOL retryWithNewTokenAfterFailure;
+@property (nonatomic, assign) BOOL didRetryWithNewTokenAfterFailure;
 @property (nonatomic, strong) NSDictionary *responseObject;
 
 - (void)didFinishSuccessfully:(BOOL)success returnObject:(NSDictionary *)returnObject;
@@ -41,7 +43,7 @@
 
 @synthesize server;
 @synthesize method, body, parameters, HTTPMethod, oauth, finishIfAuthenticated;
-@synthesize hasBeenFired, responseObject, myCallback;
+@synthesize hasBeenFired, retryWithNewTokenAfterFailure, didRetryWithNewTokenAfterFailure, responseObject, myCallback;
 
 
 /**
@@ -196,6 +198,8 @@
 		self.oauth.defaultHTTPMethod = HTTPMethod;
 	}
 	self.hasBeenFired = YES;
+	self.didRetryWithNewTokenAfterFailure = retryWithNewTokenAfterFailure;
+	self.retryWithNewTokenAfterFailure = NO;
 	
 	// let MPOAuth do its magic
 	if (![oauth isAuthenticated]) {
@@ -245,6 +249,14 @@
 }
 
 /**
+ *	Cancels the call, calling "abortWithError:nil" has the same effect
+ */
+- (void)cancel
+{
+	[self didFinishSuccessfully:NO returnObject:nil];
+}
+
+/**
  *	This method can be called to abort a call and have it send the provided error with its callback
  *	@param error An NSError object to be delivered through the callback
  */
@@ -261,12 +273,14 @@
 {
 	self.oauth = nil;
 	
+	// inform the server - the server will remove us from his pool, so we need to create a strong reference to ourselves which lasts for the scope
+	INServerCall *this = self;
+	[server callDidFinish:self];
+
 	// send callback and inform the server
 	SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(myCallback, success, returnObject);
 	self.myCallback = nil;
-	
-	// inform the server
-	[server callDidFinish:self];
+	this = nil;
 }
 
 
@@ -363,12 +377,17 @@
 		self.responseObject = nDict;
 	}
 	
-	// **access** token rejected
+	// **access** token rejected, let's retry once
 	else if ([MPOAuthNotificationAccessTokenRejected isEqualToString:nName]) {
 		NSError *error = nil;
 		//ERR(&error, [nDict objectForKey:NSLocalizedDescriptionKey] ? [nDict objectForKey:NSLocalizedDescriptionKey] : @"Access Token Rejected", 403);	// server does always send "Permission Denied"
 		ERR(&error, @"Access Token Rejected", 403);
 		self.responseObject = [NSDictionary dictionaryWithObject:error forKey:INErrorKey];
+		
+		if (!didRetryWithNewTokenAfterFailure) {
+			DLog(@"WARNING: The access token was rejected. I will try to get a new token, show the \"Authorize App\" page to the user if necessary and then re-perform the call.");
+			retryWithNewTokenAfterFailure = YES;
+		}
 	}
 	
 	// general error
@@ -421,11 +440,33 @@
 
 - (void)connectionFailedWithResponse:(NSURLResponse *)aResponse error:(NSError *)inError
 {
-	if (![responseObject objectForKey:INErrorKey]) {
+	// get the correct error (if we have one in responseObject alread, we ignore inError)
+	NSError *prevError = [responseObject objectForKey:INErrorKey];
+	NSError *actualError = prevError ? prevError : inError;
+	
+	// we should arrive here if the token was rejected
+	if (retryWithNewTokenAfterFailure) {
+		[server authenticate:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+			if (userDidCancel || errorMessage) {
+				NSError *error = actualError;
+				if (errorMessage) {
+					ERR(&error, errorMessage, 403);
+				}
+				[self authenticationDidFailWithError:error];
+			}
+			else {
+				[self authenticationDidSucceed];
+			}
+		}];
+		return;
+	}
+	
+	// set the response object
+	if (!prevError) {
 		self.responseObject = [NSDictionary dictionaryWithObject:inError forKey:INErrorKey];
 	}
 	else {
-		DLog(@"Failed with error %@, but will return previously encountered error %@", inError, [responseObject objectForKey:INErrorKey]);
+		DLog(@"Failed with error %@, but will return previously encountered error %@", inError, prevError);
 	}
 	[self didFinishSuccessfully:NO returnObject:responseObject];
 }
@@ -433,9 +474,14 @@
 
 
 #pragma mark - Utilities
+- (BOOL)isAuthenticationCall
+{
+	return (nil == method);			// seems hackish...
+}
+
 - (NSString *)description
 {
-	NSString *action = method ? [@"\n" stringByAppendingString:method] : @"Record Selection";
+	NSString *action = method ? [@"\n" stringByAppendingString:method] : @"Authentication";
 	NSString *bodyString = body ? [@"\n" stringByAppendingString:body] : @"";
 	NSString *paramString = parameters ? [NSString stringWithFormat:@" with %@", parameters] : @"";
 	return [NSString stringWithFormat:@"%@ <0x%X> %@: \"%@\"%@%@", NSStringFromClass([self class]), self, HTTPMethod, action, paramString, bodyString];
