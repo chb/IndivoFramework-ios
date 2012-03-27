@@ -299,7 +299,8 @@
 					  didCancel = YES;
 				  }
 				  else {
-					  DLog(@"FAILED: %@", xml);
+					  // we log the XML if push fails because most likely, it didn't validate, so here's your chance to take a look
+					  DLog(@"PUSH FAILED BECAUSE %@:\n%@", [[userInfo objectForKey:INErrorKey] localizedDescription], xml);
 				  }
 				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 			  }

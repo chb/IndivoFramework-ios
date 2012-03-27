@@ -159,13 +159,16 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 
 #pragma mark - Server
 /**
- *	Sets the active record and resets the oauth instance
+ *	Sets the active record and resets the oauth instance upon logout
  */
 - (void)setActiveRecord:(IndivoRecord *)aRecord
 {
 	if (aRecord != activeRecord) {
 		activeRecord = aRecord;
-		self.oauth = nil;
+		
+		if (!activeRecord) {
+			self.oauth = nil;
+		}
 	}
 }
 
@@ -264,15 +267,21 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 			}
 			
 			// fetch the contact document to get the record label (this non-authentication call will make the login view controller disappear, don't forget that if you remove it)
-			[this.activeRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
-				
-				// we ignore errors fetching the contact document. Errors will only be logged, not passed on to the callback as the record was still selected successfully
-				if (errorMessage) {
-					DLog(@"Error fetching contact document: %@", errorMessage);
-				}
-				
-				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
-			}];
+			if (this.activeRecord) {
+				[this.activeRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+					
+					// we ignore errors fetching the contact document. Errors will only be logged, not passed on to the callback as the record was still selected successfully
+					if (errorMessage) {
+						DLog(@"Error fetching contact document: %@", errorMessage);
+					}
+					
+					CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
+				}];
+			}
+			else {
+				DLog(@"There is no active record!");
+				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, @"No active record")
+			}
 		}
 		
 		// failed: Cancelled or other failure

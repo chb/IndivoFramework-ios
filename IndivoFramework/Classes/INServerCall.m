@@ -195,7 +195,7 @@
 	}
 	
 	if (HTTPMethod) {
-		self.oauth.defaultHTTPMethod = HTTPMethod;
+		oauth.defaultHTTPMethod = HTTPMethod;
 	}
 	self.hasBeenFired = YES;
 	self.didRetryWithNewTokenAfterFailure = retryWithNewTokenAfterFailure;
@@ -203,6 +203,7 @@
 	
 	// let MPOAuth do its magic
 	if (![oauth isAuthenticated]) {
+		oauth.defaultHTTPMethod = @"POST";
 		[oauth authenticate];
 	}
 	
@@ -331,12 +332,7 @@
  */
 - (void)authenticationDidSucceed
 {
-	if (finishIfAuthenticated) {
-		[self didFinishSuccessfully:YES returnObject:self.responseObject];
-	}
-	else {
-		[self fire];
-	}
+	[self fire];			// will finish immediately if the call has "finishIfAuthenticated" set
 }
 
 /**
