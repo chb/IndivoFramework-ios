@@ -8,13 +8,11 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@class IndivoServer;
+@class IndivoMockServer;
 
 
 @interface IndivoFrameworkTests : SenTestCase
 
-@property (nonatomic, strong) IndivoServer *server;
-
-- (NSString *)readFixture:(NSString *)fileName;
+@property (nonatomic, strong) IndivoMockServer *server;
 
 @end

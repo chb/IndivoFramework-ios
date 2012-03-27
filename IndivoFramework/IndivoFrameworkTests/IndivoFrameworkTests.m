@@ -7,11 +7,19 @@
 //
 
 #import "IndivoFrameworkTests.h"
-#import "IndivoServer.h"
+#import "IndivoMockServer.h"
 #import "IndivoDocuments.h"
 #import "INXMLParser.h"
 #import "NSString+XML.h"
 #import <mach/mach_time.h>
+
+
+/**
+ *	Macro that throws an exception, use it like you use NSLog
+ */
+#define THROW(fmt, ...) \
+	NSString *throwMessage = [NSString stringWithFormat:(@"%s (line %d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__]; \
+	@throw [NSException exceptionWithName:@"Unexpected Response" reason:throwMessage userInfo:nil]
 
 
 @implementation IndivoFrameworkTests
@@ -22,12 +30,12 @@
 - (void)setUp
 {
     [super setUp];
-    //self.server = [IndivoServer serverWithDelegate:nil];
+    self.server = [IndivoMockServer serverWithDelegate:nil];
 }
 
 - (void)tearDown
 {
-	//self.server = nil;
+	self.server = nil;
     [super tearDown];
 }
 
@@ -46,12 +54,135 @@
 }
 
 
+
+#pragma mark - Response Tests
+- (void)testMockResponses
+{
+	NSError *error = nil;
+	IndivoRecord *testRecord = [server activeRecord];
+	
+	// app specific documents
+	[server fetchAppSpecificDocumentsWithCallback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		if (!success) {
+			THROW(@"Failed to get app specific documents: %@", userInfo);
+		}
+	}];
+	
+	// get record info, contact and demographics
+	[testRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (userDidCancel || errorMessage) {
+			THROW(@"We didn't get the record info, but this error: %@", errorMessage);
+		}
+	}];
+	
+	[testRecord fetchContactDocumentWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		IndivoContactAddress *firstAddress = [testRecord.contactDoc.address count] > 0 ? [testRecord.contactDoc.address objectAtIndex:0] : nil;
+		if (![@"Montana" isEqualToString:firstAddress.region.string]) {
+			THROW(@"We didn't get the correct contact address region, but this error: %@", errorMessage);
+		}
+	}];
+	
+	[testRecord fetchDemographicsDocumentWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (![@"Single" isEqualToString:testRecord.demographicsDoc.maritalStatus.string]) {
+			THROW(@"We didn't get the correct marital status, but this error: %@", errorMessage);
+		}
+	}];
+	
+	// record documents
+	[testRecord fetchDocumentsWithCallback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		if (!success) {
+			THROW(@"Failed to fetch record documents: %@", userInfo);
+		}
+	}];
+	
+	IndivoLab *newLab = (IndivoLab *)[testRecord addDocumentOfClass:[IndivoLab class] error:&error];
+	if (!newLab) {
+		THROW(@"Failed to add lab document: %@", [error localizedDescription]);
+	}
+	
+	// record-app documents
+	[testRecord fetchAppSpecificDocumentsWithCallback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		if (!success) {
+			THROW(@"Failed to fetch app specific documents: %@", userInfo);
+		}
+	}];
+	
+	// record reports
+	/// @todo the mock server currently doesn't parse URL GET parameters, so the report methods will all return the same fixture
+	[testRecord fetchReportsOfClass:[newLab class] withStatus:INDocumentStatusArchived callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		if (!success) {
+			THROW(@"Failed to fetch archived lab reports: %@", userInfo);
+		}
+	}];
+	[testRecord fetchAllReportsOfClass:[newLab class] callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		if (!success) {
+			THROW(@"Failed to fetch all lab reports: %@", userInfo);
+		}
+	}];
+	
+	INQueryParameter *query = [INQueryParameter new];
+	query.descending = YES;
+	query.dateRangeStart = [NSDate date];
+	[testRecord fetchReportsOfClass:[newLab class] withQuery:query callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
+		if (!success) {
+			THROW(@"Failed to fetch lab reports with query %@: %@", query, userInfo);
+		}
+	}];
+	
+	// document operations
+	[newLab pull:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (!errorMessage) {
+			THROW(@"Pull succeeded despite this being a new document");
+		}
+	}];
+	
+	[newLab push:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (userDidCancel || errorMessage) {
+			THROW(@"Pushing the document failed: %@", errorMessage);
+		}
+	}];
+	
+	[newLab pull:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (userDidCancel || errorMessage) {
+			THROW(@"Pull failed despite just pushing the document: %@", errorMessage);
+		}
+	}];
+	
+	[newLab replace:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (userDidCancel || errorMessage) {
+			THROW(@"Replace failed: %@", errorMessage);
+		}
+	}];
+	
+	NSString *newLabel = @"a new label";
+	[newLab setLabel:newLabel callback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (![newLabel isEqualToString:newLab.label]) {
+			THROW(@"Changing the label failed, is \"%@\", should be \"%@\", error: %@", newLab.label, newLabel, errorMessage);
+		}
+	}];
+	
+	[newLab archive:YES forReason:@"just for fun" callback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (userDidCancel || errorMessage) {
+			THROW(@"Archiving failed: %@", errorMessage);
+		}
+	}];
+	
+	[newLab void:YES forReason:@"because of Dan" callback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
+		if (userDidCancel || errorMessage) {
+			THROW(@"Voiding failed: %@", errorMessage);
+		}
+	}];
+}
+
+
+
+#pragma mark - Document XML Tests
 - (void)testMedication
 {
 	NSError *error = nil;
 	
     // test parsing
-	NSString *med = [self readFixture:@"medication"];
+	NSString *med = [server readFixture:@"medication"];
 	INXMLNode *medNode = [INXMLParser parseXML:med error:&error];
 	IndivoMedication *medication = [[IndivoMedication alloc] initFromNode:medNode];
 	
@@ -81,7 +212,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *med = [self readFixture:@"allergy"];
+	NSString *med = [server readFixture:@"allergy"];
 	INXMLNode *node = [INXMLParser parseXML:med error:&error];
 	IndivoAllergy *doc = [[IndivoAllergy alloc] initFromNode:node];
 	
@@ -117,7 +248,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *labXML = [self readFixture:@"lab"];
+	NSString *labXML = [server readFixture:@"lab"];
 	INXMLNode *labNode = [INXMLParser parseXML:labXML error:&error];
 	IndivoLab *lab = [[IndivoLab alloc] initFromNode:labNode];
 	
@@ -142,7 +273,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *equip = [self readFixture:@"equipment"];
+	NSString *equip = [server readFixture:@"equipment"];
 	INXMLNode *node = [INXMLParser parseXML:equip error:&error];
 	IndivoEquipment *doc = [[IndivoEquipment alloc] initFromNode:node];
 	
@@ -173,7 +304,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"contact"];
+	NSString *fixture = [server readFixture:@"contact"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoContact *doc = [[IndivoContact alloc] initFromNode:node];
 	IndivoContactEmail *email = [doc.email objectAtIndex:0];
@@ -198,7 +329,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"demographics"];
+	NSString *fixture = [server readFixture:@"demographics"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoDemographics *doc = [[IndivoDemographics alloc] initFromNode:node];
 	
@@ -222,7 +353,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"immunization"];
+	NSString *fixture = [server readFixture:@"immunization"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoImmunization *doc = [[IndivoImmunization alloc] initFromNode:node];
 	
@@ -249,7 +380,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"problem"];
+	NSString *fixture = [server readFixture:@"problem"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoProblem *doc = [[IndivoProblem alloc] initFromNode:node];
 	
@@ -273,7 +404,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"vitals"];
+	NSString *fixture = [server readFixture:@"vitals"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoVitalSign *doc = [[IndivoVitalSign alloc] initFromNode:node];
 	
@@ -297,7 +428,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"simplenote"];
+	NSString *fixture = [server readFixture:@"simplenote"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoSimpleClinicalNote *doc = [[IndivoSimpleClinicalNote alloc] initFromNode:node];
 	IndivoSignature *signature1 = [doc.signature objectAtIndex:0];
@@ -325,7 +456,7 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *fixture = [self readFixture:@"procedure"];
+	NSString *fixture = [server readFixture:@"procedure"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoProcedure *doc = [[IndivoProcedure alloc] initFromNode:node];
 	
@@ -376,7 +507,7 @@
 - (void)testXMLGeneration
 {
 	NSError *error = nil;
-	NSString *fixture = [self readFixture:@"lab"];
+	NSString *fixture = [server readFixture:@"lab"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoLab *doc = [[IndivoLab alloc] initFromNode:node];
 	
@@ -399,20 +530,6 @@
 	uint64_t elapsedTime = mach_absolute_time() - startTime;
 	double elapsedTimeInNanoseconds = elapsedTime * ticksToNanoseconds;
 	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 2/2/2012, iMac i7 2.8GHz 4Gig RAM: ~0.6 sec
-}
-
-
-
-#pragma mark - Utilities
-- (NSString *)readFixture:(NSString *)fileName
-{
-	NSString *path = [[NSBundle bundleForClass:[self class]] pathForResource:fileName ofType:@"xml"];
-	if (!path) {
-		NSException *e = [NSException exceptionWithName:@"File not found" reason:[NSString stringWithFormat:@"The file \"%@\" was not found", fileName] userInfo:nil];
-		@throw e;
-	}
-	
-	return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
 

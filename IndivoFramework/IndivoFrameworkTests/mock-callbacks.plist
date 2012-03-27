@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>GET</key>
+	<dict>
+		<key>/apps/unittest@apps.indivo.org/documents/</key>
+		<string>app_documents</string>
+		<key>/records/abc</key>
+		<string>record</string>
+		<key>/records/abc/documents/special/contact</key>
+		<string>contact</string>
+		<key>/records/abc/documents/special/demographics</key>
+		<string>demographics</string>
+		<key>/records/abc/documents/</key>
+		<string>record_documents</string>
+		<key>/records/abc/apps/unittest@apps.indivo.org/documents/</key>
+		<string>app_documents</string>
+		<key>/records/abc/reports/minimal/labs/</key>
+		<string>lab_reports</string>
+		<key>/records/abc/documents/mock-doc-id</key>
+		<string>posted_document</string>
+	</dict>
+	<key>POST</key>
+	<dict>
+		<key>/records/abc/documents/</key>
+		<string>posted_document</string>
+		<key>/records/abc/documents/mock-doc-id/replace</key>
+		<string>posted_document</string>
+		<key>/records/abc/documents/mock-doc-id/set-status</key>
+		<string>posted_document</string>
+	</dict>
+	<key>PUT</key>
+	<dict>
+		<key>/records/abc/documents/mock-doc-id/label</key>
+		<string>posted_document_2</string>
+	</dict>
+</dict>
+</plist>

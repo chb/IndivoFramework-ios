@@ -87,6 +87,18 @@
 		EE235D2F14E04AE8005BD702 /* IndivoContactPhoneNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = EE235D1B14E04AE8005BD702 /* IndivoContactPhoneNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE235D3014E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = EE235D1C14E04AE8005BD702 /* IndivoContactPhoneNumber.m */; };
 		EE235D3114E04AE8005BD702 /* IndivoContactPhoneNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = EE235D1C14E04AE8005BD702 /* IndivoContactPhoneNumber.m */; };
+		EE2CBA4B1522146700C900AE /* mock-callbacks.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA4A1522146700C900AE /* mock-callbacks.plist */; };
+		EE2CBA4D152220C500C900AE /* record_documents.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA4C152220C500C900AE /* record_documents.xml */; };
+		EE2CBA4F1522218F00C900AE /* app_documents.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA4E1522218F00C900AE /* app_documents.xml */; };
+		EE2CBA501522249C00C900AE /* IndivoAllergy+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE70F5FB14EC3C1500FE63DC /* IndivoAllergy+Report.m */; };
+		EE2CBA511522249E00C900AE /* IndivoEquipment+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE70F60014EC3C8B00FE63DC /* IndivoEquipment+Report.m */; };
+		EE2CBA52152224A000C900AE /* IndivoImmunization+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE70F60414EC3D7A00FE63DC /* IndivoImmunization+Report.m */; };
+		EE2CBA53152224A300C900AE /* IndivoLab+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE70F60814EC3E0200FE63DC /* IndivoLab+Report.m */; };
+		EE2CBA54152224A600C900AE /* IndivoProblem+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7844A814EC451A00BFCB81 /* IndivoProblem+Report.m */; };
+		EE2CBA55152224A800C900AE /* IndivoProcedure+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7844AC14EC458800BFCB81 /* IndivoProcedure+Report.m */; };
+		EE2CBA56152224AB00C900AE /* IndivoSimpleClinicalNote+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7844B014EC45ED00BFCB81 /* IndivoSimpleClinicalNote+Report.m */; };
+		EE2CBA57152224AE00C900AE /* IndivoVitalSign+Report.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7844B414EC463900BFCB81 /* IndivoVitalSign+Report.m */; };
+		EE2CBA591522254E00C900AE /* lab_reports.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA581522254E00C900AE /* lab_reports.xml */; };
 		EE34D98414244818001A95AD /* INServerObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EE34D98214244818001A95AD /* INServerObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE34D98514244818001A95AD /* INServerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EE34D98314244818001A95AD /* INServerObject.m */; };
 		EE37571F1431021B002ABE18 /* IndivoMedication+Report.h in Headers */ = {isa = PBXBuildFile; fileRef = EE37571D1431021B002ABE18 /* IndivoMedication+Report.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -127,6 +139,7 @@
 		EE423F6B14E17B600009771F /* demographics.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE423F6A14E17B600009771F /* demographics.xml */; };
 		EE53CA0E1423A3D700EEF006 /* INServerCall.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53CA0C1423A3D700EEF006 /* INServerCall.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE53CA0F1423A3D700EEF006 /* INServerCall.m in Sources */ = {isa = PBXBuildFile; fileRef = EE53CA0D1423A3D700EEF006 /* INServerCall.m */; };
+		EE58BF9615222C0500BF92DB /* posted_document.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE58BF9515222C0500BF92DB /* posted_document.xml */; };
 		EE5DE92C1468447A004CC666 /* INURLFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = EE5DE92A1468447A004CC666 /* INURLFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE5DE92D1468447A004CC666 /* INURLFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5DE92B1468447A004CC666 /* INURLFetcher.m */; };
 		EE5DFA4814EB382D000629C3 /* IndivoConcentration.h in Headers */ = {isa = PBXBuildFile; fileRef = EE5DFA4614EB382D000629C3 /* IndivoConcentration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -164,6 +177,7 @@
 		EE81EAE814911F210097CA36 /* INDateRangeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */; };
 		EE930074141E4EF6005B0046 /* IndivoLoginViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = EE930071141E4EF6005B0046 /* IndivoLoginViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE930075141E4EF6005B0046 /* IndivoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE930072141E4EF6005B0046 /* IndivoLoginViewController.m */; };
+		EE99271315222F210043F56E /* posted_document_2.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE99271215222F210043F56E /* posted_document_2.xml */; };
 		EE9EEE51144DE5A9008E0464 /* INXMLReport.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9EEE4F144DE5A9008E0464 /* INXMLReport.h */; };
 		EE9EEE52144DE5A9008E0464 /* INXMLReport.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9EEE50144DE5A9008E0464 /* INXMLReport.m */; };
 		EE9FFA9C142D13F700120C0F /* INXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = EE9FFA9A142D13F700120C0F /* INXMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -241,6 +255,8 @@
 		EEA0893314CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA0893414CF5C9500CB97D6 /* INInteger.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA0893114CF5C9500CB97D6 /* INInteger.m */; };
 		EEA1B1EA142B82CB001E1A0F /* Indivo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA1B1E9142B82CB001E1A0F /* Indivo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEA6DF7B15220D3200091B0C /* IndivoMockServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA6DF7A15220D3200091B0C /* IndivoMockServer.m */; };
+		EEA6DF801522136800091B0C /* record.xml in Resources */ = {isa = PBXBuildFile; fileRef = EEA6DF7F1522136800091B0C /* record.xml */; };
 		EEA88B7614EAA51C00B7599D /* NSCharacterSet+Extension.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */; };
 		EEA88B7714EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */; };
 		EEA88B7814EAA51C00B7599D /* NSCharacterSet+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */; };
@@ -431,6 +447,10 @@
 		EE235D1A14E04AE8005BD702 /* IndivoContactName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoContactName.m; sourceTree = "<group>"; };
 		EE235D1B14E04AE8005BD702 /* IndivoContactPhoneNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoContactPhoneNumber.h; sourceTree = "<group>"; };
 		EE235D1C14E04AE8005BD702 /* IndivoContactPhoneNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoContactPhoneNumber.m; sourceTree = "<group>"; };
+		EE2CBA4A1522146700C900AE /* mock-callbacks.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "mock-callbacks.plist"; sourceTree = "<group>"; };
+		EE2CBA4C152220C500C900AE /* record_documents.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = record_documents.xml; sourceTree = "<group>"; };
+		EE2CBA4E1522218F00C900AE /* app_documents.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = app_documents.xml; sourceTree = "<group>"; };
+		EE2CBA581522254E00C900AE /* lab_reports.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lab_reports.xml; sourceTree = "<group>"; };
 		EE34D98214244818001A95AD /* INServerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerObject.h; sourceTree = "<group>"; };
 		EE34D98314244818001A95AD /* INServerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INServerObject.m; sourceTree = "<group>"; };
 		EE37571D1431021B002ABE18 /* IndivoMedication+Report.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IndivoMedication+Report.h"; sourceTree = "<group>"; };
@@ -472,6 +492,7 @@
 		EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateRangeFormatterTest.m; sourceTree = "<group>"; };
 		EE53CA0C1423A3D700EEF006 /* INServerCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INServerCall.h; sourceTree = "<group>"; };
 		EE53CA0D1423A3D700EEF006 /* INServerCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INServerCall.m; sourceTree = "<group>"; };
+		EE58BF9515222C0500BF92DB /* posted_document.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = posted_document.xml; sourceTree = "<group>"; };
 		EE5DE92A1468447A004CC666 /* INURLFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INURLFetcher.h; sourceTree = "<group>"; };
 		EE5DE92B1468447A004CC666 /* INURLFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INURLFetcher.m; sourceTree = "<group>"; };
 		EE5DFA4614EB382D000629C3 /* IndivoConcentration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoConcentration.h; sourceTree = "<group>"; };
@@ -505,6 +526,7 @@
 		EE81EAE614911F210097CA36 /* INDateRangeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INDateRangeFormatter.m; sourceTree = "<group>"; };
 		EE930071141E4EF6005B0046 /* IndivoLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoLoginViewController.h; sourceTree = "<group>"; };
 		EE930072141E4EF6005B0046 /* IndivoLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoLoginViewController.m; sourceTree = "<group>"; };
+		EE99271215222F210043F56E /* posted_document_2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = posted_document_2.xml; sourceTree = "<group>"; };
 		EE9EEE4F144DE5A9008E0464 /* INXMLReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLReport.h; sourceTree = "<group>"; };
 		EE9EEE50144DE5A9008E0464 /* INXMLReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INXMLReport.m; sourceTree = "<group>"; };
 		EE9FFA9A142D13F700120C0F /* INXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INXMLParser.h; sourceTree = "<group>"; };
@@ -538,6 +560,9 @@
 		EEA0893014CF5C9400CB97D6 /* INInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INInteger.h; sourceTree = "<group>"; };
 		EEA0893114CF5C9500CB97D6 /* INInteger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INInteger.m; sourceTree = "<group>"; };
 		EEA1B1E9142B82CB001E1A0F /* Indivo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Indivo.h; sourceTree = "<group>"; };
+		EEA6DF7915220D3200091B0C /* IndivoMockServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoMockServer.h; sourceTree = "<group>"; };
+		EEA6DF7A15220D3200091B0C /* IndivoMockServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoMockServer.m; sourceTree = "<group>"; };
+		EEA6DF7F1522136800091B0C /* record.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = record.xml; sourceTree = "<group>"; };
 		EEA88B7414EAA51C00B7599D /* NSCharacterSet+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+Extension.h"; sourceTree = "<group>"; };
 		EEA88B7514EAA51C00B7599D /* NSCharacterSet+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+Extension.m"; sourceTree = "<group>"; };
 		EEA88B9214EB22A200B7599D /* IndivoImmunization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndivoImmunization.h; sourceTree = "<group>"; };
@@ -691,10 +716,16 @@
 		EE09B5F714D83B7F00E99A67 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				EE2CBA4E1522218F00C900AE /* app_documents.xml */,
+				EEA6DF7F1522136800091B0C /* record.xml */,
+				EE2CBA4C152220C500C900AE /* record_documents.xml */,
+				EE58BF9515222C0500BF92DB /* posted_document.xml */,
+				EE99271215222F210043F56E /* posted_document_2.xml */,
 				EE09B5F414D83B7C00E99A67 /* medication.xml */,
 				EEAA503E14DB5C2B00FBFE66 /* allergy.xml */,
 				EEA88B9C14EB22E100B7599D /* immunization.xml */,
 				EE09B63314D9C3BB00E99A67 /* lab.xml */,
+				EE2CBA581522254E00C900AE /* lab_reports.xml */,
 				EEAA504414DB696500FBFE66 /* equipment.xml */,
 				EE423F6614E17B470009771F /* contact.xml */,
 				EE423F6A14E17B600009771F /* demographics.xml */,
@@ -955,11 +986,14 @@
 			isa = PBXGroup;
 			children = (
 				EEA0450014CA1CC700C28C61 /* IndivoConfig.h */,
+				EEA6DF7915220D3200091B0C /* IndivoMockServer.h */,
+				EEA6DF7A15220D3200091B0C /* IndivoMockServer.m */,
 				EEA044D414CA1B4300C28C61 /* IndivoFrameworkTests-Info.plist */,
 				EEA044D814CA1B4300C28C61 /* IndivoFrameworkTests.h */,
 				EEA044D914CA1B4300C28C61 /* IndivoFrameworkTests.m */,
 				EE4434B21491422700CC6344 /* INDateRangeFormatterTest.h */,
 				EE4434B31491422700CC6344 /* INDateRangeFormatterTest.m */,
+				EE2CBA4A1522146700C900AE /* mock-callbacks.plist */,
 				EE09B5F714D83B7F00E99A67 /* Fixtures */,
 				EE09B5FD14D8519200E99A67 /* XSD */,
 			);
@@ -1435,6 +1469,13 @@
 				EE5DFA5714EB3AA0000629C3 /* procedure.xml in Resources */,
 				EE5DFA5914EB3AA5000629C3 /* procedure.xsd in Resources */,
 				EE5DFA6114EB3C12000629C3 /* schoolform.xsd in Resources */,
+				EEA6DF801522136800091B0C /* record.xml in Resources */,
+				EE2CBA4B1522146700C900AE /* mock-callbacks.plist in Resources */,
+				EE2CBA4D152220C500C900AE /* record_documents.xml in Resources */,
+				EE2CBA4F1522218F00C900AE /* app_documents.xml in Resources */,
+				EE2CBA591522254E00C900AE /* lab_reports.xml in Resources */,
+				EE58BF9615222C0500BF92DB /* posted_document.xml in Resources */,
+				EE99271315222F210043F56E /* posted_document_2.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1680,6 +1721,15 @@
 				EE40759014FE747F00F88E03 /* IndivoAppDocument.m in Sources */,
 				EE39E5B615012AC000897BF8 /* INQueryParameter.m in Sources */,
 				EEFB13C615054AC000CB56F8 /* IndivoAggregateReport.m in Sources */,
+				EEA6DF7B15220D3200091B0C /* IndivoMockServer.m in Sources */,
+				EE2CBA501522249C00C900AE /* IndivoAllergy+Report.m in Sources */,
+				EE2CBA511522249E00C900AE /* IndivoEquipment+Report.m in Sources */,
+				EE2CBA52152224A000C900AE /* IndivoImmunization+Report.m in Sources */,
+				EE2CBA53152224A300C900AE /* IndivoLab+Report.m in Sources */,
+				EE2CBA54152224A600C900AE /* IndivoProblem+Report.m in Sources */,
+				EE2CBA55152224A800C900AE /* IndivoProcedure+Report.m in Sources */,
+				EE2CBA56152224AB00C900AE /* IndivoSimpleClinicalNote+Report.m in Sources */,
+				EE2CBA57152224AE00C900AE /* IndivoVitalSign+Report.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1841,7 +1891,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist";
-				OTHER_CFLAGS = "-DINDIVO_DEBUG";
+				OTHER_CFLAGS = (
+					"-DINDIVO_DEBUG",
+					"-DUNIT_TESTING",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1874,7 +1927,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "IndivoFrameworkTests/IndivoFrameworkTests-Info.plist";
-				OTHER_CFLAGS = "";
+				OTHER_CFLAGS = "-DUNIT_TESTING";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

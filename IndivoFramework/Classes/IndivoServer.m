@@ -79,7 +79,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 /**
  *	A convenience constructor creating the server for the given delegate. Configuration is automatically read from "IndivoConfig.h"
  */
-+ (IndivoServer *)serverWithDelegate:(id<IndivoServerDelegate>)aDelegate
++ (id)serverWithDelegate:(id<IndivoServerDelegate>)aDelegate
 {
 	IndivoServer *s = [self new];
 	s.delegate = aDelegate;
@@ -516,14 +516,6 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 	INServerCall *call = [INServerCall new];
 	call.method = [NSString stringWithFormat:@"/apps/%@/documents/", self.appId];
 	call.HTTPMethod = @"GET";
-	
-	// get two-legged oauth method
-	NSError *error = nil;
-	call.oauth = [self createOAuthWithAuthMethodClass:@"MPOAuthAuthenticationMethodTwoLegged" error:&error];
-	if (!call.oauth) {
-		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, [error localizedDescription], [error code])
-		return;
-	}
 	
 	// create callback
 	call.myCallback = ^(BOOL success, NSDictionary *__autoreleasing userInfo) {

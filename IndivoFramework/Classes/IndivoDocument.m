@@ -70,7 +70,7 @@
 + (NSString *)fetchReportPathForRecord:(IndivoRecord *)aRecord
 {
 	NSString *reportType = [self reportType];
-	if (reportType) {
+	if (reportType && aRecord.uuid) {
 		return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.uuid, reportType];
 	}
 	return nil;
@@ -81,7 +81,10 @@
  */
 - (NSString *)documentPath
 {
-	return [NSString stringWithFormat:@"/records/%@/documents/%@", self.record.uuid, self.uuid];
+	if (self.record.uuid && self.uuid) {
+		return [NSString stringWithFormat:@"/records/%@/documents/%@", self.record.uuid, self.uuid];
+	}
+	return nil;
 }
 
 /**
@@ -90,7 +93,10 @@
  */
 - (NSString *)basePostPath
 {
-	return [NSString stringWithFormat:@"/records/%@/documents/", self.record.uuid];
+	if (self.record.uuid) {
+		return [NSString stringWithFormat:@"/records/%@/documents/", self.record.uuid];
+	}
+	return nil;
 }
 
 
@@ -131,7 +137,12 @@
  */
 - (void)fetchVersionsWithCallback:(INSuccessRetvalueBlock)callback
 {
-	NSString *path = [[self documentPath] stringByAppendingString:@"/versions/"];		// cannot use path component method as this strips the trailing shlash
+	NSString *path = [self.documentPath stringByAppendingString:@"/versions/"];		// cannot use path component method as this strips the trailing shlash
+	if (!path) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't fetch document version history because we're missing the document- or record-id", 0)
+		return;
+	}
+	
 	[self get:path
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		 NSDictionary *usrIfo = nil;
@@ -168,7 +179,17 @@
  */
 - (void)fetchStatusHistoryWithCallback:(INSuccessRetvalueBlock)callback
 {
-	NSString *path = [[self documentPath] stringByAppendingPathComponent:@"status-history"];
+	if (!self.onServer) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"This document is not yet on the server and does not have a meta document", 0)
+		return;
+	}
+	
+	NSString *path = [self.documentPath stringByAppendingPathComponent:@"status-history"];
+	if (!path) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't fetch status history because we're missing the document- or record-id", 0)
+		return;
+	}
+	
 	[self get:path
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		 NSDictionary *usrIfo = nil;
@@ -211,8 +232,13 @@
 		return;
 	}
 	
+	NSString *path = [self.documentPath stringByAppendingPathComponent:@"meta"];
+	if (!path) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't fetch meta document because we're missing the document- or record-id", 0)
+		return;
+	}
+	
 	// get
-	NSString *path = [NSString stringWithFormat:@"%@/meta", [self documentPath]];
 	[self get:path
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		 if (success) {
@@ -239,7 +265,13 @@
 #pragma mark - Getting documents
 - (void)pull:(INCancelErrorBlock)callback
 {
-	[self get:[self documentPath]
+	NSString *path = self.documentPath;
+	if (!path) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't pull document because we're missing the document- or record-id", 0)
+		return;
+	}
+	
+	[self get:path
 	 callback:^(BOOL success, NSDictionary *userInfo) {
 		 BOOL didCancel = NO;
 		 if (success) {
@@ -273,11 +305,17 @@
  */
 - (void)push:(INCancelErrorBlock)callback
 {
+	NSString *path = [self basePostPath];
+	if (!path) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't push document because we're missing the record-id", 0)
+		return;
+	}
+	
 	if (!self.onServer) {
 		NSString *xml = [self documentXML];
 		//DLog(@"Pushing XML:  %@", xml);
 		
-		[self post:[self basePostPath]
+		[self post:path
 			  body:xml
 		  callback:^(BOOL success, NSDictionary *userInfo) {
 			  if (success) {
@@ -305,10 +343,10 @@
 				  CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 			  }
 		  }];
+		return;
 	}
-	else if (callback) {
-		callback(NO, @"This document was fetched from the server already, so it cannot be pushed. Use \"replace:\" instead.");
-	}
+	
+	CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, @"This document was fetched from the server already, so it cannot be pushed. Use \"replace:\" instead.")
 }
 
 /**
@@ -321,9 +359,13 @@
 		[self push:callback];
 	}
 	else {
-		NSString *xml = [self documentXML];
 		NSString *updatePath = [self.documentPath stringByAppendingPathComponent:@"replace"];
+		if (!updatePath) {
+			SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't replace document because we're missing the document- or record-id", 0)
+			return;
+		}
 		
+		NSString *xml = [self documentXML];
 		[self post:updatePath
 			  body:xml
 		  callback:^(BOOL success, NSDictionary *userInfo) {
@@ -359,6 +401,11 @@
 - (void)setLabel:(NSString *)aLabel callback:(INCancelErrorBlock)callback
 {
 	NSString *labelPath = [self.documentPath stringByAppendingPathComponent:@"label"];
+	if (!labelPath) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't set label because we're missing the document- or record-id", 0)
+		return;
+	}
+	
 	[self put:labelPath body:aLabel callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
 			self.label = aLabel;
@@ -381,6 +428,11 @@
 - (void)void:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback
 {
 	NSString *statusPath = [self.documentPath stringByAppendingPathComponent:@"set-status"];
+	if (!statusPath) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't flag document because we're missing the document- or record-id", 0)
+		return;
+	}
+	
 	NSArray *params = [NSArray arrayWithObjects:
 					   [NSString stringWithFormat:@"status=%@", (flag ? @"void" : @"active")],
 					   [NSString stringWithFormat:@"reason=%@", ([aReason length] > 0) ? aReason : @""],
@@ -409,6 +461,11 @@
 - (void)archive:(BOOL)flag forReason:(NSString *)aReason callback:(INCancelErrorBlock)callback
 {
 	NSString *statusPath = [self.documentPath stringByAppendingPathComponent:@"set-status"];
+	if (!statusPath) {
+		SUCCESS_RETVAL_CALLBACK_OR_LOG_ERR_STRING(callback, @"Can't archive document because we're missing the document- or record-id", 0)
+		return;
+	}
+	
 	NSArray *params = [NSArray arrayWithObjects:
 					   [NSString stringWithFormat:@"status=%@", (flag ? @"archived" : @"active")],
 					   [NSString stringWithFormat:@"reason=%@", ([aReason length] > 0) ? aReason : @""],

@@ -243,9 +243,6 @@
  */
 - (void)finishWith:(NSDictionary *)returnObject
 {
-	if (self.hasBeenFired) {
-		/// @todo Abort the connection
-	}
 	[self didFinishSuccessfully:YES returnObject:returnObject];
 }
 

@@ -99,7 +99,7 @@
 @property (nonatomic, readonly, copy) NSString *lastOAuthVerifier;				///< Storing our OAuth verifier here until MPOAuth asks for it
 
 
-+ (IndivoServer *)serverWithDelegate:(id<IndivoServerDelegate>)aDelegate;
++ (id)serverWithDelegate:(id<IndivoServerDelegate>)aDelegate;
 
 - (void)selectRecord:(INCancelErrorBlock)callback;
 - (void)authenticate:(INCancelErrorBlock)callback;
