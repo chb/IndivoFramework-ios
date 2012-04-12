@@ -58,7 +58,7 @@
 /**
  *	Return a view controller from which you want to present the login view controller.
  *	The login view controller will be passed into this method so you can customize its chrome.
- *	@required The delegate MUST respond to this method.
+ *	@remark The delegate MUST respond to this method.
  *	@param loginViewController The login view controller about to load the login screen
  *	@return A view controller from which to present the login view controller
  */
@@ -67,7 +67,7 @@
 /**
  *	This delegate method is called when the user logs out. You must implement this method in your delegate, and ideally
  *	unload all record data once the user logs out.
- *	@required The delegate MUST respond to this method.
+ *	@remark The delegate MUST respond to this method.
  *	@param fromServer The server from which the user disconnected
  */
 - (void)userDidLogout:(IndivoServer *)fromServer;

@@ -35,7 +35,7 @@ After building the documentation like mentioned above, you just need to install 
 After you relaunch Xcode, the documentation should be available in the Organizer and can be accessed like the standard Cocoa documentation by `ALT`-clicking code parts.
 
 [doxygen]: http://www.doxygen.org/
-[techdoc]: javascript:alert('URL TBD')
+[techdoc]: http://docs.indivohealth.org/projects/indivo-x-ios-framework/en/latest/
 
 
 ## Getting the Framework ##

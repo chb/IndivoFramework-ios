@@ -508,7 +508,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 #pragma mark - App Specific Documents
 /**
  *	Fetches global, app-specific documents.
- *	GETs documents from /apps/<app id>/documents/ with a two-legged OAuth call.
+ *	GETs documents from /apps/{app id}/documents/ with a two-legged OAuth call.
  */
 - (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback
 {
@@ -673,6 +673,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 /**
  *	Creates a new MPOAuthAPI instance with our current settings.
  *	@param authClass An MPOAuthAuthenticationMethod class name. If nil picks three-legged oauth.
+ *	@param error A pointer to an error object, which will be filled if the method returns null
  */
 - (MPOAuthAPI *)createOAuthWithAuthMethodClass:(NSString *)authClass error:(NSError *__autoreleasing *)error;
 {
