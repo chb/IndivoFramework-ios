@@ -2,7 +2,7 @@
  IndivoDemographics.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 
 @implementation IndivoDemographics
 
-@synthesize dateOfBirth, dateOfDeath, gender, ethnicity, language, maritalStatus, employmentStatus, employmentIndustry, occupation, religion, income, highestEducation, organDonor;
+@synthesize dateOfBirth, gender, email, ethnicity, preferredLanguage, race, Name, Telephone, Address;
 
 
 + (NSString *)nodeName
@@ -49,21 +49,29 @@
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			@"INDate", @"dateOfBirth",
-			@"INDate", @"dateOfDeath",
-			@"INString", @"gender",
+			@"IndivoGenderType", @"gender",
+			@"INString", @"email",
 			@"INString", @"ethnicity",
-			@"INString", @"language",
-			@"INString", @"maritalStatus",
-			@"INString", @"employmentStatus",
-			@"INString", @"employmentIndustry",
-			@"INString", @"occupation",
-			@"INString", @"religion",
-			@"INString", @"income",
-			@"INString", @"highestEducation",
-			@"INBool", @"organDonor",
+			@"INString", @"preferredLanguage",
+			@"INString", @"race",
+			@"IndivoName", @"Name",
+			@"IndivoTelephone", @"Telephone",
+			@"IndivoAddress", @"Address",
 			nil];
 }
 
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"dateOfBirth", @"gender", @"Name", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"dateOfBirth", @"gender", @"Name", nil];
+	}
+	
+	return nonNilPropertyNames;	*/
+}
 
 
 

@@ -2,7 +2,7 @@
  IndivoDemographics.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -23,27 +23,25 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-
+@class IndivoGenderType;
+@class IndivoName;
+@class IndivoAddress;
 	
 
 /**
- *	A class representing "indivo:Demographics" objects, generated from demographics.xsd.
+ *	A class representing "indivo:Demographics" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
  */
 @interface IndivoDemographics : IndivoDocument
 
-@property (nonatomic, strong) INDate *dateOfBirth;
-@property (nonatomic, strong) INDate *dateOfDeath;
-@property (nonatomic, strong) INString *gender;
-@property (nonatomic, strong) NSArray *ethnicity;					///< An array containing INString objects
-@property (nonatomic, strong) NSArray *language;					///< An array containing INString objects
-@property (nonatomic, strong) INString *maritalStatus;
-@property (nonatomic, strong) INString *employmentStatus;
-@property (nonatomic, strong) INString *employmentIndustry;
-@property (nonatomic, strong) INString *occupation;
-@property (nonatomic, strong) INString *religion;
-@property (nonatomic, strong) INString *income;
-@property (nonatomic, strong) INString *highestEducation;
-@property (nonatomic, strong) INBool *organDonor;
+@property (nonatomic, strong) INDate *dateOfBirth;					///< minOccurs = 1
+@property (nonatomic, strong) IndivoGenderType *gender;					///< minOccurs = 1
+@property (nonatomic, strong) INString *email;
+@property (nonatomic, strong) INString *ethnicity;
+@property (nonatomic, strong) INString *preferredLanguage;
+@property (nonatomic, strong) INString *race;
+@property (nonatomic, strong) IndivoName *Name;					///< minOccurs = 1
+@property (nonatomic, strong) NSArray *Telephone;					///< An array containing IndivoTelephone objects
+@property (nonatomic, strong) IndivoAddress *Address;
 
 
 @end

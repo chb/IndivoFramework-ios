@@ -117,48 +117,13 @@
 	}];
 }
 
-/**
- *	Fetches the record's contact document.
- */
-- (void)fetchContactDocumentWithCallback:(INCancelErrorBlock)aCallback
-{
-	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/contact", self.uuid];
-	
-	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
-		
-		// success, store the document
-		if (success) {
-			INXMLNode *doc = [userInfo objectForKey:INResponseXMLKey];
-			if (!doc) {
-				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Contact XML was not valid")
-			}
-			else {
-				self.contactDoc = [[IndivoContact alloc] initFromNode:doc forRecord:self withMeta:nil];
-				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, nil)
-			}
-		}
-		
-		// error occurred
-		else {
-			NSString *errorMsg = nil;
-			NSError *error = [userInfo objectForKey:INErrorKey];
-			if (404 == [error code]) {
-				errorMsg = @"This record has no contact data";
-			}
-			else {
-				errorMsg = error ? [error localizedDescription] : nil;
-			}
-			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, (nil == error), errorMsg)
-		}
-	}];
-}
 
 /**
  *	Fetches the record's demographics document.
  */
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback
 {
-	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/special/demographics", self.uuid];
+	NSString *path = [NSString stringWithFormat:@"/records/%@/demographics", self.uuid];
 	
 	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		

@@ -30,5 +30,9 @@
 	<string>INUnitValue</string>
 	<key>indivo:Document</key>
 	<string>IndivoDocument</string>
+	<key>indivo:PhoneType</key>
+	<string>IndivoPhoneType</string>
+	<key>indivo:GenderType</key>
+	<string>IndivoGenderType</string>
 </dict>
 </plist>

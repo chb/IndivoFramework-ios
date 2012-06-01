@@ -1,5 +1,5 @@
 /*
- IndivoEquipment.m
+ IndivoAddress.m
  IndivoFramework
  
  Created by Indivo Class Generator on 6/1/2012.
@@ -20,23 +20,23 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoEquipment.h"
+#import "IndivoAddress.h"
 #import "IndivoDocument.h"
 
 
-@implementation IndivoEquipment
+@implementation IndivoAddress
 
-@synthesize dateStarted, dateStopped, type, name, vendor, description, specification, certification;
+@synthesize country, city, postalCode, region, street;
 
 
 + (NSString *)nodeName
 {
-	return @"Equipment";
+	return @"Address";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:Equipment";
+	return @"indivo:Address";
 }
 
 + (void)load
@@ -48,29 +48,14 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDate", @"dateStarted",
-			@"INDate", @"dateStopped",
-			@"INString", @"type",
-			@"INString", @"name",
-			@"INString", @"vendor",
-			@"INString", @"description",
-			@"INString", @"specification",
-			@"INString", @"certification",
+			@"INString", @"country",
+			@"INString", @"city",
+			@"INString", @"postalCode",
+			@"INString", @"region",
+			@"INString", @"street",
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"name", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 

@@ -28,7 +28,7 @@
 
 + (NSString *)reportType
 {
-	return @"simple-clinical-note";
+	return @"reports/minimal/simple-clinical-note";
 }
 
 

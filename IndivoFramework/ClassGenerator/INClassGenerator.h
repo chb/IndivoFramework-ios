@@ -44,3 +44,6 @@ void runOnMainQueue(dispatch_block_t block);
 
 
 @end
+
+
+NSArray *findFilesEndingWithRecursively(NSString *path, NSString *extension, NSError **error);

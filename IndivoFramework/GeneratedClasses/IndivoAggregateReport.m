@@ -2,7 +2,7 @@
  IndivoAggregateReport.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/14/2012.
+ Created by Indivo Class Generator on 6/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -21,6 +21,7 @@
  */
 
 #import "IndivoAggregateReport.h"
+#import "IndivoDocument.h"
 
 
 @implementation IndivoAggregateReport
@@ -37,6 +38,12 @@
 {
 	return @"indivo:AggregateReport";
 }
+
++ (void)load
+{
+	[IndivoDocument registerDocumentClass:self];
+}
+
 
 + (NSDictionary *)propertyClassMapper
 {

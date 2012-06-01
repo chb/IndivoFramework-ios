@@ -1,5 +1,5 @@
 /*
- IndivoProvider.m
+ IndivoAddress.h
  IndivoFramework
  
  Created by Indivo Class Generator on 6/1/2012.
@@ -20,52 +20,22 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoProvider.h"
 #import "IndivoDocument.h"
+#import "INObjects.h"
 
 
-@implementation IndivoProvider
-
-@synthesize name, institution;
-
-
-+ (NSString *)nodeName
-{
-	return @"Provider";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:Provider";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-
-+ (NSDictionary *)propertyClassMapper
-{
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"name",
-			@"INString", @"institution",
-			nil];
-}
-
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"name", @"institution", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"institution", nil];
-	}
 	
-	return nonNilPropertyNames;	*/
-}
 
+/**
+ *	A class representing "indivo:Address" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
+ */
+@interface IndivoAddress : IndivoDocument
+
+@property (nonatomic, strong) INString *country;
+@property (nonatomic, strong) INString *city;
+@property (nonatomic, strong) INString *postalCode;
+@property (nonatomic, strong) INString *region;
+@property (nonatomic, strong) INString *street;
 
 
 @end

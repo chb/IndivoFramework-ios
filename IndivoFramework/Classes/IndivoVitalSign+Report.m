@@ -28,7 +28,7 @@
 
 + (NSString *)reportType
 {
-	return @"vitals";
+	return @"vital_signs";
 }
 
 + (NSString *)reportTypeOfCategory:(NSString *)aCategory

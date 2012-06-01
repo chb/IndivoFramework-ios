@@ -85,7 +85,8 @@ When the server knows about your App, you're ready to use the framework.
 	Open your project's build settings, under "Link Binary With Libraries" add:
 	
 	`libIndivoFramework.a`  
-	`Security.framework`
+	`Security.framework`  
+	`libxml2.dylib`
 	
 	Do **not** add `libMPOAuthMobile.a` as this will result in a linker error
 

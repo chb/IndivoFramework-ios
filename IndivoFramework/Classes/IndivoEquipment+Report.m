@@ -28,7 +28,7 @@
 
 + (NSString *)reportType
 {
-	return @"equipment";
+	return @"reports/minimal/equipment";
 }
 
 

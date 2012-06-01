@@ -71,7 +71,7 @@
 {
 	NSString *reportType = [self reportType];
 	if (reportType && aRecord.uuid) {
-		return [NSString stringWithFormat:@"/records/%@/reports/minimal/%@/", aRecord.uuid, reportType];
+		return [NSString stringWithFormat:@"/records/%@/%@/", aRecord.uuid, reportType];
 	}
 	return nil;
 }
@@ -104,7 +104,7 @@
 #pragma mark - Document Properties
 /**
  *	This name is used to construct the report path for this kind of document. For example, "IndivoMedication" will return "medications" from
- *	this method, so the path will be "/records/<record-id>/reports/minimal/medications/".
+ *	this method, so the path will be "/records/<record-id>/medications/".
  */
 + (NSString *)reportType
 {

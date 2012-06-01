@@ -45,7 +45,6 @@
 
 // record info
 - (void)fetchRecordInfoWithCallback:(INCancelErrorBlock)aCallback;
-- (void)fetchContactDocumentWithCallback:(INCancelErrorBlock)aCallback;
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback;
 
 // record documens

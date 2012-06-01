@@ -2,7 +2,7 @@
  IndivoSignature.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@
 	
 
 /**
- *	A class representing "indivo:Signature" objects, generated from provider.xsd.
+ *	A class representing "indivo:Signature" objects, generated from /indivo/schemas/data/common/provider.xsd.
  */
 @interface IndivoSignature : IndivoDocument
 

@@ -2,9 +2,39 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>indivo:Account</key>
+	<true/>
+	<key>indivo:AccountAuthSystem</key>
+	<true/>
+	<key>indivo:AggregateReports</key>
+	<true/>
+	<key>indivo:Annotation</key>
+	<true/>
+	<key>indivo:App</key>
+	<true/>
+	<key>indivo:Apps</key>
+	<true/>
+	<key>indivo:AuditEntry</key>
+	<true/>
+	<key>indivo:AuditEntryBasicInfo</key>
+	<true/>
+	<key>indivo:AuditEntryPrincipalInfo</key>
+	<true/>
+	<key>indivo:AuditEntryRequestInfo</key>
+	<true/>
+	<key>indivo:AuditEntryResources</key>
+	<true/>
+	<key>indivo:AuditEntryResponseInfo</key>
+	<true/>
+	<key>indivo:Carenets</key>
+	<true/>
+	<key>indivo:CarenetsCarenet</key>
+	<true/>
 	<key>indivo:DocumentIsRelatedFrom</key>
 	<true/>
 	<key>indivo:DocumentCreated</key>
+	<true/>
+	<key>indivo:DocumentLatest</key>
 	<true/>
 	<key>indivo:DocumentOriginal</key>
 	<true/>
@@ -14,9 +44,45 @@
 	<true/>
 	<key>indivo:DocumentReplaces</key>
 	<true/>
-	<key>indivo:DocumentLatest</key>
+	<key>indivo:DocumentStatusHistory</key>
+	<true/>
+	<key>indivo:DocumentStatusHistoryDocumentStatus</key>
 	<true/>
 	<key>indivo:DocumentSuppressed</key>
+	<true/>
+	<key>indivo:Message</key>
+	<true/>
+	<key>indivo:MessageAttachment</key>
+	<true/>
+	<key>indivo:MessageRecord</key>
+	<true/>
+	<key>indivo:Messages</key>
+	<true/>
+	<key>indivo:ModelsType</key>
+	<true/>
+	<key>indivo:ModelType</key>
+	<true/>
+	<key>indivo:ModelTypeField</key>
+	<true/>
+	<key>indivo:Notifications</key>
+	<true/>
+	<key>indivo:NotificationsNotification</key>
+	<true/>
+	<key>indivo:NotificationsNotificationDocument</key>
+	<true/>
+	<key>indivo:NotificationsNotificationRecord</key>
+	<true/>
+	<key>indivo:Record</key>
+	<true/>
+	<key>indivo:RecordCreated</key>
+	<true/>
+	<key>indivo:RecordDemographics</key>
+	<true/>
+	<key>indivo:RequestToken</key>
+	<true/>
+	<key>indivo:RequestTokenCarenet</key>
+	<true/>
+	<key>indivo:RequestTokenRecord</key>
 	<true/>
 	<key>indivo:Relation</key>
 	<true/>
@@ -24,17 +90,33 @@
 	<true/>
 	<key>indivo:Reports</key>
 	<true/>
+	<key>indivo:ReportsQueryParams</key>
+	<true/>
+	<key>indivo:ReportsQueryParamsAggregateBy</key>
+	<true/>
+	<key>indivo:ReportsQueryParamsDateGroup</key>
+	<true/>
+	<key>indivo:ReportsQueryParamsDateRange</key>
+	<true/>
+	<key>indivo:ReportsQueryParamsFilters</key>
+	<true/>
+	<key>indivo:ReportsQueryParamsFiltersFilter</key>
+	<true/>
+	<key>indivo:ReportsQueryParamsGroupBy</key>
+	<true/>
+	<key>indivo:ReportsSummary</key>
+	<true/>
 	<key>indivo:ReportItem</key>
 	<true/>
 	<key>indivo:ReportMeta</key>
 	<true/>
-	<key>indivo:AggregateReport</key>
+	<key>indivo:TestFill</key>
 	<true/>
-	<key>indivo:IndivoMessages</key>
+	<key>indivo:TestMed</key>
 	<true/>
-	<key>indivo:Annotation</key>
+	<key>indivo:TestMedTestFills</key>
 	<true/>
-	<key>indivo:AsthmaActionPlan</key>
+	<key>indivo:TestPrescription</key>
 	<true/>
 </dict>
 </plist>

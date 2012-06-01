@@ -2,7 +2,7 @@
  IndivoPrincipal.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -27,11 +27,11 @@
 	
 
 /**
- *	A class representing "indivo:Principal" objects, generated from metadata.xsd.
+ *	A class representing "indivo:Principal" objects, generated from /indivo/schemas/metadata/doc-metadata/metadata.xsd.
  */
 @interface IndivoPrincipal : IndivoDocument
 
-@property (nonatomic, strong) INString *type;					///< Must be present as an attribute
+@property (nonatomic, strong) INString *type;					///< Must be present as an XML attribute when writing XML
 @property (nonatomic, strong) INString *fullname;					///< minOccurs = 1
 
 

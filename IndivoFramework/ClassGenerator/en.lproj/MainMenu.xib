@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11D50b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
-		<string key="IBDocument.AppKitVersion">1138.32</string>
-		<string key="IBDocument.HIToolboxVersion">568.00</string>
+		<string key="IBDocument.SystemVersion">11E53</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
+		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">1938</string>
+			<string key="NS.object.0">2182</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSScroller</string>
@@ -1350,7 +1350,7 @@
 										<object class="NSTextView" id="915332578">
 											<reference key="NSNextResponder" ref="155001943"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrame">{{0, 137}, {599, 14}}</string>
+											<string key="NSFrameSize">{599, 14}</string>
 											<reference key="NSSuperview" ref="155001943"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="282072569"/>
@@ -1502,10 +1502,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<object class="NSTextField" id="78349995">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{20, 559}, {478, 22}}</string>
+							<string key="NSFrame">{{20, 559}, {462, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="979835813"/>
+							<reference key="NSNextKeyView" ref="506226207"/>
 							<string key="NSReuseIdentifierKey">_NS:903</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="200393475">
@@ -1513,7 +1513,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="924388315"/>
-								<string key="NSPlaceholderString">Path to XSD directory</string>
+								<string key="NSPlaceholderString">Path to Indivo server directory</string>
 								<string key="NSCellIdentifier">_NS:903</string>
 								<reference key="NSControlView" ref="78349995"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1537,7 +1537,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<object class="NSButton" id="506226207">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">265</int>
-							<string key="NSFrame">{{502, 553}, {123, 32}}</string>
+							<string key="NSFrame">{{484, 553}, {141, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="368918898"/>
@@ -1546,7 +1546,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<object class="NSButtonCell" key="NSCell" id="247545669">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">XSD Location</string>
+								<string key="NSContents">Indivo Directory</string>
 								<reference key="NSSupport" ref="924388315"/>
 								<string key="NSCellIdentifier">_NS:687</string>
 								<reference key="NSControlView" ref="506226207"/>
@@ -1561,10 +1561,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<object class="NSTextField" id="368918898">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">266</int>
-							<string key="NSFrame">{{20, 529}, {478, 22}}</string>
+							<string key="NSFrame">{{20, 529}, {462, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="287790014"/>
+							<reference key="NSNextKeyView" ref="979835813"/>
 							<string key="NSReuseIdentifierKey">_NS:903</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1000861676">
@@ -1572,7 +1572,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents"/>
 								<reference key="NSSupport" ref="924388315"/>
-								<string key="NSPlaceholderString">Path to Output directory</string>
+								<string key="NSPlaceholderString">Path to class output directory</string>
 								<string key="NSCellIdentifier">_NS:903</string>
 								<reference key="NSControlView" ref="368918898"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1583,10 +1583,10 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<object class="NSButton" id="979835813">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">265</int>
-							<string key="NSFrame">{{501, 523}, {125, 32}}</string>
+							<string key="NSFrame">{{484, 523}, {142, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="506226207"/>
+							<reference key="NSNextKeyView" ref="287790014"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="615707006">

@@ -58,7 +58,7 @@ void runOnMainQueue(dispatch_block_t block)
 
 /**
  *	Run all the XSD schemas we find. Schema files must have the .xsd extension.
- *	@param inputPath A path to a directory containing XSD files or a path to one XSD file
+ *	@param inputPath A path to a directory containing XSD files or a path to one XSD file. A directory will be recursively searched.
  *	@param outDirectory The directory to write the class files to
  *	@param aCallback Completion block
  */
@@ -91,25 +91,10 @@ void runOnMainQueue(dispatch_block_t block)
 	
 	// find XSD
 	__block NSError *error = nil;
-	NSArray *all = nil;
-	if (inputIsDir) {
-		all = [fm contentsOfDirectoryAtPath:inputPath error:&error];
-		if (!all) {
-			NSString *errStr = [error localizedDescription];
-			CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, errStr)
-			return;
-		}
+	NSArray *xsd = findFilesEndingWithRecursively(inputPath, @"xsd", &error);
+	if (!xsd) {
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, [error localizedDescription]);
 	}
-	else {
-		NSString *file = [inputPath lastPathComponent];
-		if (file) {
-			all = [NSArray arrayWithObject:file];
-			inputPath = [inputPath stringByDeletingLastPathComponent];
-		}
-	}
-	
-	NSPredicate *filter = [NSPredicate predicateWithFormat:@"self ENDSWITH '.xsd'"];
-	NSArray *xsd = [all filteredArrayUsingPredicate:filter];
 	if ([xsd count] < 1) {
 		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"There were no XSD files in the input path")
 		return;
@@ -124,8 +109,7 @@ void runOnMainQueue(dispatch_block_t block)
 		self.numClassesNotOverwritten = 0;
 		
 		// loop all XSDs
-		for (NSString *fileName in xsd) {
-			NSString *path = [inputPath stringByAppendingPathComponent:fileName];
+		for (NSString *path in xsd) {
 			if (![fm fileExistsAtPath:path]) {
 				NSString *logStr = [NSString stringWithFormat:@"Schema file does not exist at %@", path];
 				[self sendLog:logStr];
@@ -242,19 +226,19 @@ void runOnMainQueue(dispatch_block_t block)
 	if (![mapping objectForKey:indivoTypeName]) {
 		if ([self ignoresType:indivoTypeName]) {
 			numClassesSkipped++;
+			[self sendLog:[NSString stringWithFormat:@"Ignoring \"%@\"", className]];
 			className = [NSString stringWithFormat:@"<# Class %@ is on the ignore list #>", className];
 		}
 		else {
 			write = YES;
 		}
-		
-		[mapping setObject:className forKey:indivoTypeName];
 	}
 	else if (![className isEqualToString:[mapping objectForKey:indivoTypeName]]) {
 		//[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
 	}
 	
 	[typeStack addObject:name];
+	[mapping setObject:className forKey:indivoTypeName];
 	
 	// get definitions (attributes and sequence/element) from the correct node
 	NSArray *attributes = nil;
@@ -264,8 +248,9 @@ void runOnMainQueue(dispatch_block_t block)
 		content = [type childNamed:@"simpleContent"];
 	}
 	
-	// determine the superclass
+	// "extension" - determine the superclass
 	INXMLNode *extension = [content childNamed:@"extension"];
+	INXMLNode *restriction = [content childNamed:@"restriction"];
 	if (extension) {
 		NSString *base = [extension attr:@"base"];
 		superclass = [mapping objectForKey:base];
@@ -278,6 +263,14 @@ void runOnMainQueue(dispatch_block_t block)
 		
 		/// @todo Check for restrictions
 	}
+	
+	// "restriction" - find possible values
+	else if (restriction) {
+		/// @todo automate
+		[self sendLog:[NSString stringWithFormat:@"[x]  Types with enumerations are not yet supported, create the class \"%@\" by hand", className]];
+	}
+	
+	// "sequence" - a new definition
 	else {
 		attributes = [type childrenNamed:@"attribute"];
 		elements = [[type childNamed:@"sequence"] childrenNamed:@"element"];
@@ -340,8 +333,11 @@ void runOnMainQueue(dispatch_block_t block)
 	NSString *itemClass = nil;
 	NSString *comment = nil;
 	
-	// do we define the type (i.e. do we have a "complexType" child node)?
-	INXMLNode *typeNode = [element childNamed:@"complexType"];
+	// do we define the type (i.e. do we have a "simpleType" or "complexType" child node)?
+	INXMLNode *typeNode = [element childNamed:@"simpleType"];
+	if (!typeNode) {
+		typeNode = [element childNamed:@"complexType"];
+	}
 	if (typeNode) {
 		if (![typeNode attr:@"name"]) {
 			NSString *newTypeName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
@@ -359,15 +355,20 @@ void runOnMainQueue(dispatch_block_t block)
 	// type of element
 	if ([type length] > 0 && !useClass) {
 		useClass = [mapping objectForKey:type];
-		if ([useClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes
-			NSString *xsType = [@"xs:" stringByAppendingString:type];
-			useClass = [mapping objectForKey:xsType];
-			if ([useClass length] < 1) {								// still no luck, give up
-				useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, type];
-				[self sendLog:[NSString stringWithFormat:@"I do not know which class to use for \"%@\", assuming \"%@\"", type, useClass]];
-			}
-			else {
-				type = xsType;
+		if ([useClass length] < 1) {										// not found, try prepending "indivo:"
+			NSString *inType = [@"indivo:" stringByAppendingString:type];
+			useClass = [mapping objectForKey:inType];
+			if ([useClass length] < 1) {									// not found, try prepending "xs:"
+				NSString *xsType = [@"xs:" stringByAppendingString:type];
+				useClass = [mapping objectForKey:xsType];
+				if ([useClass length] < 1) {								// still no luck, give up
+					useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, type];
+					[self sendLog:[NSString stringWithFormat:@"Assuming \"%@\" for \"%@\"", useClass, type]];
+					DLog(@"[%@]  mapping: %@", type, mapping);
+				}
+				else {
+					type = xsType;
+				}
 			}
 		}
 	}
@@ -422,7 +423,7 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	NSNumber *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
-	NSString *comment = ([minOccurs integerValue] > 0) ? @"Must be present as an attribute" : nil;
+	NSString *comment = ([minOccurs integerValue] > 0) ? @"Must be present as an XML attribute when writing XML" : nil;
 	
 	NSString *attrClass = [mapping objectForKey:attrType];
 	if ([attrClass length] < 1) {									// not found, try appending "xs:" which is missing sometimes
@@ -430,7 +431,7 @@ void runOnMainQueue(dispatch_block_t block)
 		attrClass = [mapping objectForKey:xsType];
 		if ([attrClass length] < 1) {								// still no luck, give up
 			attrClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, attrType];
-			[self sendLog:[NSString stringWithFormat:@"I do not know which class to use for \"%@\", assuming \"%@\"", attrType, attrClass]];
+			[self sendLog:[NSString stringWithFormat:@"Assuming \"%@\" for \"%@\"", attrClass, attrType]];
 		}
 		else {
 			attrType = xsType;
@@ -540,6 +541,16 @@ void runOnMainQueue(dispatch_block_t block)
 			[propertyMap addObject:[NSString stringWithFormat:@"@\"%@\", @\"%@\"", itemClass ? itemClass : className, name]];
 		}
 	}
+	NSMutableString *templatePath = [NSMutableString new];
+	BOOL start = NO;
+	for (NSString *path in [currentInputPath pathComponents]) {
+		if (start) {
+			[templatePath appendFormat:@"/%@", path];
+		}
+		else if ([@"indivo_server" isEqualToString:path]) {
+			start = YES;
+		}
+	}
 	NSString *synthString = ([synthNames count] > 0) ? [synthNames componentsJoinedByString:@", "] : nil;
 	NSString *nonNilString = ([nonNilNames count] > 0) ? [nonNilNames componentsJoinedByString:@", "] : nil;
 	NSString *attributeString = ([attributeNames count] > 0) ? [attributeNames componentsJoinedByString:@", "] : nil;
@@ -548,7 +559,7 @@ void runOnMainQueue(dispatch_block_t block)
 										  @"Indivo Class Generator", @"AUTHOR",
 										  [NSString stringWithFormat:@"%d/%d/%d", comp.month, comp.day, comp.year], @"DATE",
 										  [NSString stringWithFormat:@"%d", comp.year], @"YEAR",
-										  (currentInputPath ? [currentInputPath lastPathComponent] : @"<unknown>"), @"TEMPLATE_PATH",
+										  ([templatePath length] > 0 ? templatePath : @"<unknown>"), @"TEMPLATE_PATH",
 										  className, @"CLASS_NAME",
 										  (superclass ? superclass : INClassGeneratorBaseClass), @"CLASS_SUPERCLASS",
 										  bareName, @"CLASS_NODENAME",
@@ -621,7 +632,7 @@ void runOnMainQueue(dispatch_block_t block)
 - (void)sendLog:(NSString *)aString
 {
 	runOnMainQueue(^{
-		NSString *errString = currentInputPath ? [currentInputPath stringByAppendingFormat:@":  %@", aString] : aString;
+		NSString *errString = currentInputPath ? [aString stringByAppendingFormat:@"  (%@)", currentInputPath] : aString;
 		NSDictionary *userInfo = [NSDictionary dictionaryWithObject:errString forKey:INClassGeneratorLogStringKey];
 		[[NSNotificationCenter defaultCenter] postNotificationName:INClassGeneratorDidProduceLogNotification object:nil userInfo:userInfo];
 	});
@@ -742,3 +753,44 @@ static NSString *classGeneratorBodyTemplate = nil;
 
 
 @end
+
+
+NSArray *findFilesEndingWithRecursively(NSString *path, NSString *endingWith, NSError **error)
+{
+	if ([path length] < 1) {
+		return nil;
+	}
+	
+	// check path
+	NSFileManager *fm = [NSFileManager defaultManager];
+	BOOL inputIsDir = NO;
+	if (![fm fileExistsAtPath:path isDirectory:&inputIsDir]) {
+		ERR(error, @"There is no file/directory here", 0)
+		return nil;
+	}
+	
+	// find all files in our path
+	NSArray *all = nil;
+	if (inputIsDir) {
+		NSArray *subs = [fm contentsOfDirectoryAtPath:path error:error];
+		if (!subs) {
+			return nil;
+		}
+		
+		NSMutableArray *content = [NSMutableArray array];
+		for (NSString *sub in subs) {
+			NSString *subpath = [path stringByAppendingPathComponent:sub];
+			[content addObjectsFromArray:findFilesEndingWithRecursively(subpath, endingWith, error)];
+		}
+		all = content;
+	}
+	else {
+		all = [NSArray arrayWithObject:path];
+	}
+	
+	// filter by extension
+	NSPredicate *filter = [NSPredicate predicateWithFormat:@"self ENDSWITH %@", endingWith];
+	return [all filteredArrayUsingPredicate:filter];
+}
+
+

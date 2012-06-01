@@ -2,7 +2,7 @@
  IndivoAggregateReport.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/14/2012.
+ Created by Indivo Class Generator on 6/1/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -27,11 +27,11 @@
 	
 
 /**
- *	A class representing "indivo:AggregateReport" objects, generated from aggregatereport.xsd.
+ *	A class representing "indivo:AggregateReport" objects, generated from /indivo/schemas/data/output/aggregatereport/aggregatereport.xsd.
  */
 @interface IndivoAggregateReport : IndivoDocument
 
-@property (nonatomic, strong) INString *value;					///< Must be present as an attribute
+@property (nonatomic, strong) INString *value;					///< Must be present as an XML attribute when writing XML
 @property (nonatomic, strong) INString *group;
 
 
