@@ -159,7 +159,7 @@
 #pragma mark - Record Documents
 /**
  *	Fetch all documents of the receiver, calling GET on /records/{record id}/documents/.
- *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain meta-documents for this record's documents.
+ *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain IndivoMetaDocument instances for this record's documents.
  */
 - (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback
 {

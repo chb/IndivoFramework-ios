@@ -157,7 +157,7 @@
 /**
  *	Returns an XML representation of the receiver, like "xml" does, but adds namespace information. You should use this method to generate
  *	an XML representation for the document, "xml" will be used for sub-documents.
- *	@return An XML representation of the receiver
+ *	@return An XML document representation of the receiver including the xml version and encoding header
  */
 - (NSString *)documentXML
 {
