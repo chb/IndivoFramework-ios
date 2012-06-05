@@ -63,10 +63,9 @@
 			[self addLog:@"Cancelled"];
 		}
 		else {
-			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas parsed, %d classes generated, %d classes skipped, %d classes not overwritten",
+			NSString *doneString = [NSString stringWithFormat:@"Done. %d schemas parsed, %d classes generated, %d classes not overwritten",
 									generator.numSchemasParsed,
 									generator.numClassesGenerated,
-									generator.numClassesSkipped,
 									generator.numClassesNotOverwritten];
 			[self addLog:doneString];
 		}
