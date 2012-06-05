@@ -1,5 +1,5 @@
 /*
- IndivoResultInRange.h
+ IndivoPhoneType.m
  IndivoFramework
  
  Created by Indivo Class Generator on 6/4/2012.
@@ -20,21 +20,33 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoResult.h"
-#import "INObjects.h"
+#import "IndivoPhoneType.h"
+#import "IndivoDocument.h"
 
-@class IndivoRange;
-@class IndivoRange;
-	
 
-/**
- *	A class representing "indivo:ResultInRange" objects, generated from /indivo/schemas/data/common/values.xsd.
- */
-@interface IndivoResultInRange : IndivoResult
+@implementation IndivoPhoneType
 
-@property (nonatomic, strong) INUnitValue *valueAndUnit;					///< minOccurs = 1
-@property (nonatomic, strong) IndivoRange *normalRange;
-@property (nonatomic, strong) IndivoRange *nonCriticalRange;
+
++ (NSString *)nodeName
+{
+	return @"PhoneType";
+}
+
++ (NSString *)nodeType
+{
+	return @"indivo:PhoneType";
+}
+
++ (void)load
+{
+	[IndivoDocument registerDocumentClass:self];
+}
+
++ (NSArray *)restrictedTo
+{
+	return [NSArray arrayWithObjects:@"h", @"w", @"c", nil];
+}
+
 
 
 @end

@@ -4,6 +4,8 @@
 <dict>
 	<key>xs:string</key>
 	<string>INString</string>
+	<key>xs:normalizedString</key>
+	<string>INNormalizedString</string>
 	<key>xs:anyURI</key>
 	<string>INAnyURI</string>
 	<key>xs:date</key>
@@ -30,9 +32,5 @@
 	<string>INUnitValue</string>
 	<key>indivo:Document</key>
 	<string>IndivoDocument</string>
-	<key>indivo:PhoneType</key>
-	<string>IndivoPhoneType</string>
-	<key>indivo:GenderType</key>
-	<string>IndivoGenderType</string>
 </dict>
 </plist>

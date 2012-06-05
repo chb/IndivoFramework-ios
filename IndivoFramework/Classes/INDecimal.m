@@ -27,6 +27,17 @@
 @synthesize number;
 
 
++ (id)newWithDouble:(double)aDouble
+{
+	INDecimal *d = [self new];
+	d.number = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%.16f", aDouble]];
+	
+	return d;
+}
+
+
+
+#pragma mark - Overrides
 - (void)setFromNode:(INXMLNode *)node
 {
 	[super setFromNode:node];

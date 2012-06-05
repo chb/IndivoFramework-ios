@@ -29,6 +29,7 @@
 #import "INAttr.h"
 #import "INBool.h"
 #import "INString.h"
+#import "INNormalizedString.h"
 #import "INAnyURI.h"
 #import "INDate.h"
 #import "INDateTime.h"

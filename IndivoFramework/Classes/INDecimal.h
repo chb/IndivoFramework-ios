@@ -31,4 +31,7 @@
 
 @property (nonatomic, strong) NSDecimalNumber *number;
 
++ (id)newWithDouble:(double)aDouble;
+
+
 @end

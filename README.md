@@ -54,26 +54,42 @@ You now have the latest source code of the framework as well as the subprojects 
 
 ## Server Side Setup ##
 
-The Indivo Server you want to connect to needs to know your app. This means you will have to tell the server to add your app as a **user_app**. You will get a **consumer_key** and a **consumer_secret** which you need during Framework Setup, without these your app will not receive any data from the server. Keep your consumer_key and consumer_secret safe in order to prevent somebody posing as your App. For general installation instructions see the [Indivo Installation Instructions][installation].
+The Indivo Server you want to connect to needs to know your app. This means you will have to tell the server to add your app as a **user** app. You will give the server a **consumer_key** and a **consumer_secret** which you will also need during Framework Setup, without these your app will not receive any data from the server. You can read more [about OAuth here][oauth]. Keep your consumer_key and consumer_secret safe in order to prevent somebody posing as your app, for Indivo they need to be put into `indivo_server/registered_apps/user/_your-app-directory_/credentials.json` and look like this:
 
-As of Indivo 1.0, the setup for an App using the framework in `server/utils/indivo_data.xml` will look like this:
+    {
+      "consumer_key": "cr79234hakarg0iaashaop22349ga09gtb8fka",
+      "consumer_secret": "atg2o5bo9iboeyjphon235rov98ak8ouwlscwaz"
+    }
 
-    <user_app name='Medications Mobile' email='medsample@apps.indivo.org'>
-        <consumer_key>medsample@apps.indivo.org</consumer_key>
-        <secret>your-crazy-secure-secret-string</secret>
-        <frameable>False</frameable>
-        <has_ui>False</has_ui>
-        <start_url_template>
-          	indivo-framework:///did_select_record?record_id={record_id}&amp;carenet_id={carenet_id}
-        </start_url_template>
-        <callback_url></callback_url>
-    </user_app>
+As of Indivo 2.0, the setup for an iOS app using the framework could look like this in the file `indivo_server/registered_apps/user/_your-app-directory_/manifest.json`:
 
-The `has_ui` setting currently means "show up in the UI Server sidebar", so we want to set this to false. We may rework the App manifest in the future so these settings may change.
+    {
+      "name" : "Awesome App (iOS)",
+      "description" : "This app lets you access your lab data",
+      "author" : "Cilghal, Jedi Master",
+      "id" : "forceapp@apps.jedi.org",
+      "version" : "1.0.0",
+      "smart_version": "0.4",
+    
+      "mode" : "ui",	
+      "scope": "record",
+      "has_ui": false,
+      "frameable": false,
+    
+      "icon" :  "http://static.jedi.org/icons/forceapp.png",
+      "oauth_callback_url": "indivo-framework:///did_select_record?record_id={record_id}&carenet_id={carenet_id}"
+    }
 
-When the server knows about your App, you're ready to use the framework.
+The `has_ui` setting currently means "show up in the UI Server sidebar", so we want to set this to false. `frameable` tells Indivo whether the app can live in a browser frame, which we also set to false.
+
+Now tell your server about the app by running the following from the `indivo_server` directory:
+
+    $ python manage.py sync_apps
+
+For general installation instructions see the [Indivo Installation Instructions][installation]. When the server knows about your App, you're ready to use the framework.
 	
 
+[oauth]: http://oauth.net/
 [installation]: http://docs.indivohealth.org/en/latest/index.html#indivo-administrators
 
 

@@ -115,16 +115,17 @@
 			// we got an array instance, try to fill it
 			if ([ivarClass isSubclassOfClass:[NSArray class]]) {
 				Class itemClass = [currentClass classForProperty:ivarName];
-				
-				NSArray *children = [node childrenNamed:ivarName];
-				NSMutableArray *objects = [NSMutableArray arrayWithCapacity:[children count]];
-				for (INXMLNode *child in children) {
-					INObject *newObject = [itemClass objectFromNode:child];
-					[objects addObjectIfNotNil:newObject];
+				if (itemClass) {
+					NSArray *children = [node childrenNamed:ivarName];
+					NSMutableArray *objects = [NSMutableArray arrayWithCapacity:[children count]];
+					for (INXMLNode *child in children) {
+						INObject *newObject = [itemClass objectFromNode:child];
+						[objects addObjectIfNotNil:newObject];
+					}
+					
+					/// @todo Prevent overwriting existing nodes if the node was not provided
+					object_setIvar(self, ivars[i], [objects copy]);
 				}
-				
-				/// @todo Prevent overwriting existing nodes if the node was not provided
-				object_setIvar(self, ivars[i], [objects copy]);
 			}
 			
 			// we got an instance variable of INObject kind, instantiate
@@ -161,9 +162,9 @@
 - (NSString *)documentXML
 {
 #ifdef INDIVO_XML_PRETTY_FORMAT
-	return [NSString stringWithFormat:@"<%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\t%@\n</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\t%@\n</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
 #else
-	return [NSString stringWithFormat:@"<%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">%@</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
+	return [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\" ?><%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">%@</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
 #endif
 }
 

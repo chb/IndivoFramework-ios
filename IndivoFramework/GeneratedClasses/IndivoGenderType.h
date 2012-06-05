@@ -1,5 +1,5 @@
 /*
- IndivoResultInRange.h
+ IndivoGenderType.h
  IndivoFramework
  
  Created by Indivo Class Generator on 6/4/2012.
@@ -20,21 +20,17 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoResult.h"
+#import "INNormalizedString.h"
 #import "INObjects.h"
 
-@class IndivoRange;
-@class IndivoRange;
+
 	
 
 /**
- *	A class representing "indivo:ResultInRange" objects, generated from /indivo/schemas/data/common/values.xsd.
+ *	A class representing "indivo:GenderType" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
  */
-@interface IndivoResultInRange : IndivoResult
+@interface IndivoGenderType : INNormalizedString
 
-@property (nonatomic, strong) INUnitValue *valueAndUnit;					///< minOccurs = 1
-@property (nonatomic, strong) IndivoRange *normalRange;
-@property (nonatomic, strong) IndivoRange *nonCriticalRange;
 
 
 @end

@@ -68,13 +68,12 @@
 #import "IndivoRange.h"
 
 // Contact Data
-#import "IndivoContact.h"
-#import "IndivoContactName.h"
-#import "IndivoContactAddress.h"
-#import "IndivoContactLocation.h"
-#import "IndivoContactEmail.h"
-#import "IndivoContactPhoneNumber.h"
-#import "IndivoContactInstantMessengerName.h"
+#import "IndivoDemographics.h"
+#import "IndivoGenderType.h"
+#import "IndivoName.h"
+#import "IndivoAddress.h"
+#import "IndivoPhoneType.h"
+#import "IndivoTelephone.h"
 
 // Other
 #import "IndivoAggregateReport.h"
@@ -82,7 +81,6 @@
 #import "IndivoPrincipal.h"
 #import "IndivoProvider.h"
 #import "IndivoSignature.h"
-#import "IndivoDemographics.h"
 #import "IndivoEquipment+Report.h"
 #import "IndivoSchoolForm.h"
 

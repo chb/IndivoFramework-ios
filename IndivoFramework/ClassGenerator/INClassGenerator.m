@@ -37,12 +37,12 @@ void runOnMainQueue(dispatch_block_t block)
 - (NSDictionary *)processElement:(INXMLNode *)element withMapping:(NSMutableDictionary *)mapping;
 - (NSDictionary *)processAttribute:(INXMLNode *)attribute withMapping:(NSMutableDictionary *)mapping;
 
-- (BOOL)createClass:(NSString *)className
-		   withName:(NSString *)bareName
-		 superclass:(NSString *)superclass
-			forType:(NSString *)indivoType
-		 properties:(NSArray *)properties
-			  error:(NSError **)error;
+- (short)createClass:(NSString *)className
+			withName:(NSString *)bareName
+		  superclass:(NSString *)superclass
+			 forType:(NSString *)indivoType
+		  properties:(NSArray *)properties
+			   error:(NSError **)error;
 
 - (void)sendLog:(NSString *)aString;
 
@@ -181,20 +181,13 @@ void runOnMainQueue(dispatch_block_t block)
 		self.currentInputPath = path;
 	}
 	
-	// type definitions at the top level?
-	NSArray *types = [schema childrenNamed:@"complexType"];
-	if ([types count] > 0) {
-		for (INXMLNode *type in types) {
-			/// @todo Do we need to handle this more carefully here?
-			[self processType:type withMapping:mapping];
+	// process root nodes
+	for (INXMLNode *node in [schema children]) {
+		if ([@"element" isEqualToString:node.name]) {
+			[self processElement:node withMapping:mapping];
 		}
-	}
-	
-	// do we define elements?
-	NSArray *elements = [schema childrenNamed:@"element"];
-	if ([elements count] > 0) {
-		for (INXMLNode *element in elements) {
-			[self processElement:element withMapping:mapping];
+		else if ([@"simpleType" isEqualToString:node.name] || [@"complexType" isEqualToString:node.name]) {
+			[self processType:node withMapping:mapping];
 		}
 	}
 	
@@ -220,25 +213,26 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// the class name
-	NSString *ucFirstName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
-	NSString *className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, ucFirstName];
 	NSString *indivoTypeName = [NSString stringWithFormat:@"indivo:%@", name];
-	if (![mapping objectForKey:indivoTypeName]) {
+	NSString *className = [mapping objectForKey:indivoTypeName];
+	if ([className length] < 1) {
 		if ([self ignoresType:indivoTypeName]) {
 			numClassesSkipped++;
-			[self sendLog:[NSString stringWithFormat:@"Ignoring \"%@\"", className]];
-			className = [NSString stringWithFormat:@"<# Class %@ is on the ignore list #>", className];
+			[self sendLog:[NSString stringWithFormat:@"Ignoring \"%@\"", indivoTypeName]];
+			className = [NSString stringWithFormat:@"<# Class for %@ is on the ignore list #>", indivoTypeName];
 		}
+		
+		// newly encountered class
 		else {
 			write = YES;
+			
+			NSString *ucFirstName = [NSString stringWithFormat:@"%@%@", [[name substringToIndex:1] uppercaseString], [name substringFromIndex:1]];
+			className = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, ucFirstName];
 		}
-	}
-	else if (![className isEqualToString:[mapping objectForKey:indivoTypeName]]) {
-		//[self sendLog:[NSString stringWithFormat:@"Apparently, %@ is already known as %@!", className, [mapping objectForKey:indivoTypeName]]];
+		[mapping setObject:className forKey:indivoTypeName];
 	}
 	
 	[typeStack addObject:name];
-	[mapping setObject:className forKey:indivoTypeName];
 	
 	// get definitions (attributes and sequence/element) from the correct node
 	NSArray *attributes = nil;
@@ -249,31 +243,41 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	
 	// "extension" - determine the superclass
-	INXMLNode *extension = [content childNamed:@"extension"];
-	INXMLNode *restriction = [content childNamed:@"restriction"];
-	if (extension) {
-		NSString *base = [extension attr:@"base"];
-		superclass = [mapping objectForKey:base];
-		if (!superclass) {
-			DLog(@"There is no mapping for \"%@\", assuming class \"%@\"", base, base);
-			superclass = base;
+	if (content) {
+		INXMLNode *extension = [content childNamed:@"extension"];
+		if (extension) {
+			NSString *base = [extension attr:@"base"];
+			superclass = [mapping objectForKey:base];
+			if (!superclass) {
+				DLog(@"There is no mapping for \"%@\", assuming class \"%@\"", base, base);
+				superclass = base;
+			}
+			attributes = [extension childrenNamed:@"attribute"];
+			elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];
+			
+			/// @todo Check for restrictions
 		}
-		attributes = [extension childrenNamed:@"attribute"];
-		elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];
-		
-		/// @todo Check for restrictions
 	}
 	
 	// "restriction" - find possible values
-	else if (restriction) {
-		/// @todo automate
-		[self sendLog:[NSString stringWithFormat:@"[x]  Types with enumerations are not yet supported, create the class \"%@\" by hand", className]];
-	}
-	
-	// "sequence" - a new definition
 	else {
-		attributes = [type childrenNamed:@"attribute"];
-		elements = [[type childNamed:@"sequence"] childrenNamed:@"element"];
+		INXMLNode *restriction = [type childNamed:@"restriction"];
+		if (restriction) {
+			NSString *base = [restriction attr:@"base"];
+			superclass = [mapping objectForKey:base];
+			if (!superclass) {
+				DLog(@"There is no mapping for \"%@\", assuming class \"%@\"", base, base);
+				superclass = base;
+			}
+			
+			[self sendLog:[NSString stringWithFormat:@"[x]  Types with enumerations are not yet automated, adjust the class \"%@\" by hand", className]];
+		}
+		
+		// "sequence" - a new definition
+		else {
+			attributes = [type childrenNamed:@"attribute"];
+			elements = [[type childNamed:@"sequence"] childrenNamed:@"element"];
+		}
 	}
 	
 	// parse attributes
@@ -305,11 +309,15 @@ void runOnMainQueue(dispatch_block_t block)
 	// write to file
 	if (write) {
 		NSError *error = nil;
-		if (![self createClass:className withName:name superclass:superclass forType:indivoTypeName properties:properties error:&error]) {
-			[self sendLog:[NSString stringWithFormat:@"Failed to create class \"%@\": %@", name, [error localizedDescription]]];
+		short status = [self createClass:className withName:name superclass:superclass forType:indivoTypeName properties:properties error:&error];
+		if (status > 1) {
+			[self sendLog:[NSString stringWithFormat:@"Created class \"%@\" for \"%@\"", className, name]];
+		}
+		else if (1 == status) {
+			[self sendLog:[NSString stringWithFormat:@"Class \"%@\" for \"%@\" already exists", className, name]];
 		}
 		else {
-			[self sendLog:[NSString stringWithFormat:@"Created class \"%@\" for \"%@\"", className, name]];
+			[self sendLog:[NSString stringWithFormat:@"Failed to create class \"%@\": %@", name, [error localizedDescription]]];
 		}
 	}
 	
@@ -362,7 +370,10 @@ void runOnMainQueue(dispatch_block_t block)
 				NSString *xsType = [@"xs:" stringByAppendingString:type];
 				useClass = [mapping objectForKey:xsType];
 				if ([useClass length] < 1) {								// still no luck, give up
-					useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, type];
+					NSArray *colonChopper = [type componentsSeparatedByString:@":"];
+					NSString *useType = [colonChopper lastObject];
+					useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, useType];
+					
 					[self sendLog:[NSString stringWithFormat:@"Assuming \"%@\" for \"%@\"", useClass, type]];
 					DLog(@"[%@]  mapping: %@", type, mapping);
 				}
@@ -455,7 +466,7 @@ void runOnMainQueue(dispatch_block_t block)
 /**
  *	Creates a class from the given property array. It uses the class file templates and writes to the "writeToDir" path.
  */
-- (BOOL)createClass:(NSString *)className
+- (short)createClass:(NSString *)className
 		   withName:(NSString *)bareName
 		 superclass:(NSString *)superclass
 			forType:(NSString *)indivoType
@@ -475,7 +486,7 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 		if (!headerPath && !bodyPath) {
 			numClassesNotOverwritten++;
-			return YES;
+			return 1;
 		}
 	}
 	
@@ -506,10 +517,24 @@ void runOnMainQueue(dispatch_block_t block)
 			}
 #endif
 			NSString *className = [propDict objectForKey:@"class"];
+			NSString *thisAffinity = @"strong";
 			
 			// create class property strings
-			if (name && className) {
-				[propString appendFormat:@"@property (nonatomic, strong) %@ *%@;", className, name];
+			if ([name length] > 0 && [className length] > 0) {
+				
+				// classnames may begin with "[weak]" or similar to override the strong default property
+				if ([className length] > 1 && [@"[" isEqualToString:[className substringToIndex:1]]) {
+					NSUInteger endPos = [className rangeOfString:@"]"].location;
+					if ([className length] > endPos + 1) {
+						thisAffinity = [[className substringFromIndex:1] substringToIndex:endPos - 1];
+						className = [className substringFromIndex:endPos + 1];
+					}
+					else {
+						[self sendLog:[NSString stringWithFormat:@"Error: Cannot interpret class for property: %@", propDict]];
+					}
+				}
+				
+				[propString appendFormat:@"@property (nonatomic, %@) %@ *%@;", thisAffinity, className, name];
 				NSString *comment = [propDict objectForKey:@"comment"];
 				if ([comment length] > 0) {
 					[propString appendFormat:@"\t\t\t\t\t///< %@", comment];
@@ -521,8 +546,12 @@ void runOnMainQueue(dispatch_block_t block)
 				[self sendLog:[NSString stringWithFormat:@"Error: Missing name or class for property: %@", propDict]];
 			}
 			
-			// collect forward class declarations
-			if ([INClassGeneratorClassPrefix isEqualToString:[className substringToIndex:[INClassGeneratorClassPrefix length]]]) {
+			// collect forward class declarations and -mappings
+			NSString *itemClass = [propDict objectForKey:@"itemClass"];
+			[propertyMap addObject:[NSString stringWithFormat:@"@\"%@\", @\"%@\"", itemClass ? itemClass : className, name]];
+			
+			if ([className length] > [INClassGeneratorClassPrefix length]
+				&& [INClassGeneratorClassPrefix isEqualToString:[className substringToIndex:[INClassGeneratorClassPrefix length]]]) {
 				[forwardClasses addObject:[NSString stringWithFormat:@"@class %@;", className]];
 			}
 			
@@ -535,10 +564,6 @@ void runOnMainQueue(dispatch_block_t block)
 			if ([[propDict objectForKey:@"isAttribute"] boolValue]) {
 				[attributeNames addObject:[NSString stringWithFormat:@"@\"%@\"", name]];
 			}
-			
-			// collect class mappings
-			NSString *itemClass = [propDict objectForKey:@"itemClass"];
-			[propertyMap addObject:[NSString stringWithFormat:@"@\"%@\", @\"%@\"", itemClass ? itemClass : className, name]];
 		}
 	}
 	NSMutableString *templatePath = [NSMutableString new];
@@ -590,7 +615,7 @@ void runOnMainQueue(dispatch_block_t block)
 			
 			if (![header writeToURL:headerURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
 				[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", headerPath, [*error localizedDescription]]];
-				return NO;
+				return 0;
 			}
 		}
 	}
@@ -603,13 +628,13 @@ void runOnMainQueue(dispatch_block_t block)
 			
 			if (![body writeToURL:bodyURL atomically:YES encoding:NSUTF8StringEncoding error:error]) {
 				[self sendLog:[NSString stringWithFormat:@"ERROR writing to %@: %@", bodyPath, [*error localizedDescription]]];
-				return NO;
+				return 0;
 			}
 		}
 	}
 	
 	numClassesGenerated++;
-	return YES;
+	return 2;
 }
 
 

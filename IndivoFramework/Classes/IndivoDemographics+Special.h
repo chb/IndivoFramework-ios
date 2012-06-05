@@ -1,9 +1,9 @@
 /*
- IndivoResultInRange.h
+ IndivoDemographics+Special.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Pascal Pfiffner on 6/4/12.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,21 +20,10 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoResult.h"
-#import "INObjects.h"
+#import "IndivoDemographics.h"
 
-@class IndivoRange;
-@class IndivoRange;
-	
 
-/**
- *	A class representing "indivo:ResultInRange" objects, generated from /indivo/schemas/data/common/values.xsd.
- */
-@interface IndivoResultInRange : IndivoResult
-
-@property (nonatomic, strong) INUnitValue *valueAndUnit;					///< minOccurs = 1
-@property (nonatomic, strong) IndivoRange *normalRange;
-@property (nonatomic, strong) IndivoRange *nonCriticalRange;
+@interface IndivoDemographics (Special)
 
 
 @end
