@@ -9,6 +9,9 @@
 #import "INSchemaParser.h"
 
 
+/**
+ *	This class parses XSD files and tries to create Obj-C classes for the types it encounters
+ */
 @interface INXSDParser : INSchemaParser
 
 

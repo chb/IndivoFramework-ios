@@ -22,7 +22,8 @@ typedef enum {
 
 @protocol INSchemaParserDelegate <NSObject>
 
-- (NSString *)schemaParser:(INSchemaParser *)parser classNameForType:(NSString *)aType effectiveType:(NSString **)effectiveType isNew:(BOOL *)isNew;
+- (NSString *)schemaParser:(INSchemaParser *)parser existingClassNameForType:(NSString *)aType;
+- (NSString *)schemaParser:(INSchemaParser *)parser classNameForType:(NSString *)aType effectiveType:(NSString **)effectiveType;
 - (void)schemaParser:(INSchemaParser *)parser didParseClass:(NSString *)className forName:(NSString *)name superclass:(NSString *)superclass forType:(NSString *)type properties:(NSArray *)properties;
 
 - (void)schemaParser:(INSchemaParser *)parser isProcessingFileAtPath:(NSString *)filePath;

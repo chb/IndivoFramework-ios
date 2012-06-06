@@ -1,9 +1,9 @@
 /*
- IndivoLabPanel.h
+ INBloodPressure.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Pascal Pfiffner on 6/6/12.
+ Copyright (c) 2012 Harvard Medical School. All rights reserved.
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,19 +20,9 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
 
+#import "INObject.h"
 
-	
-
-/**
- *	A class representing "indivo:LabPanel" objects, generated from lab.xsd.
- */
-@interface IndivoLabPanel : IndivoDocument
-
-@property (nonatomic, strong) INCodedValue *name;					///< minOccurs = 1
-@property (nonatomic, strong) NSArray *labTest;					///< An array containing IndivoLabTest objects
-
+@interface INBloodPressure : INObject
 
 @end

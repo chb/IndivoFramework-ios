@@ -2,7 +2,7 @@
  IndivoAllergy.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/5/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -23,19 +23,20 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoAllergyAllergen;
+
 	
 
 /**
- *	A class representing "indivo:Allergy" objects, generated from allergy.xsd.
+ *	A class representing "indivo:Allergy" objects, generated from /indivo/data_models/core/allergy/model.sdml.
  */
 @interface IndivoAllergy : IndivoDocument
 
-@property (nonatomic, strong) INDate *dateDiagnosed;
-@property (nonatomic, strong) INString *diagnosedBy;
-@property (nonatomic, strong) IndivoAllergyAllergen *allergen;
-@property (nonatomic, strong) INString *reaction;
-@property (nonatomic, strong) INString *specifics;
+@property (nonatomic, strong) INCodedValue *category;
+@property (nonatomic, strong) INCodedValue *allergic_reaction;
+@property (nonatomic, strong) INCodedValue *drug_class_allergen;
+@property (nonatomic, strong) INCodedValue *food_allergen;
+@property (nonatomic, strong) INCodedValue *drug_allergen;
+@property (nonatomic, strong) INCodedValue *severity;
 
 
 @end

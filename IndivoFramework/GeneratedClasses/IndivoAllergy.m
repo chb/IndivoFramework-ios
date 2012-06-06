@@ -2,7 +2,7 @@
  IndivoAllergy.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/5/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 
 @implementation IndivoAllergy
 
-@synthesize dateDiagnosed, diagnosedBy, allergen, reaction, specifics;
+@synthesize category, allergic_reaction, drug_class_allergen, food_allergen, drug_allergen, severity;
 
 
 + (NSString *)nodeName
@@ -48,14 +48,27 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDate", @"dateDiagnosed",
-			@"INString", @"diagnosedBy",
-			@"IndivoAllergyAllergen", @"allergen",
-			@"INString", @"reaction",
-			@"INString", @"specifics",
+			@"INCodedValue", @"category",
+			@"INCodedValue", @"allergic_reaction",
+			@"INCodedValue", @"drug_class_allergen",
+			@"INCodedValue", @"food_allergen",
+			@"INCodedValue", @"drug_allergen",
+			@"INCodedValue", @"severity",
 			nil];
 }
 
+
++ (NSArray *)nonNilPropertyNames
+{
+	return [NSArray arrayWithObjects:@"category", @"allergic_reaction", @"drug_class_allergen", @"food_allergen", @"drug_allergen", @"severity", nil];
+	/*
+	static NSArray *nonNilPropertyNames = nil;
+	if (!nonNilPropertyNames) {
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"category", @"allergic_reaction", @"drug_class_allergen", @"food_allergen", @"drug_allergen", @"severity", nil];
+	}
+	
+	return nonNilPropertyNames;	*/
+}
 
 
 

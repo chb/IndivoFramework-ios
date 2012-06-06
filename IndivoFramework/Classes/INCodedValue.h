@@ -28,9 +28,8 @@
  */
 @interface INCodedValue : INObject
 
-@property (nonatomic, copy) NSString *type;
-@property (nonatomic, copy) NSString *value;
-@property (nonatomic, copy) NSString *abbrev;
-@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy) NSString *identifier;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *system;
 
 @end

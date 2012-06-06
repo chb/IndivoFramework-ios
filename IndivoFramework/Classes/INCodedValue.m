@@ -24,17 +24,16 @@
 
 @implementation INCodedValue
 
-@synthesize type, value, abbrev, text;
+@synthesize identifier, title, system;
 
 
 - (void)setFromNode:(INXMLNode *)node
 {
 	[super setFromNode:node];
 	
-	self.type = [node attr:@"type"];
-	self.value = [node attr:@"value"];
-	self.abbrev = [node attr:@"abbrev"];
-	self.text = node.text;
+	self.identifier = [node attr:@"identifier"];
+	self.title = [node attr:@"title"];
+	self.system = [node attr:@"system"];
 }
 
 + (NSString *)nodeType
@@ -44,7 +43,7 @@
 
 - (BOOL)isNull
 {
-	return ([value length] < 1 && [abbrev length] < 1 && [text length] < 1);
+	return ([identifier length] < 1 && [system length] < 1 && [title length] < 1);
 }
 
 - (NSString *)xml

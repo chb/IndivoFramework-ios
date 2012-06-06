@@ -32,5 +32,15 @@
 	<string>INUnitValue</string>
 	<key>indivo:Document</key>
 	<string>IndivoDocument</string>
+	<key>String</key>
+	<string>INString</string>
+	<key>Date</key>
+	<string>INDate</string>
+	<key>VitalSign</key>
+	<string>INVitalSign</string>
+	<key>BloodPressure</key>
+	<string>INBloodPressure</string>
+	<key>Organization</key>
+	<string>INOrganization</string>
 </dict>
 </plist>

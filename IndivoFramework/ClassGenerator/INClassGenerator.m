@@ -10,6 +10,7 @@
 #import <dispatch/dispatch.h>
 
 #import "INXSDParser.h"
+#import "INSDMLParser.h"
 
 
 NSString *const INClassGeneratorDidProduceLogNotification = @"INClassGeneratorDidProduceLog";
@@ -37,7 +38,7 @@ void runOnMainQueue(dispatch_block_t block)
 - (short)createClass:(NSString *)className
 			withName:(NSString *)bareName
 		  superclass:(NSString *)superclass
-			 forType:(NSString *)indivoType
+			 forType:(NSString *)forType
 		  properties:(NSArray *)properties
 			   error:(NSError **)error;
 
@@ -92,8 +93,16 @@ void runOnMainQueue(dispatch_block_t block)
 	if (!xsd) {
 		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, [error localizedDescription]);
 	}
-	if ([xsd count] < 1) {
-		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"There were no XSD files in the input path")
+	
+	// find SDML
+	NSArray *sdml = findFilesEndingWithRecursively(inputPath, @"sdml", &error);
+	if (!sdml) {
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, [error localizedDescription]);
+	}
+	
+	// anything to process at all?
+	if ([xsd count] < 1 && [sdml count] < 1) {
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"There were no XSD nor SDML files in the input path")
 		return;
 	}
 	
@@ -121,6 +130,23 @@ void runOnMainQueue(dispatch_block_t block)
 			}
 		}
 		
+		// loop all SDMLs
+		INSDMLParser *sdmlParser = [INSDMLParser newWithDelegate:self];
+		for (NSString *path in sdml) {
+			if (![fm fileExistsAtPath:path]) {
+				NSString *logStr = [NSString stringWithFormat:@"SDML file does not exist at %@", path];
+				[self sendLog:logStr];
+			}
+			
+			// ** run the file
+			else if (![sdmlParser runFileAtPath:path error:&error]) {
+				[self sendLog:[error localizedDescription]];
+			}
+			else {
+				i++;
+			}
+		}
+		
 		// done
 		self.numSchemasParsed = i;
 		if (aCallback) {
@@ -135,16 +161,33 @@ void runOnMainQueue(dispatch_block_t block)
 
 #pragma mark - Schema Parser Delegate
 /**
- *	Searches for the currently known class name of given type, creates a new one if the class is not yet known.
- *	@todo This method may adjust the type, should we provide this to the caller as well?
+ *	Returns the class associated with the given type ONLY IF the class is already known
  */
-- (NSString *)schemaParser:(INSchemaParser *)parser classNameForType:(NSString *)aType effectiveType:(NSString **)effectiveType isNew:(BOOL *)isNew
+- (NSString *)schemaParser:(INSchemaParser *)parser existingClassNameForType:(NSString *)aType
+{
+	NSString *useClass = nil;
+	
+	// is the type ignored?
+	if ([aType length] > 0 && ![self ignoresType:aType]) {
+		useClass = [mapping objectForKey:aType];
+		if ([useClass length] < 1) {										// not found, try prepending "xs:"
+			useClass = [mapping objectForKey:[@"xs:" stringByAppendingString:aType]];
+			if ([useClass length] < 1) {									// not found, try prepending "indivo:"
+				useClass = [mapping objectForKey:[@"indivo:" stringByAppendingString:aType]];
+			}
+		}
+	}
+	
+	return useClass;
+}
+
+/**
+ *	Searches for the currently known class name of given type, creates a new one if the class is not yet known.
+ */
+- (NSString *)schemaParser:(INSchemaParser *)parser classNameForType:(NSString *)aType effectiveType:(NSString **)effectiveType
 {
 	NSString *useClass = nil;
 	NSString *useType = aType;
-	if (NULL != isNew) {
-		*isNew = NO;
-	}
 	
 	// is the type ignored?
 	if ([self ignoresType:aType]) {
@@ -171,11 +214,6 @@ void runOnMainQueue(dispatch_block_t block)
 						useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, ucFirstName];
 						useType = ([colonChopper count] < 2) ? [@"indivo:" stringByAppendingString:aType] : aType;
 						
-						[mapping setObject:useClass forKey:aType];
-						if (NULL != isNew) {
-							*isNew = YES;
-						}
-						
 						//NSString *message = [NSString stringWithFormat:@"Assuming \"%@\" for \"%@\"", useClass, useType];
 					}
 				}
@@ -191,6 +229,7 @@ void runOnMainQueue(dispatch_block_t block)
 	return useClass;
 }
 
+
 - (void)schemaParser:(INSchemaParser *)parser
 	   didParseClass:(NSString *)className
 			 forName:(NSString *)name
@@ -198,19 +237,24 @@ void runOnMainQueue(dispatch_block_t block)
 			 forType:(NSString *)type
 		  properties:(NSArray *)properties
 {
-	NSError *error = nil;
-	NSString *message = nil;
-	short status = [self createClass:className withName:name superclass:superclass forType:type properties:properties error:&error];
-	if (status > 1) {
-		message = [NSString stringWithFormat:@"Created class \"%@\" for \"%@\"", className, name];
+	NSLog(@"Did parse \"%@\" for \"%@\" with type \"%@\"", className, name, type);
+	
+	// we create the class if it's not yet known
+	if ([className length] > 0 && [type length] > 0 && ![mapping objectForKey:type]) {
+		NSError *error = nil;
+		NSString *message = nil;
+		short status = [self createClass:className withName:name superclass:superclass forType:type properties:properties error:&error];
+		if (status > 1) {
+			message = [NSString stringWithFormat:@"Created class \"%@\" for \"%@\"", className, name];
+		}
+		else if (1 == status) {
+			message = [NSString stringWithFormat:@"Class \"%@\" for \"%@\" already exists", className, name];
+		}
+		else {
+			message = [NSString stringWithFormat:@"Failed to create class \"%@\": %@", name, [error localizedDescription]];
+		}
+		[self sendLog:message];
 	}
-	else if (1 == status) {
-		message = [NSString stringWithFormat:@"Class \"%@\" for \"%@\" already exists", className, name];
-	}
-	else {
-		message = [NSString stringWithFormat:@"Failed to create class \"%@\": %@", name, [error localizedDescription]];
-	}
-	[self sendLog:message];
 }
 
 
@@ -231,12 +275,13 @@ void runOnMainQueue(dispatch_block_t block)
  *	Creates a class from the given property array. It uses the class file templates and writes to the "writeToDir" path.
  */
 - (short)createClass:(NSString *)className
-		   withName:(NSString *)bareName
-		 superclass:(NSString *)superclass
-			forType:(NSString *)indivoType
-		 properties:(NSArray *)properties
-			  error:(NSError **)error
+			withName:(NSString *)bareName
+		  superclass:(NSString *)superclass
+			 forType:(NSString *)forType
+		  properties:(NSArray *)properties
+			   error:(NSError **)error
 {
+	NSLog(@"Create \"%@\" with %@, child of %@", className, bareName, superclass);
 	if ([className length] < 1) {
 		if (NULL != error) {
 			NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"No class name given" forKey:NSLocalizedDescriptionKey];
@@ -244,6 +289,9 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 		return 0;
 	}
+	
+	// remember it
+	[mapping setObject:className forKey:forType];
 	
 	// already there?
 	NSString *headerPath = [writeToDir stringByAppendingFormat:@"/%@.h", className];
@@ -260,6 +308,11 @@ void runOnMainQueue(dispatch_block_t block)
 			numClassesNotOverwritten++;
 			return 1;
 		}
+	}
+	
+	// substitute superclass
+	if ([superclass length] < 1) {
+		superclass = INClassGeneratorBaseClass;
 	}
 	
 	// prepare date properties
@@ -315,7 +368,7 @@ void runOnMainQueue(dispatch_block_t block)
 				[synthNames addObject:name];
 			}
 			else {
-				[self sendLog:[NSString stringWithFormat:@"Error: Missing name or class for property: %@", propDict]];
+				[self sendLog:[NSString stringWithFormat:@"Missing name or class for property: %@", propDict]];
 			}
 			
 			// collect forward class declarations and -mappings
@@ -360,10 +413,10 @@ void runOnMainQueue(dispatch_block_t block)
 										  className, @"CLASS_NAME",
 										  (superclass ? superclass : INClassGeneratorBaseClass), @"CLASS_SUPERCLASS",
 										  bareName, @"CLASS_NODENAME",
-										  indivoType, @"CLASS_TYPENAME",
+										  forType, @"CLASS_TYPENAME",
 										  propString, @"CLASS_PROPERTIES",
 										  [forwardClasses componentsJoinedByString:@"\n"], @"CLASS_FORWARDS",
-										  (indivoType ? indivoType : @"unknown"), @"INDIVO_TYPE",
+										  (forType ? forType : @"unknown"), @"INDIVO_TYPE",
 										  @"", @"CLASS_IMPORTS",
 										  nil];
 	if (synthString) {
@@ -414,6 +467,10 @@ void runOnMainQueue(dispatch_block_t block)
 #pragma mark - Properties
 - (BOOL)ignoresType:(NSString *)typeName
 {
+	if (!typeName) {
+		return NO;
+	}
+	
 	static NSDictionary *ignoreDict = nil;
 	if (!ignoreDict) {
 		NSString *dictPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"Ignore" ofType:@"plist"];

@@ -1,9 +1,9 @@
 /*
- IndivoSingleResultLabTest.h
+ INOrganization.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Pascal Pfiffner on 6/6/12.
+ Copyright (c) 2012 Harvard Medical School. All rights reserved.
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,18 +20,9 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoLabTest.h"
-#import "INObjects.h"
 
-@class IndivoResult;
-	
+#import "INOrganization.h"
 
-/**
- *	A class representing "indivo:SingleResultLabTest" objects, generated from lab.xsd.
- */
-@interface IndivoSingleResultLabTest : IndivoLabTest
-
-@property (nonatomic, strong) IndivoResult *result;					///< minOccurs = 1
-
+@implementation INOrganization
 
 @end

@@ -93,7 +93,6 @@
  */
 - (NSDictionary *)processType:(INXMLNode *)type
 {
-	BOOL write = NO;
 	NSMutableArray *properties = nil;
 	NSString *typeName = [type attr:@"name"];
 	NSString *superclass = nil;
@@ -104,7 +103,7 @@
 	
 	// the class name
 	NSString *effectiveType = typeName;
-	NSString *className = [self.delegate schemaParser:self classNameForType:typeName effectiveType:&effectiveType isNew:&write];
+	NSString *className = [self.delegate schemaParser:self classNameForType:typeName effectiveType:&effectiveType];
 	[typeStack addObject:effectiveType];
 	
 	// get definitions (attributes and sequence/element) from the correct node
@@ -115,7 +114,7 @@
 	INXMLNode *extension = [type childNamed:@"extension"];
 	if (extension) {
 		NSString *base = [extension attr:@"base"];
-		superclass = [self.delegate schemaParser:self classNameForType:base effectiveType:NULL isNew:NULL];
+		superclass = [self.delegate schemaParser:self existingClassNameForType:base];
 		attributes = [extension childrenNamed:@"attribute"];
 		elements = [[extension childNamed:@"sequence"] childrenNamed:@"element"];
 		
@@ -127,7 +126,7 @@
 		INXMLNode *restriction = [type childNamed:@"restriction"];
 		if (restriction) {
 			NSString *base = [restriction attr:@"base"];
-			superclass = [self.delegate schemaParser:self classNameForType:base effectiveType:NULL isNew:NULL];
+			superclass = [self.delegate schemaParser:self existingClassNameForType:base];
 			
 			NSString *message = [NSString stringWithFormat:@"[x]  Types with enumerations are not yet automated, adjust the class \"%@\" by hand", className];
 			[self.delegate schemaParser:self sendsMessage:message ofType:INSchemaParserMessageTypeNotification];
@@ -166,10 +165,8 @@
 		}
 	}
 	
-	// write to file
-	if (write) {
-		[self.delegate schemaParser:self didParseClass:className forName:typeName superclass:superclass forType:effectiveType properties:properties];
-	}
+	// tell the delegate
+	[self.delegate schemaParser:self didParseClass:className forName:typeName superclass:superclass forType:effectiveType properties:properties];
 	
 	[typeStack removeLastObject];
 	return [NSDictionary dictionaryWithObjectsAndKeys:effectiveType, @"type", className, @"className", superclass, @"superclass", nil];
@@ -213,7 +210,7 @@
 	
 	// class of the element
 	if ([type length] > 0 && [useClass length] < 1) {
-		useClass = [self.delegate schemaParser:self classNameForType:type effectiveType:&useType isNew:NULL];
+		useClass = [self.delegate schemaParser:self classNameForType:type effectiveType:&useType];
 		
 		// if we get no class, the class should be ignored
 		if ([useClass length] < 1) {
@@ -274,7 +271,7 @@
 	NSString *attrType = [attribute attr:@"type"];
 	NSNumber *minOccurs = [@"required" isEqualToString:[attribute attr:@"use"]] ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0];
 	NSString *comment = ([minOccurs integerValue] > 0) ? @"Must be present as an XML attribute when writing XML" : nil;
-	NSString *attrClass = [self.delegate schemaParser:self classNameForType:attrType effectiveType:&attrType isNew:NULL];
+	NSString *attrClass = [self.delegate schemaParser:self classNameForType:attrType effectiveType:&attrType];
 	
 	// compose and return
 	NSDictionary *attrDict = [NSDictionary dictionaryWithObjectsAndKeys:
