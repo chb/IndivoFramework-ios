@@ -30,7 +30,7 @@
 
 @property (nonatomic, readwrite, assign) BOOL hasContactDoc;
 @property (nonatomic, readwrite, strong) IndivoContact *contactDoc;
-@property (nonatomic, readwrite, assign) BOOL hasDemographicsDoc;
+@property (nonatomic, readwrite, copy) NSString *demographicsDocId;
 @property (nonatomic, readwrite, strong) IndivoDemographics *demographicsDoc;
 @property (nonatomic, readwrite, strong) NSDate *created;
 
@@ -42,7 +42,7 @@
 
 @implementation IndivoRecord
 
-@synthesize label, hasContactDoc, contactDoc, hasDemographicsDoc, demographicsDoc, created;
+@synthesize label, hasContactDoc, contactDoc, demographicsDocId, demographicsDoc, created;
 @synthesize accessToken, accessTokenSecret;
 @synthesize metaDocuments, documents;
 
@@ -91,11 +91,9 @@
 				if ([doc attr:@"label"]) {
 					self.label = [doc attr:@"label"];
 				}
-				if ([[[doc childNamed:@"contact"] attr:@"document_id"] length] > 0) {
-					self.hasContactDoc = YES;
-				}
-				if ([[[doc childNamed:@"demographics"] attr:@"document_id"] length] > 0) {
-					self.hasContactDoc = YES;
+				NSString *demoDocId = [[doc childNamed:@"demographics"] attr:@"document_id"];
+				if ([demoDocId length] > 0) {
+					self.demographicsDocId = demoDocId;
 				}
 				
 				NSString *docCreated = [[doc childNamed:@"created"] attr:@"at"];
@@ -120,16 +118,27 @@
 
 /**
  *	Fetches the record's demographics document.
+ *	Note that this call fetches the demographics document not from the "official" /records/id/demographics REST path but via its uuid from /records/id/
+ *	/documents/demographics-document-id. This is because the latter call returns the document in a different XML format, the one we neet because it is the same
+ *	format as the one we need to PUT the document.
  */
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback
 {
-	NSString *path = [NSString stringWithFormat:@"/records/%@/demographics", self.uuid];
+	if ([demographicsDocId length] < 1) {
+		CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Can't get the demographics document without knowing its document id");
+		return;
+	}
 	
+	//NSString *path = [NSString stringWithFormat:@"/records/%@/demographics", self.uuid];
+	NSString *path = [NSString stringWithFormat:@"/records/%@/documents/%@", self.uuid, demographicsDocId];
 	[self get:path callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		
 		// success, store the document
 		if (success) {
 			INXMLNode *doc = [userInfo objectForKey:INResponseXMLKey];
+			if (![doc.name isEqualToString:@"Demographics"]) {
+				doc = nil;
+			}
 			if (!doc) {
 				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(aCallback, NO, @"Demographics XML was not valid")
 			}

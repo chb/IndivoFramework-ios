@@ -404,7 +404,7 @@
 	NSString *retString = nil;
 	
 	// we always assume string data, so just create a string when we have response data
-	if (inData) {
+	if ([inData length] > 0) {
 		retString = [[NSString alloc] initWithData:inData encoding:NSUTF8StringEncoding];
 	}
 	

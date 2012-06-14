@@ -22,7 +22,6 @@
 #import "INURLLoader.h"
 #import "IndivoServer.h"
 #import "IndivoConfig.h"
-#import "Indivo.h"
 #import "IndivoRecord.h"
 #import "IndivoDocuments.h"
 #import "INServerCall.h"

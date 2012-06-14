@@ -42,6 +42,8 @@
  */
 - (NSString *)displayName
 {
+	return @"Re-implement \"displayName\" method";
+	/*
 	if ([self.brandName.abbrev length] > 0) {
 		return self.brandName.abbrev;
 	}
@@ -51,7 +53,7 @@
 	if ([self.name.abbrev length] > 0) {
 		return self.name.abbrev;
 	}
-	return self.name.text;
+	return self.name.text;		*/
 }
 
 
@@ -67,6 +69,8 @@
  */
 - (void)loadPillImageBypassingCache:(BOOL)bypass callback:(INCancelErrorBlock)callback
 {
+	CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, YES, [NSDictionary dictionary])
+	/*
 	/// @todo search in cache
 	BOOL inCache = NO;
 	if (!inCache || bypass) {
@@ -135,7 +139,7 @@
 				CANCEL_ERROR_CALLBACK_OR_LOG_ERR_STRING(callback, NO, nil)
 			}
 		}];
-	}
+	}				// */
 }
 
 

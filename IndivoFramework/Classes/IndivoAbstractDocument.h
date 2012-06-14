@@ -45,6 +45,8 @@
 - (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord;
 + (id)newWithRecord:(IndivoRecord *)aRecord;
 
++ (BOOL)useFlatXMLFormat;
+- (void)setFromFlatNode:(INXMLNode *)node;
 - (NSString *)documentXML;
 
 + (NSString *)nameSpace;

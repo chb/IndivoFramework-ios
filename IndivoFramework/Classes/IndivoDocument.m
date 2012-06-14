@@ -30,7 +30,7 @@
 @interface IndivoDocument ()
 
 @property (nonatomic, readwrite, copy) NSString *label;
-@property (nonatomic, readwrite, assign) INDocumentStatus status;
+@property (nonatomic, readwrite, assign) INDocumentStatus documentStatus;
 @property (nonatomic, readwrite, assign) BOOL fetched;
 
 @property (nonatomic, readwrite, strong) IndivoPrincipal *creator;
@@ -46,7 +46,7 @@
 
 @implementation IndivoDocument
 
-@synthesize label, status, fetched;
+@synthesize label, documentStatus, fetched;
 @synthesize creator, uuidLatest, uuidReplaces, uuidOriginal;
 
 
@@ -117,7 +117,7 @@
  */
 - (BOOL)hasStatus:(INDocumentStatus)aStatus
 {
-	return (self.status & aStatus);
+	return (self.documentStatus & aStatus);
 }
 
 
@@ -153,15 +153,17 @@
 			 NSArray *docs = [documentsNode childrenNamed:@"Document"];
 			 
 			 // create documents
-			 NSMutableArray *metaArr = [NSMutableArray arrayWithCapacity:[docs count]];
-			 for (INXMLNode *document in docs) {
-				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:document forRecord:self.record];
-				 if (meta) {
-					 [metaArr addObject:meta];
+			 if ([docs count] > 0) {
+				 NSMutableArray *metaArr = [NSMutableArray arrayWithCapacity:[docs count]];
+				 for (INXMLNode *document in docs) {
+					 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:document forRecord:self.record];
+					 if (meta) {
+						 [metaArr addObject:meta];
+					 }
 				 }
+				 
+				 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
 			 }
-			 
-			 usrIfo = [NSDictionary dictionaryWithObject:metaArr forKey:INResponseArrayKey];
 		 }
 		 else {
 			 usrIfo = userInfo;
@@ -440,7 +442,7 @@
 	
 	[self post:statusPath parameters:params callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
-			self.status = flag ? INDocumentStatusVoid : INDocumentStatusActive;
+			self.documentStatus = flag ? INDocumentStatusVoid : INDocumentStatusActive;
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
@@ -473,7 +475,7 @@
 	
 	[self post:statusPath parameters:params callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		if (success) {
-			self.status = flag ? INDocumentStatusArchived : INDocumentStatusActive;
+			self.documentStatus = flag ? INDocumentStatusArchived : INDocumentStatusActive;
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo)
 			POST_DOCUMENTS_DID_CHANGE_FOR_RECORD_NOTIFICATION(self.record)
 		}
@@ -497,7 +499,7 @@
 		self.uuid = aMetaDoc.uuid;		// the meta doc is always right!
 	}
 	if (aMetaDoc.status) {
-		status = documentStatusFor(aMetaDoc.status.string);
+		documentStatus = documentStatusFor(aMetaDoc.status.string);
 	}
 	
 	if (aMetaDoc.creator) {

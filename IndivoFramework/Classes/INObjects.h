@@ -40,4 +40,7 @@
 #import "INInteger.h"
 #import "INUnitValue.h"
 #import "INDuration.h"
+#import "INVitalSign.h"
+#import "INBloodPressure.h"
+#import "INOrganization.h"
 #import "INDocumentStatusNode.h"

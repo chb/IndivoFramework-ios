@@ -65,6 +65,52 @@
 
 #pragma mark - Instantiation from XML
 /**
+ *	Implementing this to have some flexibility about the XML format to use on the road to Indivo 2.0
+ *	@attention This may be removed again
+ */
++ (BOOL)useFlatXMLFormat
+{
+	return NO;
+}
+
+
+/**
+ *	This method takes the new (as of Indivo 2.0) flat XML format and fills the instance variables from the child nodes.
+ *	See "setFromNode:" for a description on how this is achieved.
+ */
+- (void)setFromFlatNode:(INXMLNode *)node
+{
+	if (node) {
+		
+		// loop ivars
+		unsigned int num, i;
+		Ivar *ivars = class_copyIvarList([self class], &num);
+		for (i = 0; i < num; i++) {
+			id ivarObj = object_getIvar(self, ivars[i]);
+			const char *ivar_name = ivar_getName(ivars[i]);
+			NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
+			Class ivarClass = [ivarObj class];
+			
+			// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
+			if (!ivarClass) {
+				const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
+				NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
+				if ([ivarType length] > 3) {
+					NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
+					ivarClass = NSClassFromString(className);
+				}
+				if (!ivarClass && 0 != strcmp("#", ivar_type)) {
+					DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
+				}
+			}
+			
+			DLog(@"=>  %@  [%@]", ivarName, NSStringFromClass(ivarClass));
+		}
+	}
+}
+
+
+/**
  *	Sets our class properties from the given node and its child nodes.
  *	This method collects all class ivars from this class up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
  *	subclasses, but if not we need to walk the class hierarchy upwards until one below IndivoDocument in order to collect the inherited ivars.
@@ -74,6 +120,11 @@
  */
 - (void)setFromNode:(INXMLNode *)node
 {
+	if ([[self class] useFlatXMLFormat]) {
+		[self setFromFlatNode:node];
+		return;
+	}
+	
 	// node name and node type
 	self.nodeName = node.name;
 	NSString *newType = [node attr:@"type"];

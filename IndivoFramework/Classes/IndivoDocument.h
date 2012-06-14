@@ -34,7 +34,7 @@
 @interface IndivoDocument : IndivoAbstractDocument
 
 @property (nonatomic, readonly, copy) NSString *label;								///< This document's label
-@property (nonatomic, readonly, assign) INDocumentStatus status;					///< This document's status
+@property (nonatomic, readonly, assign) INDocumentStatus documentStatus;			///< This document's status
 @property (nonatomic, readonly, assign) BOOL fetched;								///< YES if the document has been fetched from the server
 
 @property (nonatomic, readonly, strong) IndivoPrincipal *creator;					///< The creator of the document

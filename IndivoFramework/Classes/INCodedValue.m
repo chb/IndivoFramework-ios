@@ -24,16 +24,16 @@
 
 @implementation INCodedValue
 
-@synthesize identifier, title, system;
+@synthesize system, identifier, title;
 
 
 - (void)setFromNode:(INXMLNode *)node
 {
 	[super setFromNode:node];
 	
+	self.system = [node attr:@"system"];
 	self.identifier = [node attr:@"identifier"];
 	self.title = [node attr:@"title"];
-	self.system = [node attr:@"system"];
 }
 
 + (NSString *)nodeType
@@ -48,6 +48,8 @@
 
 - (NSString *)xml
 {
+	return @"<to_re_implement/>";
+	/*
 	if ([self isNull]) {
 		return [NSString stringWithFormat:@"<%@ />", [self tagString]];
 	}
@@ -64,7 +66,7 @@
 			[self tagString],
 			(self.type ? [NSString stringWithFormat:@" type=\"%@\"", [self.type xmlSafe]] : @""),
 			(self.abbrev ? [NSString stringWithFormat:@" abbrev=\"%@\"", [self.abbrev xmlSafe]] : @""),
-			(self.value ? [NSString stringWithFormat:@" value=\"%@\"", [self.value xmlSafe]] : @"")];
+			(self.value ? [NSString stringWithFormat:@" value=\"%@\"", [self.value xmlSafe]] : @"")];		//	*/
 }
 
 

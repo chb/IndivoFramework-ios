@@ -36,11 +36,9 @@
 
 // Allergy
 #import "IndivoAllergy+Report.h"
-#import "IndivoAllergyAllergen.h"
 
 // Immunization
 #import "IndivoImmunization+Report.h"
-#import "IndivoImmunizationVaccine.h"
 
 // Clinical
 #import "IndivoProblem+Report.h"
@@ -49,16 +47,8 @@
 #import "IndivoProcedure+Report.h"
 
 // Labs
-#import "IndivoLab+Report.h"
-#import "IndivoLabPanel.h"
-#import "IndivoLabTest.h"
-#import "IndivoSingleResultLabTest.h"
-#import "IndivoMicroWithCultureLabTest.h"
-#import "IndivoMicroWithCultureLabTestObservation.h"
-#import "IndivoMicroWithCultureLabTestResult.h"
-#import "IndivoMicroWithCultureLabTestResultSensitivity.h"
+#import "IndivoLabResult.h"
 #import "IndivoLabProvider.h"
-#import "IndivoLabReport.h"
 
 // Results & Ranges
 #import "IndivoResult.h"

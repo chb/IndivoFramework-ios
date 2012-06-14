@@ -34,8 +34,8 @@
 @property (nonatomic, copy) NSString *label;										///< This record's name
 @property (nonatomic, readonly, assign) BOOL hasContactDoc;							///< YES if this record has a contact document that can be fetched
 @property (nonatomic, readonly, strong) IndivoContact *contactDoc;					///< The contact document for this record
-@property (nonatomic, readonly, assign) BOOL hasDemographicsDoc;					///< YES if this record has a demographics document that can be fetched
-@property (nonatomic, readonly, strong) IndivoDemographics *demographicsDoc;		///< The contact document for this record
+@property (nonatomic, readonly, copy) NSString *demographicsDocId;					///< The id of the demographics document
+@property (nonatomic, readonly, strong) IndivoDemographics *demographicsDoc;		///< The demographics document for this record
 @property (nonatomic, readonly, strong) NSDate *created;							///< When this record has been created on the server
 
 @property (nonatomic, copy) NSString *accessToken;									///< The last access token successfully used with this record
