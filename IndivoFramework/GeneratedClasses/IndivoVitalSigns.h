@@ -2,7 +2,7 @@
  IndivoVitalSigns.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/5/2012.
+ Created by Indivo Class Generator on 6/15/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -35,8 +35,8 @@
 @property (nonatomic, strong) INVitalSign *height;
 @property (nonatomic, strong) INVitalSign *respiratory_rate;
 @property (nonatomic, strong) INVitalSign *weight;
-@property (nonatomic, strong) IndivoEncounter *Encounter;
-@property (nonatomic, strong) INDate *date;
+@property (nonatomic, strong) IndivoEncounter *encounter;
+@property (nonatomic, strong) INDateTime *date;
 @property (nonatomic, strong) INVitalSign *temperature;
 @property (nonatomic, strong) INVitalSign *oxygen_saturation;
 @property (nonatomic, strong) INVitalSign *bmi;

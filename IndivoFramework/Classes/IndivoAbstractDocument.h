@@ -48,6 +48,8 @@
 + (BOOL)useFlatXMLFormat;
 - (void)setFromFlatNode:(INXMLNode *)node;
 - (NSString *)documentXML;
+- (NSString *)flatDocumentXML;
+- (NSString *)flatXML;
 
 + (NSString *)nameSpace;
 + (Class)classForProperty:(NSString *)propertyName;

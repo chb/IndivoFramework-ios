@@ -35,7 +35,9 @@
 	<key>String</key>
 	<string>INString</string>
 	<key>Date</key>
-	<string>INDate</string>
+	<string>INDateTime</string>
+	<key>Number</key>
+	<string>INDecimal</string>
 	<key>VitalSign</key>
 	<string>INVitalSign</string>
 	<key>BloodPressure</key>

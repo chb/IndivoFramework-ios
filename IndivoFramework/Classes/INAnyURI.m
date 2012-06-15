@@ -66,5 +66,11 @@
 	return self.uri ? [self.uri xmlSafe] : @"";
 }
 
+- (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix
+{
+	NSString *xmlString = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", (prefix ? prefix : @"uri"), (self.uri ? [self.uri xmlSafe] : @"")];
+	return [NSArray arrayWithObject:xmlString];
+}
+
 
 @end

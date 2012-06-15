@@ -73,5 +73,11 @@
 	return self.number ? [self.number stringValue] : @"";
 }
 
+- (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix
+{
+	NSString *xmlString = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", (prefix ? prefix : @"number"), (self.number ? self.number : @"")];
+	return [NSArray arrayWithObject:xmlString];
+}
+
 
 @end

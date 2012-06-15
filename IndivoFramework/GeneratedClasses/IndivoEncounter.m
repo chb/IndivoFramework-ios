@@ -1,8 +1,8 @@
 /*
- IndivoContactAddress.m
+ IndivoEncounter.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/15/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,23 +20,23 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoContactAddress.h"
+#import "IndivoEncounter.h"
 #import "IndivoDocument.h"
 
 
-@implementation IndivoContactAddress
+@implementation IndivoEncounter
 
-@synthesize type, streetAddress, postalCode, locality, region, country, timeZone;
+@synthesize facility, startDate, endDate, encounterType;
 
 
 + (NSString *)nodeName
 {
-	return @"ContactAddress";
+	return @"Encounter";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:ContactAddress";
+	return @"indivo:Encounter";
 }
 
 + (void)load
@@ -48,39 +48,26 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"type",
-			@"INString", @"streetAddress",
-			@"INString", @"postalCode",
-			@"INString", @"locality",
-			@"INString", @"region",
-			@"INString", @"country",
-			@"INString", @"timeZone",
+			@"INOrganization", @"facility",
+			@"INDateTime", @"startDate",
+			@"INDateTime", @"endDate",
+			@"INCodedValue", @"encounterType",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"streetAddress", @"postalCode", @"locality", @"region", @"country", nil];
+	return [NSArray arrayWithObjects:@"facility", @"startDate", @"endDate", @"encounterType", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"streetAddress", @"postalCode", @"locality", @"region", @"country", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"facility", @"startDate", @"endDate", @"encounterType", nil];
 	}
 	
 	return nonNilPropertyNames;	*/
 }
 
-
-+ (NSArray *)attributeNames
-{
-	NSArray *myAttributes = [NSArray arrayWithObjects:@"type", nil];
-	NSArray *superAttr = [super attributeNames];
-	if (superAttr) {
-		myAttributes = [superAttr arrayByAddingObjectsFromArray:myAttributes];
-	}
-	return myAttributes;
-}
 
 
 @end

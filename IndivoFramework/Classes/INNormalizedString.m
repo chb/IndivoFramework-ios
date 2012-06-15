@@ -24,55 +24,19 @@
 
 @implementation INNormalizedString
 
-@synthesize string;
-
-
-+ (id)newWithString:(NSString *)aString
-{
-	INNormalizedString *s = [self new];
-	s.string = aString;
-	return s;
-}
-
-- (void)setFromNode:(INXMLNode *)node
-{
-	[super setFromNode:node];
-	self.string = node.text;
-}
-
-- (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode
-{
-	self.string = [aNode attr:attrName];
-}
-
 
 + (NSString *)nodeType
 {
 	return @"xs:normalizedString";
 }
 
-- (BOOL)isNull
-{
-	return ([string length] < 1);
-}
-
-- (NSString *)xml
-{
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.string ? [self.string xmlSafe] : @""), self.nodeName];
-}
-
-- (NSString *)attributeValue
-{
-	return self.string ? [self.string xmlSafe] : @"";
-}
-
 
 /**
- *	We override the setter to replace any whitespace character with a space, as defined for normalized strings.
+ *	We override the setter to replace any whitespace character with a space, as required for normalized strings.
  */
 - (void)setString:(NSString *)aString
 {
-	if (aString != string) {
+	if (aString != self.string) {
 		NSString *trimmed = [[aString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@" "];
 		
 		// are we restricted to specific values?
@@ -82,7 +46,7 @@
 			trimmed = nil;
 		}
 		
-		string = trimmed;
+		[super setString:trimmed];
 	}
 }
 

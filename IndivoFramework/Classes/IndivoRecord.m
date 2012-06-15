@@ -24,12 +24,11 @@
 #import "IndivoDocuments.h"
 #import "INXMLParser.h"
 #import "INXMLReport.h"
+#import "NSArray+NilProtection.h"
 
 
 @interface IndivoRecord ()
 
-@property (nonatomic, readwrite, assign) BOOL hasContactDoc;
-@property (nonatomic, readwrite, strong) IndivoContact *contactDoc;
 @property (nonatomic, readwrite, copy) NSString *demographicsDocId;
 @property (nonatomic, readwrite, strong) IndivoDemographics *demographicsDoc;
 @property (nonatomic, readwrite, strong) NSDate *created;
@@ -42,7 +41,7 @@
 
 @implementation IndivoRecord
 
-@synthesize label, hasContactDoc, contactDoc, demographicsDocId, demographicsDoc, created;
+@synthesize label, demographicsDocId, demographicsDoc, created;
 @synthesize accessToken, accessTokenSecret;
 @synthesize metaDocuments, documents;
 
@@ -351,7 +350,15 @@
 		return;
 	}
 	
+	// we want XML
+	if (!aQuery) {
+		aQuery = [INQueryParameter new];
+	}
+	[aQuery addParameter:@"response_format" withValue:@"application/xml"];
+	
 	// fetch
+	__unsafe_unretained IndivoRecord *this = self;
+	
 	[self get:path
    parameters:[aQuery queryParameters]
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
@@ -360,38 +367,47 @@
 		 // fetched successfully...
 		 if (success) {
 			 //DLog(@"Incoming XML: %@", [userInfo objectForKey:INResponseStringKey]);
-			 INXMLNode *reportsNode = [userInfo objectForKey:INResponseXMLKey];
-			 NSArray *reports = [reportsNode childrenNamed:@"Report"];
+			 INXMLNode *docNode = [userInfo objectForKey:INResponseXMLKey];
+			 NSArray *reports = [docNode childrenNamed:@"Model"];
 			 
 			 // create documents
-			 NSMutableArray *reportArr = [NSMutableArray arrayWithCapacity:[reports count]];
-			 for (INXMLReport *report in reports) {
-				 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:[report metaDocumentNode] forRecord:self];
-				 meta.documentClass = documentClass;
+			 if ([reports count] > 0) {
+				 NSMutableArray *reportArr = [NSMutableArray arrayWithCapacity:[reports count]];
 				 
-				 // document?
-				 INXMLNode *docNode = [report documentNode];
-				 if (docNode) {
-					 IndivoDocument *doc = [[documentClass alloc] initFromNode:docNode forRecord:self withMeta:meta];
-					 if (doc) {
-						 [reportArr addObject:doc];
+				 /*	// Indivo 1.0
+				 for (INXMLReport *report in reports) {
+					 IndivoMetaDocument *meta = [[IndivoMetaDocument alloc] initFromNode:[report metaDocumentNode] forRecord:self];
+					 meta.documentClass = documentClass;
+					 
+					 // document?
+					 INXMLNode *docNode = [report documentNode];
+					 if (docNode) {
+						 IndivoDocument *doc = [[documentClass alloc] initFromNode:docNode forRecord:self withMeta:meta];
+						 if (doc) {
+							 [reportArr addObject:doc];
+						 }
 					 }
+					 
+					 // aggregate report?
+					 else {
+						 INXMLNode *aggNode = [report aggregateReportNode];
+						 if (aggNode) {
+							 IndivoAggregateReport *aggregate = [[IndivoAggregateReport alloc] initFromNode:aggNode forRecord:self withMeta:meta];
+							 if (aggregate) {
+								 [reportArr addObject:aggregate];
+							 } 
+						 }
+					 }
+				 }		//	*/
+				 
+				 for (INXMLNode *reportNode in reports) {
+					 IndivoDocument *report = [[documentClass alloc] initFromNode:reportNode forRecord:this];
+					 [reportArr addObjectIfNotNil:report];
 				 }
 				 
-				 // aggregate report?
-				 else {
-					 INXMLNode *aggNode = [report aggregateReportNode];
-					 if (aggNode) {
-						 IndivoAggregateReport *aggregate = [[IndivoAggregateReport alloc] initFromNode:aggNode forRecord:self withMeta:meta];
-						 if (aggregate) {
-							 [reportArr addObject:aggregate];
-						 } 
-					 }
-				 }
+				 // return in user info dictionary
+				 usrIfo = [NSDictionary dictionaryWithObject:reportArr forKey:INResponseArrayKey];
 			 }
-			 
-			 // return in user info
-			 usrIfo = [NSDictionary dictionaryWithObject:reportArr forKey:INResponseArrayKey];
 		 }
 		 
 		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);

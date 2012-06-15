@@ -23,7 +23,6 @@
 #import "INServerObject.h"
 
 @class IndivoDocument;
-@class IndivoContact;
 @class IndivoDemographics;
 @class INQueryParameter;
 @class INXMLNode;
@@ -32,8 +31,6 @@
 @interface IndivoRecord : INServerObject
 
 @property (nonatomic, copy) NSString *label;										///< This record's name
-@property (nonatomic, readonly, assign) BOOL hasContactDoc;							///< YES if this record has a contact document that can be fetched
-@property (nonatomic, readonly, strong) IndivoContact *contactDoc;					///< The contact document for this record
 @property (nonatomic, readonly, copy) NSString *demographicsDocId;					///< The id of the demographics document
 @property (nonatomic, readonly, strong) IndivoDemographics *demographicsDoc;		///< The demographics document for this record
 @property (nonatomic, readonly, strong) NSDate *created;							///< When this record has been created on the server

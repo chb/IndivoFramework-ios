@@ -21,8 +21,12 @@
  */
 
 
-#import "INObject.h"
+#import "INObjects.h"
 
 @interface INVitalSign : INObject
+
+@property (nonatomic, copy) NSString *unit;
+@property (nonatomic, strong) NSDecimalNumber *value;
+@property (nonatomic, strong) INCodedValue *name;
 
 @end

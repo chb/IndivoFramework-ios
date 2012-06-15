@@ -1,8 +1,8 @@
 /*
- IndivoContactPhoneNumber.h
+ IndivoAllergyExclusion.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/5/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,18 +20,18 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INString.h"
+#import "IndivoDocument.h"
 #import "INObjects.h"
 
 
 	
 
 /**
- *	A class representing "indivo:ContactPhoneNumber" objects, generated from contact.xsd.
+ *	A class representing "indivo:AllergyExclusion" objects, generated from /indivo/data_models/core/allergy/model.sdml.
  */
-@interface IndivoContactPhoneNumber : INString
+@interface IndivoAllergyExclusion : IndivoDocument
 
-@property (nonatomic, strong) INString *type;
+@property (nonatomic, strong) INCodedValue *name;
 
 
 @end

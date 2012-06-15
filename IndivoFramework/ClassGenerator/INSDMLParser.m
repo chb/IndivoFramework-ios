@@ -83,12 +83,14 @@ NSString *const INClassGeneratorSDMLModelnameKey = @"__modelname__";
 			continue;
 		}
 		
+		NSDictionary *elemDict = nil;
+		
 		// element is a dictionary, i.e. a nested class description
 		id elem = [dict objectForKey:key];
 		if ([elem isKindOfClass:[NSDictionary class]]) {
 			NSDictionary *nested = [self process:elem error:error];
 			if (nested) {
-				[properties addObject:nested];
+				elemDict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"name", [nested objectForKey:@"class"], @"class", nil];
 			}
 		}
 		
@@ -100,11 +102,18 @@ NSString *const INClassGeneratorSDMLModelnameKey = @"__modelname__";
 				[self.delegate schemaParser:self sendsMessage:message ofType:INSchemaParserMessageTypeNotification];
 			}
 			else {
-				NSDictionary *elemDict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"name", elemClass, @"class", nil];
-				if (elemDict) {
-					[properties addObject:elemDict];
-				}
+				elemDict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"name", elemClass, @"class", nil];
 			}
+		}
+		
+		// what else?
+		else {
+			DLog(@"Can't process element \"%@\" of class %@", key, NSStringFromClass([elem class]));
+		}
+		
+		// add to property array
+		if (elemDict) {
+			[properties addObject:elemDict];
 		}
 	}
 	

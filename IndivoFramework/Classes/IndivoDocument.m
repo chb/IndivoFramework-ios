@@ -71,7 +71,7 @@
 {
 	NSString *reportType = [self reportType];
 	if (reportType && aRecord.uuid) {
-		return [NSString stringWithFormat:@"/records/%@/%@/", aRecord.uuid, reportType];
+		return [NSString stringWithFormat:@"/records/%@/reports/%@/", aRecord.uuid, reportType];
 	}
 	return nil;
 }

@@ -2,7 +2,7 @@
  IndivoVitalSigns.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/5/2012.
+ Created by Indivo Class Generator on 6/15/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 
 @implementation IndivoVitalSigns
 
-@synthesize heart_rate, height, respiratory_rate, weight, Encounter, date, temperature, oxygen_saturation, bmi, bp;
+@synthesize heart_rate, height, respiratory_rate, weight, encounter, date, temperature, oxygen_saturation, bmi, bp;
 
 
 + (NSString *)nodeName
@@ -44,6 +44,10 @@
 	[IndivoDocument registerDocumentClass:self];
 }
 
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
+}
 
 + (NSDictionary *)propertyClassMapper
 {
@@ -52,8 +56,8 @@
 			@"INVitalSign", @"height",
 			@"INVitalSign", @"respiratory_rate",
 			@"INVitalSign", @"weight",
-			@"IndivoEncounter", @"Encounter",
-			@"INDate", @"date",
+			@"IndivoEncounter", @"encounter",
+			@"INDateTime", @"date",
 			@"INVitalSign", @"temperature",
 			@"INVitalSign", @"oxygen_saturation",
 			@"INVitalSign", @"bmi",
@@ -64,11 +68,11 @@
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"heart_rate", @"height", @"respiratory_rate", @"weight", @"Encounter", @"date", @"temperature", @"oxygen_saturation", @"bmi", @"bp", nil];
+	return [NSArray arrayWithObjects:@"heart_rate", @"height", @"respiratory_rate", @"weight", @"encounter", @"date", @"temperature", @"oxygen_saturation", @"bmi", @"bp", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"heart_rate", @"height", @"respiratory_rate", @"weight", @"Encounter", @"date", @"temperature", @"oxygen_saturation", @"bmi", @"bp", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"heart_rate", @"height", @"respiratory_rate", @"weight", @"encounter", @"date", @"temperature", @"oxygen_saturation", @"bmi", @"bp", nil];
 	}
 	
 	return nonNilPropertyNames;	*/

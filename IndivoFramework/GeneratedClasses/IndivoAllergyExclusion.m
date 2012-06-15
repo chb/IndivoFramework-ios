@@ -1,8 +1,8 @@
 /*
- IndivoContact.m
+ IndivoAllergyExclusion.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Indivo Class Generator on 6/5/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,23 +20,23 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoContact.h"
+#import "IndivoAllergyExclusion.h"
 #import "IndivoDocument.h"
 
 
-@implementation IndivoContact
+@implementation IndivoAllergyExclusion
 
-@synthesize name, email, address, location, phoneNumber, instantMessengerName, thumbnail;
+@synthesize name;
 
 
 + (NSString *)nodeName
 {
-	return @"Contact";
+	return @"AllergyExclusion";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:Contact";
+	return @"indivo:AllergyExclusion";
 }
 
 + (void)load
@@ -48,24 +48,18 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"IndivoContactName", @"name",
-			@"IndivoContactEmail", @"email",
-			@"IndivoContactAddress", @"address",
-			@"IndivoContactLocation", @"location",
-			@"IndivoContactPhoneNumber", @"phoneNumber",
-			@"IndivoContactInstantMessengerName", @"instantMessengerName",
-			@"INString", @"thumbnail",
+			@"INCodedValue", @"name",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"name", @"email", @"address", nil];
+	return [NSArray arrayWithObjects:@"name", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"email", @"address", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", nil];
 	}
 	
 	return nonNilPropertyNames;	*/

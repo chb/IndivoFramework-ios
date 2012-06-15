@@ -25,4 +25,6 @@
 
 @implementation INVitalSign
 
+@synthesize unit, value, name;
+
 @end

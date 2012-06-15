@@ -1,8 +1,8 @@
 /*
- IndivoContactEmail.h
+ IndivoVitalSigns+Report.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Pascal Pfiffner on 2/15/12.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,18 +20,24 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INString.h"
-#import "INObjects.h"
+#import "IndivoVitalSigns+Report.h"
 
 
-	
+@implementation IndivoVitalSigns (Report)
 
-/**
- *	A class representing "indivo:ContactEmail" objects, generated from contact.xsd.
- */
-@interface IndivoContactEmail : INString
 
-@property (nonatomic, strong) INString *type;
++ (NSString *)reportType
+{
+	return @"VitalSigns";
+}
+
++ (NSString *)reportTypeOfCategory:(NSString *)aCategory
+{
+	if ([aCategory length] > 0) {
+		return [NSString stringWithFormat:@"%@/%@", [self reportType], aCategory];
+	}
+	return [self reportType];
+}
 
 
 @end

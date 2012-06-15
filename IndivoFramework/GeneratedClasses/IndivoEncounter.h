@@ -1,8 +1,8 @@
 /*
- IndivoVitalSign+Report.h
+ IndivoEncounter.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 2/15/12.
+ Created by Indivo Class Generator on 6/15/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,12 +20,21 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoVitalSign.h"
+#import "IndivoDocument.h"
+#import "INObjects.h"
 
 
-@interface IndivoVitalSign (Report)
+	
 
-+ (NSString *)reportTypeOfCategory:(NSString *)aCategory;
+/**
+ *	A class representing "indivo:Encounter" objects, generated from /indivo/data_models/core/vitals/model.sdml.
+ */
+@interface IndivoEncounter : IndivoDocument
+
+@property (nonatomic, strong) INOrganization *facility;
+@property (nonatomic, strong) INDateTime *startDate;
+@property (nonatomic, strong) INDateTime *endDate;
+@property (nonatomic, strong) INCodedValue *encounterType;
 
 
 @end

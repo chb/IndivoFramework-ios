@@ -29,9 +29,9 @@ static NSDateFormatter *isoDateFormatter = nil;
 @synthesize date;
 
 
-+ (INDate *)now
++ (id)now
 {
-	INDate *d = [super new];
+	INDate *d = [self new];
 	d.date = [NSDate date];
 	return d;
 }
@@ -40,9 +40,9 @@ static NSDateFormatter *isoDateFormatter = nil;
 /**
  *	Allocate and initialize an INDate from an NSDate
  */
-+ (INDate *)dateWithDate:(NSDate *)aDate
++ (id)dateWithDate:(NSDate *)aDate
 {
-	INDate *d = [INDate new];
+	INDate *d = [self new];
 	d.date = aDate;
 	return d;
 }
@@ -50,7 +50,7 @@ static NSDateFormatter *isoDateFormatter = nil;
 /**
  *	Allocate and initialize an INDate instance from a date string
  */
-+ (INDate *)dateFromISOString:(NSString *)dateString
++ (id)dateFromISOString:(NSString *)dateString
 {
 	if (!isoDateFormatter) {
 		isoDateFormatter = [NSDateFormatter new];
@@ -94,6 +94,27 @@ static NSDateFormatter *isoDateFormatter = nil;
 - (NSString *)attributeValue
 {
 	return [self isoString];
+}
+
+- (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix
+{
+	NSString *xmlString = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", (prefix ? prefix : @"date"), [self isoString]];
+	return [NSArray arrayWithObject:xmlString];
+}
+
+- (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix
+{
+	INXMLNode *myNode = nil;
+	for (INXMLNode *child in [parent children]) {
+		if ([prefix isEqualToString:[child attr:@"name"]]) {
+			myNode = child;
+			break;
+		}
+	}
+	
+	if (myNode) {
+		self.date = [[self class] parseDateFromISOString:myNode.text];
+	}
 }
 
 

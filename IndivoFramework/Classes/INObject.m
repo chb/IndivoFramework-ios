@@ -174,6 +174,73 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 {
 }
 
+/**
+ *	Handling incoming Indivo 2.0 flat XML
+ *	@attention HIGHLY PRELIMINARY
+ */
+- (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix
+{
+	unsigned int num, i;
+	Ivar *ivars = class_copyIvarList([self class], &num);
+	for (i = 0; i < num; i++) {
+		id ivarObj = object_getIvar(self, ivars[i]);
+		const char *ivar_name = ivar_getName(ivars[i]);
+		NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
+		Class ivarClass = [ivarObj class];
+		
+		// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
+		if (!ivarClass) {
+			const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
+			NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
+			if ([ivarType length] > 3) {
+				NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
+				ivarClass = NSClassFromString(className);
+			}
+			if (!ivarClass && 0 != strcmp("#", ivar_type)) {
+				DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
+				continue;
+			}
+		}
+		
+		// init objects based on property class
+		NSString *fullName = prefix ? [NSString stringWithFormat:@"%@_%@", prefix, ivarName] : ivarName;
+		
+		if ([ivarClass instancesRespondToSelector:@selector(setFromFlatNode:)]) {		// IndivoAbstractDocument subclass
+			DLog(@">>>>  %@  [%@]", fullName, NSStringFromClass(ivarClass));
+		}
+		else if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass
+			INObject *newObj = [ivarClass new];
+			[newObj setFromFlatParent:parent prefix:fullName];
+			object_setIvar(self, ivars[i], newObj);
+		}
+		else {
+			INXMLNode *myNode = nil;
+			for (INXMLNode *sub in [parent children]) {
+				if ([fullName isEqualToString:[sub attr:@"name"]]) {
+					myNode = sub;
+					break;
+				}
+			}
+			
+			if (myNode) {
+				if ([ivarClass isSubclassOfClass:[NSString class]]) {					// NSString
+					object_setIvar(self, ivars[i], [myNode.text copy]);
+				}
+				else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {				// NSNumber
+					NSDecimalNumber *value = ([myNode.text length] > 0) ? [NSDecimalNumber decimalNumberWithString:myNode.text] : nil;
+					object_setIvar(self, ivars[i], value);
+				}
+				else {
+					DLog(@"I don't know how to generate an object of class %@ as an attribute for %@", NSStringFromClass(ivarClass), ivarName);
+				}
+			}
+			else {
+				DLog(@"No node for %@  [%@]", fullName, NSStringFromClass(ivarClass));
+			}
+		}
+	}
+}
+
 
 
 #pragma mark - State Checking
@@ -299,6 +366,59 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 - (NSString *)attributeValue
 {
 	return nil;
+}
+
+/**
+ *	Indivo 2.0's ugly flat XML format needs this
+ *	@todo WIP AND HIGHLY PRELIMINARY
+ */
+- (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix
+{
+	NSMutableArray *parts = [NSMutableArray array];
+	
+	// collect all ivars
+	unsigned int num, i;
+	Ivar *ivars = class_copyIvarList([self class], &num);
+	for (i = 0; i < num; ++i) {
+		id anObject = object_getIvar(self, ivars[i]);
+		
+		// we can omit empty ivars
+		if (anObject) {
+			NSString *propertyName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
+			NSString *fullName = ([prefix length] > 0) ? [NSString stringWithFormat:@"%@_%@", prefix, propertyName] : propertyName;
+			
+			// ivar is an IndivoAbstractDocument subclass
+			if ([anObject respondsToSelector:@selector(flatXML)]) {
+				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, [anObject performSelector:@selector(flatXML)]];
+				[parts addObjectIfNotNil:child];
+			}
+			
+			// ivar is an INObject subclass
+			else if ([anObject respondsToSelector:@selector(flatXMLPartsWithPrefix:)]) {
+				[parts addObjectsFromArray:[anObject flatXMLPartsWithPrefix:fullName]];
+			}
+			
+			// does it respond to stringValue?
+			else if ([anObject respondsToSelector:@selector(stringValue)]) {
+				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, [anObject stringValue]];
+				[parts addObjectIfNotNil:child];
+			}
+			
+			// is it a string itself?
+			else if ([anObject isKindOfClass:[NSString class]]) {
+				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, anObject];
+				[parts addObjectIfNotNil:child];
+			}
+			
+			// nothing of the above, treat as BOOL
+			else {
+				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, @"True"];			/// @todo What about False???
+				[parts addObjectIfNotNil:child];
+			}
+		}
+	}
+	
+	return parts;
 }
 
 

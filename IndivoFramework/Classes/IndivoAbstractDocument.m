@@ -75,42 +75,6 @@
 
 
 /**
- *	This method takes the new (as of Indivo 2.0) flat XML format and fills the instance variables from the child nodes.
- *	See "setFromNode:" for a description on how this is achieved.
- */
-- (void)setFromFlatNode:(INXMLNode *)node
-{
-	if (node) {
-		
-		// loop ivars
-		unsigned int num, i;
-		Ivar *ivars = class_copyIvarList([self class], &num);
-		for (i = 0; i < num; i++) {
-			id ivarObj = object_getIvar(self, ivars[i]);
-			const char *ivar_name = ivar_getName(ivars[i]);
-			NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
-			Class ivarClass = [ivarObj class];
-			
-			// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
-			if (!ivarClass) {
-				const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
-				NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
-				if ([ivarType length] > 3) {
-					NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
-					ivarClass = NSClassFromString(className);
-				}
-				if (!ivarClass && 0 != strcmp("#", ivar_type)) {
-					DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
-				}
-			}
-			
-			DLog(@"=>  %@  [%@]", ivarName, NSStringFromClass(ivarClass));
-		}
-	}
-}
-
-
-/**
  *	Sets our class properties from the given node and its child nodes.
  *	This method collects all class ivars from this class up until the superclass is "IndivoDocument". Most of our classes are direct IndivoDocument
  *	subclasses, but if not we need to walk the class hierarchy upwards until one below IndivoDocument in order to collect the inherited ivars.
@@ -203,6 +167,23 @@
 }
 
 
+/**
+ *	This method takes the new (as of Indivo 2.0) flat XML format and fills the instance variables from the child nodes.
+ *	See "setFromNode:" for a description on how this is achieved.
+ */
+- (void)setFromFlatNode:(INXMLNode *)node
+{
+	if (node) {
+		NSString *myUuid = [node attr:@"documentId"];
+		if ([myUuid length] > 0) {
+			self.uuid = myUuid;
+		}
+		
+		[super setFromFlatParent:node prefix:nil];
+	}
+}
+
+
 
 #pragma mark - Generating XML
 /**
@@ -212,10 +193,30 @@
  */
 - (NSString *)documentXML
 {
+	if ([[self class] useFlatXMLFormat]) {
+		return [self flatDocumentXML];
+	}
+	
 #ifdef INDIVO_XML_PRETTY_FORMAT
 	return [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n\t%@\n</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
 #else
 	return [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"utf-8\" ?><%@ xmlns=\"%@\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">%@</%@>", [self tagString], self.nameSpace, [self innerXML], self.nodeName];
+#endif
+}
+
+/**
+ *	Returns the Indivo 2.0 flat XML format for a document
+ *	@attention HIGHLY PRELIMINARY
+ */
+- (NSString *)flatDocumentXML
+{
+	NSArray *xmlValues = [self flatXMLPartsWithPrefix:nil];
+#ifdef INDIVO_XML_PRETTY_FORMAT
+	NSString *inner = [xmlValues componentsJoinedByString:@"\n\t\t"];
+	return [NSString stringWithFormat:@"<Models xmlns=\"http://indivo.org/vocab/xml/documents#\">\n\t<Model name=\"%@\" documentId=\"%@\">\n\t\t%@\n\t</Model>\n</Models>", self.nodeName, self.uuid ? self.uuid : @"", inner];
+#else
+	NSString *inner = [xmlValues componentsJoinedByString:@""];
+	return [NSString stringWithFormat:@"<Models xmlns=\"http://indivo.org/vocab/xml/documents#\"><Model name=\"%@\" documentId=\"%@\">%@</Model></Models>", self.nodeName, self.uuid ? self.uuid : @"", inner];
 #endif
 }
 
@@ -229,6 +230,22 @@
 	return [NSString stringWithFormat:@"<%@>\n\t%@\n</%@>", [self tagString], [self innerXML], self.nodeName];
 #else
 	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], [self innerXML], self.nodeName];
+#endif
+}
+
+/**
+ *	Returns the Indivo 2.0 flat XML format
+ *	@attention HIGHLY PRELIMINARY
+ */
+- (NSString *)flatXML
+{
+	NSArray *xmlValues = [self flatXMLPartsWithPrefix:nil];
+#ifdef INDIVO_XML_PRETTY_FORMAT
+	NSString *inner = [xmlValues componentsJoinedByString:@"\n\t"];
+	return [NSString stringWithFormat:@"<Model name=\"%@\">\n\t\t%@\n\t</Model>", self.nodeName, inner];
+#else
+	NSString *inner = [xmlValues componentsJoinedByString:@""];
+	return [NSString stringWithFormat:@"<Model name=\"%@\">%@</Model>", self.nodeName, inner];
 #endif
 }
 

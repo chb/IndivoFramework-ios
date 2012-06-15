@@ -274,7 +274,7 @@
 	// inform the server - the server will remove us from his pool, so we need to create a strong reference to ourselves which lasts for the scope
 	INServerCall *this = self;
 	[server callDidFinish:self];
-
+	
 	// send callback and inform the server
 	SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(myCallback, success, returnObject);
 	self.myCallback = nil;
@@ -408,6 +408,7 @@
 		retString = [[NSString alloc] initWithData:inData encoding:NSUTF8StringEncoding];
 	}
 	
+	//DLog(@"%@ %@  -----  %@", HTTPMethod, method, retString);
 	if ([retString length] > 0) {
 		INXMLNode *xmlDoc = nil;
 		NSError *xmlParseError = nil;

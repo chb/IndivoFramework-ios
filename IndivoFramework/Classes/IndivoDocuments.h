@@ -41,8 +41,9 @@
 #import "IndivoImmunization+Report.h"
 
 // Clinical
+#import "IndivoEncounter.h"
 #import "IndivoProblem+Report.h"
-#import "IndivoVitalSign+Report.h"
+#import "IndivoVitalSigns+Report.h"
 #import "IndivoSimpleClinicalNote+Report.h"
 #import "IndivoProcedure+Report.h"
 

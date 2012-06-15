@@ -1,8 +1,8 @@
 /*
- IndivoContactName.h
+ IndivoVitalSigns+Report.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
+ Created by Pascal Pfiffner on 2/15/12.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,20 +20,12 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "IndivoVitalSigns.h"
 
 
-	
+@interface IndivoVitalSigns (Report)
 
-/**
- *	A class representing "indivo:ContactName" objects, generated from contact.xsd.
- */
-@interface IndivoContactName : IndivoDocument
-
-@property (nonatomic, strong) INString *fullName;					///< minOccurs = 1
-@property (nonatomic, strong) NSArray *givenName;					///< An array containing INString objects. (minOccurs = 1)
-@property (nonatomic, strong) INString *familyName;					///< minOccurs = 1
++ (NSString *)reportTypeOfCategory:(NSString *)aCategory;
 
 
 @end

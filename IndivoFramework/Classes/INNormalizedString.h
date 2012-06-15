@@ -20,19 +20,14 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "INString.h"
 
 
 /**
  *	A class to represent "xs:normalizedString" elements.
  */
-@interface INNormalizedString : INObject
-
-@property (nonatomic, copy) NSString *string;
-
-+ (id)newWithString:(NSString *)aString;
+@interface INNormalizedString : INString
 
 + (NSArray *)restrictedTo;
-
 
 @end

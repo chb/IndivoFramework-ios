@@ -66,5 +66,11 @@
 	return self.string ? [self.string xmlSafe] : @"";
 }
 
+- (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix
+{
+	NSString *xmlString = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", (prefix ? prefix : @"string"), (self.string ? [self.string xmlSafe] : @"")];
+	return [NSArray arrayWithObject:xmlString];
+}
+
 
 @end

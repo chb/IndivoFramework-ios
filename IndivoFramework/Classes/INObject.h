@@ -49,6 +49,7 @@
 
 - (void)setFromNode:(INXMLNode *)node;
 - (void)setWithAttr:(NSString *)attrName fromNode:(INXMLNode *)aNode;
+- (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix;
 
 - (BOOL)isNull;
 - (NSString *)xml;
@@ -56,6 +57,7 @@
 - (NSString *)innerXML;
 - (NSString *)asAttribute;
 - (NSString *)attributeValue;
+- (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix;
 
 + (NSString *)nodeName;
 + (NSString *)nodeType;
