@@ -742,7 +742,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 #pragma mark - Utilities
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <0x%X> Server at %@", NSStringFromClass([self class]), self, url];
+	return [NSString stringWithFormat:@"%@ <%p> Server at %@", NSStringFromClass([self class]), self, url];
 }
 
 

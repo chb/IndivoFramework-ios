@@ -185,7 +185,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <%@ id=\"%@\" /> (0x%x)", NSStringFromClass([self class]), self.nodeName, self.uuid, self];
+	return [NSString stringWithFormat:@"%@ <%@ id=\"%@\" /> (%p)", NSStringFromClass([self class]), self.nodeName, self.uuid, self];
 }
 
 

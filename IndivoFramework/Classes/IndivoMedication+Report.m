@@ -34,26 +34,17 @@
 
 #pragma mark - Convenience Methods
 /**
- *	Tries to find the best name to display, in this order:
- *		- brandName abbrev
- *		- brandName full
- *		- name abbrev
- *		- name full
+ *	Tries to find the best name to display
  */
 - (NSString *)displayName
 {
-	return @"Re-implement \"displayName\" method";
-	/*
-	if ([self.brandName.abbrev length] > 0) {
-		return self.brandName.abbrev;
+	if ([self.drugName.title length] > 0) {
+		return self.drugName.title;
 	}
-	if ([self.brandName.text length] > 0) {
-		return self.brandName.text;
+	if ([self.drugName.identifier length] > 0) {
+		return [NSString stringWithFormat:@"RxNorm: %@", self.drugName.identifier];
 	}
-	if ([self.name.abbrev length] > 0) {
-		return self.name.abbrev;
-	}
-	return self.name.text;		*/
+	return @"Unknown";
 }
 
 
@@ -147,7 +138,12 @@
 #pragma mark - Report Path
 + (NSString *)reportType
 {
-	return @"medications";
+	return @"Medication";
+}
+
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
 }
 
 

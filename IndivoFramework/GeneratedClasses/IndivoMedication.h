@@ -2,8 +2,8 @@
  IndivoMedication.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/17/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -23,25 +23,21 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoPrescription;
+
 	
 
 /**
- *	A class representing "indivo:Medication" objects, generated from medication.xsd.
+ *	A class representing "indivo:Medication" objects, generated from /indivo/data_models/core/medication/model.sdml.
  */
 @interface IndivoMedication : IndivoDocument
 
-@property (nonatomic, strong) INDate *dateStarted;
-@property (nonatomic, strong) INDate *dateStopped;
-@property (nonatomic, strong) INString *reasonStopped;
-@property (nonatomic, strong) INCodedValue *name;					///< minOccurs = 1
-@property (nonatomic, strong) INCodedValue *brandName;
-@property (nonatomic, strong) INUnitValue *dose;					///< minOccurs = 1
-@property (nonatomic, strong) INCodedValue *route;
-@property (nonatomic, strong) INUnitValue *strength;
-@property (nonatomic, strong) INCodedValue *frequency;					///< minOccurs = 1
-@property (nonatomic, strong) IndivoPrescription *prescription;
-@property (nonatomic, strong) INString *details;
+@property (nonatomic, strong) INUnitValue *frequency;
+@property (nonatomic, strong) INDateTime *endDate;
+@property (nonatomic, strong) INString *instructions;
+@property (nonatomic, strong) INUnitValue *quantity;
+@property (nonatomic, strong) INDateTime *startDate;
+@property (nonatomic, strong) INCodedValue *drugName;
+@property (nonatomic, strong) INCodedValue *provenance;
 
 
 @end

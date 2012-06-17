@@ -2,8 +2,8 @@
  IndivoMedication.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/17/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@
 
 @implementation IndivoMedication
 
-@synthesize dateStarted, dateStopped, reasonStopped, name, brandName, dose, route, strength, frequency, prescription, details;
+@synthesize frequency, endDate, instructions, quantity, startDate, drugName, provenance;
 
 
 + (NSString *)nodeName
@@ -48,28 +48,24 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDate", @"dateStarted",
-			@"INDate", @"dateStopped",
-			@"INString", @"reasonStopped",
-			@"INCodedValue", @"name",
-			@"INCodedValue", @"brandName",
-			@"INUnitValue", @"dose",
-			@"INCodedValue", @"route",
-			@"INUnitValue", @"strength",
-			@"INCodedValue", @"frequency",
-			@"IndivoPrescription", @"prescription",
-			@"INString", @"details",
+			@"INUnitValue", @"frequency",
+			@"INDateTime", @"endDate",
+			@"INString", @"instructions",
+			@"INUnitValue", @"quantity",
+			@"INDateTime", @"startDate",
+			@"INCodedValue", @"drugName",
+			@"INCodedValue", @"provenance",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"name", @"dose", @"frequency", nil];
+	return [NSArray arrayWithObjects:@"frequency", @"endDate", @"instructions", @"quantity", @"startDate", @"drugName", @"provenance", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", @"dose", @"frequency", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"frequency", @"endDate", @"instructions", @"quantity", @"startDate", @"drugName", @"provenance", nil];
 	}
 	
 	return nonNilPropertyNames;	*/

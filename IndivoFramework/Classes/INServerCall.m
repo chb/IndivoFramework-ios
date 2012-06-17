@@ -478,7 +478,7 @@
 	NSString *action = method ? [@"\n" stringByAppendingString:method] : @"Authentication";
 	NSString *bodyString = body ? [@"\n" stringByAppendingString:body] : @"";
 	NSString *paramString = parameters ? [NSString stringWithFormat:@" with %@", parameters] : @"";
-	return [NSString stringWithFormat:@"%@ <0x%X> %@: \"%@\"%@%@", NSStringFromClass([self class]), self, HTTPMethod, action, paramString, bodyString];
+	return [NSString stringWithFormat:@"%@ <%p> %@: \"%@\"%@%@", NSStringFromClass([self class]), self, HTTPMethod, action, paramString, bodyString];
 }
 
 

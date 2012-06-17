@@ -217,7 +217,7 @@
 #pragma mark - Utilities
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <0x%x> %@", NSStringFromClass([self class]), self, [self xml]];
+	return [NSString stringWithFormat:@"%@ <%p> %@", NSStringFromClass([self class]), self, [self xml]];
 }
 
 

@@ -518,7 +518,7 @@
 #pragma mark - Utilities
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ <0x%X> \"%@\" (id: %@)", NSStringFromClass([self class]), self, label, self.uuid];
+	return [NSString stringWithFormat:@"%@ <%p> \"%@\" (id: %@)", NSStringFromClass([self class]), self, label, self.uuid];
 }
 
 
