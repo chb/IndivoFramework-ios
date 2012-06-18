@@ -28,7 +28,12 @@
 
 + (NSString *)reportType
 {
-	return @"allergies";
+	return @"Allergy";
+}
+
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
 }
 
 

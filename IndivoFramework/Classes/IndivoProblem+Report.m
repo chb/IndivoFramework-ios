@@ -28,7 +28,12 @@
 
 + (NSString *)reportType
 {
-	return @"problems";
+	return @"Problem";
+}
+
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
 }
 
 

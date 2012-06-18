@@ -44,11 +44,6 @@
 	[IndivoDocument registerDocumentClass:self];
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:

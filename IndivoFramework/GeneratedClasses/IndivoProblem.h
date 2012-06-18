@@ -2,8 +2,8 @@
  IndivoProblem.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/17/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -27,15 +27,14 @@
 	
 
 /**
- *	A class representing "indivo:Problem" objects, generated from problem.xsd.
+ *	A class representing "indivo:Problem" objects, generated from /indivo/data_models/core/problem/model.sdml.
  */
 @interface IndivoProblem : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *dateOnset;
-@property (nonatomic, strong) INDateTime *dateResolution;
-@property (nonatomic, strong) INCodedValue *name;					///< minOccurs = 1
-@property (nonatomic, strong) INString *comments;
-@property (nonatomic, strong) INString *diagnosedBy;
+@property (nonatomic, strong) INDateTime *startDate;
+@property (nonatomic, strong) INDateTime *endDate;
+@property (nonatomic, strong) INCodedValue *name;
+@property (nonatomic, strong) INString *notes;
 
 
 @end

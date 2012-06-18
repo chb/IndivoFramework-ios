@@ -28,7 +28,12 @@
 
 + (NSString *)reportType
 {
-	return @"immunizations";
+	return @"Immunization";
+}
+
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
 }
 
 

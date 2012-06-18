@@ -28,7 +28,12 @@
 
 + (NSString *)reportType
 {
-	return @"reports/minimal/procedures";
+	return @"Procedure";
+}
+
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
 }
 
 

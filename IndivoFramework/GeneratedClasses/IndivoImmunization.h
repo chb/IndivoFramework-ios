@@ -2,8 +2,8 @@
  IndivoImmunization.h
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/17/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -23,20 +23,20 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoImmunizationVaccine;
+
 	
 
 /**
- *	A class representing "indivo:Immunization" objects, generated from immunization.xsd.
+ *	A class representing "indivo:Immunization" objects, generated from /indivo/data_models/core/immunization/model.sdml.
  */
 @interface IndivoImmunization : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *dateAdministered;
-@property (nonatomic, strong) INString *administeredBy;
-@property (nonatomic, strong) IndivoImmunizationVaccine *vaccine;
-@property (nonatomic, strong) INInteger *sequence;					///< minOccurs = 1
-@property (nonatomic, strong) INCodedValue *anatomicSurface;
-@property (nonatomic, strong) INString *adverseEvent;
+@property (nonatomic, strong) INCodedValue *product_class;
+@property (nonatomic, strong) INDateTime *date;
+@property (nonatomic, strong) INCodedValue *administration_status;
+@property (nonatomic, strong) INCodedValue *refusal_reason;
+@property (nonatomic, strong) INCodedValue *product_class_2;
+@property (nonatomic, strong) INCodedValue *product_name;
 
 
 @end

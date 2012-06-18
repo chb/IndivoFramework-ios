@@ -2,8 +2,8 @@
  IndivoImmunization.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/17/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@
 
 @implementation IndivoImmunization
 
-@synthesize dateAdministered, administeredBy, vaccine, sequence, anatomicSurface, adverseEvent;
+@synthesize product_class, date, administration_status, refusal_reason, product_class_2, product_name;
 
 
 + (NSString *)nodeName
@@ -48,23 +48,23 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"dateAdministered",
-			@"INString", @"administeredBy",
-			@"IndivoImmunizationVaccine", @"vaccine",
-			@"INInteger", @"sequence",
-			@"INCodedValue", @"anatomicSurface",
-			@"INString", @"adverseEvent",
+			@"INCodedValue", @"product_class",
+			@"INDateTime", @"date",
+			@"INCodedValue", @"administration_status",
+			@"INCodedValue", @"refusal_reason",
+			@"INCodedValue", @"product_class_2",
+			@"INCodedValue", @"product_name",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"sequence", nil];
+	return [NSArray arrayWithObjects:@"product_class", @"date", @"administration_status", @"refusal_reason", @"product_class_2", @"product_name", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"sequence", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"product_class", @"date", @"administration_status", @"refusal_reason", @"product_class_2", @"product_name", nil];
 	}
 	
 	return nonNilPropertyNames;	*/

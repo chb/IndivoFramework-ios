@@ -2,8 +2,8 @@
  IndivoProblem.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/17/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@
 
 @implementation IndivoProblem
 
-@synthesize dateOnset, dateResolution, name, comments, diagnosedBy;
+@synthesize startDate, endDate, name, notes;
 
 
 + (NSString *)nodeName
@@ -48,22 +48,21 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"dateOnset",
-			@"INDateTime", @"dateResolution",
+			@"INDateTime", @"startDate",
+			@"INDateTime", @"endDate",
 			@"INCodedValue", @"name",
-			@"INString", @"comments",
-			@"INString", @"diagnosedBy",
+			@"INString", @"notes",
 			nil];
 }
 
 
 + (NSArray *)nonNilPropertyNames
 {
-	return [NSArray arrayWithObjects:@"name", nil];
+	return [NSArray arrayWithObjects:@"startDate", @"endDate", @"name", @"notes", nil];
 	/*
 	static NSArray *nonNilPropertyNames = nil;
 	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"name", nil];
+		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"startDate", @"endDate", @"name", @"notes", nil];
 	}
 	
 	return nonNilPropertyNames;	*/

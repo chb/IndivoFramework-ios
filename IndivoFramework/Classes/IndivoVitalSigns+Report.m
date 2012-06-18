@@ -39,5 +39,10 @@
 	return [self reportType];
 }
 
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
+}
+
 
 @end

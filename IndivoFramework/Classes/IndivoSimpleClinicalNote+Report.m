@@ -28,7 +28,12 @@
 
 + (NSString *)reportType
 {
-	return @"reports/minimal/simple-clinical-note";
+	return @"SimpleClinicalNote";
+}
+
++ (BOOL)useFlatXMLFormat
+{
+	return YES;
 }
 
 
