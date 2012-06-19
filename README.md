@@ -72,7 +72,7 @@ You should see a red file `IndivoConfig.h` and below the file `IndivoConfig-defa
 	#define kIndivoFrameworkUIServerURL = @"http://sandbox.indivohealth.org:80"
 	#define kIndivoFrameworkAppId = @"sampleios@apps.indivo.org"
 	#define kIndivoFrameworkConsumerKey = @"sampleiosapp@apps.indivo.org"
-	#define kIndivoFrameworkConsumerSecret = @"sampleiosapp"
+	#define kIndivoFrameworkConsumerSecret = @"youriosapp"
 
 After that, choose the target **Medications Sample** and hit the **Run** button and the sample app should run and be ready to connect to the sandbox.
 
