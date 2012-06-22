@@ -1,6 +1,11 @@
 IndivoFramework for iOS
 =======================
 
+## NOTE  ##
+The instructions have been updated for Indivo 2.0, but the framework source that works with 2.0 has not yet been merged into master. If you follow the instructions under *Getting the Framework* you will checkout the `dev_two` branch and all is going to be fine. Don't worry. We got you covered. Breathe.
+
+## 
+
 These are the developer instructions on how to use [IndivoFramework][self], an iOS framework to interface with **[Indivo X][indivo]**, an open-source **personally controlled health record** (PCHR) system.
 
 ### Requirements ###
@@ -44,12 +49,34 @@ The best way to get the framework is to check out the project via [git][]. Open 
 
 	$ git clone git://github.com/chb/IndivoFramework-ios.git
 	$ cd IndivoFramework-ios
+	$ git checkout dev_two
 	$ git submodule init
 	$ git submodule update
 
 You now have the latest source code of the framework as well as the subprojects we use and the Medications Sample App.
 
+**NOTE** that the step `git checkout dev_two` is required while the 2.0 framework version has not been merged into the master branch. Once 2.0 is final this step is no longer required.
+
 [git]: http://git-scm.com/
+
+
+## Running the Medications Sample App ##
+
+The framework repo contains a sample application as a submodule ([https://github.com/chb/IndivoMedicationsExample-ios][meds]), thus if you followed above instructions correctly you should now also have the sample app code.
+
+Make sure you open the **IndivoFramework.xcworkspace** file in Xcode and not the lonely IndivoFramework.xcproject file. In Xcode, in the file manager to the left, you now see the README at top, the med sample project and below the framework project itself (the latter two in blue). Expand the framework project and the `IndivoFramework` folder inside it.
+
+You should see a red file `IndivoConfig.h` and below the file `IndivoConfig-default.h`; the red file is where the server settings go and required by the framework (though you CAN change these settings in code via properties later). You can simply right-click the default file, select "Show in Finder" and in the Finder duplicate and rename it to `IndivoConfig.h`. Back in Xcode you'll notice that the file is no longer red. You can now edit its contents to hit your own Indivo server or use our public sandbox, for which you use these settings:
+
+	#define kIndivoFrameworkServerURL = @"http://sandbox.indivohealth.org:8000"
+	#define kIndivoFrameworkUIServerURL = @"http://sandbox.indivohealth.org:80"
+	#define kIndivoFrameworkAppId = @"sampleios@apps.indivo.org"
+	#define kIndivoFrameworkConsumerKey = @"sampleiosapp@apps.indivo.org"
+	#define kIndivoFrameworkConsumerSecret = @"youriosapp"
+
+After that, choose the target **Medications Sample** and hit the **Run** button and the sample app should run and be ready to connect to the sandbox.
+
+[meds]: https://github.com/chb/IndivoMedicationsExample-ios
 
 
 ## Server Side Setup ##
@@ -95,7 +122,9 @@ For general installation instructions see the [Indivo Installation Instructions]
 
 ## Framework Setup ##
 
-1. Add the IndivoFramework project to your Xcode workspace
+These are the instructions if you want to add the framework to **your own** app, these steps were already performed for the medications sample app.
+
+1. Add the IndivoFramework project to your Xcode **workspace**
 
 2. Link your App with the necessary frameworks and libraries:  
 	Open your project's build settings, under "Link Binary With Libraries" add:
@@ -109,7 +138,7 @@ For general installation instructions see the [Indivo Installation Instructions]
 3. Make sure the compiler finds the header files:  
 	Open your project's build settings, look for **User Header Search Paths** (USER_HEADER_SEARCH_PATHS), and add:
 	
-	`$(BUILT_PRODUCTS_DIR)`, with *recursive* checked
+	`$(BUILT_PRODUCTS_DIR)`, with the checkbox to the left checked (which means *recursive* search)
 
 4. The linker needs an additional flag:  
 	Still in your project's build settings, look for **Other Linker Flags** (OTHER_LDFLAGS), and add:
