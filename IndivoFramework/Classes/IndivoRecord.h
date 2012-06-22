@@ -50,8 +50,7 @@
 - (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback;
 
 // record reports
-- (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback;
-- (void)fetchAllReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
+- (void)fetchReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
 - (void)fetchReportsOfClass:(Class)documentClass withQuery:(INQueryParameter *)aQuery callback:(INSuccessRetvalueBlock)callback;
 
 // messaging

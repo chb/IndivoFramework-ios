@@ -56,6 +56,50 @@ NSString *const INClassGeneratorSDMLModelnameKey = @"__modelname__";
 
 
 /**
+ *	This method takes a dictionary, array or string that describes a property type, handles the object and returns a dictionary with the class name and, if
+ *	it's a container, the class for objects in the container
+ *	@return An NSDictionary with "className" and maybe "containedClassName"
+ */
+- (NSDictionary *)processProperty:(id)object
+{
+	if (!object) {
+		return nil;
+	}
+	
+	// dictionary, which is an inline class definition
+	if ([object isKindOfClass:[NSDictionary class]]) {
+		NSError *error = nil;
+		NSDictionary *nested = [self process:object error:&error];
+		if (nested) {
+			return [NSDictionary dictionaryWithObject:[nested objectForKey:@"name"] forKey:@"className"];
+		}
+		DLog(@"Error processing dictionary: %@", [error localizedDescription]);
+	}
+	
+	// it's an array - we use the first element only
+	else if ([object isKindOfClass:[NSArray class]]) {
+		id child = ([(NSArray *)object count] > 0) ? [(NSArray *)object objectAtIndex:0] : nil;
+		NSDictionary *childDict = [self processProperty:child];
+		if (childDict) {
+			return [NSDictionary dictionaryWithObjectsAndKeys:
+					@"NSArray", @"className",
+					[childDict objectForKey:@"className"], @"containedClassName", nil];
+		}
+	}
+	
+	// if it's a string, it points to a class
+	else if ([object isKindOfClass:[NSString class]]) {
+		NSString *elemClass = [self.delegate schemaParser:self existingClassNameForType:object];
+		if (elemClass) {
+			return [NSDictionary dictionaryWithObject:elemClass forKey:@"className"];
+		}
+	}
+	
+	return nil;
+}
+
+
+/**
  *	Process a dictionary that represents a class
  */
 - (NSDictionary *)process:(NSDictionary *)dict error:(NSError **)error
@@ -83,35 +127,19 @@ NSString *const INClassGeneratorSDMLModelnameKey = @"__modelname__";
 			continue;
 		}
 		
-		NSDictionary *elemDict = nil;
-		
-		// element is a dictionary, i.e. a nested class description
+		// get the class
 		id elem = [dict objectForKey:key];
-		if ([elem isKindOfClass:[NSDictionary class]]) {
-			NSDictionary *nested = [self process:elem error:error];
-			if (nested) {
-				elemDict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"name", [nested objectForKey:@"class"], @"class", nil];
-			}
-		}
-		
-		// if it's a string, it points to a class
-		else if ([elem isKindOfClass:[NSString class]]) {
-			NSString *elemClass = [self.delegate schemaParser:self existingClassNameForType:elem];
-			if (!elemClass) {
-				NSString *message = [NSString stringWithFormat:@"No class for property %@ (type: %@), omitting", key, elem];
-				[self.delegate schemaParser:self sendsMessage:message ofType:INSchemaParserMessageTypeNotification];
-			}
-			else {
-				elemDict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"name", elemClass, @"class", nil];
-			}
-		}
-		
-		// what else?
-		else {
-			DLog(@"Can't process element \"%@\" of class %@", key, NSStringFromClass([elem class]));
+		NSDictionary *propDict = [self processProperty:elem];
+		NSString *elemClass = [propDict objectForKey:@"className"];
+		NSString *containedElemClass = [propDict objectForKey:@"containedClassName"];
+		if ([elemClass length] < 1) {
+			NSString *message = [NSString stringWithFormat:@"No class for property %@ (type: %@), omitting", key, elem];
+			[self.delegate schemaParser:self sendsMessage:message ofType:INSchemaParserMessageTypeNotification];
+			continue;
 		}
 		
 		// add to property array
+		NSDictionary *elemDict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"name", elemClass, @"class", containedElemClass, @"itemClass", nil];
 		if (elemDict) {
 			[properties addObject:elemDict];
 		}

@@ -1,9 +1,9 @@
 /*
- IndivoPrescription.h
+ INProvider.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Pascal Pfiffner on 6/22/12.
+ Copyright (c) 2012 Harvard Medical School. All rights reserved.
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,24 +20,8 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "INProvider.h"
 
-@class IndivoProvider;
-	
-
-/**
- *	A class representing "indivo:Prescription" objects, generated from medication.xsd.
- */
-@interface IndivoPrescription : IndivoDocument
-
-@property (nonatomic, strong) IndivoProvider *by;
-@property (nonatomic, strong) INDate *on;
-@property (nonatomic, strong) INDate *stopOn;
-@property (nonatomic, strong) INBool *dispenseAsWritten;					///< minOccurs = 1
-@property (nonatomic, strong) INDuration *duration;
-@property (nonatomic, strong) INString *refillInfo;
-@property (nonatomic, strong) INString *instructions;
-
+@implementation INProvider
 
 @end

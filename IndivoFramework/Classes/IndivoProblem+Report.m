@@ -31,10 +31,5 @@
 	return @"Problem";
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 
 @end

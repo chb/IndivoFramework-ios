@@ -1,9 +1,9 @@
 /*
- IndivoName.m
+ INPharmacy.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/22/2012.
- Copyright (c) 2012 Boston Children's Hospital
+ Created by Pascal Pfiffner on 6/22/12.
+ Copyright (c) 2012 Harvard Medical School. All rights reserved.
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,43 +20,19 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoName.h"
-#import "IndivoDocument.h"
+
+#import "INObjects.h"
+
+@class INAddress;		// compiler errors if this is not present, despite INAddress.h being included in INObjects.h
 
 
-@implementation IndivoName
+/**
+ *	A class to represent a "Pharmacy" field
+ */
+@interface INPharmacy : INObject
 
-@synthesize familyName, givenName, middleName, prefix, suffix;
-
-
-+ (NSString *)nodeName
-{
-	return @"Name";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:Name";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-
-+ (NSDictionary *)propertyClassMapper
-{
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"familyName",
-			@"INString", @"givenName",
-			@"INString", @"middleName",
-			@"INString", @"prefix",
-			@"INString", @"suffix",
-			nil];
-}
-
-
-
+@property (nonatomic, strong) INString *ncpdpid;			///< The pharmacy's National Council for Prescription Drug Programs (NCPDP) ID number
+@property (nonatomic, strong) INString *org;				///< The organization
+@property (nonatomic, strong) INAddress *adr;
 
 @end

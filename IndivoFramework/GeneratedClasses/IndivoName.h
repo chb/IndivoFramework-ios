@@ -2,8 +2,8 @@
  IndivoName.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/22/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) INString *familyName;					///< minOccurs = 1
 @property (nonatomic, strong) INString *givenName;					///< minOccurs = 1
+@property (nonatomic, strong) INString *middleName;
 @property (nonatomic, strong) INString *prefix;
 @property (nonatomic, strong) INString *suffix;
 

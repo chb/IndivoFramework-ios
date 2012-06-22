@@ -22,6 +22,7 @@
 
 #import "INObject.h"
 #import <objc/runtime.h>
+#import "NSObject+ClassUtils.h"
 #import "NSArray+NilProtection.h"
 
 
@@ -125,27 +126,13 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 			Ivar *ivars = class_copyIvarList([self class], &num);
 			for (i = 0; i < num; i++) {
 				id ivarObj = object_getIvar(self, ivars[i]);
-				const char *ivar_name = ivar_getName(ivars[i]);
-				NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
+				NSString *ivarName = ivarNameFromIvar(ivars[i]);
 				
 				// found the ivar we need
 				if ([myAttrs containsObject:ivarName]) {
 					NSString *attr = [aNode attr:ivarName];
 					if ([attr length] > 0) {
-						Class ivarClass = [ivarObj class];
-						
-						// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
-						if (!ivarClass) {
-							const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
-							NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
-							if ([ivarType length] > 3) {
-								NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
-								ivarClass = NSClassFromString(className);
-							}
-							if (!ivarClass && 0 != strcmp("#", ivar_type)) {
-								DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
-							}
-						}
+						Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
 						
 						// depending on the class, set our property
 						if ([ivarClass isSubclassOfClass:[INObject class]]) {							// INObject
@@ -176,44 +163,33 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 
 /**
  *	Handling incoming Indivo 2.0 flat XML
- *	@attention HIGHLY PRELIMINARY
+ *	IndivoAbstractDocument, a subclass of INObject, uses a slightly more diverse implementation of this method. INObject only instantiates other INObject,
+ *	NSString and NSNumber ivars from XML.
  */
 - (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix
 {
+	//DLog(@"ooo>  Setting %@ with prefix \"%@\"", NSStringFromClass([self class]), prefix ? prefix : @"");
 	unsigned int num, i;
 	Ivar *ivars = class_copyIvarList([self class], &num);
 	for (i = 0; i < num; i++) {
 		id ivarObj = object_getIvar(self, ivars[i]);
-		const char *ivar_name = ivar_getName(ivars[i]);
-		NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
-		Class ivarClass = [ivarObj class];
-		
-		// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
+		NSString *ivarName = ivarNameFromIvar(ivars[i]);
+		Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
 		if (!ivarClass) {
-			const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
-			NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
-			if ([ivarType length] > 3) {
-				NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
-				ivarClass = NSClassFromString(className);
-			}
-			if (!ivarClass && 0 != strcmp("#", ivar_type)) {
-				DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
-				continue;
-			}
+			DLog(@"Can't determine class for ivar \"%@\"", ivarName);
+			continue;
 		}
 		
 		// init objects based on property class
 		NSString *fullName = prefix ? [NSString stringWithFormat:@"%@_%@", prefix, ivarName] : ivarName;
+		//DLog(@"--->  %@  [%@]", fullName, NSStringFromClass(ivarClass));
 		
-		if ([ivarClass instancesRespondToSelector:@selector(setFromFlatNode:)]) {		// IndivoAbstractDocument subclass
-			DLog(@">>>>  %@  [%@]", fullName, NSStringFromClass(ivarClass));
-		}
-		else if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass
+		if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass - might need several nodes for one object
 			INObject *newObj = [ivarClass new];
 			[newObj setFromFlatParent:parent prefix:fullName];
 			object_setIvar(self, ivars[i], newObj);
 		}
-		else {
+		else {																		// single node objects:
 			INXMLNode *myNode = nil;
 			for (INXMLNode *sub in [parent children]) {
 				if ([fullName isEqualToString:[sub attr:@"name"]]) {
@@ -222,11 +198,12 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 				}
 			}
 			
+			// we found a node, let's instantiate
 			if (myNode) {
-				if ([ivarClass isSubclassOfClass:[NSString class]]) {					// NSString
+				if ([ivarClass isSubclassOfClass:[NSString class]]) {				// NSString
 					object_setIvar(self, ivars[i], [myNode.text copy]);
 				}
-				else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {				// NSNumber
+				else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {			// NSNumber
 					NSDecimalNumber *value = ([myNode.text length] > 0) ? [NSDecimalNumber decimalNumberWithString:myNode.text] : nil;
 					object_setIvar(self, ivars[i], value);
 				}
@@ -235,7 +212,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 				}
 			}
 			else {
-				DLog(@"No node for %@  [%@]", fullName, NSStringFromClass(ivarClass));
+				//DLog(@"xxx>  No node for %@  [%@]", fullName, NSStringFromClass(ivarClass));
 			}
 		}
 	}
@@ -251,23 +228,6 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 - (BOOL)isNull
 {
 	return NO;
-}
-
-/**
-  *	If a property returns YES from its "isNull" selector and this method returns NO for that property, the XML is highly unlikely to validate
-  *	with the server.
-  */
-+ (BOOL)canBeNull:(NSString *)propertyName
-{
-	return ![[self nonNilPropertyNames] containsObject:propertyName];
-}
-
-/**
- *	Should return the names for properties that cannot be nil (because the XML would not validate).
- */
-+ (NSArray *)nonNilPropertyNames
-{
-	return nil;
 }
 
 /**
@@ -313,7 +273,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 		for (NSString *prop in attrs) {
 			id object = [self valueForKey:prop];
 			
-			if (object || ![[self class] canBeNull:prop]) {
+			if (object) {
 				NSString *value = nil;
 				if ([object isKindOfClass:[INObject class]]) {					// INObject
 					value = [(INObject *)object attributeValue];
@@ -385,6 +345,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 		// we can omit empty ivars
 		if (anObject) {
 			NSString *propertyName = [NSString stringWithCString:ivar_getName(ivars[i]) encoding:NSUTF8StringEncoding];
+			propertyName = [[self class] flatXMLNameForPropertyName:propertyName];
 			NSString *fullName = ([prefix length] > 0) ? [NSString stringWithFormat:@"%@_%@", prefix, propertyName] : propertyName;
 			
 			// ivar is an IndivoAbstractDocument subclass
@@ -460,6 +421,15 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 + (NSString *)nodeType
 {
 	return @"";
+}
+
+/**
+ *	Objects have the ability to use a different name from the property name for flat XML "name" attributes.
+ *	Default implementation just returns the given name.
+ */
++ (NSString *)flatXMLNameForPropertyName:(NSString *)aName
+{
+	return aName;
 }
 
 

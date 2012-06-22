@@ -22,18 +22,13 @@
 
 #import "INObject.h"
 
-@class INString;
-@class INCodedValue;
-
 
 /**
  *	Represents an "indivo:ValueAndUnit" XML node
  */
-
 @interface INUnitValue : INObject
 
 @property (nonatomic, copy) NSDecimalNumber *value;
-@property (nonatomic, strong) NSString *textValue;
-@property (nonatomic, strong) INCodedValue *unit;
+@property (nonatomic, copy) NSString *unit;
 
 @end

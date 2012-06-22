@@ -31,10 +31,5 @@
 	return @"Allergy";
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 
 @end

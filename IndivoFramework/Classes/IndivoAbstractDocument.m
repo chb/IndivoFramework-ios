@@ -23,6 +23,7 @@
 #import "IndivoAbstractDocument.h"
 #import <objc/runtime.h>
 #import "IndivoRecord.h"
+#import "NSObject+ClassUtils.h"
 #import "NSArray+NilProtection.h"
 
 
@@ -55,7 +56,16 @@
  */
 - (id)initFromNode:(INXMLNode *)node forRecord:(IndivoRecord *)aRecord
 {
-	if ((self = [super initFromNode:node withServer:aRecord.server])) {
+	if ([[self class] useFlatXMLFormat]) {
+		self = [super initFromNode:nil withServer:aRecord.server];
+		[self setFromFlatParent:node prefix:nil];
+	}
+	else {
+		self = [super initFromNode:node withServer:aRecord.server];
+	}
+	
+	// assign the record
+	if (self) {
 		self.record = aRecord;
 	}
 	return self;
@@ -65,12 +75,11 @@
 
 #pragma mark - Instantiation from XML
 /**
- *	Implementing this to have some flexibility about the XML format to use on the road to Indivo 2.0
- *	@attention This may be removed again
+ *	Implementing this to have some flexibility about the XML format to use on the road to Indivo 2.0, default implementation returns YES
  */
 + (BOOL)useFlatXMLFormat
 {
-	return NO;
+	return YES;
 }
 
 
@@ -84,11 +93,6 @@
  */
 - (void)setFromNode:(INXMLNode *)node
 {
-	if ([[self class] useFlatXMLFormat]) {
-		[self setFromFlatNode:node];
-		return;
-	}
-	
 	// node name and node type
 	self.nodeName = node.name;
 	NSString *newType = [node attr:@"type"];
@@ -110,21 +114,10 @@
 		Ivar *ivars = class_copyIvarList(currentClass, &num);
 		for (i = 0; i < num; i++) {
 			id ivarObj = object_getIvar(self, ivars[i]);
-			const char *ivar_name = ivar_getName(ivars[i]);
-			NSString *ivarName = [NSString stringWithCString:ivar_name encoding:NSUTF8StringEncoding];
-			Class ivarClass = [ivarObj class];
-			
-			// if the object is not initialized, we need to get the Class somewhat hacky by parsing the class name from the ivar type encoding
+			NSString *ivarName = ivarNameFromIvar(ivars[i]);
+			Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
 			if (!ivarClass) {
-				const char *ivar_type = ivar_getTypeEncoding(ivars[i]);
-				NSString *ivarType = [NSString stringWithUTF8String:ivar_type];
-				if ([ivarType length] > 3) {
-					NSString *className = [ivarType substringWithRange:NSMakeRange(2, [ivarType length]-3)];
-					ivarClass = NSClassFromString(className);
-				}
-				if (!ivarClass && 0 != strcmp("#", ivar_type)) {
-					DLog(@"WARNING: Class for property \"%@\" on %@ not loaded: \"%s\"", ivarName, NSStringFromClass([self class]), ivar_type);
-				}
+				DLog(@"WARNING: Class for property \"%@\" on %@ not loaded", ivarName, NSStringFromClass([self class]));
 			}
 			
 			// we got an array instance, try to fill it
@@ -169,17 +162,89 @@
 
 /**
  *	This method takes the new (as of Indivo 2.0) flat XML format and fills the instance variables from the child nodes.
- *	See "setFromNode:" for a description on how this is achieved.
+ *	
+ *	The instance walks all its instance variables, looks at the class of the variable and then hands the XML parent node to a new instance of this class to
+ *	set its properties from those XML nodes, whose "name" attribute begins with the given prefix. It is necessary to hand over the whole flat tree because one
+ *	property may need several nodes to fill its properties. This is a consequence of the flattened XML schema that Indivo introduced in version 2.0, a format
+ *	that I personally heavily dislike because it's so ugly.
  */
-- (void)setFromFlatNode:(INXMLNode *)node
+- (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix
 {
-	if (node) {
-		NSString *myUuid = [node attr:@"documentId"];
+	if (parent) {
+		NSString *myUuid = [parent attr:@"documentId"];
 		if ([myUuid length] > 0) {
 			self.uuid = myUuid;
 		}
 		
-		[super setFromFlatParent:node prefix:nil];
+		//DLog(@"oo>  Setting %@ with prefix \"%@\"", NSStringFromClass([self class]), prefix ? prefix : @"");
+		unsigned int num, i;
+		Ivar *ivars = class_copyIvarList([self class], &num);
+		for (i = 0; i < num; i++) {
+			id ivarObj = object_getIvar(self, ivars[i]);
+			NSString *ivarName = ivarNameFromIvar(ivars[i]);
+			Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
+			if (!ivarClass) {
+				DLog(@"Can't determine class for ivar \"%@\"", ivarName);
+				continue;
+			}
+			
+			// init objects based on property class
+			NSString *fullName = prefix ? [NSString stringWithFormat:@"%@_%@", prefix, ivarName] : ivarName;
+			
+			if ([ivarClass isSubclassOfClass:[IndivoAbstractDocument class]]) {				// IndivoAbstractDocument subclass
+				DLog(@">>>  %@  [%@]", fullName, NSStringFromClass(ivarClass));
+			}
+			else if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass
+				//DLog(@"-->  %@  [%@]", fullName, NSStringFromClass(ivarClass))
+				INObject *newObj = [ivarClass new];
+				[newObj setFromFlatParent:parent prefix:fullName];
+				object_setIvar(self, ivars[i], newObj);
+			}
+			else {																			// single node objects:
+				INXMLNode *myNode = nil;
+				for (INXMLNode *sub in [parent children]) {
+					if ([fullName isEqualToString:[sub attr:@"name"]]) {
+						myNode = sub;
+						break;
+					}
+				}
+				
+				// found the node
+				if (myNode) {
+					if ([ivarClass isSubclassOfClass:[NSArray class]]) {					// NSArray
+						Class itemClass = [[self class] classForProperty:ivarName];
+						if (itemClass) {
+							NSArray *children = [[myNode childNamed:@"Models"] children];
+							if ([children count] > 0) {
+								NSMutableArray *arr = [NSMutableArray arrayWithCapacity:[children count]];
+								for (INXMLNode *itemNode in children) {
+									INObject *item = [itemClass new];
+									[item setFromFlatParent:itemNode prefix:nil];
+									[arr addObjectIfNotNil:item];
+								}
+								object_setIvar(self, ivars[i], [arr copy]);
+							}
+						}
+						else {
+							DLog(@"I don't know which class to use for the array property \"%@\"", ivarName);
+						}
+					}
+					else if ([ivarClass isSubclassOfClass:[NSString class]]) {				// NSString
+						object_setIvar(self, ivars[i], [myNode.text copy]);
+					}
+					else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {				// NSNumber
+						NSDecimalNumber *value = ([myNode.text length] > 0) ? [NSDecimalNumber decimalNumberWithString:myNode.text] : nil;
+						object_setIvar(self, ivars[i], value);
+					}
+					else {
+						DLog(@"I don't know how to generate an object of class %@ as an attribute for %@", NSStringFromClass(ivarClass), ivarName);
+					}
+				}
+				else {
+					//DLog(@"xx>  No node for %@  [%@]", fullName, NSStringFromClass(ivarClass));
+				}
+			}
+		}
 	}
 }
 
@@ -335,9 +400,6 @@
 		subXML = [subXML stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"];
 #endif
 		return subXML;
-	}
-	else if (![[self class] canBeNull:nodeName]) {
-		DLog(@"WARNING: %@ is not set, may generate invalid XML", nodeName);
 	}
 	return nil;
 }

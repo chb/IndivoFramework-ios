@@ -10,7 +10,7 @@
 		<string>record</string>
 		<key>/records/abc/documents/special/contact</key>
 		<string>contact</string>
-		<key>/records/abc/documents/special/demographics</key>
+		<key>/records/abc/documents/rec_demographics</key>
 		<string>demographics</string>
 		<key>/records/abc/documents/</key>
 		<string>record_documents</string>

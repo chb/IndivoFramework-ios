@@ -1,9 +1,9 @@
 /*
- IndivoAddress.m
+ INProvider.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Pascal Pfiffner on 6/22/12.
+ Copyright (c) 2012 Harvard Medical School. All rights reserved.
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,43 +20,13 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoAddress.h"
-#import "IndivoDocument.h"
+
+#import "INObjects.h"
 
 
-@implementation IndivoAddress
-
-@synthesize country, city, postalCode, region, street;
-
-
-+ (NSString *)nodeName
-{
-	return @"Address";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:Address";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-
-+ (NSDictionary *)propertyClassMapper
-{
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"country",
-			@"INString", @"city",
-			@"INString", @"postalCode",
-			@"INString", @"region",
-			@"INString", @"street",
-			nil];
-}
-
-
-
+/**
+ *	Representing a "Provider" field
+ */
+@interface INProvider : INObject
 
 @end

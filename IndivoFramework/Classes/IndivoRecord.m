@@ -223,15 +223,6 @@
 		return nil;
 	}
 	
-	// pre-populate non-nil properties
-	for (NSString *propName in [[newDocument class] nonNilPropertyNames]) {
-		Class propClass = [[newDocument class] classForProperty:propName];
-		id propObj = [propClass new];
-		if (propObj) {
-			[newDocument setValue:propObj forKey:propName];
-		}
-	}
-	
 	// store and return
 	if (!documents) {
 		self.documents = [NSMutableArray arrayWithObject:newDocument];
@@ -281,49 +272,11 @@
 
 #pragma mark - Reporting Calls
 /**
- *	Fetches reports of given type with any status from the server
+ *	Fetches reports of given type from the server
  */
-- (void)fetchAllReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback
+- (void)fetchReportsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback
 {
-	NSMutableArray *reports = [NSMutableArray array];
-	
-	// fetch active
-	[self fetchReportsOfClass:documentClass withStatus:INDocumentStatusActive callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
-		if (!success) {
-			SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo);
-			return;
-		}
-		[reports addObjectsFromArray:[userInfo objectForKey:INResponseArrayKey]];
-		
-		// fetch archived
-		[self fetchReportsOfClass:documentClass withStatus:INDocumentStatusArchived callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
-			if (!success) {
-				SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, NO, userInfo);
-				return;
-			}
-			[reports addObjectsFromArray:[userInfo objectForKey:INResponseArrayKey]];
-			
-			// fetch voided
-			[self fetchReportsOfClass:documentClass withStatus:INDocumentStatusVoid callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
-				[reports addObjectsFromArray:[userInfo objectForKey:INResponseArrayKey]];
-				NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionaryWithDictionary:userInfo];
-				[newUserInfo setObject:reports forKey:INResponseArrayKey];
-				
-				SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, newUserInfo);
-			}];
-		}];
-	}];
-}
-
-/**
- *	Fetches reports with given status of given type from the server
- */
-- (void)fetchReportsOfClass:(Class)documentClass withStatus:(INDocumentStatus)aStatus callback:(INSuccessRetvalueBlock)callback
-{
-	INQueryParameter *aQuery = [INQueryParameter new];
-	aQuery.status = aStatus;
-	
-	[self fetchReportsOfClass:documentClass withQuery:aQuery callback:callback];
+	[self fetchReportsOfClass:documentClass withQuery:nil callback:callback];
 }
 
 

@@ -2,8 +2,8 @@
  IndivoDemographics.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/22/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -56,22 +56,10 @@
 			@"INString", @"race",
 			@"IndivoName", @"Name",
 			@"IndivoTelephone", @"Telephone",
-			@"IndivoAddress", @"Address",
+			@"INAddress", @"Address",
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"dateOfBirth", @"gender", @"Name", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"dateOfBirth", @"gender", @"Name", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 

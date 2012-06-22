@@ -31,10 +31,5 @@
 	return @"Immunization";
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 
 @end

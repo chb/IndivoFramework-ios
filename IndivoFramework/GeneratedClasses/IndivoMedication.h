@@ -2,7 +2,7 @@
  IndivoMedication.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/17/2012.
+ Created by Indivo Class Generator on 6/22/2012.
  Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
@@ -38,6 +38,7 @@
 @property (nonatomic, strong) INDateTime *startDate;
 @property (nonatomic, strong) INCodedValue *drugName;
 @property (nonatomic, strong) INCodedValue *provenance;
+@property (nonatomic, strong) NSArray *fulfillments;
 
 
 @end

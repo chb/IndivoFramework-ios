@@ -1,8 +1,8 @@
 /*
- IndivoAddress.h
+ IndivoLabResult+Report.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
+ Created by Pascal Pfiffner on 6/22/12.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,22 +20,16 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "IndivoLabResult+Report.h"
 
 
-	
+@implementation IndivoLabResult (Report)
 
-/**
- *	A class representing "indivo:Address" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
- */
-@interface IndivoAddress : IndivoDocument
 
-@property (nonatomic, strong) INString *country;
-@property (nonatomic, strong) INString *city;
-@property (nonatomic, strong) INString *postalCode;
-@property (nonatomic, strong) INString *region;
-@property (nonatomic, strong) INString *street;
++ (NSString *)reportType
+{
+	return @"LabResult";
+}
 
 
 @end

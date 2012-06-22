@@ -141,10 +141,5 @@
 	return @"Medication";
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 
 @end

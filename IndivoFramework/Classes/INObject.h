@@ -61,9 +61,8 @@
 
 + (NSString *)nodeName;
 + (NSString *)nodeType;
++ (NSString *)flatXMLNameForPropertyName:(NSString *)aName;
 
-+ (BOOL)canBeNull:(NSString *)propertyName;
-+ (NSArray *)nonNilPropertyNames;
 + (NSArray *)attributeNames;
 
 

@@ -1,5 +1,5 @@
 /*
- IndivoName.m
+ IndivoFill.h
  IndivoFramework
  
  Created by Indivo Class Generator on 6/22/2012.
@@ -20,43 +20,23 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoName.h"
 #import "IndivoDocument.h"
+#import "INObjects.h"
 
 
-@implementation IndivoName
+	
 
-@synthesize familyName, givenName, middleName, prefix, suffix;
+/**
+ *	A class representing "indivo:Fill" objects, generated from /indivo/data_models/core/medication/model.sdml.
+ */
+@interface IndivoFill : IndivoDocument
 
-
-+ (NSString *)nodeName
-{
-	return @"Name";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:Name";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-
-+ (NSDictionary *)propertyClassMapper
-{
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"familyName",
-			@"INString", @"givenName",
-			@"INString", @"middleName",
-			@"INString", @"prefix",
-			@"INString", @"suffix",
-			nil];
-}
-
-
+@property (nonatomic, strong) INProvider *provider;
+@property (nonatomic, strong) INPharmacy *pharmacy;
+@property (nonatomic, strong) INDecimal *dispenseDaysSupply;
+@property (nonatomic, strong) INDateTime *date;
+@property (nonatomic, strong) INUnitValue *quantityDispensed;
+@property (nonatomic, strong) INString *pbm;
 
 
 @end

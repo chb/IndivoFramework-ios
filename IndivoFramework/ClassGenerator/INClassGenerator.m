@@ -214,7 +214,8 @@ void runOnMainQueue(dispatch_block_t block)
 						useClass = [NSString stringWithFormat:@"%@%@", INClassGeneratorClassPrefix, ucFirstName];
 						useType = ([colonChopper count] < 2) ? [@"indivo:" stringByAppendingString:aType] : aType;
 						
-						//NSString *message = [NSString stringWithFormat:@"Assuming \"%@\" for \"%@\"", useClass, useType];
+						NSString *message = [NSString stringWithFormat:@"Assuming \"%@\" for \"%@\"", useClass, useType];
+						[self sendLog:message];
 					}
 				}
 			}
@@ -327,13 +328,10 @@ void runOnMainQueue(dispatch_block_t block)
 	NSMutableArray *synthNames = [NSMutableArray arrayWithCapacity:[properties count]];
 	NSMutableArray *forwardClasses = [NSMutableArray array];
 	NSMutableArray *propertyMap = [NSMutableArray array];
-	NSMutableArray *nonNilNames = [NSMutableArray array];
 	NSMutableArray *attributeNames = [NSMutableArray array];
 	if ([properties count] > 0) {
 		for (NSDictionary *propDict in properties) {
 			NSString *name = [propDict objectForKey:@"name"];
-			NSString *min = [propDict objectForKey:@"minOccurs"];
-			NSInteger minOccurs = min ? [min integerValue] : 1;
 			
 			// we do not need "id" properties for subclasses, they all have the "udid" property
 #if SKIP_ID_ATTRIBUTES
@@ -380,11 +378,6 @@ void runOnMainQueue(dispatch_block_t block)
 				[forwardClasses addObject:[NSString stringWithFormat:@"@class %@;", className]];
 			}
 			
-			// collect properties that must be set
-			if (minOccurs > 0) {
-				[nonNilNames addObject:[NSString stringWithFormat:@"@\"%@\"", name]];
-			}
-			
 			// collect attributes
 			if ([[propDict objectForKey:@"isAttribute"] boolValue]) {
 				[attributeNames addObject:[NSString stringWithFormat:@"@\"%@\"", name]];
@@ -402,7 +395,6 @@ void runOnMainQueue(dispatch_block_t block)
 		}
 	}
 	NSString *synthString = ([synthNames count] > 0) ? [synthNames componentsJoinedByString:@", "] : nil;
-	NSString *nonNilString = ([nonNilNames count] > 0) ? [nonNilNames componentsJoinedByString:@", "] : nil;
 	NSString *attributeString = ([attributeNames count] > 0) ? [attributeNames componentsJoinedByString:@", "] : nil;
 	
 	NSMutableDictionary *substitutions = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -424,9 +416,6 @@ void runOnMainQueue(dispatch_block_t block)
 	}
 	if ([propertyMap count] > 0) {
 		[substitutions setObject:[propertyMap componentsJoinedByString:@",\n\t\t\t"] forKey:@"CLASS_PROPERTY_MAP"];
-	}
-	if (nonNilString) {
-		[substitutions setObject:nonNilString forKey:@"CLASS_NON_NIL_NAMES"];
 	}
 	if (attributeString) {
 		[substitutions setObject:attributeString forKey:@"CLASS_ATTRIBUTE_NAMES"];

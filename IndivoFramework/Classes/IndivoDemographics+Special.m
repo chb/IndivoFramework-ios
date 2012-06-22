@@ -37,6 +37,11 @@
 	return nil;
 }
 
++ (BOOL)useFlatXMLFormat
+{
+	return NO;
+}
+
 /**
  *	When we push this document, it needs to be a PUT call because no new document gets created. We override the push: method, which maybe is not the cleanest
  *	way to achieve this...

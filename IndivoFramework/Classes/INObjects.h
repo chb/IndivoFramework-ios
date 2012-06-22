@@ -42,5 +42,8 @@
 #import "INDuration.h"
 #import "INVitalSign.h"
 #import "INBloodPressure.h"
+#import "INAddress.h"
+#import "INProvider.h"
 #import "INOrganization.h"
+#import "INPharmacy.h"
 #import "INDocumentStatusNode.h"

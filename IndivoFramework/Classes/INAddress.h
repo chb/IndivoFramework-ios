@@ -1,9 +1,9 @@
 /*
- IndivoName.m
+ INAddress.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/22/2012.
- Copyright (c) 2012 Boston Children's Hospital
+ Created by Pascal Pfiffner on 6/22/12.
+ Copyright (c) 2012 Harvard Medical School. All rights reserved.
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,43 +20,19 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoName.h"
-#import "IndivoDocument.h"
+
+#import "INObjects.h"
 
 
-@implementation IndivoName
+/**
+ *	A generic address object
+ */
+@interface INAddress : INObject
 
-@synthesize familyName, givenName, middleName, prefix, suffix;
-
-
-+ (NSString *)nodeName
-{
-	return @"Name";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:Name";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-
-+ (NSDictionary *)propertyClassMapper
-{
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INString", @"familyName",
-			@"INString", @"givenName",
-			@"INString", @"middleName",
-			@"INString", @"prefix",
-			@"INString", @"suffix",
-			nil];
-}
-
-
-
+@property (nonatomic, strong) INString *country;
+@property (nonatomic, strong) INString *city;
+@property (nonatomic, strong) INString *postalCode;
+@property (nonatomic, strong) INString *region;
+@property (nonatomic, strong) INString *street;
 
 @end

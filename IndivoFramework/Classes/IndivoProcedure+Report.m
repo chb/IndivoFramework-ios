@@ -31,10 +31,5 @@
 	return @"Procedure";
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 
 @end

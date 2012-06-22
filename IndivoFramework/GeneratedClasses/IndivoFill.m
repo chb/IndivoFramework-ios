@@ -1,9 +1,9 @@
 /*
- IndivoPrescription.m
+ IndivoFill.m
  IndivoFramework
  
- Created by Indivo Class Generator on 2/22/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/22/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,23 +20,23 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoPrescription.h"
+#import "IndivoFill.h"
 #import "IndivoDocument.h"
 
 
-@implementation IndivoPrescription
+@implementation IndivoFill
 
-@synthesize by, on, stopOn, dispenseAsWritten, duration, refillInfo, instructions;
+@synthesize provider, pharmacy, dispenseDaysSupply, date, quantityDispensed, pbm;
 
 
 + (NSString *)nodeName
 {
-	return @"Prescription";
+	return @"Fill";
 }
 
 + (NSString *)nodeType
 {
-	return @"indivo:Prescription";
+	return @"indivo:Fill";
 }
 
 + (void)load
@@ -48,28 +48,15 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"IndivoProvider", @"by",
-			@"INDate", @"on",
-			@"INDate", @"stopOn",
-			@"INBool", @"dispenseAsWritten",
-			@"INDuration", @"duration",
-			@"INString", @"refillInfo",
-			@"INString", @"instructions",
+			@"INProvider", @"provider",
+			@"INPharmacy", @"pharmacy",
+			@"INDecimal", @"dispenseDaysSupply",
+			@"INDateTime", @"date",
+			@"INUnitValue", @"quantityDispensed",
+			@"INString", @"pbm",
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"dispenseAsWritten", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"dispenseAsWritten", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 

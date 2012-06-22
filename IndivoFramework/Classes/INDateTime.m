@@ -46,7 +46,11 @@ static NSDateFormatter *isoDateFormatter = nil;
 		[isoDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 	}
 	
-	return [isoDateFormatter stringFromDate:aDate];
+	NSString *formatted = [isoDateFormatter stringFromDate:aDate];
+	if (formatted) {
+		return formatted;
+	}
+	return [super isoStringFrom:aDate];
 }
 
 + (NSDate *)parseDateFromISOString:(NSString *)dateString
@@ -56,7 +60,11 @@ static NSDateFormatter *isoDateFormatter = nil;
 		[isoDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 	}
 	
-	return [isoDateFormatter dateFromString:dateString];
+	NSDate *parsed = [isoDateFormatter dateFromString:dateString];
+	if (parsed) {
+		return parsed;
+	}
+	return [super parseDateFromISOString:dateString];
 }
 
 

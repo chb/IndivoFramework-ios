@@ -32,7 +32,7 @@
 
 // Medication
 #import "IndivoMedication+Report.h"
-#import "IndivoPrescription.h"
+#import "IndivoFill.h"
 
 // Allergy
 #import "IndivoAllergy+Report.h"
@@ -62,7 +62,6 @@
 #import "IndivoDemographics.h"
 #import "IndivoGenderType.h"
 #import "IndivoName.h"
-#import "IndivoAddress.h"
 #import "IndivoPhoneType.h"
 #import "IndivoTelephone.h"
 

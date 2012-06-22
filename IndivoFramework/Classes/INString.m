@@ -72,5 +72,20 @@
 	return [NSArray arrayWithObject:xmlString];
 }
 
+- (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix
+{
+	INXMLNode *myNode = nil;
+	for (INXMLNode *child in [parent children]) {
+		if ([prefix isEqualToString:[child attr:@"name"]]) {
+			myNode = child;
+			break;
+		}
+	}
+	
+	if (myNode) {
+		self.string = myNode.text;
+	}
+}
+
 
 @end

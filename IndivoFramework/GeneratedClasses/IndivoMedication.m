@@ -2,7 +2,7 @@
  IndivoMedication.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/17/2012.
+ Created by Indivo Class Generator on 6/22/2012.
  Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 
 @implementation IndivoMedication
 
-@synthesize frequency, endDate, instructions, quantity, startDate, drugName, provenance;
+@synthesize frequency, endDate, instructions, quantity, startDate, drugName, provenance, fulfillments;
 
 
 + (NSString *)nodeName
@@ -55,21 +55,10 @@
 			@"INDateTime", @"startDate",
 			@"INCodedValue", @"drugName",
 			@"INCodedValue", @"provenance",
+			@"IndivoFill", @"fulfillments",
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"frequency", @"endDate", @"instructions", @"quantity", @"startDate", @"drugName", @"provenance", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"frequency", @"endDate", @"instructions", @"quantity", @"startDate", @"drugName", @"provenance", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 

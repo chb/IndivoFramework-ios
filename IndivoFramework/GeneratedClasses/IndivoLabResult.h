@@ -2,8 +2,8 @@
  IndivoLabResult.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/5/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/22/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoName;
+
 	
 
 /**
@@ -31,9 +31,8 @@
  */
 @interface IndivoLabResult : IndivoDocument
 
-@property (nonatomic, strong) INDate *collected_at;
+@property (nonatomic, strong) INDateTime *collected_at;
 @property (nonatomic, strong) INOrganization *collected_by_org;
-@property (nonatomic, strong) IndivoName *collected_by_name;
 @property (nonatomic, strong) INString *narrative_result;
 @property (nonatomic, strong) INString *notes;
 @property (nonatomic, strong) INString *collected_by_role;

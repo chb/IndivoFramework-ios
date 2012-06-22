@@ -52,19 +52,7 @@
 			nil];
 }
 {% endif %}
-{% if CLASS_NON_NIL_NAMES %}
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:{{ CLASS_NON_NIL_NAMES }}, nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:{{ CLASS_NON_NIL_NAMES }}, nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
-{% endif %}
+
 {% if CLASS_ATTRIBUTE_NAMES %}
 + (NSArray *)attributeNames
 {

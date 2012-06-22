@@ -31,10 +31,5 @@
 	return @"SimpleClinicalNote";
 }
 
-+ (BOOL)useFlatXMLFormat
-{
-	return YES;
-}
-
 
 @end

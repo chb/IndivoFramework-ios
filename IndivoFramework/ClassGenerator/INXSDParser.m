@@ -175,6 +175,7 @@
 
 /**
  *	Parses an <element> node.
+ *	"minOccurs" is parsed but ignored in the class generation, except for a comment on the property.
  *	@return A dictionary with these attributes for this element: name, type, class, minOccurs and comment.
  */
 - (NSDictionary *)processElement:(INXMLNode *)element
@@ -263,7 +264,7 @@
 
 /**
  *	Processes "attribute" nodes and returns a dictionary with its properties.
- *	@return A dictionary with these attributes for this element: name, type, class, minOccurs and comment.
+ *	@return A dictionary with these attributes for this element: name, type, class, minOccurs, itemClass and comment.
  */
 - (NSDictionary *)processAttribute:(INXMLNode *)attribute
 {
