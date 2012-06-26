@@ -268,7 +268,6 @@
 
 - (void)testDemographics
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
@@ -276,75 +275,66 @@
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoDemographics *doc = [[IndivoDemographics alloc] initFromNode:node];
 	
-	STAssertNotNil(doc, @"Equipment Document");
-	STAssertEqualObjects(@"2095-10-11", [doc.dateOfDeath isoString], @"death date");
-	STAssertEqualObjects(@"Tailor", doc.occupation.string, @"occupation");
+	STAssertNotNil(doc, @"Demographics Document");
+	STAssertEqualObjects(@"1939-11-15", [doc.dateOfBirth isoString], @"b-day");
+	STAssertEqualObjects(@"caucasian", doc.race.string, @"race");
+	STAssertEqualObjects(@"555-5555", ((IndivoTelephone *)[doc.Telephone objectAtIndex:0]).number.string, @"telephone number");
 	
 	// test value changes
 	doc.dateOfBirth.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
 	STAssertEqualObjects(@"2012-01-31", [doc.dateOfBirth isoString], @"New birth date");
-	doc.organDonor = [INBool newYes];
-	STAssertTrue(doc.organDonor.flag, @"New organ donor");
+	IndivoTelephone *new_tel = [IndivoTelephone new];
+	new_tel.number = [INString newWithString:@"617 555-5555"];
+	doc.Telephone = [NSArray arrayWithObject:new_tel];
+	STAssertEqualObjects(@"617 555-5555", ((IndivoTelephone *)[doc.Telephone objectAtIndex:0]).number.string, @"new phone number");
 	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"demographics" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<ethnicity>Scottish</ethnicity>"].location, @"XML generation");
 }
 
 - (void)testImmunization
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *fixture = [server readFixture:@"immunization"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoImmunization *doc = [[IndivoImmunization alloc] initFromNode:node];
+	IndivoImmunization *doc = [[IndivoImmunization alloc] initFromNode:node forRecord:nil];
 	
 	STAssertNotNil(doc, @"Immunization Document");
-	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.dateAdministered isoString], @"administration date");
-	STAssertEqualObjects(@"Children's Hospital Boston", doc.administeredBy.string, @"administered by");
-	STAssertEqualObjects(@"hep-B", doc.vaccine.type.value, @"vaccine type");
-	STAssertEqualObjects(@"2009-06-01", [doc.vaccine.expiration isoString], @"expiration date");
-	STAssertEqualObjects(@"Shoulder", doc.anatomicSurface.text, @"injection site");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.date isoString], @"date");
+	STAssertEqualObjects(@"Not Administered", doc.administration_status.title, @"administration status");
+	STAssertEqualObjects(@"TYPHOID", doc.product_class.title, @"product class");
 	
 	// test value changes
-	doc.dateAdministered.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.dateAdministered isoString], @"New administration date");
-	doc.vaccine.manufacturer = [INString newWithString:@"Novartis Pharma"];
-	STAssertEqualObjects(@"Novartis Pharma", doc.vaccine.manufacturer.string, @"New manufacturer");
+	doc.date.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.date isoString], @"New date");
+	doc.refusal_reason.title = @"Whatever";
+	STAssertEqualObjects(@"Whatever", doc.refusal_reason.title, @"New refusal title");
 	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"immunization" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"refusal_reason_system\">http://smartplatforms.org/terms/codes/ImmunizationRefusalReason#</Field>"].location, @"XML generation");
 }
 
 - (void)testProblem
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *fixture = [server readFixture:@"problem"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoProblem *doc = [[IndivoProblem alloc] initFromNode:node];
+	IndivoProblem *doc = [[IndivoProblem alloc] initFromNode:node forRecord:nil];
 	
 	STAssertNotNil(doc, @"Problem Document");
-	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.dateOnset isoString], @"onset date");
-	STAssertEqualObjects(@"Myocardial Infarction", doc.name.text, @"name string");
-	STAssertEqualObjects(@"MI", doc.name.abbrev, @"name abbrev");
-	STAssertEqualObjects(@"Dr. Mandl", doc.diagnosedBy.string, @"diagnosed by");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.startDate isoString], @"onset date");
+	STAssertEqualObjects(@"Backache (Finding)", doc.name.title, @"name string");
 	
 	// test value changes
-	doc.dateOnset.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.dateOnset isoString], @"New onset date");
+	doc.endDate.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.endDate isoString], @"New end date");
 	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"problem" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"name_system\">http://purl.bioontology.org/ontology/SNOMEDCT/</Field>"].location, @"XML generation");
 }
 
 - (void)testVitalSign
@@ -485,7 +475,7 @@
 	
 	uint64_t elapsedTime = mach_absolute_time() - startTime;
 	double elapsedTimeInNanoseconds = elapsedTime * ticksToNanoseconds;
-	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 2/2/2012, iMac i7 2.8GHz 4Gig RAM: ~0.6 sec
+	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 6/26/2012, iMac i7 2.8GHz 4Gig RAM: ~0.16 sec
 }
 
 
