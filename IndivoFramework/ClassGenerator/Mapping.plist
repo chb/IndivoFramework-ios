@@ -50,5 +50,7 @@
 	<string>INPharmacy</string>
 	<key>Provider</key>
 	<string>INProvider</string>
+	<key>QuantitativeResult</key>
+	<string>INQuantitativeResult</string>
 </dict>
 </plist>

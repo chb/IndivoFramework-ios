@@ -189,67 +189,48 @@
 
 - (void)testAllergy
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *med = [server readFixture:@"allergy"];
 	INXMLNode *node = [INXMLParser parseXML:med error:&error];
-	IndivoAllergy *doc = [[IndivoAllergy alloc] initFromNode:node];
+	IndivoAllergy *doc = [[IndivoAllergy alloc] initFromNode:[node childNamed:@"Model"] forRecord:nil];
 	
 	STAssertNotNil(doc, @"Allergy");
-	STAssertEqualObjects(@"2009-05-16", [doc.dateDiagnosed isoString], @"date diagnosed");
-	STAssertEqualObjects(@"blue rash", doc.reaction.string, @"reaction");
+	STAssertEqualObjects(@"Drug allergy", doc.category.title, @"category title");
+	STAssertEqualObjects(@"39579001", doc.allergic_reaction.identifier, @"reaction id");
 	
-	// test allergens
-	IndivoAllergyAllergen *allergen = doc.allergen;
-	STAssertEqualObjects(@"drugs", allergen.type.value, @"allergen: %@", [allergen xml]);
-	
-	// test value changes
-	doc.dateDiagnosed.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31", [doc.dateDiagnosed isoString], @"New date diagnosed");
-	doc.specifics = [INString newWithString:@"happens on weekends and Tuesdays"];
-	STAssertEqualObjects(@"happens on weekends and Tuesdays", doc.specifics.string, @"New specifics");
-	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"allergy" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-	
-	doc.allergen = nil;
-	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
-	
-	doc.allergen = [IndivoAllergyAllergen new];
-	doc.allergen.type = [INCodedValue new];
-	doc.allergen.name = [INCodedValue new];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"drug_class_allergen_system\">http://purl.bioontology.org/ontology/NDFRT/</Field>"].location, @"XML generation");
 }
 
 - (void)testLabPanel
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *labXML = [server readFixture:@"lab"];
 	INXMLNode *labNode = [INXMLParser parseXML:labXML error:&error];
-	IndivoLab *lab = [[IndivoLab alloc] initFromNode:labNode];
+	IndivoLabResult *lab = [[IndivoLabResult alloc] initFromNode:labNode forRecord:nil];
 	
 	STAssertNotNil(lab, @"Lab");
-	STAssertEqualObjects(@"2009-07-16T12:00:00Z", [lab.dateMeasured isoString], @"measure date");
-	STAssertEqualObjects(@"hematology", lab.labType.string, @"lab type");
+	STAssertEqualObjects(@"2010-12-27T17:00:00Z", [lab.collected_at isoString], @"collection date");
+	STAssertEqualObjects(@"Serum Sodium", lab.test_name.title, @"lab type");
+	
+	INQuantitativeResult *res = lab.quantitative_result;
+	NSDecimalNumber *upper = [NSDecimalNumber decimalNumberWithString:@"155"];
+	STAssertEqualObjects(upper, res.non_critical_range.max.value, @"upper non critical bound");
 	
 	// test value changes
-	lab.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [lab.dateMeasured isoString], @"changed date");
+	lab.collected_at.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [lab.collected_at isoString], @"changed date");
+	INUnitValue *new_upper = [INUnitValue new];
+	new_upper.value = upper;
+	lab.quantitative_result.normal_range.max = new_upper;
+	STAssertEqualObjects(upper, lab.quantitative_result.normal_range.max.value, @"upper non critical bound");
 	
-	// validate
-	NSString *labXSDPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"lab" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[lab documentXML] againstXSD:labXSDPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [lab documentXML]);
-	
-	lab.dateMeasured = nil;
-	STAssertFalse([INXMLParser validateXML:[lab documentXML] againstXSD:labXSDPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [lab documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[lab documentXML] rangeOfString:@"<Field name=\"quantitative_result_non_critical_range_min_unit\">mEq/L</Field>"].location, @"XML generation");
 }
 
 - (void)testEquipment

@@ -16,7 +16,7 @@
 		<string>record_documents</string>
 		<key>/records/abc/apps/unittest@apps.indivo.org/documents/</key>
 		<string>app_documents</string>
-		<key>/records/abc/reports/minimal/labs/</key>
+		<key>/records/abc/reports/LabResult/</key>
 		<string>lab_reports</string>
 		<key>/records/abc/documents/mock-doc-id</key>
 		<string>posted_document</string>

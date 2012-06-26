@@ -2,7 +2,7 @@
  IndivoLabResult.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/22/2012.
+ Created by Indivo Class Generator on 6/26/2012.
  Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 
 @implementation IndivoLabResult
 
-@synthesize collected_at, collected_by_org, narrative_result, notes, collected_by_role, test_name, accession_number, abnormal_interpretation, status;
+@synthesize collected_at, collected_by_org, collected_by_name, narrative_result, notes, quantitative_result, collected_by_role, test_name, accession_number, abnormal_interpretation, status;
 
 
 + (NSString *)nodeName
@@ -50,8 +50,10 @@
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			@"INDateTime", @"collected_at",
 			@"INOrganization", @"collected_by_org",
+			@"IndivoName", @"collected_by_name",
 			@"INString", @"narrative_result",
 			@"INString", @"notes",
+			@"INQuantitativeResult", @"quantitative_result",
 			@"INString", @"collected_by_role",
 			@"INCodedValue", @"test_name",
 			@"INString", @"accession_number",

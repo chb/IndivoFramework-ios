@@ -333,6 +333,12 @@
 		EED39B84148D1A9500843AAE /* IndivoActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED39B82148D1A9400843AAE /* IndivoActionView.m */; };
 		EED835F814CE182E000F533D /* GeneratorTemplate.h in Resources */ = {isa = PBXBuildFile; fileRef = EED835F414CE1636000F533D /* GeneratorTemplate.h */; };
 		EED835F914CE182E000F533D /* GeneratorTemplate.m in Resources */ = {isa = PBXBuildFile; fileRef = EED835F514CE1636000F533D /* GeneratorTemplate.m */; };
+		EED8BDC6159A0D1200917698 /* INQuantitativeResult.h in Headers */ = {isa = PBXBuildFile; fileRef = EED8BDC4159A0D1200917698 /* INQuantitativeResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EED8BDC7159A0D1200917698 /* INQuantitativeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDC5159A0D1200917698 /* INQuantitativeResult.m */; };
+		EED8BDC8159A0D1200917698 /* INQuantitativeResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDC5159A0D1200917698 /* INQuantitativeResult.m */; };
+		EED8BDCC159A0E0100917698 /* INValueRange.h in Headers */ = {isa = PBXBuildFile; fileRef = EED8BDCA159A0E0100917698 /* INValueRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EED8BDCD159A0E0100917698 /* INValueRange.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDCB159A0E0100917698 /* INValueRange.m */; };
+		EED8BDCE159A0E0100917698 /* INValueRange.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDCB159A0E0100917698 /* INValueRange.m */; };
 		EEDB8C37145CB02A001C6C2C /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C08145CB02A001C6C2C /* MPDebug.h */; };
 		EEDB8C39145CB02A001C6C2C /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDB8C3A145CB02A001C6C2C /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */; };
@@ -619,6 +625,10 @@
 		EED39B82148D1A9400843AAE /* IndivoActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndivoActionView.m; sourceTree = "<group>"; };
 		EED835F414CE1636000F533D /* GeneratorTemplate.h */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EED835F514CE1636000F533D /* GeneratorTemplate.m */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = GeneratorTemplate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EED8BDC4159A0D1200917698 /* INQuantitativeResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INQuantitativeResult.h; sourceTree = "<group>"; };
+		EED8BDC5159A0D1200917698 /* INQuantitativeResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INQuantitativeResult.m; sourceTree = "<group>"; };
+		EED8BDCA159A0E0100917698 /* INValueRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INValueRange.h; sourceTree = "<group>"; };
+		EED8BDCB159A0E0100917698 /* INValueRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INValueRange.m; sourceTree = "<group>"; };
 		EEDB8C08145CB02A001C6C2C /* MPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDebug.h; sourceTree = "<group>"; };
 		EEDB8C0A145CB02A001C6C2C /* MPOAuthAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPOAuthAPI.h; sourceTree = "<group>"; };
 		EEDB8C0B145CB02A001C6C2C /* MPOAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPI.m; sourceTree = "<group>"; };
@@ -827,6 +837,8 @@
 				EEA0893114CF5C9500CB97D6 /* INInteger.m */,
 				EE37573614314D22002ABE18 /* INUnitValue.h */,
 				EE37573714314D22002ABE18 /* INUnitValue.m */,
+				EED8BDCA159A0E0100917698 /* INValueRange.h */,
+				EED8BDCB159A0E0100917698 /* INValueRange.m */,
 				EE37574014314D51002ABE18 /* INDuration.h */,
 				EE37574114314D51002ABE18 /* INDuration.m */,
 				EE959674157FF88C007793A8 /* INVitalSign.h */,
@@ -843,6 +855,8 @@
 				EE959670157FF77E007793A8 /* INOrganization.m */,
 				EEB68EEB14F582C300F9FE61 /* INDocumentStatusNode.h */,
 				EEB68EEC14F582C300F9FE61 /* INDocumentStatusNode.m */,
+				EED8BDC4159A0D1200917698 /* INQuantitativeResult.h */,
+				EED8BDC5159A0D1200917698 /* INQuantitativeResult.m */,
 			);
 			name = "Indivo Objects";
 			sourceTree = "<group>";
@@ -1342,6 +1356,8 @@
 				EED0B3CF159502E2001DF771 /* INAddress.h in Headers */,
 				EED0B3D615951483001DF771 /* NSObject+ClassUtils.h in Headers */,
 				EED0B3DC15952B5F001DF771 /* IndivoLabResult+Report.h in Headers */,
+				EED8BDC6159A0D1200917698 /* INQuantitativeResult.h in Headers */,
+				EED8BDCC159A0E0100917698 /* INValueRange.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1605,6 +1621,8 @@
 				EED0B3D0159502E2001DF771 /* INAddress.m in Sources */,
 				EED0B3D715951483001DF771 /* NSObject+ClassUtils.m in Sources */,
 				EED0B3DD15952B5F001DF771 /* IndivoLabResult+Report.m in Sources */,
+				EED8BDC7159A0D1200917698 /* INQuantitativeResult.m in Sources */,
+				EED8BDCD159A0E0100917698 /* INValueRange.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1715,6 +1733,8 @@
 				EED0B3D31595099A001DF771 /* IndivoDemographics.m in Sources */,
 				EED0B3D815951483001DF771 /* NSObject+ClassUtils.m in Sources */,
 				EED0B3DE15952B5F001DF771 /* IndivoLabResult+Report.m in Sources */,
+				EED8BDC8159A0D1200917698 /* INQuantitativeResult.m in Sources */,
+				EED8BDCE159A0E0100917698 /* INValueRange.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

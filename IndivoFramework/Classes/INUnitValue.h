@@ -24,7 +24,7 @@
 
 
 /**
- *	Represents an "indivo:ValueAndUnit" XML node
+ *	Represents a ValueAndUnitField dummy field
  */
 @interface INUnitValue : INObject
 

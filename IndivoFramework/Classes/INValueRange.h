@@ -1,8 +1,8 @@
 /*
- INObjects.h
+ INValueRange.h
  IndivoFramework
  
- Created by Pascal Pfiffner on 9/26/11.
+ Created by Pascal Pfiffner on 2/22/12.
  Copyright (c) 2011 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,32 +20,16 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#import "INObject.h"
+#import "INUnitValue.h"
+
 
 /**
- *	Header file which includes all our INObject-Subclass-Headers for convenience
+ *	A ValueRangeField dummy field
  */
+@interface INValueRange : INObject
 
-#import "INObject.h"
-#import "INAttr.h"
-#import "INBool.h"
-#import "INString.h"
-#import "INNormalizedString.h"
-#import "INAnyURI.h"
-#import "INDate.h"
-#import "INDateTime.h"
-#import "INCodedValue.h"
-#import "INDecimal.h"
-#import "INFloat.h"
-#import "INDouble.h"
-#import "INInteger.h"
-#import "INUnitValue.h"
-#import "INValueRange.h"
-#import "INDuration.h"
-#import "INVitalSign.h"
-#import "INBloodPressure.h"
-#import "INAddress.h"
-#import "INProvider.h"
-#import "INOrganization.h"
-#import "INPharmacy.h"
-#import "INDocumentStatusNode.h"
-#import "INQuantitativeResult.h"
+@property (nonatomic, strong) INUnitValue *min;			///< The lower bound on the range
+@property (nonatomic, strong) INUnitValue *max;			///< The upper bound on the range
+
+@end
