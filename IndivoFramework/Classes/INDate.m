@@ -83,17 +83,14 @@ static NSDateFormatter *isoDateFormatter = nil;
 	return (nil == date);
 }
 
-- (NSString *)xml
+- (NSString *)innerXML
 {
-	if ([self isNull]) {
-		return @"";
-	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], [self isoString], self.nodeName];
+	return [self isoString];
 }
 
 - (NSString *)attributeValue
 {
-	return [self isoString];
+	return [self isNull] ? [self isoString] : @"";
 }
 
 - (NSArray *)flatXMLPartsWithPrefix:(NSString *)prefix

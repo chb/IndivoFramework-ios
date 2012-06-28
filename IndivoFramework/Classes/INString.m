@@ -56,9 +56,9 @@
 	return ([string length] < 1);
 }
 
-- (NSString *)xml
+- (NSString *)innerXML
 {
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.string ? [self.string xmlSafe] : @""), self.nodeName];
+	return self.string ? [self.string xmlSafe] : @"";
 }
 
 - (NSString *)attributeValue

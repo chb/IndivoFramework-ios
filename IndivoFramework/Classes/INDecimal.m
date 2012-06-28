@@ -60,12 +60,12 @@
 	return (nil == number);
 }
 
-- (NSString *)xml
+- (NSString *)innerXML
 {
 	if ([self isNull]) {
 		return @"";
 	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.number ? self.number : @""), self.nodeName];
+	return self.number ? [self.number stringValue] : @"";
 }
 
 - (NSString *)attributeValue

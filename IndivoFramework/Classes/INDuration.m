@@ -56,12 +56,9 @@
 	return ([duration length] < 1);
 }
 
-- (NSString *)xml
+- (NSString *)innerXML
 {
-	if ([self isNull]) {
-		return @"";
-	}
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.duration ? [self.duration xmlSafe] : @""), self.nodeName];
+	return [self isNull] ? [self.duration xmlSafe] : @"";
 }
 
 - (NSString *)attributeValue

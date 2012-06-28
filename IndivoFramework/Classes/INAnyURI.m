@@ -56,9 +56,9 @@
 	return ([uri length] < 1);
 }
 
-- (NSString *)xml
+- (NSString *)innerXML
 {
-	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], (self.uri ? [self.uri xmlSafe] : @""), self.nodeName];
+	return self.uri ? [self.uri xmlSafe] : @"";
 }
 
 - (NSString *)attributeValue

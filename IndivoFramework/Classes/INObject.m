@@ -212,7 +212,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
  */
 - (NSString *)xml
 {
-	return [NSString stringWithFormat:@"<%@ />", [self tagString]];
+	return [NSString stringWithFormat:@"<%@>%@</%@>", [self tagString], [self innerXML], self.nodeName];
 }
 
 /**

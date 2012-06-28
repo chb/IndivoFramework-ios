@@ -265,7 +265,7 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 				this.activeRecord.accessTokenSecret = [userInfo objectForKey:@"oauth_token_secret"];
 			}
 			
-			// fetch the contact document to get the record label (this non-authentication call will make the login view controller disappear, don't forget that if you remove it)
+			// fetch record info to get the record label (this non-authentication call will make the login view controller disappear, don't forget that if you remove it)
 			if (this.activeRecord) {
 				[this.activeRecord fetchRecordInfoWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 					

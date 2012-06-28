@@ -78,6 +78,16 @@
 	[testRecord fetchDemographicsDocumentWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 		STAssertEqualObjects(@"1939-11-15", [testRecord.demographicsDoc.dateOfBirth isoString], @"Demographics birthday");
 		STAssertEqualObjects(@"Bruce", testRecord.demographicsDoc.Name.givenName, @"Given name");
+		INTelephone *preferredPhone = nil;
+		for (INTelephone *phone in testRecord.demographicsDoc.Telephone) {
+			if (phone.preferred.flag) {
+				preferredPhone = phone;
+				break;
+			}
+		}
+		STAssertNotNil(preferredPhone, @"Finding preferred phone");
+		STAssertEqualObjects(@"555-5555", preferredPhone.number, @"Preferred phone number");
+		STAssertEqualObjects(@"h", preferredPhone.type.string, @"Preferred phone type");
 	}];
 	
 	// record documents
@@ -89,7 +99,7 @@
 	
 	IndivoLabResult *newLab = (IndivoLabResult *)[testRecord addDocumentOfClass:[IndivoLabResult class] error:&error];
 	if (!newLab) {
-		THROW(@"Failed to add lab result document: %@", [error localizedDescription]);
+		THROW(@"Failed to get new lab result document: %@", [error localizedDescription]);
 	}
 	
 	// record-app documents
@@ -478,7 +488,7 @@
 	
 	uint64_t elapsedTime = mach_absolute_time() - startTime;
 	double elapsedTimeInNanoseconds = elapsedTime * ticksToNanoseconds;
-	NSLog(@"1'000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 6/26/2012, iMac i7 2.8GHz 4Gig RAM: ~0.16 sec
+	NSLog(@"1000 XML generation calls: %.4f sec", elapsedTimeInNanoseconds / 1000000000);				// 6/26/2012, iMac i7 2.8GHz 4Gig RAM: ~0.16 sec
 }
 
 
