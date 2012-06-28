@@ -2,8 +2,8 @@
  IndivoProcedure.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/28/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -23,19 +23,23 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoProvider;
+
 	
 
 /**
- *	A class representing "indivo:Procedure" objects, generated from /indivo/schemas/data/core/procedure/schema.xsd.
+ *	A class representing "indivo:Procedure" objects, generated from /indivo/data_models/core/procedure/model.sdml.
  */
 @interface IndivoProcedure : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *datePerformed;
-@property (nonatomic, strong) INCodedValue *name;					///< minOccurs = 1
-@property (nonatomic, strong) IndivoProvider *provider;
 @property (nonatomic, strong) INString *location;
+@property (nonatomic, strong) INString *name_value;
+@property (nonatomic, strong) INString *provider_name;
+@property (nonatomic, strong) INString *name_abbrev;
 @property (nonatomic, strong) INString *comments;
+@property (nonatomic, strong) INString *provider_institution;
+@property (nonatomic, strong) INString *name_type;
+@property (nonatomic, strong) INDateTime *date_performed;
+@property (nonatomic, strong) INString *name;
 
 
 @end

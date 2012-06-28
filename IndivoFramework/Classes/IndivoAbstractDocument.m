@@ -214,7 +214,6 @@
 				// found the node
 				if (myNode) {
 					if (isDocument) {														// IndivoAbstractDocument subclass
-						DLog(@">>>  %@  [%@]", fullName, NSStringFromClass(ivarClass))
 						IndivoAbstractDocument *sub = [ivarClass new];
 						[sub setFromFlatParent:[myNode childNamed:@"Model"] prefix:nil];
 						object_setIvar(self, ivars[i], sub);

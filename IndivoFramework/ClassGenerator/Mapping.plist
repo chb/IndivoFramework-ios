@@ -38,6 +38,12 @@
 	<string>INGenderType</string>
 	<key>String</key>
 	<string>INString</string>
+	<key>Name</key>
+	<string>INName</string>
+	<key>Telephone</key>
+	<string>INTelephone</string>
+	<key>PhoneType</key>
+	<string>INPhoneType</string>
 	<key>Date</key>
 	<string>INDateTime</string>
 	<key>Number</key>

@@ -174,20 +174,46 @@
 
 
 #pragma mark - Document XML Tests
+- (void)testDemographics
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [server readFixture:@"demographics"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoDemographics *doc = [[IndivoDemographics alloc] initFromNode:node];
+	
+	STAssertNotNil(doc, @"Demographics Document");
+	STAssertEqualObjects(@"1939-11-15", [doc.dateOfBirth isoString], @"b-day");
+	STAssertEqualObjects(@"caucasian", doc.race.string, @"race");
+	STAssertEqualObjects(@"555-5555", ((INTelephone *)[doc.Telephone objectAtIndex:0]).number, @"telephone number");
+	
+	// test value changes
+	doc.dateOfBirth.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31", [doc.dateOfBirth isoString], @"New birth date");
+	INTelephone *new_tel = [INTelephone new];
+	new_tel.number = @"617 555-5555";
+	doc.Telephone = [NSArray arrayWithObject:new_tel];
+	STAssertEqualObjects(@"617 555-5555", ((INTelephone *)[doc.Telephone objectAtIndex:0]).number, @"new phone number");
+	
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<ethnicity>Scottish</ethnicity>"].location, @"XML generation");
+}
+
 - (void)testMedication
 {
 	NSError *error = nil;
 	
     // test parsing
-	NSString *med = [server readFixture:@"medication"];
-	INXMLNode *medNode = [INXMLParser parseXML:med error:&error];
-	IndivoMedication *medication = [[IndivoMedication alloc] initFromNode:medNode forRecord:nil];
+	NSString *fixture = [server readFixture:@"medication"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoMedication *doc = [[IndivoMedication alloc] initFromNode:node forRecord:nil];
 	
-	STAssertNotNil(medication, @"Medication");
-	STAssertEqualObjects(@"2007-03-14T00:00:00Z", [medication.startDate isoString], @"start date");
-	STAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2"], medication.frequency.value, @"frequency");
+	STAssertNotNil(doc, @"Medication");
+	STAssertEqualObjects(@"2007-03-14T00:00:00Z", [doc.startDate isoString], @"start date");
+	STAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"2"], doc.frequency.value, @"frequency");
 	
-	IndivoFill *fill = [medication.fulfillments lastObject];
+	IndivoFill *fill = [doc.fulfillments lastObject];
 	STAssertTrue([fill isKindOfClass:[IndivoFill class]], @"Fill class");
 	STAssertEqualObjects(@"2007-04-14T04:00:00Z", [fill.date isoString], @"Filling date");
 	STAssertEqualObjects(@"WonderCity", fill.pharmacy.adr.city, @"Filling pharmacy city");
@@ -202,8 +228,8 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *med = [server readFixture:@"allergy"];
-	INXMLNode *node = [INXMLParser parseXML:med error:&error];
+	NSString *fixture = [server readFixture:@"allergy"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
 	IndivoAllergy *doc = [[IndivoAllergy alloc] initFromNode:[node childNamed:@"Model"] forRecord:nil];
 	
 	STAssertNotNil(doc, @"Allergy");
@@ -219,88 +245,51 @@
 	NSError *error = nil;
 	
     // test parsing
-	NSString *labXML = [server readFixture:@"lab"];
-	INXMLNode *labNode = [INXMLParser parseXML:labXML error:&error];
-	IndivoLabResult *lab = [[IndivoLabResult alloc] initFromNode:labNode forRecord:nil];
+	NSString *fixture = [server readFixture:@"lab"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoLabResult *doc = [[IndivoLabResult alloc] initFromNode:node forRecord:nil];
 	
-	STAssertNotNil(lab, @"Lab");
-	STAssertEqualObjects(@"2010-12-27T17:00:00Z", [lab.collected_at isoString], @"collection date");
-	STAssertEqualObjects(@"Serum Sodium", lab.test_name.title, @"lab type");
+	STAssertNotNil(doc, @"Lab");
+	STAssertEqualObjects(@"2010-12-27T17:00:00Z", [doc.collected_at isoString], @"collection date");
+	STAssertEqualObjects(@"Serum Sodium", doc.test_name.title, @"lab type");
 	
-	INQuantitativeResult *res = lab.quantitative_result;
+	INQuantitativeResult *res = doc.quantitative_result;
 	NSDecimalNumber *upper = [NSDecimalNumber decimalNumberWithString:@"155"];
 	STAssertEqualObjects(upper, res.non_critical_range.max.value, @"upper non critical bound");
 	
 	// test value changes
-	lab.collected_at.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [lab.collected_at isoString], @"changed date");
+	doc.collected_at.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.collected_at isoString], @"changed date");
 	INUnitValue *new_upper = [INUnitValue new];
 	new_upper.value = upper;
-	lab.quantitative_result.normal_range.max = new_upper;
-	STAssertEqualObjects(upper, lab.quantitative_result.normal_range.max.value, @"upper non critical bound");
+	doc.quantitative_result.normal_range.max = new_upper;
+	STAssertEqualObjects(upper, doc.quantitative_result.normal_range.max.value, @"upper non critical bound");
 	
 	// test XML generation
-	STAssertTrue(NSNotFound != [[lab documentXML] rangeOfString:@"<Field name=\"quantitative_result_non_critical_range_min_unit\">mEq/L</Field>"].location, @"XML generation");
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"quantitative_result_non_critical_range_min_unit\">mEq/L</Field>"].location, @"XML generation");
 }
 
 - (void)testEquipment
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
-	NSString *equip = [server readFixture:@"equipment"];
-	INXMLNode *node = [INXMLParser parseXML:equip error:&error];
-	IndivoEquipment *doc = [[IndivoEquipment alloc] initFromNode:node];
+	NSString *fixture = [server readFixture:@"equipment"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoEquipment *doc = [[IndivoEquipment alloc] initFromNode:node forRecord:nil];
 	
 	STAssertNotNil(doc, @"Equipment Document");
-	STAssertEqualObjects(@"2009-02-05", [doc.dateStarted isoString], @"date started");
-	STAssertEqualObjects(@"Acme Medical Devices", doc.vendor.string, @"vendor");
+	STAssertEqualObjects(@"2009-02-05T00:00:00Z", [doc.date_started isoString], @"date started");
+	STAssertEqualObjects(@"Pacemaker", doc.name.string, @"vendor");
 	
 	// test value changes
-	doc.dateStopped.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31", [doc.dateStopped isoString], @"New date stopped");
-	doc.specification = [INString newWithString:@"no specification available"];
-	STAssertEqualObjects(@"no specification available", doc.specification.string, @"New specification");
-	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"equipment" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-	
-	doc.name = nil;
-	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
-	
-	doc.name = [INString new];
-	doc.name.string = @"Pacemaker 2000";
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
-}
-
-- (void)testDemographics
-{
-	NSError *error = nil;
-	
-    // test parsing
-	NSString *fixture = [server readFixture:@"demographics"];
-	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoDemographics *doc = [[IndivoDemographics alloc] initFromNode:node];
-	
-	STAssertNotNil(doc, @"Demographics Document");
-	STAssertEqualObjects(@"1939-11-15", [doc.dateOfBirth isoString], @"b-day");
-	STAssertEqualObjects(@"caucasian", doc.race.string, @"race");
-	NSLog(@"%@", [doc documentXML]);
-	STAssertEqualObjects(@"555-5555", ((INTelephone *)[doc.Telephone objectAtIndex:0]).number, @"telephone number");
-	
-	// test value changes
-	doc.dateOfBirth.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31", [doc.dateOfBirth isoString], @"New birth date");
-	INTelephone *new_tel = [INTelephone new];
-	new_tel.number = @"617 555-5555";
-	doc.Telephone = [NSArray arrayWithObject:new_tel];
-	STAssertEqualObjects(@"617 555-5555", ((INTelephone *)[doc.Telephone objectAtIndex:0]).number, @"new phone number");
+	doc.date_stopped.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.date_stopped isoString], @"New date stopped");
+	doc.description = [INString newWithString:@"no description available"];
+	STAssertEqualObjects(@"no description available", doc.description.string, @"New description");
 	
 	// test XML generation
-	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<ethnicity>Scottish</ethnicity>"].location, @"XML generation");
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"vendor\">Acme Medical Devices</Field>"].location, @"XML generation");
 }
 
 - (void)testImmunization
@@ -408,29 +397,21 @@
 
 - (void)testProcedure
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *fixture = [server readFixture:@"procedure"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoProcedure *doc = [[IndivoProcedure alloc] initFromNode:node];
+	IndivoProcedure *doc = [[IndivoProcedure alloc] initFromNode:node forRecord:nil];
 	
 	STAssertNotNil(doc, @"Clinical Procedure Document");
-	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.datePerformed isoString], @"performed date");
-	STAssertEqualObjects(@"Kenneth Mandl", [doc.provider.name string], @"provider name");
+	STAssertEqualObjects(@"Appendectomy", doc.name.string, @"procedure name");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.date_performed isoString], @"performed date");
+	STAssertEqualObjects(@"Kenneth Mandl", doc.provider_name.string, @"provider name");
 	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"procedure" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-	
-	doc.name = nil;
-	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
-	
-	doc.name = [INCodedValue new];
-	doc.name.text = @"Appendectomy";
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"name_type\">http://codes.indivo.org/procedures#</Field>"].location, @"XML generation");
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"provider_institution\">Children&#x27;s Hospital Boston</Field>"].location, @"XML generation");
 }
 
 - (void)testSchoolForm

@@ -2,8 +2,8 @@
  IndivoEquipment.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/28/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -27,18 +27,15 @@
 	
 
 /**
- *	A class representing "indivo:Equipment" objects, generated from /indivo/schemas/data/core/equipment/schema.xsd.
+ *	A class representing "indivo:Equipment" objects, generated from /indivo/data_models/core/equipment/model.sdml.
  */
 @interface IndivoEquipment : IndivoDocument
 
-@property (nonatomic, strong) INDate *dateStarted;
-@property (nonatomic, strong) INDate *dateStopped;
-@property (nonatomic, strong) INString *type;
-@property (nonatomic, strong) INString *name;					///< minOccurs = 1
 @property (nonatomic, strong) INString *vendor;
+@property (nonatomic, strong) INDateTime *date_started;
+@property (nonatomic, strong) INDateTime *date_stopped;
+@property (nonatomic, strong) INString *name;
 @property (nonatomic, strong) INString *description;
-@property (nonatomic, strong) INString *specification;
-@property (nonatomic, strong) INString *certification;
 
 
 @end
