@@ -49,13 +49,13 @@
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			@"INDate", @"dateOfBirth",
-			@"IndivoGenderType", @"gender",
+			@"INGenderType", @"gender",
 			@"INString", @"email",
 			@"INString", @"ethnicity",
 			@"INString", @"preferredLanguage",
 			@"INString", @"race",
-			@"IndivoName", @"Name",
-			@"IndivoTelephone", @"Telephone",
+			@"INName", @"Name",
+			@"INTelephone", @"Telephone",
 			@"INAddress", @"Address",
 			nil];
 }

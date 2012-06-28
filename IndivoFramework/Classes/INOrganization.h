@@ -21,8 +21,8 @@
  */
 
 
-#import "INObject.h"
+#import "INParentObject.h"
 
-@interface INOrganization : INObject
+@interface INOrganization : INParentObject
 
 @end

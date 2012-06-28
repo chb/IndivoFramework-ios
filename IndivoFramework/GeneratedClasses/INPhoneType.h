@@ -1,8 +1,8 @@
 /*
- IndivoPhoneType.m
+ INPhoneType.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
+ Created by Pascal Pfiffner Generator on 6/26/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,33 +20,13 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoPhoneType.h"
-#import "IndivoDocument.h"
+#import "INNormalizedString.h"
 
 
-@implementation IndivoPhoneType
-
-
-+ (NSString *)nodeName
-{
-	return @"PhoneType";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:PhoneType";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-+ (NSArray *)restrictedTo
-{
-	return [NSArray arrayWithObjects:@"h", @"w", @"c", nil];
-}
-
+/**
+ *	A class representing "indivo:PhoneType" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
+ */
+@interface INPhoneType : INNormalizedString
 
 
 @end

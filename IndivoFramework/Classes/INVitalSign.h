@@ -21,8 +21,13 @@
  */
 
 
-#import "INObjects.h"
+#import "INParentObject.h"
+#import "INCodedValue.h"
 
+
+/**
+ *	A "VitalSigns" object (yes, note the "s")
+ */
 @interface INVitalSign : INObject
 
 @property (nonatomic, copy) NSString *unit;

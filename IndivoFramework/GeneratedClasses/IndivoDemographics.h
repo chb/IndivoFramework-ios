@@ -23,8 +23,7 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoGenderType;
-@class IndivoName;
+@class INName;
 	
 
 /**
@@ -33,13 +32,13 @@
 @interface IndivoDemographics : IndivoDocument
 
 @property (nonatomic, strong) INDate *dateOfBirth;					///< minOccurs = 1
-@property (nonatomic, strong) IndivoGenderType *gender;					///< minOccurs = 1
+@property (nonatomic, strong) INGenderType *gender;					///< minOccurs = 1
 @property (nonatomic, strong) INString *email;
 @property (nonatomic, strong) INString *ethnicity;
 @property (nonatomic, strong) INString *preferredLanguage;
 @property (nonatomic, strong) INString *race;
-@property (nonatomic, strong) IndivoName *Name;					///< minOccurs = 1
-@property (nonatomic, strong) NSArray *Telephone;					///< An array containing IndivoTelephone objects
+@property (nonatomic, strong) INName *Name;					///< minOccurs = 1
+@property (nonatomic, strong) NSArray *Telephone;					///< An array containing INTelephone objects
 @property (nonatomic, strong) INAddress *Address;
 
 

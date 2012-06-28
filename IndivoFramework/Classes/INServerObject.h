@@ -20,14 +20,14 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "INParentObject.h"
 #import "IndivoServer.h"
 
 
 /**
  *	INServerObject extends INObject in that it represents an XML document tree "belonging" to a given server.
  */
-@interface INServerObject : INObject
+@interface INServerObject : INParentObject
 
 @property (nonatomic, assign) IndivoServer *server;									///< Our beloved server
 @property (nonatomic, strong) NSString *uuid;										///< This object's udid

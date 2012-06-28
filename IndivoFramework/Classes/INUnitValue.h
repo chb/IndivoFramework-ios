@@ -20,13 +20,13 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "INParentObject.h"
 
 
 /**
  *	Represents a ValueAndUnitField dummy field
  */
-@interface INUnitValue : INObject
+@interface INUnitValue : INParentObject
 
 @property (nonatomic, copy) NSDecimalNumber *value;
 @property (nonatomic, copy) NSString *unit;

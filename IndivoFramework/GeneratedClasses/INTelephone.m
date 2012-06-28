@@ -1,8 +1,8 @@
 /*
- IndivoTelephone.h
+ INTelephone.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
+ Created by Pascal Pfiffner on 6/26/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,20 +20,23 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+#import "INTelephone.h"
 #import "IndivoDocument.h"
-#import "INObjects.h"
 
-@class IndivoPhoneType;
+
+@implementation INTelephone
+
+@synthesize type, number, preferred;
+
+
+- (void)setFromNode:(INXMLNode *)node
+{
+	[super setFromNode:node];
 	
-
-/**
- *	A class representing "indivo:Telephone" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
- */
-@interface IndivoTelephone : IndivoDocument
-
-@property (nonatomic, strong) IndivoPhoneType *type;
-@property (nonatomic, strong) INString *number;					///< minOccurs = 1
-@property (nonatomic, strong) INBool *preferred;
+	self.type = [INPhoneType objectFromNode:[node childNamed:@"type"]];
+	self.number = [node childNamed:@"number"].text;
+	self.preferred = [[node childNamed:@"preferred"] boolValue] ? [INBool newYes] : [INBool newNo];
+}
 
 
 @end

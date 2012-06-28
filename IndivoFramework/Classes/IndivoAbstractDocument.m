@@ -93,6 +93,10 @@
  */
 - (void)setFromNode:(INXMLNode *)node
 {
+	if (!node) {
+		return;
+	}
+	
 	// node name and node type
 	self.nodeName = node.name;
 	NSString *newType = [node attr:@"type"];
@@ -190,11 +194,9 @@
 			
 			// init objects based on property class
 			NSString *fullName = prefix ? [NSString stringWithFormat:@"%@_%@", prefix, ivarName] : ivarName;
+			BOOL isDocument = [ivarClass isSubclassOfClass:[IndivoAbstractDocument class]];
 			
-			if ([ivarClass isSubclassOfClass:[IndivoAbstractDocument class]]) {				// IndivoAbstractDocument subclass
-				DLog(@">>>  %@  [%@]", fullName, NSStringFromClass(ivarClass));
-			}
-			else if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass
+			if (!isDocument && [ivarClass isSubclassOfClass:[INObject class]]) {			// INObject subclass which can use up multiple nodes
 				//DLog(@"-->  %@  [%@]", fullName, NSStringFromClass(ivarClass))
 				INObject *newObj = [ivarClass new];
 				[newObj setFromFlatParent:parent prefix:fullName];
@@ -211,7 +213,13 @@
 				
 				// found the node
 				if (myNode) {
-					if ([ivarClass isSubclassOfClass:[NSArray class]]) {					// NSArray
+					if (isDocument) {														// IndivoAbstractDocument subclass
+						DLog(@">>>  %@  [%@]", fullName, NSStringFromClass(ivarClass))
+						IndivoAbstractDocument *sub = [ivarClass new];
+						[sub setFromFlatParent:[myNode childNamed:@"Model"] prefix:nil];
+						object_setIvar(self, ivars[i], sub);
+					}
+					else if ([ivarClass isSubclassOfClass:[NSArray class]]) {				// NSArray
 						Class itemClass = [[self class] classForProperty:ivarName];
 						if (itemClass) {
 							NSArray *children = [[myNode childNamed:@"Models"] children];
@@ -245,6 +253,7 @@
 				}
 			}
 		}
+		free(ivars);
 	}
 }
 

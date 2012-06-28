@@ -20,13 +20,13 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "INParentObject.h"
 
 
 /**
  *	Represents an "indivo:CodedValue" XML node
  */
-@interface INCodedValue : INObject
+@interface INCodedValue : INParentObject
 
 @property (nonatomic, copy) NSString *system;
 @property (nonatomic, copy) NSString *identifier;

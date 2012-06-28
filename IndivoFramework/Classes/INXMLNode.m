@@ -174,6 +174,22 @@
 
 
 
+#pragma mark - Properties
+/**
+ *	Returns a boolean value by interpreting the text content. Any form of "true", "yes" and 1 returns a YES, everything else a NO
+ */
+- (BOOL)boolValue
+{
+	if (NSOrderedSame == [@"true" compare:text options:NSCaseInsensitiveSearch]
+		|| NSOrderedSame == [@"yes" compare:text options:NSCaseInsensitiveSearch]
+		|| NSOrderedSame == [@"1" compare:text options:NSCaseInsensitiveSearch]) {
+		return YES;
+	}
+	return NO;
+}
+
+
+
 #pragma mark - XML
 - (NSString *)xml
 {

@@ -60,10 +60,10 @@
 
 // Contact Data
 #import "IndivoDemographics.h"
-#import "IndivoGenderType.h"
-#import "IndivoName.h"
-#import "IndivoPhoneType.h"
-#import "IndivoTelephone.h"
+#import "INGenderType.h"
+#import "INName.h"
+#import "INPhoneType.h"
+#import "INTelephone.h"
 
 // Other
 #import "IndivoAggregateReport.h"

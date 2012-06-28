@@ -21,7 +21,12 @@
  */
 
 #import "INProvider.h"
+#import "INName.h"
+#import "INTelephone.h"
+
 
 @implementation INProvider
+
+@synthesize dea_number, ethnicity, race, npi_number, preferred_language, adr, bday, email, name, tel_1, tel_2, gender;
 
 @end

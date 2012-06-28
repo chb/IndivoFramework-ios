@@ -2,8 +2,8 @@
  IndivoEncounter.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/15/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 6/26/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@
 
 @implementation IndivoEncounter
 
-@synthesize facility, startDate, endDate, encounterType;
+@synthesize facility, startDate, endDate, provider, encounterType;
 
 
 + (NSString *)nodeName
@@ -51,22 +51,11 @@
 			@"INOrganization", @"facility",
 			@"INDateTime", @"startDate",
 			@"INDateTime", @"endDate",
+			@"INProvider", @"provider",
 			@"INCodedValue", @"encounterType",
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"facility", @"startDate", @"endDate", @"encounterType", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"facility", @"startDate", @"endDate", @"encounterType", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 

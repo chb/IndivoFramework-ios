@@ -20,14 +20,14 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "INParentObject.h"
 #import "INUnitValue.h"
 
 
 /**
  *	A ValueRangeField dummy field
  */
-@interface INValueRange : INObject
+@interface INValueRange : INParentObject
 
 @property (nonatomic, strong) INUnitValue *min;			///< The lower bound on the range
 @property (nonatomic, strong) INUnitValue *max;			///< The upper bound on the range

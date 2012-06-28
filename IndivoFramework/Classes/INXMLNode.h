@@ -44,6 +44,8 @@
 - (INXMLNode *)childNamed:(NSString *)childName;
 - (NSArray *)childrenNamed:(NSString *)childName;
 
+- (BOOL)boolValue;
+
 // attributes
 - (id)attr:(NSString *)attributeName;
 - (NSNumber *)numAttr:(NSString *)attributeName;

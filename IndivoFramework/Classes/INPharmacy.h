@@ -21,15 +21,17 @@
  */
 
 
-#import "INObjects.h"
+#import "INParentObject.h"
+#import "INString.h"
+#import "INAddress.h"
 
-@class INAddress;		// compiler errors if this is not present, despite INAddress.h being included in INObjects.h
+//@class INAddress;		// compiler errors if this is not present, despite INAddress.h being included in INObjects.h
 
 
 /**
  *	A class to represent a "Pharmacy" field
  */
-@interface INPharmacy : INObject
+@interface INPharmacy : INParentObject
 
 @property (nonatomic, strong) INString *ncpdpid;			///< The pharmacy's National Council for Prescription Drug Programs (NCPDP) ID number
 @property (nonatomic, strong) INString *org;				///< The organization

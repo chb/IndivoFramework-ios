@@ -1,9 +1,9 @@
 /*
- IndivoName.h
+ INGenderType.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/22/2012.
- Copyright (c) 2012 Boston Children's Hospital
+ Created by Pascal Pfiffner on 6/26/2012.
+ Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -20,22 +20,15 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "INGenderType.h"
 
 
-	
+@implementation INGenderType
 
-/**
- *	A class representing "indivo:Name" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
- */
-@interface IndivoName : IndivoDocument
-
-@property (nonatomic, strong) INString *familyName;					///< minOccurs = 1
-@property (nonatomic, strong) INString *givenName;					///< minOccurs = 1
-@property (nonatomic, strong) INString *middleName;
-@property (nonatomic, strong) INString *prefix;
-@property (nonatomic, strong) INString *suffix;
++ (NSArray *)restrictedTo
+{
+	return [NSArray arrayWithObjects:@"female", @"male", nil];
+}
 
 
 @end

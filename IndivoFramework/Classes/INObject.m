@@ -104,53 +104,18 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 }
 
 /**
- *	The INObject implementation sets the node name and node type (if a "type" attribute is found in the XML node) from an INXMLNode parsed
- *	from an Indivo XML.
- *	This methed replaces all properties with values found in the node, leaves those not present untouched. This method is called from the
- *	designated initializer, subclasses should override it to set custom properties and call  [super setFromNode:node]
+ *	The INObject implementation sets the node name and node type (if a "type" attribute is found in the XML node) from an INXMLNode parsed from Indivo XML
+ *	This method is called from the designated initializer, subclasses should override it to set custom properties and call [super setFromNode:node]
  */
 - (void)setFromNode:(INXMLNode *)aNode
 {
 	if (aNode) {
 		self.nodeName = aNode.name;
 		
-		NSString *newType = [aNode attr:@"type"];
-		if (newType) {
-		//	self.nodeType = newType;
-		}
-		
-		// if we have defined attributes, loop our ivars to find the ones we must assign from node attributes
-		NSArray *myAttrs = [[self class] attributeNames];
-		if ([myAttrs count] > 0) {
-			unsigned int num, i;
-			Ivar *ivars = class_copyIvarList([self class], &num);
-			for (i = 0; i < num; i++) {
-				id ivarObj = object_getIvar(self, ivars[i]);
-				NSString *ivarName = ivarNameFromIvar(ivars[i]);
-				
-				// found the ivar we need
-				if ([myAttrs containsObject:ivarName]) {
-					NSString *attr = [aNode attr:ivarName];
-					if ([attr length] > 0) {
-						Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
-						
-						// depending on the class, set our property
-						if ([ivarClass isSubclassOfClass:[INObject class]]) {							// INObject
-							[self setValue:[ivarClass objectFromAttribute:ivarName inNode:aNode] forKey:ivarName];
-						}
-						else if ([ivarClass isSubclassOfClass:[NSString class]]) {						// NSString
-							[self setValue:attr forKey:ivarName];
-						}
-						else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {						// NSNumber
-							[self setValue:[NSDecimalNumber decimalNumberWithString:attr] forKey:ivarName];
-						}
-						else {
-							DLog(@"I don't know how to generate an object of class %@ as an attribute for %@", NSStringFromClass(ivarClass), ivarName);
-						}
-					}
-				}
-			}
-		}
+	//	NSString *newType = [aNode attr:@"type"];
+	//	if (newType) {
+	//		self.nodeType = newType;
+	//	}
 	}
 }
 
@@ -168,53 +133,53 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
  */
 - (void)setFromFlatParent:(INXMLNode *)parent prefix:(NSString *)prefix
 {
-	//DLog(@"ooo>  Setting %@ with prefix \"%@\"", NSStringFromClass([self class]), prefix ? prefix : @"");
-	unsigned int num, i;
-	Ivar *ivars = class_copyIvarList([self class], &num);
-	for (i = 0; i < num; i++) {
-		id ivarObj = object_getIvar(self, ivars[i]);
-		NSString *ivarName = ivarNameFromIvar(ivars[i]);
-		Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
-		if (!ivarClass) {
-			DLog(@"Can't determine class for ivar \"%@\"", ivarName);
-			continue;
-		}
-		
-		// init objects based on property class
-		NSString *fullName = prefix ? [NSString stringWithFormat:@"%@_%@", prefix, ivarName] : ivarName;
-		//DLog(@"--->  %@  [%@]", fullName, NSStringFromClass(ivarClass));
-		
-		if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass - might need several nodes for one object
-			INObject *newObj = [ivarClass new];
-			[newObj setFromFlatParent:parent prefix:fullName];
-			object_setIvar(self, ivars[i], newObj);
-		}
-		else {																		// single node objects:
-			INXMLNode *myNode = nil;
-			for (INXMLNode *sub in [parent children]) {
-				if ([fullName isEqualToString:[sub attr:@"name"]]) {
-					myNode = sub;
-					break;
+	if (parent) {
+		unsigned int num, i;
+		Ivar *ivars = class_copyIvarList([self class], &num);
+		for (i = 0; i < num; i++) {
+			id ivarObj = object_getIvar(self, ivars[i]);
+			NSString *ivarName = ivarNameFromIvar(ivars[i]);
+			Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
+			if (!ivarClass) {
+				DLog(@"Can't determine class for ivar \"%@\"", ivarName);
+				continue;
+			}
+			
+			// init objects based on property class
+			NSString *fullName = prefix ? [NSString stringWithFormat:@"%@_%@", prefix, ivarName] : ivarName;
+			id value = nil;
+			
+			if ([ivarClass isSubclassOfClass:[INObject class]]) {						// INObject subclass - might need several nodes for one object
+				value = [ivarClass new];
+				[(INObject *)value setFromFlatParent:parent prefix:fullName];
+			}
+			else {																		// single node objects:
+				INXMLNode *myNode = nil;
+				for (INXMLNode *sub in [parent children]) {
+					if ([fullName isEqualToString:[sub attr:@"name"]]) {
+						myNode = sub;
+						break;
+					}
+				}
+				
+				// we found a node, let's instantiate if we can
+				if (myNode) {
+					if ([ivarClass isSubclassOfClass:[NSString class]]) {				// NSString
+						value = [myNode.text copy];
+					}
+					else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {			// NSNumber
+						value = ([myNode.text length] > 0) ? [NSDecimalNumber decimalNumberWithString:myNode.text] : nil;
+					}
+					else {
+						DLog(@"I don't know how to generate an object of class %@ as an attribute for %@", NSStringFromClass(ivarClass), ivarName);
+					}
 				}
 			}
 			
-			// we found a node, let's instantiate
-			if (myNode) {
-				if ([ivarClass isSubclassOfClass:[NSString class]]) {				// NSString
-					object_setIvar(self, ivars[i], [myNode.text copy]);
-				}
-				else if ([ivarClass isSubclassOfClass:[NSNumber class]]) {			// NSNumber
-					NSDecimalNumber *value = ([myNode.text length] > 0) ? [NSDecimalNumber decimalNumberWithString:myNode.text] : nil;
-					object_setIvar(self, ivars[i], value);
-				}
-				else {
-					DLog(@"I don't know how to generate an object of class %@ as an attribute for %@", NSStringFromClass(ivarClass), ivarName);
-				}
-			}
-			else {
-				//DLog(@"xxx>  No node for %@  [%@]", fullName, NSStringFromClass(ivarClass));
-			}
+			// set the ivar (even if it's nil!)
+			object_setIvar(self, ivars[i], value);
 		}
+		free(ivars);
 	}
 }
 
@@ -359,15 +324,15 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 				[parts addObjectsFromArray:[anObject flatXMLPartsWithPrefix:fullName]];
 			}
 			
-			// does it respond to stringValue?
-			else if ([anObject respondsToSelector:@selector(stringValue)]) {
-				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, [anObject stringValue]];
-				[parts addObjectIfNotNil:child];
-			}
-			
 			// is it a string itself?
 			else if ([anObject isKindOfClass:[NSString class]]) {
 				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, anObject];
+				[parts addObjectIfNotNil:child];
+			}
+			
+			// does it respond to stringValue?
+			else if ([anObject respondsToSelector:@selector(stringValue)]) {
+				NSString *child = [NSString stringWithFormat:@"<Field name=\"%@\">%@</Field>", fullName, [anObject stringValue]];
 				[parts addObjectIfNotNil:child];
 			}
 			
@@ -378,6 +343,7 @@ NSString *const INClassGeneratorTypePrefix = @"indivo";
 			}
 		}
 	}
+	free(ivars);
 	
 	return parts;
 }

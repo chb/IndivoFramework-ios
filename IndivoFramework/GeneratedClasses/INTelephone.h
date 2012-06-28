@@ -1,8 +1,8 @@
 /*
- IndivoGenderType.m
+ INTelephone.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
+ Created by Pascal Pfiffner on 6/26/2012.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,32 +20,19 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoGenderType.h"
-#import "IndivoDocument.h"
+#import "INParentObject.h"
+#import "INPhoneType.h"
+#import "INBool.h"
 
 
-@implementation IndivoGenderType
+/**
+ *	A class representing a Telephone object
+ */
+@interface INTelephone : INParentObject
 
-
-+ (NSString *)nodeName
-{
-	return @"GenderType";
-}
-
-+ (NSString *)nodeType
-{
-	return @"indivo:GenderType";
-}
-
-+ (void)load
-{
-	[IndivoDocument registerDocumentClass:self];
-}
-
-+ (NSArray *)restrictedTo
-{
-	return [NSArray arrayWithObjects:@"female", @"male", nil];
-}
+@property (nonatomic, strong) INPhoneType *type;
+@property (nonatomic, copy) NSString *number;
+@property (nonatomic, strong) INBool *preferred;
 
 
 @end

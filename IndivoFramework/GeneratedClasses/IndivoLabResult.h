@@ -23,7 +23,7 @@
 #import "IndivoDocument.h"
 #import "INObjects.h"
 
-@class IndivoName;
+@class INName;
 	
 
 /**
@@ -33,7 +33,7 @@
 
 @property (nonatomic, strong) INDateTime *collected_at;
 @property (nonatomic, strong) INOrganization *collected_by_org;
-@property (nonatomic, strong) IndivoName *collected_by_name;
+@property (nonatomic, strong) INName *collected_by_name;
 @property (nonatomic, strong) INString *narrative_result;
 @property (nonatomic, strong) INString *notes;
 @property (nonatomic, strong) INQuantitativeResult *quantitative_result;

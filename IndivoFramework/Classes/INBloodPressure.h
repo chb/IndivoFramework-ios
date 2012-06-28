@@ -21,8 +21,8 @@
  */
 
 
-#import "INObject.h"
+#import "INParentObject.h"
 
-@interface INBloodPressure : INObject
+@interface INBloodPressure : INParentObject
 
 @end

@@ -50,7 +50,7 @@
 	return [NSDictionary dictionaryWithObjectsAndKeys:
 			@"INDateTime", @"collected_at",
 			@"INOrganization", @"collected_by_org",
-			@"IndivoName", @"collected_by_name",
+			@"INName", @"collected_by_name",
 			@"INString", @"narrative_result",
 			@"INString", @"notes",
 			@"INQuantitativeResult", @"quantitative_result",

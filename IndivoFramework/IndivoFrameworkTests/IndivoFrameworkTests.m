@@ -77,7 +77,7 @@
 	
 	[testRecord fetchDemographicsDocumentWithCallback:^(BOOL userDidCancel, NSString *__autoreleasing errorMessage) {
 		STAssertEqualObjects(@"1939-11-15", [testRecord.demographicsDoc.dateOfBirth isoString], @"Demographics birthday");
-		STAssertEqualObjects(@"Bruce", testRecord.demographicsDoc.Name.givenName.string, @"Given name");
+		STAssertEqualObjects(@"Bruce", testRecord.demographicsDoc.Name.givenName, @"Given name");
 	}];
 	
 	// record documents
@@ -180,7 +180,7 @@
 	IndivoFill *fill = [medication.fulfillments lastObject];
 	STAssertTrue([fill isKindOfClass:[IndivoFill class]], @"Fill class");
 	STAssertEqualObjects(@"2007-04-14T04:00:00Z", [fill.date isoString], @"Filling date");
-	STAssertEqualObjects(@"WonderCity", fill.pharmacy.adr.city.string, @"Filling pharmacy city");
+	STAssertEqualObjects(@"WonderCity", fill.pharmacy.adr.city, @"Filling pharmacy city");
 	
 	// test value changes
 	fill.date.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
@@ -278,15 +278,16 @@
 	STAssertNotNil(doc, @"Demographics Document");
 	STAssertEqualObjects(@"1939-11-15", [doc.dateOfBirth isoString], @"b-day");
 	STAssertEqualObjects(@"caucasian", doc.race.string, @"race");
-	STAssertEqualObjects(@"555-5555", ((IndivoTelephone *)[doc.Telephone objectAtIndex:0]).number.string, @"telephone number");
+	NSLog(@"%@", [doc documentXML]);
+	STAssertEqualObjects(@"555-5555", ((INTelephone *)[doc.Telephone objectAtIndex:0]).number, @"telephone number");
 	
 	// test value changes
 	doc.dateOfBirth.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
 	STAssertEqualObjects(@"2012-01-31", [doc.dateOfBirth isoString], @"New birth date");
-	IndivoTelephone *new_tel = [IndivoTelephone new];
-	new_tel.number = [INString newWithString:@"617 555-5555"];
+	INTelephone *new_tel = [INTelephone new];
+	new_tel.number = @"617 555-5555";
 	doc.Telephone = [NSArray arrayWithObject:new_tel];
-	STAssertEqualObjects(@"617 555-5555", ((IndivoTelephone *)[doc.Telephone objectAtIndex:0]).number.string, @"new phone number");
+	STAssertEqualObjects(@"617 555-5555", ((INTelephone *)[doc.Telephone objectAtIndex:0]).number, @"new phone number");
 	
 	// test XML generation
 	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<ethnicity>Scottish</ethnicity>"].location, @"XML generation");
@@ -339,28 +340,30 @@
 
 - (void)testVitalSign
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *fixture = [server readFixture:@"vitals"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoVitalSign *doc = [[IndivoVitalSign alloc] initFromNode:node];
+	IndivoVitalSigns *doc = [[IndivoVitalSigns alloc] initFromNode:node forRecord:nil];
 	
 	STAssertNotNil(doc, @"VitalSign Document");
-	STAssertEqualObjects(@"2009-05-16T15:23:21Z", [doc.dateMeasured isoString], @"measured date");
-	STAssertEqualObjects(@"Blood Pressure Systolic", doc.name.text, @"name string");
-	STAssertEqualObjects(@"BPsys", doc.name.abbrev, @"name abbrev");
-	STAssertEqualObjects(@"sitting down", doc.position.string, @"position");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.date isoString], @"date");
+	STAssertEqualObjects(@"{beats}/min", doc.heart_rate.unit, @"heart rate unit");
+	STAssertEqualObjects(@"2009-05-16T16:00:00Z", [doc.encounter.endDate isoString], @"encounter end date");
+	STAssertEqualObjects(@"Ambulatory encounter", doc.encounter.encounterType.title, @"encounter type");
+	
+	STAssertEqualObjects(@"Josuha", doc.encounter.provider.name.givenName, @"given name of the provider");
+	STAssertEqualObjects(@"1-235-947-3452", doc.encounter.provider.tel_1.number, @"1st phone number of the provider");
+	STAssertEqualObjects(@"w", doc.encounter.provider.tel_1.type.string, @"1st phone number type of the provider");
 	
 	// test value changes
-	doc.dateMeasured.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.dateMeasured isoString], @"New measured date");
+	doc.date.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.date isoString], @"New measured date");
 	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"vitals" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"height_name_identifier\">8302-2</Field>"].location, @"XML generation");
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"provider_tel_1_number\">1-235-947-3452</Field>"].location, @"XML generation");
 }
 
 - (void)testClinicalNote

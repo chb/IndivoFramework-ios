@@ -46,28 +46,5 @@
 	return ([identifier length] < 1 && [system length] < 1 && [title length] < 1);
 }
 
-- (NSString *)xml
-{
-	return @"<to_re_implement/>";
-	/*
-	if ([self isNull]) {
-		return [NSString stringWithFormat:@"<%@ />", [self tagString]];
-	}
-	if ([text length] > 0) {
-		return [NSString stringWithFormat:@"<%@%@%@%@>%@</%@>",
-				[self tagString],
-				(self.type ? [NSString stringWithFormat:@" type=\"%@\"", [self.type xmlSafe]] : @""),
-				(self.abbrev ? [NSString stringWithFormat:@" abbrev=\"%@\"", [self.abbrev xmlSafe]] : @""),
-				(self.value ? [NSString stringWithFormat:@" value=\"%@\"", [self.value xmlSafe]] : @""),
-				[self.text xmlSafe],
-				self.nodeName];
-	}
-	return [NSString stringWithFormat:@"<%@%@%@%@ />",
-			[self tagString],
-			(self.type ? [NSString stringWithFormat:@" type=\"%@\"", [self.type xmlSafe]] : @""),
-			(self.abbrev ? [NSString stringWithFormat:@" abbrev=\"%@\"", [self.abbrev xmlSafe]] : @""),
-			(self.value ? [NSString stringWithFormat:@" value=\"%@\"", [self.value xmlSafe]] : @"")];		//	*/
-}
-
 
 @end

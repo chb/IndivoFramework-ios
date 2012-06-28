@@ -34,6 +34,8 @@
 	<string>IndivoDocument</string>
 	<key>indivo:Address</key>
 	<string>INAddress</string>
+	<key>indivo:GenderType</key>
+	<string>INGenderType</string>
 	<key>String</key>
 	<string>INString</string>
 	<key>Date</key>

@@ -1,8 +1,8 @@
 /*
- IndivoEncounter.h
+ INName.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/26/2012.
+ Created by Indivo Class Generator on 6/22/2012.
  Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
@@ -20,22 +20,19 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "IndivoDocument.h"
-#import "INObjects.h"
+#import "INParentObject.h"
 
-
-	
 
 /**
- *	A class representing "indivo:Encounter" objects, generated from /indivo/data_models/core/vitals/model.sdml.
+ *	A class representing Indivo Name objects
  */
-@interface IndivoEncounter : IndivoDocument
+@interface INName : INParentObject
 
-@property (nonatomic, strong) INOrganization *facility;
-@property (nonatomic, strong) INDateTime *startDate;
-@property (nonatomic, strong) INDateTime *endDate;
-@property (nonatomic, strong) INProvider *provider;
-@property (nonatomic, strong) INCodedValue *encounterType;
+@property (nonatomic, copy) NSString *familyName;					///< minOccurs = 1
+@property (nonatomic, copy) NSString *givenName;					///< minOccurs = 1
+@property (nonatomic, copy) NSString *middleName;
+@property (nonatomic, copy) NSString *prefix;
+@property (nonatomic, copy) NSString *suffix;
 
 
 @end

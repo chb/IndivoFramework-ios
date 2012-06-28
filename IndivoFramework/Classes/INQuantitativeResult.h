@@ -20,7 +20,7 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INObject.h"
+#import "INParentObject.h"
 #import "INValueRange.h"
 #import "INUnitValue.h"
 
@@ -28,7 +28,7 @@
 /**
  *	A class representing the "QuantitativeResultField" dummy field
  */
-@interface INQuantitativeResult : INObject
+@interface INQuantitativeResult : INParentObject
 
 @property (nonatomic, strong) INValueRange *non_critical_range;			///< The non-critical range for this type of results
 @property (nonatomic, strong) INValueRange *normal_range;				///< The normal range for this type of results

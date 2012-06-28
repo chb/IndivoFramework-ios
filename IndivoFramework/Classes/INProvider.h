@@ -21,12 +21,34 @@
  */
 
 
-#import "INObjects.h"
+#import "INParentObject.h"
+#import "INAddress.h"
+#import "INDate.h"
+#import "INName.h"
+#import "INTelephone.h"
+#import "INNormalizedString.h"
+
+@class INName;
+@class INTelephone;
 
 
 /**
- *	Representing a "Provider" field
+ *	Representing a "Provider" dummy field
  */
-@interface INProvider : INObject
+@interface INProvider : INParentObject
+
+@property (nonatomic, copy) NSString *dea_number;
+@property (nonatomic, copy) NSString *ethnicity;
+@property (nonatomic, copy) NSString *race;
+@property (nonatomic, copy) NSString *npi_number;
+@property (nonatomic, copy) NSString *preferred_language;
+@property (nonatomic, strong) INAddress *adr;
+@property (nonatomic, strong) INDate *bday;
+@property (nonatomic, copy) NSString *email;
+@property (nonatomic, strong) INName *name;
+@property (nonatomic, strong) INTelephone *tel_1;
+@property (nonatomic, strong) INTelephone *tel_2;
+@property (nonatomic, strong) INNormalizedString *gender;
+
 
 @end

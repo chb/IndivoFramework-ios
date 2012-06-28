@@ -1,8 +1,8 @@
 /*
- IndivoGenderType.h
+ INParentObject.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
+ Created by Pascal Pfiffner on 6/26/12.
  Copyright (c) 2012 Children's Hospital Boston
  
  This library is free software; you can redistribute it and/or
@@ -20,17 +20,16 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#import "INNormalizedString.h"
-#import "INObjects.h"
+#import "INObject.h"
 
-
-	
 
 /**
- *	A class representing "indivo:GenderType" objects, generated from /indivo/schemas/data/core/demographics/schema.xsd.
+ *	This class is designed as abstract superclass for objects that have a few child elements.
+ *	
+ *	This class is designed as abstract superclass for objects that have a few child elements of simple type (NSString, NSDecimalNumber, ...) or INObject
+ *	subclasses. The child elements can NOT be arrays. It extends INObject in that XML deserialization and serialization walk the instance's ivars and composes
+ *	the XML automatically.
  */
-@interface IndivoGenderType : INNormalizedString
-
-
+@interface INParentObject : INObject
 
 @end

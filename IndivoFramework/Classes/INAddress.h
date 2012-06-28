@@ -21,18 +21,18 @@
  */
 
 
-#import "INObjects.h"
+#import "INParentObject.h"
 
 
 /**
  *	A generic address object
  */
-@interface INAddress : INObject
+@interface INAddress : INParentObject
 
-@property (nonatomic, strong) INString *country;
-@property (nonatomic, strong) INString *city;
-@property (nonatomic, strong) INString *postalCode;
-@property (nonatomic, strong) INString *region;
-@property (nonatomic, strong) INString *street;
+@property (nonatomic, copy) NSString *country;
+@property (nonatomic, copy) NSString *city;
+@property (nonatomic, copy) NSString *postalCode;
+@property (nonatomic, copy) NSString *region;
+@property (nonatomic, copy) NSString *street;
 
 @end
