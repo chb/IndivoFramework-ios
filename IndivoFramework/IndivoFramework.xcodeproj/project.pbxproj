@@ -246,7 +246,7 @@
 		EEB73A7F158A990E00FDEA0A /* IndivoEncounter.h in Headers */ = {isa = PBXBuildFile; fileRef = EEB73A7D158A990E00FDEA0A /* IndivoEncounter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEB73A80158A990E00FDEA0A /* IndivoEncounter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB73A7E158A990E00FDEA0A /* IndivoEncounter.m */; };
 		EEB73A81158A990E00FDEA0A /* IndivoEncounter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB73A7E158A990E00FDEA0A /* IndivoEncounter.m */; };
-		EEB73A84158BAEAA00FDEA0A /* IndivoAllergyExclusion.h in Headers */ = {isa = PBXBuildFile; fileRef = EEB73A82158BAEAA00FDEA0A /* IndivoAllergyExclusion.h */; };
+		EEB73A84158BAEAA00FDEA0A /* IndivoAllergyExclusion.h in Headers */ = {isa = PBXBuildFile; fileRef = EEB73A82158BAEAA00FDEA0A /* IndivoAllergyExclusion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEB73A85158BAEAA00FDEA0A /* IndivoAllergyExclusion.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB73A83158BAEAA00FDEA0A /* IndivoAllergyExclusion.m */; };
 		EEB73A86158BAEAA00FDEA0A /* IndivoAllergyExclusion.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB73A83158BAEAA00FDEA0A /* IndivoAllergyExclusion.m */; };
 		EECC232F14D70E9400B4FC30 /* IndivoMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC232D14D70E9400B4FC30 /* IndivoMedication.h */; settings = {ATTRIBUTES = (Public, ); }; };
