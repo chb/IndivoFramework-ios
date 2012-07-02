@@ -241,6 +241,30 @@
 	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"drug_class_allergen_system\">http://purl.bioontology.org/ontology/NDFRT/</Field>"].location, @"XML generation");
 }
 
+- (void)testImmunization
+{
+	NSError *error = nil;
+	
+    // test parsing
+	NSString *fixture = [server readFixture:@"immunization"];
+	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
+	IndivoImmunization *doc = [[IndivoImmunization alloc] initFromNode:node forRecord:nil];
+	
+	STAssertNotNil(doc, @"Immunization Document");
+	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.date isoString], @"date");
+	STAssertEqualObjects(@"Not Administered", doc.administration_status.title, @"administration status");
+	STAssertEqualObjects(@"TYPHOID", doc.product_class.title, @"product class");
+	
+	// test value changes
+	doc.date.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
+	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.date isoString], @"New date");
+	doc.refusal_reason.title = @"Whatever";
+	STAssertEqualObjects(@"Whatever", doc.refusal_reason.title, @"New refusal title");
+	
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"refusal_reason_system\">http://smartplatforms.org/terms/codes/ImmunizationRefusalReason#</Field>"].location, @"XML generation");
+}
+
 - (void)testLabPanel
 {
 	NSError *error = nil;
@@ -291,30 +315,6 @@
 	
 	// test XML generation
 	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"vendor\">Acme Medical Devices</Field>"].location, @"XML generation");
-}
-
-- (void)testImmunization
-{
-	NSError *error = nil;
-	
-    // test parsing
-	NSString *fixture = [server readFixture:@"immunization"];
-	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoImmunization *doc = [[IndivoImmunization alloc] initFromNode:node forRecord:nil];
-	
-	STAssertNotNil(doc, @"Immunization Document");
-	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.date isoString], @"date");
-	STAssertEqualObjects(@"Not Administered", doc.administration_status.title, @"administration status");
-	STAssertEqualObjects(@"TYPHOID", doc.product_class.title, @"product class");
-	
-	// test value changes
-	doc.date.date = [NSDate dateWithTimeIntervalSince1970:1328024441];
-	STAssertEqualObjects(@"2012-01-31T10:40:41Z", [doc.date isoString], @"New date");
-	doc.refusal_reason.title = @"Whatever";
-	STAssertEqualObjects(@"Whatever", doc.refusal_reason.title, @"New refusal title");
-	
-	// test XML generation
-	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"refusal_reason_system\">http://smartplatforms.org/terms/codes/ImmunizationRefusalReason#</Field>"].location, @"XML generation");
 }
 
 - (void)testProblem
@@ -368,32 +368,25 @@
 
 - (void)testClinicalNote
 {
-#if 0
 	NSError *error = nil;
 	
     // test parsing
 	NSString *fixture = [server readFixture:@"simplenote"];
 	INXMLNode *node = [INXMLParser parseXML:fixture error:&error];
-	IndivoSimpleClinicalNote *doc = [[IndivoSimpleClinicalNote alloc] initFromNode:node];
-	IndivoSignature *signature1 = [doc.signature objectAtIndex:0];
-	IndivoSignature *signature2 = [doc.signature objectAtIndex:1];
+	IndivoSimpleClinicalNote *doc = [[IndivoSimpleClinicalNote alloc] initFromNode:node forRecord:nil];
 	
 	STAssertNotNil(doc, @"Clinical Note Document");
-	STAssertEqualObjects(@"2010-02-03T13:12:00Z", [doc.finalizedAt isoString], @"finalized date");
-	STAssertEqualObjects(@"Kenneth Mandl", [signature1.provider.name string], @"signature 1 name");
-	STAssertEqualObjects(@"2010-02-03T13:12:00Z", [signature1.at isoString], @"signature 1 date");
-	STAssertEqualObjects(@"Isaac Kohane", [signature2.provider.name string], @"signature 2 name");
+	STAssertEqualObjects(@"2010-02-03T13:12:00Z", [doc.finalized_at isoString], @"finalized date");
+	STAssertEqualObjects(@"Kenneth Mandl", [doc.provider_name string], @"signature 1 name");
+	STAssertEqualObjects(@"2010-02-03T13:12:00Z", [doc.signed_at isoString], @"signature date");
+	STAssertEqualObjects(@"stomach ache", [doc.chief_complaint string], @"signature 2 name");
 	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"simplenote" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
+	// test paths
+	STAssertEqualObjects(@"/records/abc/reports/minimal/simple-clinical-notes/", [[doc class] fetchReportPathForRecord:self.server.activeRecord], @"Report path");
 	
-	doc.dateOfVisit = nil;
-	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
-	
-	doc.dateOfVisit = [INDateTime now];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
+	// test XML generation
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"specialty_type\">http://codes.indivo.org/specialties#</Field>"].location, @"XML generation");
+	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"visit_type_value\">123</Field>"].location, @"XML generation");
 }
 
 - (void)testProcedure
@@ -410,33 +403,12 @@
 	STAssertEqualObjects(@"2009-05-16T12:00:00Z", [doc.date_performed isoString], @"performed date");
 	STAssertEqualObjects(@"Kenneth Mandl", doc.provider_name.string, @"provider name");
 	
+	// test paths
+	STAssertEqualObjects(@"/records/abc/reports/minimal/procedures/", [[doc class] fetchReportPathForRecord:self.server.activeRecord], @"Report path");
+	
 	// test XML generation
 	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"name_type\">http://codes.indivo.org/procedures#</Field>"].location, @"XML generation");
 	STAssertTrue(NSNotFound != [[doc documentXML] rangeOfString:@"<Field name=\"provider_institution\">Children&#x27;s Hospital Boston</Field>"].location, @"XML generation");
-}
-
-- (void)testSchoolForm
-{
-#if 0
-	NSError *error = nil;
-	
-    // test creation (no fixture for now)
-	IndivoSchoolForm *doc = [IndivoSchoolForm new];
-	doc.date = [INDateTime now];
-	doc.notes = [INString newWithString:@"A note"];
-	
-	STAssertNotNil(doc, @"School Form Document");
-	
-	// validate
-	NSString *xsdPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"schoolform" ofType:@"xsd"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-	
-	doc.notes = nil;
-	STAssertFalse([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation succeeded when it shouldn't\n%@", [doc documentXML]);
-	
-	doc.notes = [INString newWithString:@"My school note"];
-	STAssertTrue([INXMLParser validateXML:[doc documentXML] againstXSD:xsdPath error:&error], @"XML Validation failed with error: %@\n%@", [error localizedDescription], [doc documentXML]);
-#endif
 }
 
 

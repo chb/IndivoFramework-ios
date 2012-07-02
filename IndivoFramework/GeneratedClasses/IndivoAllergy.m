@@ -58,18 +58,4 @@
 }
 
 
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"category", @"allergic_reaction", @"drug_class_allergen", @"food_allergen", @"drug_allergen", @"severity", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"category", @"allergic_reaction", @"drug_class_allergen", @"food_allergen", @"drug_allergen", @"severity", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
-
-
-
 @end

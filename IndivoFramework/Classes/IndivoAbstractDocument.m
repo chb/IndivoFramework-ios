@@ -120,9 +120,6 @@
 			id ivarObj = object_getIvar(self, ivars[i]);
 			NSString *ivarName = ivarNameFromIvar(ivars[i]);
 			Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
-			if (!ivarClass) {
-				DLog(@"WARNING: Class for property \"%@\" on %@ not loaded", ivarName, NSStringFromClass([self class]));
-			}
 			
 			// we got an array instance, try to fill it
 			if ([ivarClass isSubclassOfClass:[NSArray class]]) {
@@ -188,7 +185,6 @@
 			NSString *ivarName = ivarNameFromIvar(ivars[i]);
 			Class ivarClass = ivarObj ? [ivarObj class] : classFromIvar(ivars[i]);
 			if (!ivarClass) {
-				DLog(@"Can't determine class for ivar \"%@\"", ivarName);
 				continue;
 			}
 			

@@ -2,8 +2,8 @@
  IndivoSimpleClinicalNote.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 7/2/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -27,17 +27,25 @@
 	
 
 /**
- *	A class representing "indivo:SimpleClinicalNote" objects, generated from /indivo/schemas/data/core/simplenote/schema.xsd.
+ *	A class representing "indivo:SimpleClinicalNote" objects, generated from /indivo/data_models/core/simple_clinical_note/model.sdml.
  */
 @interface IndivoSimpleClinicalNote : IndivoDocument
 
-@property (nonatomic, strong) INDateTime *dateOfVisit;					///< minOccurs = 1
-@property (nonatomic, strong) INDateTime *finalizedAt;
-@property (nonatomic, strong) INCodedValue *visitType;
-@property (nonatomic, strong) INString *visitLocation;
-@property (nonatomic, strong) INCodedValue *specialty;
-@property (nonatomic, strong) NSArray *signature;					///< An array containing IndivoSignature objects. (minOccurs = 1)
-@property (nonatomic, strong) INString *chiefComplaint;
+@property (nonatomic, strong) INString *visit_type_abbrev;
+@property (nonatomic, strong) INString *visit_type_type;
+@property (nonatomic, strong) INString *provider_name;
+@property (nonatomic, strong) INString *visit_location;
+@property (nonatomic, strong) INDateTime *date_of_visit;
+@property (nonatomic, strong) INDateTime *finalized_at;
+@property (nonatomic, strong) INString *visit_type_value;
+@property (nonatomic, strong) INString *visit_type;
+@property (nonatomic, strong) INString *specialty;
+@property (nonatomic, strong) INString *specialty_value;
+@property (nonatomic, strong) INDateTime *signed_at;
+@property (nonatomic, strong) INString *provider_institution;
+@property (nonatomic, strong) INString *chief_complaint;
+@property (nonatomic, strong) INString *specialty_type;
+@property (nonatomic, strong) INString *specialty_abbrev;
 @property (nonatomic, strong) INString *content;
 
 

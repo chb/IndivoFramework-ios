@@ -61,18 +61,4 @@
 }
 
 
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"heart_rate", @"height", @"respiratory_rate", @"weight", @"encounter", @"date", @"temperature", @"oxygen_saturation", @"bmi", @"bp", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"heart_rate", @"height", @"respiratory_rate", @"weight", @"encounter", @"date", @"temperature", @"oxygen_saturation", @"bmi", @"bp", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
-
-
-
 @end

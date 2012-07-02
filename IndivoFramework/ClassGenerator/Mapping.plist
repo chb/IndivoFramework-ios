@@ -40,8 +40,12 @@
 	<string>INString</string>
 	<key>Name</key>
 	<string>INName</string>
+	<key>indivo:Telephone</key>
+	<string>INTelephone</string>
 	<key>Telephone</key>
 	<string>INTelephone</string>
+	<key>indivo:PhoneType</key>
+	<string>INPhoneType</string>
 	<key>PhoneType</key>
 	<string>INPhoneType</string>
 	<key>Date</key>

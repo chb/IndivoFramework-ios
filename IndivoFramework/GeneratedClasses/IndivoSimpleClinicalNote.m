@@ -2,8 +2,8 @@
  IndivoSimpleClinicalNote.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/4/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 7/2/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@
 
 @implementation IndivoSimpleClinicalNote
 
-@synthesize dateOfVisit, finalizedAt, visitType, visitLocation, specialty, signature, chiefComplaint, content;
+@synthesize visit_type_abbrev, visit_type_type, provider_name, visit_location, date_of_visit, finalized_at, visit_type_value, visit_type, specialty, specialty_value, signed_at, provider_institution, chief_complaint, specialty_type, specialty_abbrev, content;
 
 
 + (NSString *)nodeName
@@ -48,29 +48,25 @@
 + (NSDictionary *)propertyClassMapper
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys:
-			@"INDateTime", @"dateOfVisit",
-			@"INDateTime", @"finalizedAt",
-			@"INCodedValue", @"visitType",
-			@"INString", @"visitLocation",
-			@"INCodedValue", @"specialty",
-			@"IndivoSignature", @"signature",
-			@"INString", @"chiefComplaint",
+			@"INString", @"visit_type_abbrev",
+			@"INString", @"visit_type_type",
+			@"INString", @"provider_name",
+			@"INString", @"visit_location",
+			@"INDateTime", @"date_of_visit",
+			@"INDateTime", @"finalized_at",
+			@"INString", @"visit_type_value",
+			@"INString", @"visit_type",
+			@"INString", @"specialty",
+			@"INString", @"specialty_value",
+			@"INDateTime", @"signed_at",
+			@"INString", @"provider_institution",
+			@"INString", @"chief_complaint",
+			@"INString", @"specialty_type",
+			@"INString", @"specialty_abbrev",
 			@"INString", @"content",
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"dateOfVisit", @"signature", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"dateOfVisit", @"signature", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 

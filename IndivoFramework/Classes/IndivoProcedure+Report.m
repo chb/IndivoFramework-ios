@@ -28,7 +28,7 @@
 
 + (NSString *)reportType
 {
-	return @"Procedure";
+	return @"minimal/procedures";
 }
 
 

@@ -24,7 +24,7 @@
 
 
 /**
- *	An app- and opitionally record specific document with any XML structure.
+ *	An app- and optionally record specific document with any XML structure.
  *	This document holds one "tree" property, which is an INXMLNode. Work with this tree to add/change/remove data to the tree. Only the child nodes
  *	of the tree will make it into the document, so don't set attributes on "tree" itself, they will be ignored.
  *	Working with the tree directly is rather cumbersome, but gives you the most freedom.

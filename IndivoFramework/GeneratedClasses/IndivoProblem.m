@@ -56,18 +56,5 @@
 }
 
 
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"startDate", @"endDate", @"name", @"notes", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"startDate", @"endDate", @"name", @"notes", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
-
-
 
 @end

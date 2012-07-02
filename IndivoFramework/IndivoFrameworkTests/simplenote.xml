@@ -1,28 +1,18 @@
-<SimpleClinicalNote xmlns="http://indivo.org/vocab/xml/documents#">
-  <dateOfVisit>2010-02-02T12:00:00Z</dateOfVisit>
-  <finalizedAt>2010-02-03T13:12:00Z</finalizedAt>
-  <visitType type="http://codes.indivo.org/visit-types#" value="acute">Acute Care</visitType>
-  <visitLocation>Longfellow Medical</visitLocation>
-  <specialty type="http://codes.indivo.org/specialties#" value="hem-onc">Hematology/Oncology</specialty>
-
-  <signature>
-    <at>2010-02-03T13:12:00Z</at>
-    
-    <provider>
-      <name>Kenneth Mandl</name>
-      <institution>Children's Hospital Boston</institution>
-    </provider>
-  </signature>
-
-  <signature>
-    <provider>
-      <name>Isaac Kohane</name>
-      <institution>Children's Hospital Boston</institution>
-    </provider>
-  </signature>
-
-  <chiefComplaint>stomach ache</chiefComplaint>
-  <content>
-    Patient presents with ...
-  </content>
-</SimpleClinicalNote>
+<Model name="SimpleClinicalNote">
+    <Field name="date_of_visit">2010-02-02T12:00:00Z</Field>
+    <Field name="finalized_at">2010-02-03T13:12:00Z</Field>
+    <Field name="visit_type">Acute Care</Field>
+    <Field name="visit_type_type">http://codes.indivo.org/visit-types#</Field>
+    <Field name="visit_type_value">123</Field>
+    <Field name="visit_type_abbrev">acute</Field>
+    <Field name="visit_location">Longfellow Medical</Field>
+    <Field name="specialty">Hematology/Oncology</Field>
+    <Field name="specialty_type">http://codes.indivo.org/specialties#</Field>
+    <Field name="specialty_value">234</Field>
+    <Field name="specialty_abbrev">hem-onc</Field>
+    <Field name="signed_at">2010-02-03T13:12:00Z</Field>
+    <Field name="provider_name">Kenneth Mandl</Field>
+    <Field name="provider_institution">Children's Hospital Boston</Field>
+    <Field name="chief_complaint">stomach ache</Field>
+    <Field name="content">Patient presents with ...</Field>
+</Model>

@@ -58,18 +58,4 @@
 }
 
 
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"product_class", @"date", @"administration_status", @"refusal_reason", @"product_class_2", @"product_name", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"product_class", @"date", @"administration_status", @"refusal_reason", @"product_class_2", @"product_name", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
-
-
-
 @end

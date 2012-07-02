@@ -27,51 +27,35 @@
  */
 
 #import "IndivoDocument.h"
-#import "IndivoMetaDocument.h"
 #import "IndivoAppDocument.h"
 
-// Medication
+// SMART
 #import "IndivoMedication+Report.h"
 #import "IndivoFill.h"
-
-// Allergy
 #import "IndivoAllergy+Report.h"
-
-// Immunization
+#import "IndivoAllergyExclusion.h"
 #import "IndivoImmunization+Report.h"
-
-// Clinical
+#import "IndivoLabResult.h"
+#import "IndivoVitalSigns+Report.h"
 #import "IndivoEncounter.h"
 #import "IndivoProblem+Report.h"
-#import "IndivoVitalSigns+Report.h"
-#import "IndivoSimpleClinicalNote+Report.h"
-#import "IndivoProcedure+Report.h"
 
-// Labs
-#import "IndivoLabResult.h"
-#import "IndivoLabProvider.h"
-
-// Results & Ranges
-#import "IndivoResult.h"
-#import "IndivoResultInRange.h"
-#import "IndivoResultInSet.h"
-#import "IndivoResultInSetOption.h"
-#import "IndivoRange.h"
-
-// Contact Data
+// Demographics
 #import "IndivoDemographics.h"
 #import "INGenderType.h"
 #import "INName.h"
 #import "INPhoneType.h"
 #import "INTelephone.h"
 
-// Other
+// Indivo specific
+#import "IndivoProcedure+Report.h"
+#import "IndivoSimpleClinicalNote+Report.h"
+#import "IndivoEquipment+Report.h"
+
+// Meta
+#import "IndivoMetaDocument.h"
+#import "IndivoPrincipal.h"
 #import "IndivoAggregateReport.h"
 #import "INQueryParameter.h"
-#import "IndivoPrincipal.h"
-#import "IndivoProvider.h"
-#import "IndivoSignature.h"
-#import "IndivoEquipment+Report.h"
-#import "IndivoSchoolForm.h"
 
 

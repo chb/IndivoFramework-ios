@@ -2,8 +2,8 @@
  IndivoPrincipal.h
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 7/2/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public

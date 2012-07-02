@@ -602,6 +602,10 @@ static NSString *classGeneratorBodyTemplate = nil;
 @end
 
 
+/**
+ *	Recursively searches for files with a given ending in a given directory
+ *	@attention Skips files that are in indivo's "tests" directories
+ */
 NSArray *findFilesEndingWithRecursively(NSString *path, NSString *endingWith, NSError **error)
 {
 	if ([path length] < 1) {
@@ -613,6 +617,11 @@ NSArray *findFilesEndingWithRecursively(NSString *path, NSString *endingWith, NS
 	BOOL inputIsDir = NO;
 	if (![fm fileExistsAtPath:path isDirectory:&inputIsDir]) {
 		ERR(error, @"There is no file/directory here", 0)
+		return nil;
+	}
+	
+	// skip test directories
+	if (YES && NSNotFound != [path rangeOfString:@"indivo/tests"].location) {
 		return nil;
 	}
 	

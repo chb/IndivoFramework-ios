@@ -2,8 +2,8 @@
  IndivoPrincipal.m
  IndivoFramework
  
- Created by Indivo Class Generator on 6/1/2012.
- Copyright (c) 2012 Children's Hospital Boston
+ Created by Indivo Class Generator on 7/2/2012.
+ Copyright (c) 2012 Boston Children's Hospital
  
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -53,18 +53,6 @@
 			nil];
 }
 
-
-+ (NSArray *)nonNilPropertyNames
-{
-	return [NSArray arrayWithObjects:@"type", @"fullname", nil];
-	/*
-	static NSArray *nonNilPropertyNames = nil;
-	if (!nonNilPropertyNames) {
-		nonNilPropertyNames = [[NSArray alloc] initWithObjects:@"type", @"fullname", nil];
-	}
-	
-	return nonNilPropertyNames;	*/
-}
 
 
 + (NSArray *)attributeNames
