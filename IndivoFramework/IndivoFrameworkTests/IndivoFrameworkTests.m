@@ -31,6 +31,7 @@
 {
     [super setUp];
     self.server = [IndivoMockServer serverWithDelegate:nil];
+	server.appId = @"unittest@apps.indivo.org";
 }
 
 - (void)tearDown

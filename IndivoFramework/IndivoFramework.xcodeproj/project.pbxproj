@@ -43,6 +43,7 @@
 		EE1E2CC3144B5BAB001A1E72 /* IndivoMetaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC1144B5BAB001A1E72 /* IndivoMetaDocument.m */; };
 		EE1E2CC6144B5CAC001A1E72 /* IndivoAbstractDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE1E2CC4144B5CAC001A1E72 /* IndivoAbstractDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE1E2CC7144B5CAC001A1E72 /* IndivoAbstractDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1E2CC5144B5CAC001A1E72 /* IndivoAbstractDocument.m */; };
+		EE25095815A1ECF200CB20A6 /* IndivoServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95EC14117818002BA967 /* IndivoServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE2CBA4B1522146700C900AE /* mock-callbacks.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA4A1522146700C900AE /* mock-callbacks.plist */; };
 		EE2CBA4D152220C500C900AE /* record_documents.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA4C152220C500C900AE /* record_documents.xml */; };
 		EE2CBA4F1522218F00C900AE /* app_documents.xml in Resources */ = {isa = PBXBuildFile; fileRef = EE2CBA4E1522218F00C900AE /* app_documents.xml */; };
@@ -88,7 +89,6 @@
 		EE3A5F31157DA2CE005008A5 /* IndivoDemographics+Special.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A5F2F157DA2CE005008A5 /* IndivoDemographics+Special.m */; };
 		EE3A5F32157DA2CE005008A5 /* IndivoDemographics+Special.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A5F2F157DA2CE005008A5 /* IndivoDemographics+Special.m */; };
 		EE3C95BD14115C15002BA967 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3C95BC14115C15002BA967 /* Foundation.framework */; };
-		EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95EC14117818002BA967 /* IndivoServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C95EF14117818002BA967 /* IndivoServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95ED14117818002BA967 /* IndivoServer.m */; };
 		EE3C9603141178CC002BA967 /* IndivoDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3C95F5141178CC002BA967 /* IndivoDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE3C9604141178CC002BA967 /* IndivoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3C95F6141178CC002BA967 /* IndivoDocument.m */; };
@@ -289,7 +289,7 @@
 		EECC234B14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */; };
 		EECC234C14D74BCC00B4FC30 /* IndivoPrincipal.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC234214D7138C00B4FC30 /* IndivoPrincipal.m */; };
 		EECC235314D75A0500B4FC30 /* IndivoDocuments.h in Headers */ = {isa = PBXBuildFile; fileRef = EECC235214D75A0500B4FC30 /* IndivoDocuments.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EED0B3C01594D5F9001DF771 /* IndivoFill.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0B3BE1594D5F9001DF771 /* IndivoFill.h */; };
+		EED0B3C01594D5F9001DF771 /* IndivoFill.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0B3BE1594D5F9001DF771 /* IndivoFill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED0B3C11594D5F9001DF771 /* IndivoFill.m in Sources */ = {isa = PBXBuildFile; fileRef = EED0B3BF1594D5F9001DF771 /* IndivoFill.m */; };
 		EED0B3C21594D5F9001DF771 /* IndivoFill.m in Sources */ = {isa = PBXBuildFile; fileRef = EED0B3BF1594D5F9001DF771 /* IndivoFill.m */; };
 		EED0B3C51594FE13001DF771 /* INPharmacy.h in Headers */ = {isa = PBXBuildFile; fileRef = EED0B3C31594FE13001DF771 /* INPharmacy.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -324,7 +324,7 @@
 		EED8BDD8159A252900917698 /* INGenderType.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDD5159A252900917698 /* INGenderType.m */; };
 		EED8BDD9159A266600917698 /* INPhoneType.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A5F25157DA0A8005008A5 /* INPhoneType.m */; };
 		EED8BDDA159A266700917698 /* INPhoneType.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A5F25157DA0A8005008A5 /* INPhoneType.m */; };
-		EED8BDDD159A52BF00917698 /* INParentObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EED8BDDB159A52BC00917698 /* INParentObject.h */; };
+		EED8BDDD159A52BF00917698 /* INParentObject.h in Headers */ = {isa = PBXBuildFile; fileRef = EED8BDDB159A52BC00917698 /* INParentObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EED8BDDE159A52BF00917698 /* INParentObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDDC159A52BD00917698 /* INParentObject.m */; };
 		EED8BDDF159A52BF00917698 /* INParentObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EED8BDDC159A52BD00917698 /* INParentObject.m */; };
 		EEDB8C37145CB02A001C6C2C /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDB8C08145CB02A001C6C2C /* MPDebug.h */; };
@@ -1200,7 +1200,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE3C95EE14117818002BA967 /* IndivoServer.h in Headers */,
 				EE3C9603141178CC002BA967 /* IndivoDocument.h in Headers */,
 				EE3C9609141178CC002BA967 /* IndivoRecord.h in Headers */,
 				EE3C961214117FF1002BA967 /* IndivoFramework-Prefix.pch in Headers */,
@@ -1313,6 +1312,7 @@
 				EED8BDCC159A0E0100917698 /* INValueRange.h in Headers */,
 				EED8BDD6159A252900917698 /* INGenderType.h in Headers */,
 				EED8BDDD159A52BF00917698 /* INParentObject.h in Headers */,
+				EE25095815A1ECF200CB20A6 /* IndivoServer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
