@@ -203,7 +203,6 @@ Here's an example that shows the record-selection page and upon completion alert
 The methods that send or load data to/from the server all sport a **callback block**. Here's a simple example on how you get a patient's current medications into an `NSArray`:
 
 	[self.indivo.activeRecord fetchReportsOfClass:[IndivoMedication class]
-	                                   withStatus:INDocumentStatusActive
 		                                 callback:^(BOOL success, NSDictionary *userInfo) {
 		
 		// error fetching medications
