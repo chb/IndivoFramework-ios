@@ -1,10 +1,10 @@
 IndivoFramework for iOS
 =======================
 
-## NOTE  ##
-The instructions have been updated for Indivo 2.0, but the framework source that works with 2.0 has not yet been merged into master. If you follow the instructions under *Getting the Framework* you will checkout the `dev_two` branch and all is going to be fine. Don't worry. We got you covered. Breathe.
+### NOTE  ###
+_The framework is now compatible with Indivo 2.0. If you need to run your app against an Indivo 1.0 server, checkout the revision tagged "1.0"._
 
-## 
+----
 
 These are the developer instructions on how to use [IndivoFramework][self], an iOS framework to interface with **[Indivo X][indivo]**, an open-source **personally controlled health record** (PCHR) system.
 
@@ -15,7 +15,7 @@ The Indivo Framework is an Objective-C framework using **ARC** ([Automatic Refer
 The framework utilizes a fork of [MPOAuth][], an OAuth framework by Karl Adam (matrixPointer):
 
 - #### Indivo Server ####
-For most operations the framework talks to the [Indivo Server][] directly, however for login and record selection needs to talk to the corresponding [Indivo UI Server][]. Indivo X 1.0 will support Apps running the framework out of the box.
+For most operations the framework talks to the [Indivo Server][] directly, however for login and record selection needs to talk to the corresponding [Indivo UI Server][]. You need to have an Indivo 2.0 server running for use against this framework. If you have an Indivo 1.0 server, checkout the revision tagged "1.0".
 
 [self]: https://github.com/chb/IndivoFramework-ios
 [indivo]: http://www.indivohealth.org/
@@ -25,6 +25,20 @@ For most operations the framework talks to the [Indivo Server][] directly, howev
 [indivo ui server]: https://github.com/chb/indivo_ui_server
 
 
+## Getting the Framework ##
+
+The best way to get the framework is to check out the project via [git][]. Open Terminal, navigate to the desired directory, and execute:
+
+	$ git clone git://github.com/chb/IndivoFramework-ios.git
+	$ cd IndivoFramework-ios
+	$ git submodule init
+	$ git submodule update
+
+You now have the latest source code of the framework as well as the subprojects we us, including the Medications Sample App.
+
+[git]: http://git-scm.com/
+
+
 ## Technical Documentation ##
 
 This README contains setup and a few basic usage instructions, however the code itself is fully documented using [Doxygen][] and a technical documentation is [available online][techdoc]. A Doxyfile is included so you can generate the documentation by yourself.
@@ -32,7 +46,7 @@ This README contains setup and a few basic usage instructions, however the code 
 The easiest way to do this is to open the Doxyfile with DoxyWizard and press "Run". This will create an HTML documentation in `Docs/html` and a ready-to-build LaTeX documentation in `Docs/latex`.
 
 #### Embedding the documentation into Xcode ####
-After building the documentation like mentioned above, you just need to install it:
+After building the documentation like mentioned above, you can install it so it becomes available from within Xcode:
 
     $ cd IndivoFramework-ios/Docs/html
     $ make install
@@ -43,28 +57,11 @@ After you relaunch Xcode, the documentation should be available in the Organizer
 [techdoc]: http://docs.indivohealth.org/projects/indivo-x-ios-framework/en/latest/
 
 
-## Getting the Framework ##
-
-The best way to get the framework is to check out the project via [git][]. Open Terminal, navigate to the desired directory, and execute:
-
-	$ git clone git://github.com/chb/IndivoFramework-ios.git
-	$ cd IndivoFramework-ios
-	$ git checkout dev_two
-	$ git submodule init
-	$ git submodule update
-
-You now have the latest source code of the framework as well as the subprojects we use and the Medications Sample App.
-
-**NOTE** that the step `git checkout dev_two` is required while the 2.0 framework version has not been merged into the master branch. Once 2.0 is final this step is no longer required.
-
-[git]: http://git-scm.com/
-
-
 ## Running the Medications Sample App ##
 
-The framework repo contains a sample application as a submodule ([https://github.com/chb/IndivoMedicationsExample-ios][meds]), thus if you followed above instructions correctly you should now also have the sample app code.
+The framework repo contains a sample application as a submodule ([https://github.com/chb/IndivoMedicationsExample-ios][meds]), thus if you followed above instructions correctly you should also have the sample app code.
 
-Make sure you open the **IndivoFramework.xcworkspace** file in Xcode and not the lonely IndivoFramework.xcproject file. In Xcode, in the file manager to the left, you now see the README at top, the med sample project and below the framework project itself (the latter two in blue). Expand the framework project and the `IndivoFramework` folder inside it.
+Make sure you open the **IndivoFramework.xcworkspace** file in Xcode and not the lonely IndivoFramework.xcproject file. In Xcode, in the file manager to the left, you see the README at top, the med sample project and below the framework project itself (the latter two in blue). Expand the framework project and the `IndivoFramework` folder inside it.
 
 You should see a red file `IndivoConfig.h` and below the file `IndivoConfig-default.h`; the red file is where the server settings go and required by the framework (though you CAN change these settings in code via properties later). You can simply right-click the default file, select "Show in Finder" and in the Finder duplicate and rename it to `IndivoConfig.h`. Back in Xcode you'll notice that the file is no longer red. You can now edit its contents to hit your own Indivo server or use our public sandbox, for which you use these settings:
 
@@ -91,20 +88,20 @@ The Indivo Server you want to connect to needs to know your app. This means you 
 As of Indivo 2.0, the setup for an iOS app using the framework could look like this in the file `indivo_server/registered_apps/user/_your-app-directory_/manifest.json`:
 
     {
-      "name" : "Awesome App (iOS)",
-      "description" : "This app lets you access your lab data",
-      "author" : "Cilghal, Jedi Master",
-      "id" : "forceapp@apps.jedi.org",
-      "version" : "1.0.0",
+      "name": "Awesome App (iOS)",
+      "description": "This app lets you access your lab data",
+      "author": "Cilghal, Jedi Master",
+      "id": "forceapp@apps.jedi.org",
+      "version": "1.0.0",
       "smart_version": "0.4",
     
-      "mode" : "ui",	
+      "mode": "ui",	
       "scope": "record",
       "has_ui": false,
       "frameable": false,
     
-      "icon" :  "http://static.jedi.org/icons/forceapp.png",
-      "oauth_callback_url": "indivo-framework:///did_select_record?record_id={record_id}&carenet_id={carenet_id}"
+      "icon": "http://static.jedi.org/icons/forceapp.png",
+      "index": "indivo-framework:///did_select_record?record_id={record_id}&carenet_id={carenet_id}"
     }
 
 The `has_ui` setting currently means "show up in the UI Server sidebar", so we want to set this to false. `frameable` tells Indivo whether the app can live in a browser frame, which we also set to false.
@@ -147,7 +144,8 @@ These are the instructions if you want to add the framework to **your own** app,
 	
 	This must be added so IndivoFramework can be used as a static library, otherwise class categories will not work and your app will crash.
 
-5. You will have to provide initial server settings in the configuration file, but you can always change the properties in code later on (e.g. if your App can connect to different servers).  
+5. You will have to provide initial server settings in the configuration file, but you can always change the properties in code later on (e.g. if your App can connect to different servers). This step was already covered above in _Running the medications sample app_, here we go again:
+ 
 	Copy the file `IndivoConfig-default.h` in the **framework** project (not your own app) to `IndivoConfig.h` and adjust it to suit your needs. The setting names should define NSStrings and are named:
 	- `kIndivoFrameworkServerURL`  (The Server URL)
 	- `kIndivoFrameworkUIServerURL`  (The UI Server URL)
@@ -162,7 +160,7 @@ These are the instructions if you want to add the framework to **your own** app,
 		import "IndivoServer.h"
 		import "IndivoDocuments.h"
 
-You are now ready to go!
+You are now ready to use Indivo inside your app!
 
 
 ## Using the Framework ##
