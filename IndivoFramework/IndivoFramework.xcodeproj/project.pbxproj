@@ -336,6 +336,8 @@
 		EEDB8DB6145CE6D5001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDB8C15145CB02A001C6C2C /* MPOAuthCredentiaIConcreteStore+KeychainAdditionsMac.m */; };
 		EEDC6110144CF23700503C61 /* INBool.h in Headers */ = {isa = PBXBuildFile; fileRef = EEDC610E144CF23700503C61 /* INBool.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEDC6111144CF23700503C61 /* INBool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC610F144CF23700503C61 /* INBool.m */; };
+		EEE82D8915D009100017EA0B /* INServerCall+XMLParsing.h in Headers */ = {isa = PBXBuildFile; fileRef = EEE82D8715D009100017EA0B /* INServerCall+XMLParsing.h */; };
+		EEE82D8A15D009100017EA0B /* INServerCall+XMLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE82D8815D009100017EA0B /* INServerCall+XMLParsing.m */; };
 		EEF2061F14C0BB4E00808F24 /* NSString+XML.h in Headers */ = {isa = PBXBuildFile; fileRef = EEF2061D14C0BB4E00808F24 /* NSString+XML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEF2062014C0BB4E00808F24 /* NSString+XML.m in Sources */ = {isa = PBXBuildFile; fileRef = EEF2061E14C0BB4E00808F24 /* NSString+XML.m */; };
 		EEFA8C51157909840043AEFE /* INTelephone.h in Headers */ = {isa = PBXBuildFile; fileRef = EEFA8C4F157909840043AEFE /* INTelephone.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -595,6 +597,8 @@
 		EEDB8D76145CDD87001C6C2C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		EEDC610E144CF23700503C61 /* INBool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INBool.h; sourceTree = "<group>"; };
 		EEDC610F144CF23700503C61 /* INBool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INBool.m; sourceTree = "<group>"; };
+		EEE82D8715D009100017EA0B /* INServerCall+XMLParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INServerCall+XMLParsing.h"; sourceTree = "<group>"; };
+		EEE82D8815D009100017EA0B /* INServerCall+XMLParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "INServerCall+XMLParsing.m"; sourceTree = "<group>"; };
 		EEF205F914C092AC00808F24 /* IndivoConfig-default.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IndivoConfig-default.h"; sourceTree = SOURCE_ROOT; };
 		EEF2061D14C0BB4E00808F24 /* NSString+XML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XML.h"; sourceTree = "<group>"; };
 		EEF2061E14C0BB4E00808F24 /* NSString+XML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XML.m"; sourceTree = "<group>"; };
@@ -844,6 +848,8 @@
 			children = (
 				EE53CA0C1423A3D700EEF006 /* INServerCall.h */,
 				EE53CA0D1423A3D700EEF006 /* INServerCall.m */,
+				EEE82D8715D009100017EA0B /* INServerCall+XMLParsing.h */,
+				EEE82D8815D009100017EA0B /* INServerCall+XMLParsing.m */,
 				EE5DE92A1468447A004CC666 /* INURLFetcher.h */,
 				EE5DE92B1468447A004CC666 /* INURLFetcher.m */,
 				EE05DE081447835D00920A4B /* INURLLoader.h */,
@@ -1193,6 +1199,7 @@
 				EED8BDD6159A252900917698 /* INGenderType.h in Headers */,
 				EED8BDDD159A52BF00917698 /* INParentObject.h in Headers */,
 				EE25095815A1ECF200CB20A6 /* IndivoServer.h in Headers */,
+				EEE82D8915D009100017EA0B /* INServerCall+XMLParsing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1433,6 +1440,7 @@
 				EED8BDD7159A252900917698 /* INGenderType.m in Sources */,
 				EED8BDDA159A266700917698 /* INPhoneType.m in Sources */,
 				EED8BDDE159A52BF00917698 /* INParentObject.m in Sources */,
+				EEE82D8A15D009100017EA0B /* INServerCall+XMLParsing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

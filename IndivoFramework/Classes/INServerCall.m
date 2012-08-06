@@ -23,8 +23,6 @@
 
 #import "INServerCall.h"
 #import "IndivoServer.h"
-#import "INXMLParser.h"
-#import "INXMLNode.h"
 
 
 @interface INServerCall ()
@@ -407,26 +405,22 @@
 	if ([inData length] > 0) {
 		retString = [[NSString alloc] initWithData:inData encoding:NSUTF8StringEncoding];
 	}
-	
 	//DLog(@"%@ %@  -----  %@", HTTPMethod, method, retString);
+	
+	// compose the response
 	if ([retString length] > 0) {
-		INXMLNode *xmlDoc = nil;
-		NSError *xmlParseError = nil;
 		
-		// parse XML if we got XML
-		if ([@"application/xml" isEqualToString:[aResponse MIMEType]]) {
-			xmlDoc = [INXMLParser parseXML:retString error:&xmlParseError];
-		}
-		
-		// compose the response; there is the possibility that we already got an OAuth notification in responseObject, don't discard that one
+		// there is the possibility that we already got an OAuth notification in responseObject, don't discard that one
 		NSMutableDictionary *retDict = responseObject ? [responseObject mutableCopy] : [NSMutableDictionary dictionary];
 		[retDict setObject:retString forKey:INResponseStringKey];
-		if (xmlDoc) {
-			[retDict setObject:xmlDoc forKey:INResponseXMLKey];
+		
+		// parse XML if we got XML and if we can parse XML (implemented in a category)
+		if ([@"application/xml" isEqualToString:[aResponse MIMEType]]) {
+			if ([self respondsToSelector:@selector(parseXML:intoResponseDictionary:)]) {
+				[self performSelector:@selector(parseXML:intoResponseDictionary:) withObject:retString withObject:retDict];
+			}
 		}
-		if (xmlParseError) {
-			[retDict setObject:xmlParseError forKey:INErrorKey];
-		}
+		
 		self.responseObject = retDict;
 	}
 	[self didFinishSuccessfully:YES returnObject:responseObject];
