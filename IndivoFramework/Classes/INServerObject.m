@@ -176,11 +176,16 @@
 		return YES;
 	}
 	if ([object isMemberOfClass:[self class]]) {
-		if ([[object uuid] isEqualToString:[self uuid]]) {
+		if ([[object uuid] isEqualToString:self.uuid]) {
 			return YES;
 		}
 	}
 	return NO;
+}
+
+- (NSUInteger)hash
+{
+	return [self.uuid hash];
 }
 
 - (NSString *)description

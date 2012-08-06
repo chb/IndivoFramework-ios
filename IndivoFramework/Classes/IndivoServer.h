@@ -47,7 +47,6 @@
 
 @class IndivoServer;
 @class IndivoRecord;
-@class IndivoLoginViewController;
 
 
 /**
