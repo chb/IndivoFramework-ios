@@ -26,16 +26,16 @@
  *	can connect to your server.
  */
 
-/// The URL to your server, with port number
-#define kIndivoFrameworkServerURL @"https://www.chip.org:8000"
+/// The URL to your server, with port number (if other than 80)
+#define kIndivoFrameworkServerURL @"http://sandbox.indivohealth.org:8000"
 
-/// The URL to the UI (!) server, with port number
-#define kIndivoFrameworkUIServerURL @"https://www.chip.org:8001"
+/// The URL to the UI (!) server, with port number (if other than 80)
+#define kIndivoFrameworkUIServerURL @"http://sandbox.indivohealth.org"
 
 /// Your App's id, consumer key and -secret
-#define kIndivoFrameworkAppId @"medsample@apps.indivo.org"
-#define kIndivoFrameworkConsumerKey @"medsample@apps.indivo.org"
-#define kIndivoFrameworkConsumerSecret @"medsample"
+#define kIndivoFrameworkAppId @"sampleios@apps.indivo.org"
+#define kIndivoFrameworkConsumerKey @"sampleiosapp@apps.indivo.org"
+#define kIndivoFrameworkConsumerSecret @"youriosapp"
 
 /// Your pillbox API key, needed for some medication functions (you can make it an empty string or nil if you don't have one)
 #define kPillboxAPIKey @""

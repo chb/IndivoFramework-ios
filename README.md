@@ -63,7 +63,7 @@ The framework repo contains a sample application as a submodule ([https://github
 
 Make sure you open the **IndivoFramework.xcworkspace** file in Xcode and not the lonely IndivoFramework.xcproject file. In Xcode, in the file manager to the left, you see the README at top, the med sample project and below the framework project itself (the latter two in blue). Expand the framework project and the `IndivoFramework` folder inside it.
 
-You should see a red file `IndivoConfig.h` and below the file `IndivoConfig-default.h`; the red file is where the server settings go and required by the framework (though you CAN change these settings in code via properties later). You can simply right-click the default file, select "Show in Finder" and in the Finder duplicate and rename it to `IndivoConfig.h`. Back in Xcode you'll notice that the file is no longer red. You can now edit its contents to hit your own Indivo server or use our public sandbox, for which you use these settings:
+You should see a red file `IndivoConfig.h` and below the file `IndivoConfig-default.h`; the red file is where the server settings go and required by the framework (though you CAN change these settings in code via properties later). You can simply right-click the default file, select "Show in Finder" and in the Finder duplicate and rename it to `IndivoConfig.h`. Back in Xcode you'll notice that the file is no longer red. You can now edit its contents to hit your own Indivo server or use our public sandbox, for which you use these settings (already inserted in the default config):
 
 	#define kIndivoFrameworkServerURL = @"http://sandbox.indivohealth.org:8000"
 	#define kIndivoFrameworkUIServerURL = @"http://sandbox.indivohealth.org:80"
@@ -71,7 +71,7 @@ You should see a red file `IndivoConfig.h` and below the file `IndivoConfig-defa
 	#define kIndivoFrameworkConsumerKey = @"sampleiosapp@apps.indivo.org"
 	#define kIndivoFrameworkConsumerSecret = @"youriosapp"
 
-After that, choose the target **Medications Sample** and hit the **Run** button and the sample app should run and be ready to connect to the sandbox.
+After that, choose the target **Medications Sample** and hit the **Run** button and the sample app should run and be ready to connect to the sandbox. If the app does not build, build the `IndivoFramework` target manually first, then try again.
 
 [meds]: https://github.com/chb/IndivoMedicationsExample-ios
 

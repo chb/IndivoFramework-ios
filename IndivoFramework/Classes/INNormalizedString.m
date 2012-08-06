@@ -42,7 +42,9 @@
 		// are we restricted to specific values?
 		NSArray *restricted = [[self class] restrictedTo];
 		if (restricted && ![restricted containsObject:trimmed]) {
-			DLog(@"The string \"%@\" is not a possible value for an instance of \"%@\", discarding", trimmed, NSStringFromClass([self class]));
+			if ([trimmed length] > 0) {
+				DLog(@"The string \"%@\" is not a possible value for an instance of \"%@\", discarding", trimmed, NSStringFromClass([self class]));
+			}
 			trimmed = nil;
 		}
 		
