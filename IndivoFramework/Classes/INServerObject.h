@@ -25,7 +25,8 @@
 
 
 /**
- *	INServerObject extends INObject in that it represents an XML document tree "belonging" to a given server.
+ *	INServerObject extends INObject in that it represents an XML document tree "belonging" to a given server and is able to perform GET, PUT and POST server
+ *	calls (and DELETE if you do that manually).
  */
 @interface INServerObject : INParentObject
 

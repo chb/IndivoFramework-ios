@@ -117,9 +117,9 @@
 
 /**
  *	Fetches the record's demographics document.
- *	Note that this call fetches the demographics document not from the "official" /records/id/demographics REST path but via its uuid from /records/id/
- *	/documents/demographics-document-id. This is because the latter call returns the document in a different XML format, the one we neet because it is the same
- *	format as the one we need to PUT the document.
+ *	Note that this call fetches the demographics document not from the "official" /records/id/demographics REST path but via its uuid from
+ *	/records/id/documents/demographics-document-id. This is because the latter call returns the document in a different XML format, the one we need, because it
+ *	is the same	format required to PUT the document.
  */
 - (void)fetchDemographicsDocumentWithCallback:(INCancelErrorBlock)aCallback
 {
@@ -167,11 +167,38 @@
 #pragma mark - Record Documents
 /**
  *	Fetch all documents of the receiver, calling GET on /records/{record id}/documents/.
- *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain IndivoMetaDocument instances for this record's documents.
+ *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain IndivoMetaDocument instances for this record's documents. This method will
+ *	call "fetchDocumentsOfClass:callback:" with no class argument.
+ *	@param callback The callback block to be executed after the transfer finishes
  */
 - (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback
 {
+	[self fetchDocumentsOfClass:nil callback:callback];
+}
+
+
+/**
+ *	Fetch documents of a given type, calling GET on /records/{record id}/documents/?type={type}.
+ *	Upon callback, the "INResponseArrayKey" of the user-info dictionary will contain IndivoMetaDocument instances for this record's documents.
+ *	@param documentClass The class of the documents to fetch, must be an IndivoDocument subclass or it will be ignored
+ *	@param callback The callback block to be executed after the transfer finishes
+ */
+- (void)fetchDocumentsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback
+{
+	NSString *classParam = nil;
+	if (NULL != documentClass) {
+		if ([documentClass isSubclassOfClass:[IndivoDocument class]]) {
+			classParam = [NSString stringWithFormat:@"type=%@", [documentClass nodeName]];
+		}
+		else {
+			DLog(@"Class \"%@\" is not a subclass of IndivoDocument, ignoring type", NSStringFromClass(documentClass));
+		}
+	}
+	NSArray *params = classParam ? [NSArray arrayWithObject:classParam] : nil;
+	
+	// call
 	[self get:[NSString stringWithFormat:@"/records/%@/documents/", self.uuid]
+   parameters:params
 	 callback:^(BOOL success, NSDictionary *__autoreleasing userInfo) {
 		 NSDictionary *usrIfo = nil;
 		 
@@ -198,7 +225,6 @@
 		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
 	 }];
 }
-
 
 
 /**
@@ -366,14 +392,6 @@
 		 SUCCESS_RETVAL_CALLBACK_OR_LOG_USER_INFO(callback, success, usrIfo);
 	 }];
 }
-
-
-/**
- *	@todo Create a method that fetches by type string
- */
-// GET /records/{record_id}/documents/types/{type}/
-// GET /records/{record_id}/documents/?type={type_url}
-
 
 
 

@@ -46,6 +46,7 @@
 
 // record documens
 - (void)fetchDocumentsWithCallback:(INSuccessRetvalueBlock)callback;
+- (void)fetchDocumentsOfClass:(Class)documentClass callback:(INSuccessRetvalueBlock)callback;
 - (IndivoDocument *)addDocumentOfClass:(Class)documentClass error:(NSError * __autoreleasing *)error;
 - (void)fetchAppSpecificDocumentsWithCallback:(INSuccessRetvalueBlock)callback;
 

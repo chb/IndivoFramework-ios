@@ -95,7 +95,10 @@
 
 
 /**
- *	Shortcut for GETting data
+ *	Shortcut for GETting data.
+ *	Calls "performMethod:withBody:orParameters:httpMethod:callback:" internally.
+ *	@param aMethod The method to perform, e.g. "/records/id/documents/"
+ *	@param callback The callback block to execute when the call has finished
  */
 - (void)get:(NSString *)aMethod callback:(INSuccessRetvalueBlock)callback
 {
@@ -103,7 +106,11 @@
 }
 
 /**
- *	Shortcut for GETting data with parameters
+ *	Shortcut for GETting data with parameters.
+ *	Calls "performMethod:withBody:orParameters:httpMethod:callback:" internally.
+ *	@param aMethod The method to perform, e.g. "/records/id/documents/"
+ *	@param paramArray An array of NSString parameters in the form @"key=value"; will be URL-encoded automatically
+ *	@param callback The callback block to execute when the call has finished
  */
 - (void)get:(NSString *)aMethod parameters:(NSArray *)paramArray callback:(INSuccessRetvalueBlock)callback
 {
@@ -111,7 +118,11 @@
 }
 
 /**
- *	Shortcut for PUTting data
+ *	Shortcut for PUTting data.
+ *	Calls "performMethod:withBody:orParameters:httpMethod:callback:" internally.
+ *	@param aMethod The method to perform, e.g. "/records/id/documents/document-id"
+ *	@param bodyString the body data to PUT
+ *	@param callback The callback block to execute when the call has finished
  */
 - (void)put:(NSString *)aMethod body:(NSString *)bodyString callback:(INSuccessRetvalueBlock)callback
 {
@@ -119,7 +130,11 @@
 }
 
 /**
- *	Shortcut for POSTing body data
+ *	Shortcut for POSTing body data.
+ *	Calls "performMethod:withBody:orParameters:httpMethod:callback:" internally.
+ *	@param aMethod The method to perform, e.g. "/records/id/documents/"
+ *	@param bodyString The body data to POST
+ *	@param callback The callback block to execute when the call has finished
  */
 - (void)post:(NSString *)aMethod body:(NSString *)bodyString callback:(INSuccessRetvalueBlock)callback
 {
@@ -127,7 +142,8 @@
 }
 
 /**
- *	Shortcut for POSTing parameters
+ *	Shortcut for POSTing parameters.
+ *	Calls "performMethod:withBody:orParameters:httpMethod:callback:" internally.
  *	@param aMethod The method, aka REST-path, to perform
  *	@param paramArray An array full of "key=value" strings; will be URL-encoded automatically
  *	@param callback The callback-block to call when the method has finished
