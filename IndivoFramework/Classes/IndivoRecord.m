@@ -384,7 +384,7 @@
 					 [reportArr addObjectIfNotNil:report];
 				 }
 				 
-				 // return in user info dictionary
+				 // return in user info dictionary (this strips the response string, should we put it back in?)
 				 usrIfo = [NSDictionary dictionaryWithObject:reportArr forKey:INResponseArrayKey];
 			 }
 		 }

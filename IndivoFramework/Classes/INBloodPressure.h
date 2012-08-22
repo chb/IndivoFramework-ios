@@ -22,7 +22,16 @@
 
 
 #import "INParentObject.h"
+#import "INVitalSign.h"
+#import "INCodedValue.h"
 
 @interface INBloodPressure : INParentObject
+
+@property (nonatomic, strong) INVitalSign *systolic;
+@property (nonatomic, strong) INVitalSign *diastolic;
+@property (nonatomic, strong) INCodedValue *method;
+@property (nonatomic, strong) INCodedValue *site;
+@property (nonatomic, strong) INCodedValue *position;
+
 
 @end

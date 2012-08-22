@@ -388,7 +388,7 @@
 		self.responseObject = [NSDictionary dictionaryWithObject:error forKey:INErrorKey];
 	}
 	
-	/// @todo unhandled notification, ignore as soon as everything works
+	// unhandled notification, leave a debug message
 	else {
 		DLog(@"UNHANDLED NOTIFICATION RECEIVED: %@", aNotification);
 	}

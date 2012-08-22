@@ -25,4 +25,6 @@
 
 @implementation INBloodPressure
 
+@synthesize systolic, diastolic, method, site, position;
+
 @end

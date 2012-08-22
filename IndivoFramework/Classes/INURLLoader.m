@@ -110,7 +110,7 @@
 	
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 	request.HTTPMethod = @"POST";
-	request.HTTPBody = [postBody dataUsingEncoding:NSUTF8StringEncoding];			/// @todo Should we URL encode this?
+	request.HTTPBody = [postBody dataUsingEncoding:NSUTF8StringEncoding];
 	[request setTimeoutInterval:kINURLLoaderDefaultTimeoutInterval];
 	
 	[self performRequest:request withCallback:aCallback];
