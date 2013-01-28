@@ -286,6 +286,10 @@ NSString *const INRecordUserInfoKey = @"INRecordUserInfoKey";
 		// failed: Cancelled or other failure
 		else {
 			didCancel = (nil == [userInfo objectForKey:INErrorKey]);
+			if (!didCancel && this.loginVC) {			// when cancelling we have our own delegate method to dismiss the controller
+				[this.loginVC dismissAnimated:YES];
+				this.loginVC = nil;
+			}
 			CANCEL_ERROR_CALLBACK_OR_LOG_USER_INFO(callback, didCancel, userInfo)
 		}
 	};
