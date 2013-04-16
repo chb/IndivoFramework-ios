@@ -6,7 +6,7 @@ _The framework is now compatible with Indivo 2.0. If you need to run your app ag
 
 ----
 
-These are the developer instructions on how to use [IndivoFramework][self], an iOS framework to interface with **[Indivo X][indivo]**, an open-source **personally controlled health record** (PCHR) system.
+These are the developer instructions on how to setup the [IndivoFramework][self], an iOS framework to interface with **[Indivo X][indivo]**, an open-source **personally controlled health record** (PCHR) system.
 
 ### Requirements ###
 
@@ -34,16 +34,29 @@ The best way to get the framework is to check out the project via [git][]. Open 
 	$ git submodule init
 	$ git submodule update
 
-You now have the latest source code of the framework as well as the subprojects we us, including the Medications Sample App.
+You now have the latest source code of the framework as well as the subprojects we use, including the Medications Sample App.
+
+To update the framework with the latest code, just pull and update the submodules:
+
+    $ git pull
+    $ git submodule update --init --recursive
 
 [git]: http://git-scm.com/
 
 
 ## Technical Documentation ##
 
+The documentation [is available online here][doc].
+
 This README contains setup and a few basic usage instructions, however the code itself is fully documented using [Doxygen][] and a technical documentation is [available online][techdoc]. A Doxyfile is included so you can generate the documentation by yourself.
 
-The easiest way to do this is to open the Doxyfile with DoxyWizard and press "Run". This will create an HTML documentation in `Docs/html` and a ready-to-build LaTeX documentation in `Docs/latex`.
+The easiest way to do this is to install Doxygen via [Homebrew][] and then just running doxygen:
+
+    $ brew install doxygen
+    $ cd IndivoFramework-ios
+    $ doxygen
+
+This will create an HTML documentation in `Docs/html` and a ready-to-build LaTeX documentation in `Docs/latex`.
 
 #### Embedding the documentation into Xcode ####
 After building the documentation like mentioned above, you can install it so it becomes available from within Xcode:
@@ -53,8 +66,10 @@ After building the documentation like mentioned above, you can install it so it 
 
 After you relaunch Xcode, the documentation should be available in the Organizer and can be accessed like the standard Cocoa documentation by `ALT`-clicking code parts.
 
+[doc]: http://chb.github.io/IndivoFramework-ios
 [doxygen]: http://www.doxygen.org/
 [techdoc]: http://indivo-x-ios-framework.readthedocs.org/
+[homebrew]: http://mxcl.github.io/homebrew/
 [techdoc]: http://docs.indivohealth.org/projects/indivo-x-ios-framework/en/latest/
 
 
