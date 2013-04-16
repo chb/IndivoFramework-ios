@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['callbackscheme',['callbackScheme',['../interface_indivo_server.html#ad26d07e5c78b0dffc4fa950e728aca15',1,'IndivoServer']]],
+  ['cancelbutton',['cancelButton',['../interface_indivo_login_view_controller.html#a788a8445893ed6d1bddb98dc2a609a52',1,'IndivoLoginViewController']]],
+  ['category',['category',['../interface_indivo_allergy.html#af1fc0a6e3126acaa56d76362573f67e7',1,'IndivoAllergy']]],
+  ['chief_5fcomplaint',['chief_complaint',['../interface_indivo_simple_clinical_note.html#ae7c26801ff2ba3d739a45e00111f8fec',1,'IndivoSimpleClinicalNote']]],
+  ['children',['children',['../interface_i_n_x_m_l_node.html#ac58b98a9587eb672fc78e6b670fd57bf',1,'INXMLNode']]],
+  ['city',['city',['../interface_i_n_address.html#aef635a5662c53a8f17f1d3d6710a1f08',1,'INAddress']]],
+  ['collected_5fat',['collected_at',['../interface_indivo_lab_result.html#a6b69ce311958d8cd3ad2ef19ff9d6373',1,'IndivoLabResult']]],
+  ['collected_5fby_5fname',['collected_by_name',['../interface_indivo_lab_result.html#acd3df05893982791b0071ff0eacc183c',1,'IndivoLabResult']]],
+  ['collected_5fby_5forg',['collected_by_org',['../interface_indivo_lab_result.html#a7f1ce2c60a6bc42bceb1020e2bd8a0dd',1,'IndivoLabResult']]],
+  ['collected_5fby_5frole',['collected_by_role',['../interface_indivo_lab_result.html#a6dc347a278a976aa1574e2ba1047f64f',1,'IndivoLabResult']]],
+  ['comments',['comments',['../interface_indivo_procedure.html#aebfc529c656124c43fed9d43756c1f00',1,'IndivoProcedure']]],
+  ['consumerkey',['consumerKey',['../interface_indivo_server.html#a048721f5d2aef7fdcb1b569e802702e5',1,'IndivoServer']]],
+  ['consumersecret',['consumerSecret',['../interface_indivo_server.html#a66b0c9e9b327cc8a020b8fd46b2f0332',1,'IndivoServer']]],
+  ['content',['content',['../interface_indivo_simple_clinical_note.html#a7e8a27f209a5290c6d881d59bc218647',1,'IndivoSimpleClinicalNote']]],
+  ['country',['country',['../interface_i_n_address.html#a86aea99f1b37f31cf5779ec369ca7e8e',1,'INAddress']]],
+  ['created',['created',['../interface_indivo_abstract_document.html#a761cde7620d1ecb3b5361881ea1332d7',1,'IndivoAbstractDocument::created()'],['../interface_indivo_record.html#af9051c2d25839b6dc92748f3c4a686db',1,'IndivoRecord::created()']]],
+  ['createdat',['createdAt',['../interface_indivo_meta_document.html#a9d059b04245f641066160584ead22642',1,'IndivoMetaDocument']]],
+  ['creator',['creator',['../interface_indivo_document.html#a620875e739fb98afa435f372df5909e9',1,'IndivoDocument::creator()'],['../interface_indivo_meta_document.html#ab9daaf55562cc19e260537d634bebb06',1,'IndivoMetaDocument::creator()']]]
+];

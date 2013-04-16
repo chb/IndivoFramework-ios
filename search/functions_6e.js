@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['namespace',['nameSpace',['../interface_indivo_abstract_document.html#a89f514a9bd6feceffb555de1ba7a879c',1,'IndivoAbstractDocument']]],
+  ['newforserver_3a',['newForServer:',['../interface_i_n_server_call.html#a3df5068426befa4627edb689f40818e1',1,'INServerCall']]],
+  ['newno',['newNo',['../interface_i_n_bool.html#ab67523dea49504a9c20f071c46599749',1,'INBool']]],
+  ['newonserver_3a',['newOnServer:',['../interface_indivo_app_document.html#aaf71d0391fdfbc9d280b59067925163f',1,'IndivoAppDocument']]],
+  ['newwithdelegate_3a',['newWithDelegate:',['../interface_i_n_schema_parser.html#add38aece4d06adc605aaa8e694146bb2',1,'INSchemaParser']]],
+  ['newwithdouble_3a',['newWithDouble:',['../interface_i_n_decimal.html#a585c6eecad11f25ff3fb38d3291077bb',1,'INDecimal']]],
+  ['newwithnodename_3a',['newWithNodeName:',['../interface_i_n_object.html#aeed9099cc8ad55d64b1b3225365b48e0',1,'INObject']]],
+  ['newwithrecord_3a',['newWithRecord:',['../interface_indivo_abstract_document.html#a4b2dd239c2475800223f51d64777bc9b',1,'IndivoAbstractDocument']]],
+  ['newwithstring_3a',['newWithString:',['../interface_i_n_string.html#ad41ff5c3a3916e0428d6b61e4c1eb864',1,'INString']]],
+  ['newwithuristring_3a',['newWithURIString:',['../interface_i_n_any_u_r_i.html#ac246edf088cfbeae94f56ef79f0aaa86',1,'INAnyURI']]],
+  ['newyes',['newYes',['../interface_i_n_bool.html#a4e74f8c76cb1904974bdfd9b51f75e7a',1,'INBool']]],
+  ['nodename',['nodeName',['../interface_i_n_object.html#a884c5eedff050615b24d1a8b6866631f',1,'INObject']]],
+  ['nodetype',['nodeType',['../interface_i_n_object.html#a442303ee5dee7d6a24013da204753aec',1,'INObject']]],
+  ['nodewithname_3a',['nodeWithName:',['../interface_i_n_x_m_l_node.html#aa88c78a2e8b0342baf572920541b5197',1,'INXMLNode']]],
+  ['nodewithname_3aattributes_3a',['nodeWithName:attributes:',['../interface_i_n_x_m_l_node.html#adaf2298e7391b43a4c9ef0337a627371',1,'INXMLNode']]],
+  ['now',['now',['../interface_i_n_date.html#a7a819d14a39d162fa14be4d3181eccfb',1,'INDate']]],
+  ['numattr_3a',['numAttr:',['../interface_i_n_x_m_l_node.html#afe5deb6140af472de68d38c6f1f93add',1,'INXMLNode']]],
+  ['numericcharacterset',['numericCharacterSet',['../category_n_s_character_set_07_extension_08.html#aea325e051b138818ae111d3a026f7a32',1,'NSCharacterSet(Extension)']]],
+  ['numericstring',['numericString',['../category_n_s_string_07_x_m_l_08.html#aa4b867769ec9675d0fed0521bd6f4184',1,'NSString(XML)']]]
+];
